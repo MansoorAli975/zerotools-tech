@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Tools | AI Chatbot Solutions for Modern Businesses</title>
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/chatbot.png">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --white: #ffffff;
+            --off-white: #f9fafb;
+            --light-gray: #f3f4f6;
+            --medium-gray: #e5e7eb;
+            --dark-gray: #374151;
+            --black: #111827;
+            --accent-blue: #3b82f6;
+            --accent-teal: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--black);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            color: var(--black);
+        }
+
+        .section-title.center {
+            display: block;
+            text-align: center;
+        }
+
+        .section-title.center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-subtitle {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* ===== Header & Navigation ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 20px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-button {
+            background: var(--accent-blue);
+            color: white;
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 100px;
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .hero-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 24px;
+            color: var(--black);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark-gray);
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--medium-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== Stats Section ===== */
+        .stats {
+            background: var(--off-white);
+            padding: 60px 0;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Solutions Section ===== */
+        .solutions {
+            background: var(--white);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .solution-card {
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            /* suspecious change rec by C */
+            /* overflow: hidden; */
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue);
+        }
+
+        .solution-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-blue);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .solution-title {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--black);
+        }
+
+        .solution-description {
+            color: var(--dark-gray);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* ===== Chatbot Container ===== */
+        .chatbot-container {
+            margin: 24px 0;
+            min-height: 200px;
+            /* min-height: 520px; */
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--medium-gray);
+            /* display: flex; */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* padding: 20px; */
+            padding: 0px;
+            transition: var(--transition);
+            flex-grow: 1;
+
+            /* suspecious by C */
+            display: block;
+            /* remove center-flex behavior */
+            position: relative;
+            overflow: visible;
+        }
+
+        .embed-slot {
+            width: 100%;
+            min-height: 520px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            /* keeps iframe corners clean */
+        }
+
+        /* If UChat uses iframe embeds */
+        .embed-slot iframe {
+            width: 100%;
+            height: 520px;
+            border: 0;
+            display: block;
+        }
+
+
+        .solution-card:hover .chatbot-container {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.02);
+        }
+
+        .chatbot-placeholder {
+            text-align: center;
+            color: var(--dark-gray);
+
+            transition: opacity 0.3s ease;
+        }
+
+        .chatbot-placeholder.faded {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .chatbot-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .placeholder-label {
+            font-size: 0.9rem;
+            margin-top: 12px;
+            color: var(--dark-gray);
+            font-style: italic;
+        }
+
+        .embed-instruction {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+            border-left: 3px solid var(--accent-blue);
+            text-align: left;
+            width: 100%;
+        }
+
+        .solution-features {
+            text-align: left;
+            margin-top: 24px;
+        }
+
+        .solution-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--dark-gray);
+        }
+
+        .solution-feature i {
+            color: var(--accent-blue);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .solution-cta {
+            background: transparent;
+            color: var(--accent-blue);
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            border: 2px solid var(--accent-blue);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 0.95rem;
+            margin-top: 24px;
+        }
+
+        .solution-cta:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* ===== Why Zero Tools Section ===== */
+        .why-section {
+            background: var(--off-white);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .why-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .why-icon {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .why-title {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .why-description {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* ===== Vision Section ===== */
+        .vision-timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 40px auto 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        .timeline-content p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* ===== Contact Section ===== */
+        .contact-section {
+            background: var(--white);
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 48px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--black);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            color: var(--dark-gray);
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233b82f6' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 60px 0 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Success Message ===== */
+        #formSuccess {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #formSuccess.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 32px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 24px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid var(--medium-gray);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-cta button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .chatbot-container {
+                min-height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding-top: 120px;
+                padding-bottom: 80px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .contact-form {
+                padding: 32px 24px;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .chatbot-container {
+                min-height: 160px;
+                padding: 16px;
+            }
+
+            .chatbot-icon {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== Utility Classes ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent-blue);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-robot logo-icon"></i>
+                Zero Tools
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#solutions" class="nav-link">Solutions</a>
+                <a href="#why" class="nav-link">Why Zero Tools</a>
+                <a href="#vision" class="nav-link">Vision</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#contact" class="nav-button">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero section">
+        <div class="hero-container container">
+            <span class="hero-tag">AI CHATBOT SOLUTIONS</span>
+            <h1 class="hero-title">AI-powered chatbots for modern businesses</h1>
+            <p class="hero-description">
+                We help businesses respond faster, engage customers better, and capture more leads using reliable AI
+                chatbots and automation.
+            </p>
+            <div class="hero-cta">
+                <button class="btn-primary" id="ctaButton">
+                    Get Started
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn-secondary" id="learnMoreBtn">
+                    <i class="fas fa-play-circle"></i>
+                    See How It Works
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="stat1">0</span>
+                    <span class="stat-label">of customers expect immediate responses</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat2">0</span>
+                    <span class="stat-label">increase in lead conversion with prompt engagement</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat3">0</span>
+                    <span class="stat-label">of inquiries missed without 24/7 availability</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="solutions section">
+        <div class="container">
+            <h2 class="section-title center">AI Chatbot Solutions</h2>
+            <p class="section-subtitle">
+                Professional AI chatbot solutions designed for businesses of all sizes.
+                Choose the perfect fit for your customer engagement needs.
+            </p>
+
+            <div class="solutions-grid">
+                <!-- Bot 1 - Starter -->
+                <div class="solution-card">
+                    <span class="solution-badge">Entry Point</span>
+                    <div class="solution-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3 class="solution-title">Starter</h3>
+                    <p class="solution-description">
+                        For businesses taking their first step into AI-powered customer response.
+                        Handles basic inquiries and improves responsiveness with simple implementation.
+                    </p>
+
+                    <!-- Chatbot Container for Starter -->
+                    <div class="embed-slot" id="embed-bot1" role="region" aria-label="Starter chatbot interface">
+                        <div class="chatbot-placeholder">
+                            <i class="fas fa-robot chatbot-icon"></i>
+                            <h4>Bot 1 Embed Area</h4>
+                            <p class="placeholder-label">UChat embed code will be placed here.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="solution-features">
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Basic inquiry handling</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Improved responsiveness</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Simple implementation</span>
+                        </div>
+                    </div>
+                    <button class="solution-cta" data-solution="starter">Choose Starter</button>
+                </div>
+
+                <!-- Bot 2 - Business -->
+                <div class="solution-card">
+                    <span class="solution-badge">Most Popular</span>
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="solution-title">Business</h3>
+                    <p class="solution-description">
+                        For growing businesses needing structured conversations, lead capture,
+                        and human handover. Provides more control for scaling operations.
+                        <br><br>
+                    </p>
+
+                    <!-- Chatbot Container for business -->
+                    <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
+
+                        <div class="chatbot-placeholder">
+                            <i class="fas fa-robot chatbot-icon"></i>
+                            <h4>Bot 2 Embed Area</h4>
+                            <p class="placeholder-label">UChat embed code will be placed here.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="solution-features">
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Structured conversations</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Lead capture system</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Human handover integration</span>
+                        </div>
+                    </div>
+                    <button class="solution-cta" data-solution="business">Choose Business</button>
+                </div>
+
+                <!-- Bot 3 - Premium -->
+                <div class="solution-card">
+                    <span class="solution-badge">Concierge</span>
+                    <div class="solution-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="solution-title">Premium</h3>
+                    <p class="solution-description">
+                        For brand-conscious businesses requiring concierge-style AI with refined language.
+                        Designed where reputation and customer experience matter most.
+                    </p>
+
+                    <!-- Chatbot Container for Premium -->
+                    <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
+
+                        <div class="chatbot-placeholder">
+                            <i class="fas fa-robot chatbot-icon"></i>
+                            <h4>Bot 3 Embed Area</h4>
+                            <p class="placeholder-label">UChat embed code will be placed here.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="solution-features">
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Brand-aligned communication</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Concierge-style service</span>
+                        </div>
+                        <div class="solution-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Premium customer experience</span>
+                        </div>
+                    </div>
+                    <button class="solution-cta" data-solution="premium">Choose Premium</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Zero Tools Section -->
+    <section id="why" class="why-section section">
+        <div class="container">
+            <h2 class="section-title center">Why Choose Zero Tools</h2>
+            <p class="section-subtitle">
+                We implement AI with control and thoughtfulness, ensuring it aligns with your brand values
+                and business objectives.
+            </p>
+
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="why-title">Responsible AI</h3>
+                    <p class="why-description">
+                        Thoughtful implementation that aligns with your brand values and business objectives.
+                    </p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="why-title">Brand Respect</h3>
+                    <p class="why-description">
+                        Every solution protects and enhances your brand through professional communication.
+                    </p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="why-title">Long-Term Mindset</h3>
+                    <p class="why-description">
+                        We build partnerships, not transactions. Focus on sustainable solutions that grow with you.
+                    </p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="why-title">Professional Implementation</h3>
+                    <p class="why-description">
+                        Highest standards of professionalism and technical excellence from design to deployment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="section">
+        <div class="container">
+            <h2 class="section-title center">Our Vision</h2>
+            <p class="section-subtitle">
+                Building a comprehensive suite of AI-powered business tools through deliberate, practical growth.
+            </p>
+
+            <div class="vision-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Today</h3>
+                        <p>Building a focused AI platform centered on reliable, business-grade chatbot solutions.
+                            Establishing Zero Tools as the trusted partner for modern customer engagement.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Near Future</h3>
+                        <p>Expanding into intelligent automation solutions that integrate with business workflows.
+                            Developing smart digital tools that complement our core AI offerings.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Long-Term</h3>
+                        <p>Creating a comprehensive suite of AI-powered business tools through deliberate, practical
+                            growth. Remaining committed to stability, professionalism, and building solutions that stand
+                            the test of time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section">
+        <div class="container">
+            <h2 class="section-title center">Start a Conversation</h2>
+            <p class="section-subtitle">
+                Let's discuss how AI chatbots can transform your customer engagement.
+                Request a tailored plan for your business.
+            </p>
+
+            <div class="contact-form">
+                <div class="form-inputs" id="formInputs">
+                    <form id="inquiryForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name *</label>
+                            <input type="text" id="name" class="form-control" required placeholder="John Smith">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Business Email *</label>
+                            <input type="email" id="email" class="form-control" required placeholder="john@company.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company Name</label>
+                            <input type="text" id="company" class="form-control" placeholder="Your Company LLC">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="solution">Primary Interest *</label>
+                            <select id="solution" class="form-control form-select" required>
+                                <option value="" disabled selected>Select a solution</option>
+                                <option value="starter">Starter</option>
+                                <option value="business">Business</option>
+                                <option value="premium">Premium</option>
+                                <option value="not-sure">Not sure yet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="message">What would you like the chatbot to achieve?
+                                *</label>
+                            <textarea id="message" class="form-control" rows="4" required
+                                placeholder="Please describe your main goals..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                                <span id="submitText">Request a Tailored Plan</span>
+                                <div id="submitLoading" class="loading" style="display: none;"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="formSuccess" style="text-align: center; padding: 20px; display: none;">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 style="margin-bottom: 16px; color: var(--black);">Request Received</h3>
+                    <p style="color: var(--dark-gray); margin-bottom: 8px;">Thank you for your inquiry.</p>
+                    <p style="color: var(--dark-gray);">Our team will review your requirements and contact you within 24
+                        hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Zero Tools</div>
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">Home</a>
+                    <a href="#solutions" class="footer-link">Solutions</a>
+                    <a href="#why" class="footer-link">Why Zero Tools</a>
+                    <a href="#vision" class="footer-link">Vision</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2024 Zero Tools. All rights reserved. AI solutions for modern businesses.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== Mobile Menu Toggle =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // ===== Animated Statistics =====
+        function animateStats() {
+            const stat1 = document.getElementById('stat1');
+            const stat2 = document.getElementById('stat2');
+            const stat3 = document.getElementById('stat3');
+
+            function animateValue(element, start, end, duration, suffix = '%') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    element.textContent = value + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            animateValue(stat1, 0, 82, 1500);
+            animateValue(stat2, 0, 45, 1500);
+            animateValue(stat3, 0, 67, 1500);
+        }
+
+        // Trigger stats animation when section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // ===== Smooth Scrolling =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ===== Form Submission =====
+        const form = document.getElementById('inquiryForm');
+        const formInputs = document.getElementById('formInputs');
+        const submitText = document.getElementById('submitText');
+        const submitLoading = document.getElementById('submitLoading');
+        const formSuccess = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show loading state
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'inline-block';
+
+            // Simulate API call
+            setTimeout(() => {
+                // Hide form inputs, show success message
+                formInputs.style.display = 'none';
+                formSuccess.style.display = 'block';
+
+                // Reset form
+                form.reset();
+
+                // Reset button state
+                submitText.style.display = 'inline';
+                submitLoading.style.display = 'none';
+
+                // Log form data (in real implementation, send to server)
+                console.log('Form submitted:', {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    company: document.getElementById('company').value,
+                    solution: document.getElementById('solution').value,
+                    message: document.getElementById('message').value
+                });
+            }, 1500);
+        });
+
+        // ===== Solution Selection =====
+        const solutionCtaButtons = document.querySelectorAll('.solution-cta');
+        const solutionSelect = document.getElementById('solution');
+
+        solutionCtaButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const solution = button.getAttribute('data-solution');
+                solutionSelect.value = solution;
+
+                // Scroll to contact form
+                document.getElementById('contact').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Highlight the button briefly
+                const originalText = button.textContent;
+                button.textContent = 'Selected!';
+                button.style.background = '#10b981';
+                button.style.borderColor = '#10b981';
+                button.style.color = 'white';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                    button.style.color = '';
+                }, 2000);
+            });
+        });
+
+        // ===== CTA Buttons =====
+        document.getElementById('ctaButton').addEventListener('click', () => {
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        document.getElementById('learnMoreBtn').addEventListener('click', () => {
+            document.getElementById('solutions').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // ===== Header Scroll Effect =====
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // ===== Initialize =====
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add initial header shadow
+            if (window.scrollY > 100) {
+                document.querySelector('.header').style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+</body>
+
+</html>
