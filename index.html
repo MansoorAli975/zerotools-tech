@@ -386,23 +386,6 @@
         }
 
         /* ===== Chatbot Container ===== */
-        .chatbot-container {
-            margin: 24px 0;
-            min-height: 200px;
-            background: var(--off-white);
-            border-radius: var(--border-radius);
-            border: 2px dashed var(--medium-gray);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0px;
-            transition: var(--transition);
-            flex-grow: 1;
-            display: block;
-            position: relative;
-            overflow: visible;
-        }
-
         .embed-slot {
             width: 100%;
             min-height: 520px;
@@ -417,21 +400,11 @@
             display: block;
         }
 
-        .solution-card:hover .chatbot-container {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.02);
-        }
-
         .chatbot-placeholder {
             text-align: center;
             color: var(--dark-gray);
             transition: opacity 0.3s ease;
             padding: 48px 24px;
-        }
-
-        .chatbot-placeholder.faded {
-            opacity: 0;
-            pointer-events: none;
         }
 
         .chatbot-icon {
@@ -446,18 +419,6 @@
             margin-top: 12px;
             color: var(--dark-gray);
             font-style: italic;
-        }
-
-        .embed-instruction {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            background: rgba(59, 130, 246, 0.05);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-top: 12px;
-            border-left: 3px solid var(--accent-blue);
-            text-align: left;
-            width: 100%;
         }
 
         .solution-features {
@@ -788,10 +749,6 @@
                 gap: 16px;
             }
 
-            .chatbot-container {
-                min-height: 180px;
-            }
-
             .bot-launch-group {
                 flex-direction: column;
             }
@@ -821,11 +778,6 @@
 
             .section-title {
                 font-size: 1.75rem;
-            }
-
-            .chatbot-container {
-                min-height: 160px;
-                padding: 16px;
             }
 
             .chatbot-icon {
@@ -950,7 +902,6 @@
                         Handles basic inquiries and improves responsiveness with simple implementation.
                     </p>
 
-                    <!-- Chatbot Container for Starter -->
                     <div class="embed-slot" id="embed-bot1" role="region" aria-label="Starter chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
@@ -989,7 +940,6 @@
                         <br><br>
                     </p>
 
-                    <!-- Chatbot Container for business -->
                     <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
@@ -1027,25 +977,24 @@
                         Designed where reputation and customer experience matter most.
                     </p>
 
-                    <!-- Chatbot Container for Premium -->
                     <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
                             <h4>Open Bot 3</h4>
-                            <p class="placeholder-label">Choose English or Arabic to open the Premium bot in a floating chat window.</p>
+                            <p class="placeholder-label">Choose English or Arabic to launch the Premium bot on this page.</p>
 
                             <div class="bot-launch-group">
                                 <button
                                     type="button"
                                     class="solution-cta"
-                                    onclick="window.open('https://www.uchat.com.au/p/web/eivageplmcgs6uui/float?ref=wf237539w148623', '_blank', 'noopener,noreferrer')">
+                                    onclick="launchBot3('wf237539w148623')">
                                     Open Bot 3 English
                                 </button>
 
                                 <button
                                     type="button"
                                     class="solution-cta"
-                                    onclick="window.open('https://www.uchat.com.au/p/web/eivageplmcgs6uui/float?ref=wf237539w146695', '_blank', 'noopener,noreferrer')">
+                                    onclick="launchBot3('wf237539w146695')">
                                     Open Bot 3 Arabic
                                 </button>
                             </div>
@@ -1247,6 +1196,35 @@
     </footer>
 
     <script>
+        const UCHAT_WIDGET_TOKEN = 'eivageplmcgs6uui';
+
+        function removeExistingUChatWidget() {
+            document.querySelectorAll('script[data-zt-uchat="true"]').forEach(script => script.remove());
+
+            document.querySelectorAll('iframe').forEach(iframe => {
+                const src = iframe.getAttribute('src') || '';
+                if (src.includes('uchat.com.au') || src.includes('uchat.com')) {
+                    iframe.remove();
+                }
+            });
+
+            document.querySelectorAll('[id*="uchat"], [class*="uchat"]').forEach(el => {
+                el.remove();
+            });
+        }
+
+        function launchBot3(ref) {
+            removeExistingUChatWidget();
+
+            const script = document.createElement('script');
+            script.async = true;
+            script.defer = true;
+            script.dataset.ztUchat = 'true';
+            script.src = `https://www.uchat.com.au/js/widget/${UCHAT_WIDGET_TOKEN}/float.js?ref=${encodeURIComponent(ref)}`;
+
+            document.body.appendChild(script);
+        }
+
         // ===== Mobile Menu Toggle =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -1330,24 +1308,18 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Show loading state
             submitText.style.display = 'none';
             submitLoading.style.display = 'inline-block';
 
-            // Simulate API call
             setTimeout(() => {
-                // Hide form inputs, show success message
                 formInputs.style.display = 'none';
                 formSuccess.style.display = 'block';
 
-                // Reset form
                 form.reset();
 
-                // Reset button state
                 submitText.style.display = 'inline';
                 submitLoading.style.display = 'none';
 
-                // Log form data (in real implementation, send to server)
                 console.log('Form submitted:', {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
@@ -1367,13 +1339,11 @@
                 const solution = button.getAttribute('data-solution');
                 solutionSelect.value = solution;
 
-                // Scroll to contact form
                 document.getElementById('contact').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
 
-                // Highlight the button briefly
                 const originalText = button.textContent;
                 button.textContent = 'Selected!';
                 button.style.background = '#10b981';
