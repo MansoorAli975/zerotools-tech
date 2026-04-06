@@ -388,23 +388,22 @@
         /* ===== Chatbot Container ===== */
         .embed-slot {
             width: 100%;
-            min-height: 520px;
+            min-height: 320px;
             border-radius: var(--border-radius);
             overflow: hidden;
-        }
-
-        .embed-slot iframe {
-            width: 100%;
-            height: 520px;
-            border: 0;
-            display: block;
+            background: var(--off-white);
+            border: 2px dashed var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
 
         .chatbot-placeholder {
             text-align: center;
             color: var(--dark-gray);
             transition: opacity 0.3s ease;
-            padding: 48px 24px;
+            width: 100%;
         }
 
         .chatbot-icon {
@@ -415,7 +414,7 @@
         }
 
         .placeholder-label {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-top: 12px;
             color: var(--dark-gray);
             font-style: italic;
@@ -471,6 +470,82 @@
             width: auto;
             min-width: 180px;
             margin-top: 0;
+        }
+
+        /* ===== Modal ===== */
+        .bot-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.72);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            padding: 24px;
+        }
+
+        .bot-modal-overlay.active {
+            display: flex;
+        }
+
+        .bot-modal {
+            width: min(1100px, 100%);
+            height: min(85vh, 760px);
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bot-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--medium-gray);
+            background: var(--white);
+        }
+
+        .bot-modal-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .bot-modal-close {
+            border: 1px solid var(--medium-gray);
+            background: var(--white);
+            color: var(--dark-gray);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-modal-close:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .bot-modal-body {
+            flex: 1;
+            background: var(--off-white);
+        }
+
+        .bot-modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+            background: var(--white);
         }
 
         /* ===== Why Zero Tools Section ===== */
@@ -756,6 +831,15 @@
             .bot-launch-group .solution-cta {
                 width: 100%;
             }
+
+            .bot-modal-overlay {
+                padding: 12px;
+            }
+
+            .bot-modal {
+                height: 88vh;
+                border-radius: 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -902,6 +986,7 @@
                         Handles basic inquiries and improves responsiveness with simple implementation.
                     </p>
 
+                    <!-- Chatbot Container for Starter -->
                     <div class="embed-slot" id="embed-bot1" role="region" aria-label="Starter chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
@@ -940,6 +1025,7 @@
                         <br><br>
                     </p>
 
+                    <!-- Chatbot Container for business -->
                     <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
@@ -977,24 +1063,25 @@
                         Designed where reputation and customer experience matter most.
                     </p>
 
+                    <!-- Chatbot Container for Premium -->
                     <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
                             <h4>Open Bot 3</h4>
-                            <p class="placeholder-label">Choose English or Arabic to launch the Premium bot on this page.</p>
+                            <p class="placeholder-label">Choose English or Arabic to open the Premium bot in a same-page modal.</p>
 
                             <div class="bot-launch-group">
                                 <button
                                     type="button"
                                     class="solution-cta"
-                                    onclick="launchBot3('wf237539w148623')">
+                                    onclick="openBot3Modal('https://www.uchat.com.au/p/web/eivageplmcgs6uui/full?ref=wf237539w148623', 'Bot 3 English')">
                                     Open Bot 3 English
                                 </button>
 
                                 <button
                                     type="button"
                                     class="solution-cta"
-                                    onclick="launchBot3('wf237539w146695')">
+                                    onclick="openBot3Modal('https://www.uchat.com.au/p/web/eivageplmcgs6uui/full?ref=wf237539w146695', 'Bot 3 Arabic')">
                                     Open Bot 3 Arabic
                                 </button>
                             </div>
@@ -1176,6 +1263,26 @@
         </div>
     </section>
 
+    <!-- Bot 3 Modal -->
+    <div class="bot-modal-overlay" id="bot3ModalOverlay" aria-hidden="true">
+        <div class="bot-modal" role="dialog" aria-modal="true" aria-labelledby="bot3ModalTitle">
+            <div class="bot-modal-header">
+                <div class="bot-modal-title" id="bot3ModalTitle">Bot 3</div>
+                <button type="button" class="bot-modal-close" id="bot3ModalClose" aria-label="Close chatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="bot-modal-body">
+                <iframe
+                    id="bot3ModalIframe"
+                    class="bot-modal-iframe"
+                    src="about:blank"
+                    title="Bot 3 Chatbot">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1196,34 +1303,40 @@
     </footer>
 
     <script>
-        const UCHAT_WIDGET_TOKEN = 'eivageplmcgs6uui';
+        // ===== Bot 3 Modal =====
+        const bot3ModalOverlay = document.getElementById('bot3ModalOverlay');
+        const bot3ModalIframe = document.getElementById('bot3ModalIframe');
+        const bot3ModalTitle = document.getElementById('bot3ModalTitle');
+        const bot3ModalClose = document.getElementById('bot3ModalClose');
 
-        function removeExistingUChatWidget() {
-            document.querySelectorAll('script[data-zt-uchat="true"]').forEach(script => script.remove());
-
-            document.querySelectorAll('iframe').forEach(iframe => {
-                const src = iframe.getAttribute('src') || '';
-                if (src.includes('uchat.com.au') || src.includes('uchat.com')) {
-                    iframe.remove();
-                }
-            });
-
-            document.querySelectorAll('[id*="uchat"], [class*="uchat"]').forEach(el => {
-                el.remove();
-            });
+        function openBot3Modal(url, title) {
+            bot3ModalTitle.textContent = title;
+            bot3ModalIframe.src = url;
+            bot3ModalOverlay.classList.add('active');
+            bot3ModalOverlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
         }
 
-        function launchBot3(ref) {
-            removeExistingUChatWidget();
-
-            const script = document.createElement('script');
-            script.async = true;
-            script.defer = true;
-            script.dataset.ztUchat = 'true';
-            script.src = `https://www.uchat.com.au/js/widget/${UCHAT_WIDGET_TOKEN}/float.js?ref=${encodeURIComponent(ref)}`;
-
-            document.body.appendChild(script);
+        function closeBot3Modal() {
+            bot3ModalOverlay.classList.remove('active');
+            bot3ModalOverlay.setAttribute('aria-hidden', 'true');
+            bot3ModalIframe.src = 'about:blank';
+            document.body.style.overflow = '';
         }
+
+        bot3ModalClose.addEventListener('click', closeBot3Modal);
+
+        bot3ModalOverlay.addEventListener('click', function (e) {
+            if (e.target === bot3ModalOverlay) {
+                closeBot3Modal();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && bot3ModalOverlay.classList.contains('active')) {
+                closeBot3Modal();
+            }
+        });
 
         // ===== Mobile Menu Toggle =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
