@@ -337,8 +337,6 @@
             transition: var(--transition);
             text-align: center;
             position: relative;
-            /* suspecious change rec by C */
-            /* overflow: hidden; */
             overflow: visible;
             display: flex;
             flex-direction: column;
@@ -391,22 +389,16 @@
         .chatbot-container {
             margin: 24px 0;
             min-height: 200px;
-            /* min-height: 520px; */
             background: var(--off-white);
             border-radius: var(--border-radius);
             border: 2px dashed var(--medium-gray);
-            /* display: flex; */
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* padding: 20px; */
             padding: 0px;
             transition: var(--transition);
             flex-grow: 1;
-
-            /* suspecious by C */
             display: block;
-            /* remove center-flex behavior */
             position: relative;
             overflow: visible;
         }
@@ -416,17 +408,14 @@
             min-height: 520px;
             border-radius: var(--border-radius);
             overflow: hidden;
-            /* keeps iframe corners clean */
         }
 
-        /* If UChat uses iframe embeds */
         .embed-slot iframe {
             width: 100%;
             height: 520px;
             border: 0;
             display: block;
         }
-
 
         .solution-card:hover .chatbot-container {
             border-color: var(--accent-blue);
@@ -436,8 +425,8 @@
         .chatbot-placeholder {
             text-align: center;
             color: var(--dark-gray);
-
             transition: opacity 0.3s ease;
+            padding: 48px 24px;
         }
 
         .chatbot-placeholder.faded {
@@ -507,6 +496,20 @@
         .solution-cta:hover {
             background: var(--accent-blue);
             color: white;
+        }
+
+        .bot-launch-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .bot-launch-group .solution-cta {
+            width: auto;
+            min-width: 180px;
+            margin-top: 0;
         }
 
         /* ===== Why Zero Tools Section ===== */
@@ -788,6 +791,14 @@
             .chatbot-container {
                 min-height: 180px;
             }
+
+            .bot-launch-group {
+                flex-direction: column;
+            }
+
+            .bot-launch-group .solution-cta {
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -948,7 +959,6 @@
                         </div>
                     </div>
 
-
                     <div class="solution-features">
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
@@ -981,14 +991,12 @@
 
                     <!-- Chatbot Container for business -->
                     <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
-
                         <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
                             <h4>Bot 2 Embed Area</h4>
                             <p class="placeholder-label">UChat embed code will be placed here.</p>
                         </div>
                     </div>
-
 
                     <div class="solution-features">
                         <div class="solution-feature">
@@ -1021,24 +1029,28 @@
 
                     <!-- Chatbot Container for Premium -->
                     <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
-
-                        <!-- <div class="chatbot-placeholder">
+                        <div class="chatbot-placeholder">
                             <i class="fas fa-robot chatbot-icon"></i>
-                            <h4>Bot 3 Embed Area</h4>
-                            <p class="placeholder-label">UChat embed code will be placed here.</p>
-                        </div> -->
-                    
-                    <div class="chatbot-placeholder">
-    <i class="fas fa-robot chatbot-icon"></i>
-    <h4>Bot 3 Arabic Test</h4>
-    <p class="placeholder-label">Open the Arabic Bot 3 test flow in a dedicated chat window.</p>
-    <a class="solution-cta" href="https://www.uchat.com.au/p/web/eivageplmcgs6uui/full?ref=wf237539w146695" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:14px;">
-        Open Arabic Bot
-    </a>
-</div>            
-                    
-                    </div>
+                            <h4>Open Bot 3</h4>
+                            <p class="placeholder-label">Choose English or Arabic to open the Premium bot in a floating chat window.</p>
 
+                            <div class="bot-launch-group">
+                                <button
+                                    type="button"
+                                    class="solution-cta"
+                                    onclick="window.open('https://www.uchat.com.au/p/web/eivageplmcgs6uui/float?ref=wf237539w148623', '_blank', 'noopener,noreferrer')">
+                                    Open Bot 3 English
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="solution-cta"
+                                    onclick="window.open('https://www.uchat.com.au/p/web/eivageplmcgs6uui/float?ref=wf237539w146695', '_blank', 'noopener,noreferrer')">
+                                    Open Bot 3 Arabic
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="solution-features">
                         <div class="solution-feature">
@@ -1347,7 +1359,7 @@
         });
 
         // ===== Solution Selection =====
-        const solutionCtaButtons = document.querySelectorAll('.solution-cta');
+        const solutionCtaButtons = document.querySelectorAll('.solution-cta[data-solution]');
         const solutionSelect = document.getElementById('solution');
 
         solutionCtaButtons.forEach(button => {
@@ -1404,14 +1416,12 @@
 
         // ===== Initialize =====
         document.addEventListener('DOMContentLoaded', function () {
-            // Add initial header shadow
             if (window.scrollY > 100) {
                 document.querySelector('.header').style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
             }
         });
     </script>
-    <script async defer src="https://www.uchat.com.au/js/widget/eivageplmcgs6uui/float.js"></script>
-    
+
 </body>
 
 </html>
