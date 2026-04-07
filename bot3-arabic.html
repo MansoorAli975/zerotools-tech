@@ -53,6 +53,22 @@
       color: var(--black);
     }
 
+    .topbar-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .session-note {
+      font-size: 0.85rem;
+      color: var(--dark-gray);
+      opacity: 0.9;
+      text-align: left;
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -120,7 +136,12 @@
   <div class="page-wrap">
     <div class="topbar">
       <div class="brand">Zero Tools</div>
-      <a href="index.html" class="back-link">العودة إلى Zero Tools →</a>
+      <div class="topbar-actions">
+        <div class="session-note">
+          لبدء محادثة جديدة مع بوت آخر، يرجى إنهاء المحادثة الحالية قبل العودة
+        </div>
+        <a href="index.html" class="back-link">العودة إلى Zero Tools →</a>
+      </div>
     </div>
 
     <div class="hero-card">

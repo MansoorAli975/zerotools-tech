@@ -53,6 +53,21 @@
       color: var(--black);
     }
 
+    .topbar-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .session-note {
+      font-size: 0.85rem;
+      color: var(--dark-gray);
+      opacity: 0.9;
+      text-align: right;
+      max-width: 420px;
+    }
+
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -120,7 +135,12 @@
   <div class="page-wrap">
     <div class="topbar">
       <div class="brand">Zero Tools</div>
-      <a href="index.html" class="back-link">← Back to Zero Tools</a>
+      <div class="topbar-actions">
+        <div class="session-note">
+          To start a fresh conversation with another bot, please click “End Chat” before returning.
+        </div>
+        <a href="index.html" class="back-link">← Back to Zero Tools</a>
+      </div>
     </div>
 
     <div class="hero-card">
