@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero Tools | AI Chatbot Solutions for Modern Businesses</title>
+    <title>Zero Tools | Try AI Chatbots for Your Business</title>
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/chatbot.png">
 
     <style>
@@ -135,7 +135,12 @@
             color: var(--accent-blue);
             font-size: 1.8rem;
         }
-
+.solution-description {
+    color: var(--dark-gray);
+    margin-bottom: 24px;
+    line-height: 1.6;
+    min-height: 78px;
+}
         .nav-links {
             display: flex;
             gap: 32px;
@@ -285,39 +290,6 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* ===== Stats Section ===== */
-        .stats {
-            background: var(--off-white);
-            padding: 60px 0;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--dark-gray);
-            font-size: 0.95rem;
-        }
-
         /* ===== Solutions Section ===== */
         .solutions {
             background: var(--white);
@@ -380,13 +352,7 @@
             color: var(--black);
         }
 
-        .solution-description {
-            color: var(--dark-gray);
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        /* ===== Chatbot Container ===== */
+                /* ===== Chatbot Container ===== */
         .embed-slot {
             width: 100%;
             min-height: 320px;
@@ -550,7 +516,7 @@
         .bot-language-option[lang="ar"] {
             font-size: 0.94rem;
         }
-            
+
         /* ===== Why Zero Tools Section ===== */
         .why-section {
             background: var(--off-white);
@@ -594,50 +560,6 @@
             line-height: 1.6;
         }
 
-        /* ===== Vision Section ===== */
-        .vision-timeline {
-            position: relative;
-            max-width: 700px;
-            margin: 40px auto 0;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 40px;
-        }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--white);
-            border: 2px solid var(--accent-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        .timeline-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            color: var(--black);
-        }
-
-        .timeline-content p {
-            color: var(--dark-gray);
-            line-height: 1.6;
-        }
-
         /* ===== Contact Section ===== */
         .contact-section {
             background: var(--white);
@@ -653,44 +575,7 @@
             border: 1px solid var(--medium-gray);
         }
 
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--black);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--medium-gray);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            color: var(--dark-gray);
-            transition: var(--transition);
-            background: var(--white);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233b82f6' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 16px;
-        }
-
-        /* ===== Footer ===== */
+                /* ===== Footer ===== */
         .footer {
             background: var(--black);
             color: var(--white);
@@ -730,31 +615,7 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
         }
-
-        /* ===== Success Message ===== */
-        #formSuccess {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        #formSuccess.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            color: var(--accent-blue);
-            font-size: 1.5rem;
-        }
-
+        
         /* ===== Responsive Design ===== */
         @media (max-width: 1024px) {
             .container {
@@ -797,11 +658,6 @@
                 visibility: visible;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
             .solutions-grid {
                 grid-template-columns: 1fr;
             }
@@ -811,11 +667,12 @@
                 align-items: center;
             }
 
-            .hero-cta button {
-                width: 100%;
-                max-width: 300px;
-            }
-
+            .hero-cta button,
+.hero-cta a {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+}
             .footer-content {
                 flex-direction: column;
                 gap: 24px;
@@ -851,8 +708,7 @@
                 width: 100%;
                 min-width: 0;
             }
-
-                }
+        }
 
         @media (max-width: 480px) {
             .container {
@@ -885,22 +741,7 @@
         .hidden {
             display: none !important;
         }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-blue);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        
     </style>
 
     <!-- Font Awesome for Icons -->
@@ -926,11 +767,10 @@
 
             <nav class="nav-links" id="navLinks">
                 <a href="#home" class="nav-link">Home</a>
-                <a href="#solutions" class="nav-link">Solutions</a>
+                <a href="#solutions" class="nav-link">Chatbots</a>
                 <a href="#why" class="nav-link">Why Zero Tools</a>
-                <a href="#vision" class="nav-link">Vision</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <a href="#contact" class="nav-button">Get Started</a>
+                <a href="#solutions" class="nav-button">Compare Chatbots</a>
             </nav>
         </div>
     </header>
@@ -938,41 +778,20 @@
     <!-- Hero Section -->
     <section id="home" class="hero section">
         <div class="hero-container container">
-            <span class="hero-tag">AI CHATBOT SOLUTIONS</span>
-            <h1 class="hero-title">AI-powered chatbots for modern businesses</h1>
+            <span class="hero-tag">LIVE CHATBOT SHOWROOM</span>
+            <h1 class="hero-title">Compare three chatbot options and try them live</h1>
             <p class="hero-description">
-                We help businesses respond faster, engage customers better, and capture more leads using reliable AI
-                chatbots and automation.
+                Explore Starter, Business, and Premium to see how each chatbot level feels before choosing the right fit for your business.
             </p>
             <div class="hero-cta">
                 <button class="btn-primary" id="ctaButton">
-                    Get Started
+                    Try the Chatbots
                     <i class="fas fa-arrow-right"></i>
                 </button>
                 <button class="btn-secondary" id="learnMoreBtn">
-                    <i class="fas fa-play-circle"></i>
-                    See How It Works
+                    <i class="fas fa-file-lines"></i>
+                    Request a Plan
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number" id="stat1">0</span>
-                    <span class="stat-label">of customers expect immediate responses</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="stat2">0</span>
-                    <span class="stat-label">increase in lead conversion with prompt engagement</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="stat3">0</span>
-                    <span class="stat-label">of inquiries missed without 24/7 availability</span>
-                </div>
             </div>
         </div>
     </section>
@@ -980,23 +799,21 @@
     <!-- Solutions Section -->
     <section id="solutions" class="solutions section">
         <div class="container">
-            <h2 class="section-title center">AI Chatbot Solutions</h2>
+            <h2 class="section-title center">Choose the chatbot that fits your business</h2>
             <p class="section-subtitle">
-                Professional AI chatbot solutions designed for businesses of all sizes.
-                Choose the perfect fit for your customer engagement needs.
+                Each option is designed for a different level of business need. Open the demos, compare the experience, and choose the right starting point.
             </p>
 
             <div class="solutions-grid">
                 <!-- Zero Tools Starter Chatbot -->
                 <div class="solution-card">
-                    <span class="solution-badge">Entry Point</span>
+                    <span class="solution-badge">Foundation</span>
                     <div class="solution-icon">
                         <i class="fas fa-play-circle"></i>
                     </div>
                     <h3 class="solution-title">Starter</h3>
                     <p class="solution-description">
-                        For businesses taking their first step into AI-powered customer response.
-                        Handles basic inquiries and improves responsiveness with simple implementation.
+                        A simple starting point for businesses that want basic website chat handling without added complexity.
                     </p>
 
                     <div class="embed-slot" id="embed-bot1" role="region" aria-label="Starter chatbot interface">
@@ -1017,33 +834,31 @@
                     <div class="solution-features">
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Basic inquiry handling</span>
+                            <span>Answers common website questions</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Improved responsiveness</span>
+                            <span>Captures simple leads</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Simple implementation</span>
+                            <span>Easy entry-level setup</span>
                         </div>
                     </div>
-                    <a href="bot1-english.html" class="solution-cta" style="display:inline-block;">
-                        Open Zero Tools Starter Chatbot
-                    </a>
+                    <button type="button" class="solution-cta choose-plan-btn" data-plan="starter">
+    Choose Starter
+</button>
                 </div>
 
                 <!-- Zero Tools Business Chatbot -->
                 <div class="solution-card">
-                    <span class="solution-badge">Most Popular</span>
+                    <span class="solution-badge">Structured</span>
                     <div class="solution-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 class="solution-title">Business</h3>
                     <p class="solution-description">
-                        For growing businesses needing structured conversations, lead capture,
-                        and human handover. Provides more control for scaling operations.
-                        <br><br>
+                        A guided website chatbot for businesses that need better lead capture, clearer routing, and more control.
                     </p>
 
                     <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
@@ -1064,20 +879,20 @@
                     <div class="solution-features">
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Structured conversations</span>
+                            <span>Guides visitors step by step</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Lead capture system</span>
+                            <span>Organizes lead capture</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Human handover integration</span>
+                            <span>Supports human handover</span>
                         </div>
                     </div>
-                    <a href="bot2-english.html" class="solution-cta" style="display:inline-block;">
-                        Open Zero Tools Business Chatbot
-                    </a>
+                    <button type="button" class="solution-cta choose-plan-btn" data-plan="business">
+    Choose Business
+</button>
                 </div>
 
                 <!-- Zero Tools Premium Chatbot -->
@@ -1088,8 +903,7 @@
                     </div>
                     <h3 class="solution-title">Premium</h3>
                     <p class="solution-description">
-                        For brand-conscious businesses requiring concierge-style AI with refined language.
-                        Designed where reputation and customer experience matter most.
+                        A refined chatbot experience for businesses that need stronger qualification, polished replies, and brand fit.
                     </p>
 
                     <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
@@ -1135,18 +949,20 @@
                     <div class="solution-features">
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Brand-aligned communication</span>
+                            <span>More refined conversations</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Concierge-style service</span>
+                            <span>Stronger qualification flow</span>
                         </div>
                         <div class="solution-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Premium customer experience</span>
+                            <span>Premium customer-facing feel</span>
                         </div>
                     </div>
-                    <button class="solution-cta" data-solution="premium">Choose Premium</button>
+                    <button type="button" class="solution-cta choose-plan-btn" data-plan="premium">
+    Choose Premium
+</button>
                 </div>
             </div>
         </div>
@@ -1155,172 +971,104 @@
     <!-- Why Zero Tools Section -->
     <section id="why" class="why-section section">
         <div class="container">
-            <h2 class="section-title center">Why Choose Zero Tools</h2>
+            <h2 class="section-title center">Why Zero Tools</h2>
             <p class="section-subtitle">
-                We implement AI with control and thoughtfulness, ensuring it aligns with your brand values
-                and business objectives.
+                Zero Tools is built to make chatbot selection clear, practical, and easy to understand.
             </p>
 
             <div class="why-grid">
                 <div class="why-card">
                     <div class="why-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-layer-group"></i>
                     </div>
-                    <h3 class="why-title">Responsible AI</h3>
+                    <h3 class="why-title">Clear options</h3>
                     <p class="why-description">
-                        Thoughtful implementation that aligns with your brand values and business objectives.
+                        Starter, Business, and Premium are presented as distinct choices so visitors can understand the differences quickly.
                     </p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-flask"></i>
                     </div>
-                    <h3 class="why-title">Brand Respect</h3>
+                    <h3 class="why-title">Try before you decide</h3>
                     <p class="why-description">
-                        Every solution protects and enhances your brand through professional communication.
+                        The website is a live showroom, so people can explore the chatbot experience before moving forward.
                     </p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-pen-ruler"></i>
                     </div>
-                    <h3 class="why-title">Long-Term Mindset</h3>
+                    <h3 class="why-title">Clean and practical</h3>
                     <p class="why-description">
-                        We build partnerships, not transactions. Focus on sustainable solutions that grow with you.
-                    </p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3 class="why-title">Professional Implementation</h3>
-                    <p class="why-description">
-                        Highest standards of professionalism and technical excellence from design to deployment.
+                        The goal is a modern, minimal experience that stays focused on clarity instead of noise and distractions.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Vision Section -->
-    <section id="vision" class="section">
-        <div class="container">
-            <h2 class="section-title center">Our Vision</h2>
-            <p class="section-subtitle">
-                Building a comprehensive suite of AI-powered business tools through deliberate, practical growth.
-            </p>
+<!-- Contact Section -->
+<section id="contact" class="contact-section section">
+    <div class="container">
+        <h2 class="section-title center" id="contactLeadTitle">Need help choosing?</h2>
+        <p class="section-subtitle" id="contactLeadSubtitle">
+    Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.
+</p>
 
-            <div class="vision-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">1</div>
-                    <div class="timeline-content">
-                        <h3>Today</h3>
-                        <p>Building a focused AI platform centered on reliable, business-grade chatbot solutions.
-                            Establishing Zero Tools as the trusted partner for modern customer engagement.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">2</div>
-                    <div class="timeline-content">
-                        <h3>Near Future</h3>
-                        <p>Expanding into intelligent automation solutions that integrate with business workflows.
-                            Developing smart digital tools that complement our core AI offerings.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">3</div>
-                    <div class="timeline-content">
-                        <h3>Long-Term</h3>
-                        <p>Creating a comprehensive suite of AI-powered business tools through deliberate, practical
-                            growth. Remaining committed to stability, professionalism, and building solutions that stand
-                            the test of time.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="contact-form" style="text-align: center; max-width: 720px;">
+            <p id="contactLeadText" style="color: var(--dark-gray); margin-bottom: 16px;">
+    Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.
+</p>
+
+            <p id="contactLeadNote" style="color: var(--dark-gray); margin-bottom: 28px;">
+    The Formal Implementation Brief is shared later once your project direction is clearer.
+</p>
+
+            <div class="hero-cta" style="margin-top: 0;">
+    <a href="https://forms.gle/8v73f3wvFtHjpeyt6" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        Open Website Inquiry Form
+    </a>
+
+    <a href="mailto:support@zerotools.tech" class="btn-secondary">
+        Email Zero Tools
+    </a>
+</div>
+
+<p style="text-align: center; margin-top: 18px; color: var(--dark-gray); font-size: 0.96rem;">
+    or email us directly at
+    <span style="font-weight: 600; color: var(--black);">support@zerotools.tech</span>
+    <button
+    type="button"
+    id="copyEmailBtn"
+    aria-label="Copy email address"
+    title="Copy email address"
+    style="background: none; border: none; color: var(--accent-blue); cursor: pointer; padding: 0; margin-left: 8px; font-size: 1rem; display: inline-flex; align-items: center; vertical-align: middle;">
+    <i class="fa-regular fa-copy" aria-hidden="true"></i>
+</button>
+</p>
+
+<p id="copyEmailStatus" style="text-align: center; margin-top: 8px; color: var(--accent-blue); display: none; font-size: 0.95rem;">
+    Email address copied
+</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section section">
-        <div class="container">
-            <h2 class="section-title center">Start a Conversation</h2>
-            <p class="section-subtitle">
-                Let's discuss how AI chatbots can transform your customer engagement.
-                Request a tailored plan for your business.
-            </p>
-
-            <div class="contact-form">
-                <div class="form-inputs" id="formInputs">
-                    <form id="inquiryForm">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Full Name *</label>
-                            <input type="text" id="name" class="form-control" required placeholder="John Smith">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">Business Email *</label>
-                            <input type="email" id="email" class="form-control" required placeholder="john@company.com">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="company">Company Name</label>
-                            <input type="text" id="company" class="form-control" placeholder="Your Company LLC">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="solution">Primary Interest *</label>
-                            <select id="solution" class="form-control form-select" required>
-                                <option value="" disabled selected>Select a solution</option>
-                                <option value="starter">Starter</option>
-                                <option value="business">Business</option>
-                                <option value="premium">Premium</option>
-                                <option value="not-sure">Not sure yet</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="message">What would you like the chatbot to achieve? *</label>
-                            <textarea id="message" class="form-control" rows="4" required
-                                placeholder="Please describe your main goals..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
-                                <span id="submitText">Request a Tailored Plan</span>
-                                <div id="submitLoading" class="loading" style="display: none;"></div>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div id="formSuccess" style="text-align: center; padding: 20px; display: none;">
-                    <div class="success-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <h3 style="margin-bottom: 16px; color: var(--black);">Request Received</h3>
-                    <p style="color: var(--dark-gray); margin-bottom: 8px;">Thank you for your inquiry.</p>
-                    <p style="color: var(--dark-gray);">Our team will review your requirements and contact you within 24
-                        hours.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">Zero Tools</div>
                 <div class="footer-links">
                     <a href="#home" class="footer-link">Home</a>
-                    <a href="#solutions" class="footer-link">Solutions</a>
+                    <a href="#solutions" class="footer-link">Chatbots</a>
                     <a href="#why" class="footer-link">Why Zero Tools</a>
-                    <a href="#vision" class="footer-link">Vision</a>
                     <a href="#contact" class="footer-link">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                © 2024 Zero Tools. All rights reserved. AI solutions for modern businesses.
+                © 2026 Zero Tools. All rights reserved. Live AI chatbot showroom for modern businesses.
             </div>
         </div>
     </footer>
@@ -1333,7 +1081,6 @@
         const openBot3EnglishInline = document.getElementById('openBot3EnglishInline');
         const openBot3ArabicInline = document.getElementById('openBot3ArabicInline');
 
-        
         let bot3LanguagePanelHideTimer = null;
 
         function openBot3LanguagePanel() {
@@ -1382,16 +1129,16 @@
         }
 
         if (openBot3EnglishInline) {
-    openBot3EnglishInline.addEventListener('click', function () {
-        window.location.href = 'bot3-english.html';
-    });
-}
+            openBot3EnglishInline.addEventListener('click', function () {
+                window.location.href = 'bot3-english.html';
+            });
+        }
 
-if (openBot3ArabicInline) {
-    openBot3ArabicInline.addEventListener('click', function () {
-        window.location.href = 'bot3-arabic.html';
-    });
-}
+        if (openBot3ArabicInline) {
+            openBot3ArabicInline.addEventListener('click', function () {
+                window.location.href = 'bot3-arabic.html';
+            });
+        }
 
         document.addEventListener('click', function (e) {
             const panelIsOpen =
@@ -1407,16 +1154,16 @@ if (openBot3ArabicInline) {
         });
 
         document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-        if (
-            bot3LanguageSlidePanel &&
-            !bot3LanguageSlidePanel.hidden &&
-            bot3LanguageSlidePanel.classList.contains('active')
-        ) {
-            closeBot3LanguagePanel();
-        }
-    }
-});
+            if (e.key === 'Escape') {
+                if (
+                    bot3LanguageSlidePanel &&
+                    !bot3LanguageSlidePanel.hidden &&
+                    bot3LanguageSlidePanel.classList.contains('active')
+                ) {
+                    closeBot3LanguagePanel();
+                }
+            }
+        });
 
         // ===== Mobile Menu Toggle =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1437,43 +1184,6 @@ if (openBot3ArabicInline) {
             });
         });
 
-        // ===== Animated Statistics =====
-        function animateStats() {
-            const stat1 = document.getElementById('stat1');
-            const stat2 = document.getElementById('stat2');
-            const stat3 = document.getElementById('stat3');
-
-            function animateValue(element, start, end, duration, suffix = '%') {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const value = Math.floor(progress * (end - start) + start);
-                    element.textContent = value + suffix;
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
-
-            animateValue(stat1, 0, 82, 1500);
-            animateValue(stat2, 0, 45, 1500);
-            animateValue(stat3, 0, 67, 1500);
-        }
-
-        // Trigger stats animation when section is visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateStats();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(document.querySelector('.stats'));
-
         // ===== Smooth Scrolling =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1491,77 +1201,16 @@ if (openBot3ArabicInline) {
             });
         });
 
-        // ===== Form Submission =====
-        const form = document.getElementById('inquiryForm');
-        const formInputs = document.getElementById('formInputs');
-        const submitText = document.getElementById('submitText');
-        const submitLoading = document.getElementById('submitLoading');
-        const formSuccess = document.getElementById('formSuccess');
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            submitText.style.display = 'none';
-            submitLoading.style.display = 'inline-block';
-
-            setTimeout(() => {
-                formInputs.style.display = 'none';
-                formSuccess.style.display = 'block';
-
-                form.reset();
-
-                submitText.style.display = 'inline';
-                submitLoading.style.display = 'none';
-
-                console.log('Form submitted:', {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    company: document.getElementById('company').value,
-                    solution: document.getElementById('solution').value,
-                    message: document.getElementById('message').value
-                });
-            }, 1500);
-        });
-
-        // ===== Solution Selection =====
-        const solutionCtaButtons = document.querySelectorAll('.solution-cta[data-solution]');
-        const solutionSelect = document.getElementById('solution');
-
-        solutionCtaButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const solution = button.getAttribute('data-solution');
-                solutionSelect.value = solution;
-
-                document.getElementById('contact').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-
-                const originalText = button.textContent;
-                button.textContent = 'Selected!';
-                button.style.background = '#10b981';
-                button.style.borderColor = '#10b981';
-                button.style.color = 'white';
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '';
-                    button.style.borderColor = '';
-                    button.style.color = '';
-                }, 2000);
-            });
-        });
-
-        // ===== CTA Buttons =====
+            // ===== CTA Buttons =====
         document.getElementById('ctaButton').addEventListener('click', () => {
-            document.getElementById('contact').scrollIntoView({
+            document.getElementById('solutions').scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         });
 
         document.getElementById('learnMoreBtn').addEventListener('click', () => {
-            document.getElementById('solutions').scrollIntoView({
+            document.getElementById('contact').scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
@@ -1584,7 +1233,128 @@ if (openBot3ArabicInline) {
             }
         });
     </script>
+<script>
+    // ===== Choose Plan Buttons -> Next Step Panel =====
+    const choosePlanButtons = document.querySelectorAll('.choose-plan-btn');
+const contactSection = document.getElementById('contact');
+const contactLeadTitle = document.getElementById('contactLeadTitle');
+const contactLeadSubtitle = document.getElementById('contactLeadSubtitle');
+const contactLeadText = document.getElementById('contactLeadText');
+const contactLeadNote = document.getElementById('contactLeadNote');
 
+
+const defaultContactCopy = {
+    title: 'Need help choosing?',
+    subtitle: 'Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.',
+    text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+    note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+};
+
+function applyContactCopy(copy) {
+    if (contactLeadTitle) {
+        contactLeadTitle.textContent = copy.title;
+    }
+
+    if (contactLeadSubtitle) {
+        contactLeadSubtitle.textContent = copy.subtitle;
+    }
+
+    if (contactLeadText) {
+        contactLeadText.textContent = copy.text;
+    }
+
+    if (contactLeadNote) {
+        contactLeadNote.textContent = copy.note;
+    }
+}
+
+function resetContactCopy() {
+    applyContactCopy(defaultContactCopy);
+}
+
+const learnMoreBtn = document.getElementById('learnMoreBtn');
+if (learnMoreBtn) {
+    learnMoreBtn.addEventListener('click', resetContactCopy);
+}
+
+const ctaButton = document.getElementById('ctaButton');
+if (ctaButton) {
+    ctaButton.addEventListener('click', resetContactCopy);
+}
+
+document.querySelectorAll('a[href="#home"], a[href="#solutions"], a[href="#why"], a[href="#contact"]').forEach(link => {
+    link.addEventListener('click', resetContactCopy);
+});
+
+
+
+
+
+const contactCopy = {
+    starter: {
+        title: 'Starter selected',
+        subtitle: 'You selected Starter. Submit a quick inquiry so we can review your interest and contact you about a simple website chatbot setup.',
+        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+    },
+    business: {
+        title: 'Business selected',
+        subtitle: 'You selected Business. Submit a quick inquiry so we can review your interest and contact you about a more guided chatbot setup.',
+        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+    },
+    premium: {
+        title: 'Premium selected',
+        subtitle: 'You selected Premium. Submit a quick inquiry so we can review your interest and contact you about a more refined chatbot setup.',
+        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+    }
+};
+
+choosePlanButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const selectedPlan = button.getAttribute('data-plan');
+        const selectedCopy = contactCopy[selectedPlan];
+
+        if (!selectedCopy || !contactSection) return;
+
+               applyContactCopy(selectedCopy);
+
+        contactSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+});
+const copyEmailBtn = document.getElementById('copyEmailBtn');
+const copyEmailStatus = document.getElementById('copyEmailStatus');
+
+if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText('support@zerotools.tech');
+
+            if (copyEmailStatus) {
+                copyEmailStatus.style.display = 'block';
+                copyEmailStatus.textContent = 'Email address copied';
+
+                setTimeout(() => {
+                    copyEmailStatus.style.display = 'none';
+                }, 1800);
+            }
+        } catch (error) {
+            if (copyEmailStatus) {
+                copyEmailStatus.style.display = 'block';
+                copyEmailStatus.textContent = 'Could not copy email address';
+
+                setTimeout(() => {
+                    copyEmailStatus.style.display = 'none';
+                }, 1800);
+            }
+        }
+    });
+}
+</script>
 </body>
 
 </html>
