@@ -4,23 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Zero Tools | Compare AI Chatbots for Your Business</title>
-<meta name="description" content="Zero Tools is a live AI chatbot showroom where businesses can compare Starter, Business, and Premium chatbot options, try them live, and send a quick inquiry for the right fit.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.zerotools.tech/">
+    <meta name="description" content="Zero Tools is a live AI chatbot showroom where businesses can compare Starter, Business, and Premium chatbot options, try them live, and send a quick inquiry for the right fit.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.zerotools.tech/">
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zero Tools | Compare AI Chatbots for Your Business">
-<meta property="og:description" content="Explore Starter, Business, and Premium chatbot options, try them live, and find the right fit for your business.">
-<meta property="og:url" content="https://www.zerotools.tech/">
-<meta property="og:site_name" content="Zero Tools">
-<meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Zero Tools | Compare AI Chatbots for Your Business">
+    <meta property="og:description" content="Explore Starter, Business, and Premium chatbot options, try them live, and find the right fit for your business.">
+    <meta property="og:url" content="https://www.zerotools.tech/">
+    <meta property="og:site_name" content="Zero Tools">
+    <meta property="og:locale" content="en_US">
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zero Tools | Compare AI Chatbots for Your Business">
-<meta name="twitter:description" content="Explore Starter, Business, and Premium chatbot options, try them live, and find the right fit for your business.">
-<script type="application/ld+json">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Zero Tools | Compare AI Chatbots for Your Business">
+    <meta name="twitter:description" content="Explore Starter, Business, and Premium chatbot options, try them live, and find the right fit for your business.">
+
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -53,8 +54,9 @@
     }
   ]
 }
-</script>    
-<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/chatbot.png">
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/chatbot.png">
 
     <style>
         /* ===== CSS Variables & Reset ===== */
@@ -184,12 +186,14 @@
             color: var(--accent-blue);
             font-size: 1.8rem;
         }
-.solution-description {
-    color: var(--dark-gray);
-    margin-bottom: 24px;
-    line-height: 1.6;
-    min-height: 78px;
-}
+
+        .solution-description {
+            color: var(--dark-gray);
+            margin-bottom: 24px;
+            line-height: 1.6;
+            min-height: 78px;
+        }
+
         .nav-links {
             display: flex;
             gap: 32px;
@@ -258,7 +262,7 @@
 
         .hero-container {
             text-align: center;
-            max-width: 800px;
+            max-width: 980px;
             margin: 0 auto;
         }
 
@@ -274,20 +278,101 @@
             letter-spacing: 0.5px;
         }
 
+        .hero-visual {
+            position: relative;
+            width: min(100%, 640px);
+            height: 250px;
+            margin: 0 auto 18px;
+        }
+
+        .hero-bot-wrap {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-bot-float {
+            animation: heroBotFloat 4s ease-in-out infinite;
+        }
+
+        .hero-bot-img {
+            width: 185px;
+            display: block;
+        }
+
+        .hero-bot-shadow {
+            width: 110px;
+            height: 14px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+            margin: 0 auto;
+            filter: blur(6px);
+        }
+
+
+
+
+.hero-speech-bubble {
+    position: absolute;
+    right: 40px;
+    top: 62px;
+    width: 220px;
+    background: rgba(248, 252, 255, 0.76);
+    border: 1px solid rgba(173, 216, 255, 0.40);
+    border-radius: 16px;
+    padding: 8px 10px;
+    box-shadow: 0 12px 30px rgba(0, 159, 227, 0.05);
+    backdrop-filter: blur(6px);
+    z-index: 1;
+    text-align: left;
+}
+
+.hero-typed-text {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.25;
+    white-space: normal;
+    color: var(--black);
+    margin-bottom: 0;
+}
+
+        .hero-typed-text.rtl {
+            direction: rtl;
+            text-align: right;
+            font-size: 17px;
+        }
+
+        .hero-cursor {
+            width: 2px;
+            height: 16px;
+            background: #08aef0;
+            display: inline-block;
+            margin-left: 3px;
+            animation: heroCursorBlink 0.8s infinite;
+            vertical-align: middle;
+        }
+        
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
             margin-bottom: 24px;
             color: var(--black);
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.08;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-description {
             font-size: 1.1rem;
             color: var(--dark-gray);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            max-width: 600px;
+            line-height: 1.5;
+            margin-bottom: 34px;
+            max-width: 960px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -337,6 +422,65 @@
             color: var(--accent-blue);
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
+        }
+
+        .hero-main-btn {
+            background: #111827;
+            color: #ffffff;
+            border: 1px solid #111827;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .hero-main-btn:hover {
+            background: #000000;
+            border-color: #000000;
+            color: #ffffff;
+        }
+
+        .hero-secondary-btn {
+            background: #ffffff;
+            color: #111827;
+            border: 1.5px solid #9ca3af;
+            min-width: 190px;
+        }
+
+        .hero-secondary-btn:hover {
+            border-color: #111827;
+            color: #111827;
+        }
+
+        .hero-helper {
+            margin-top: 28px;
+            font-size: 0.95rem;
+            line-height: 1.35;
+            color: #4b5563;
+            text-align: center;
+        }
+
+        @keyframes heroBotFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroCursorBlink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
         }
 
         /* ===== Solutions Section ===== */
@@ -401,7 +545,7 @@
             color: var(--black);
         }
 
-                /* ===== Chatbot Container ===== */
+        /* ===== Chatbot Container ===== */
         .embed-slot {
             width: 100%;
             min-height: 320px;
@@ -566,6 +710,304 @@
             font-size: 0.94rem;
         }
 
+
+/* new */
+/* ===== New Chatbot Showcase Cards ===== */
+.showcase-section {
+    background: var(--white);
+}
+
+.showcase-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 18px;
+    line-height: 1.15;
+}
+
+.showcase-subtitle {
+    max-width: 900px;
+    margin: 0 auto 42px;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--dark-gray);
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+    align-items: stretch;
+}
+
+.showcase-card {
+    background: #ffffff;
+    border: 1px solid var(--medium-gray);
+    border-radius: 18px;
+    padding: 28px 26px 26px;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+.showcase-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.showcase-card-title {
+    text-align: center;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 22px;
+}
+
+.showcase-preview {
+    border-radius: 10px;
+    padding: 22px 22px 20px;
+    min-height: 385px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.showcase-preview-basic {
+    background: #dfeadf;
+}
+
+.showcase-preview-advanced {
+    background: #e6dcf3;
+}
+
+.showcase-preview-pro {
+    background: #efe9d8;
+}
+
+.preview-message {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 18px;
+    padding: 10px 14px;
+    font-size: 0.96rem;
+    line-height: 1.35;
+    color: #4b5563;
+    width: 84%;
+    box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.preview-message + .preview-message {
+    margin-top: 10px;
+}
+
+.preview-bot-face {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    position: absolute;
+    right: 18px;
+    bottom: 74px;
+}
+
+.preview-try-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    width: 100%;
+    min-height: 48px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.preview-try-btn-basic {
+    background: #61b35f;
+}
+
+.preview-try-btn-advanced {
+    background: #8251b8;
+}
+
+.preview-try-btn-pro {
+    background: #c8b04d;
+}
+
+.preview-try-btn:hover {
+    filter: brightness(0.97);
+    transform: translateY(-1px);
+}
+
+.showcase-description {
+    text-align: center;
+    color: var(--dark-gray);
+    font-size: 0.98rem;
+    line-height: 1.45;
+    margin: 24px 0 22px;
+    min-height: 72px;
+}
+
+.showcase-choose-btn {
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    min-height: 46px;
+    padding: 12px 18px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+}
+
+.showcase-choose-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    background: #111111;
+}
+
+@media (max-width: 1024px) {
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        max-width: 620px;
+        margin: 0 auto;
+    }
+
+    .showcase-preview {
+        min-height: 360px;
+    }
+
+    .showcase-description {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .showcase-card {
+        padding: 22px 18px 20px;
+    }
+
+    .showcase-preview {
+        padding: 18px 16px 18px;
+        min-height: 330px;
+    }
+
+    .preview-message {
+        width: 88%;
+        font-size: 0.92rem;
+    }
+
+    .preview-bot-face {
+        width: 42px;
+        height: 42px;
+        right: 14px;
+        bottom: 70px;
+    }
+
+    .showcase-subtitle {
+        font-size: 1rem;
+        margin-bottom: 32px;
+    }
+}
+/* new */
+
+/* ===== Why Zero Tools — Refined Section ===== */
+.why-refined-title {
+    font-size: clamp(2.3rem, 4vw, 3.2rem);
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 22px;
+    line-height: 1.12;
+}
+
+.why-refined-subtitle {
+    max-width: 1020px;
+    margin: 0 auto 40px;
+    text-align: center;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--dark-gray);
+}
+
+.why-refined-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+
+.why-refined-card {
+    background: var(--white);
+    border: 1px solid var(--medium-gray);
+    border-radius: 16px;
+    padding: 34px 26px 30px;
+    text-align: center;
+    transition: var(--transition);
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.why-refined-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.why-refined-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 24px;
+}
+
+.why-refined-card-text {
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--dark-gray);
+}
+
+@media (max-width: 1024px) {
+    .why-refined-grid {
+        grid-template-columns: 1fr;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .why-refined-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .why-refined-title {
+        font-size: 2rem;
+    }
+
+    .why-refined-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .why-refined-card {
+        padding: 28px 18px 24px;
+    }
+
+    .why-refined-card-title {
+        font-size: 1.08rem;
+        margin-bottom: 18px;
+    }
+}
+
+
+
+
         /* ===== Why Zero Tools Section ===== */
         .why-section {
             background: var(--off-white);
@@ -624,7 +1066,7 @@
             border: 1px solid var(--medium-gray);
         }
 
-                /* ===== Footer ===== */
+        /* ===== Footer ===== */
         .footer {
             background: var(--black);
             color: var(--white);
@@ -664,7 +1106,7 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
         }
-        
+
         /* ===== Responsive Design ===== */
         @media (max-width: 1024px) {
             .container {
@@ -673,6 +1115,10 @@
 
             .section {
                 padding: 60px 0;
+            }
+
+            .hero-title {
+                max-width: 700px;
             }
         }
 
@@ -707,6 +1153,40 @@
                 visibility: visible;
             }
 
+            .hero-visual {
+                width: 320px;
+                height: 300px;
+                margin-bottom: 12px;
+            }
+
+            .hero-bot-wrap {
+                top: 92px;
+                bottom: auto;
+            }
+
+            .hero-speech-bubble {
+    left: 50%;
+    right: auto;
+    top: 0;
+    transform: translateX(-50%);
+    width: 240px;
+    background: rgba(248, 252, 255, 0.76);
+    border: 1px solid rgba(173, 216, 255, 0.40);
+    border-radius: 16px;
+    padding: 8px 10px;
+    box-shadow: 0 12px 30px rgba(0, 159, 227, 0.05);
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+            .hero-typed-text.rtl {
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 9vw, 3.5rem);
+            }
+
             .solutions-grid {
                 grid-template-columns: 1fr;
             }
@@ -717,11 +1197,12 @@
             }
 
             .hero-cta button,
-.hero-cta a {
-    width: 100%;
-    max-width: 300px;
-    justify-content: center;
-}
+            .hero-cta a {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
             .footer-content {
                 flex-direction: column;
                 gap: 24px;
@@ -773,6 +1254,14 @@
                 font-size: 2rem;
             }
 
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-helper {
+                font-size: 0.92rem;
+            }
+
             .contact-form {
                 padding: 32px 24px;
             }
@@ -790,7 +1279,6 @@
         .hidden {
             display: none !important;
         }
-        
     </style>
 
     <!-- Font Awesome for Icons -->
@@ -828,281 +1316,176 @@
     <section id="home" class="hero section">
         <div class="hero-container container">
             <span class="hero-tag">LIVE CHATBOT SHOWROOM</span>
-            <h1 class="hero-title">Compare chatbot options and try them live</h1>
-            <p class="hero-description">
-                Explore Starter, Business, and Premium to see how each chatbot level feels before choosing the right fit for your business.
-            </p>
-            <div class="hero-cta">
-                <button class="btn-primary" id="ctaButton">
-                    Try the Chatbots
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-                <button class="btn-secondary" id="learnMoreBtn">
-                    <i class="fas fa-file-lines"></i>
-                    Send Quick Inquiry
-                </button>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-bot-wrap">
+                    <div class="hero-bot-float">
+                        <img class="hero-bot-img" src="zero-tools-bot-face.png" alt="">
+                        <div class="hero-bot-shadow"></div>
+                    </div>
+                </div>
+
+                <div class="hero-speech-bubble">
+                    <div id="heroTypedText" class="hero-typed-text"></div>
+                    
+                </div>
             </div>
+
+            <h1 class="hero-title">Try chatbots live before choosing one</h1>
+            <p class="hero-description">
+                See how different AI chatbot experiences handle customer questions, lead capture,
+                and follow-up so you can choose the right fit for your business with confidence.
+            </p>
+
+            <div class="hero-cta">
+                <button class="btn-primary hero-main-btn" id="ctaButton">Try the Chatbots</button>
+                <button class="btn-secondary hero-secondary-btn" id="learnMoreBtn">Need Help Choosing?</button>
+            </div>
+
+            <p class="hero-helper">
+                No technical knowledge needed.<br>
+                Just try, compare, and choose your best starting point.
+            </p>
         </div>
     </section>
 
     <!-- Solutions Section -->
-    <section id="solutions" class="solutions section">
-        <div class="container">
-            <h2 class="section-title center">Choose the chatbot that fits your business</h2>
-            <p class="section-subtitle">
-                Each option is designed for a different level of business need. Open the demos, compare the experience, and choose the right starting point.
-            </p>
-
-            <div class="solutions-grid">
-                <!-- Zero Tools Starter Chatbot -->
-                <div class="solution-card">
-                    <span class="solution-badge">Foundation</span>
-                    <div class="solution-icon">
-                        <i class="fas fa-play-circle"></i>
-                    </div>
-                    <h3 class="solution-title">Starter</h3>
-                    <p class="solution-description">
-                        A simple starting point for businesses that want basic website chat handling without added complexity.
-                    </p>
-
-                    <div class="embed-slot" id="embed-bot1" role="region" aria-label="Starter chatbot interface">
-                        <div class="chatbot-placeholder">
-                            <i class="fas fa-robot chatbot-icon"></i>
-                            <h4>Open Zero Tools Starter Chatbot</h4>
-                            <p class="placeholder-label">Open the Zero Tools Starter Chatbot in its dedicated page.</p>
-
-                            <div class="bot-launch-group">
-                                <a href="bot1-english.html" class="solution-cta"
-                                    style="display:inline-block; width:auto; min-width:180px; margin-top:0;">
-                                    Open Zero Tools Starter Chatbot
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-features">
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Answers common website questions</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Captures simple leads</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Easy entry-level setup</span>
-                        </div>
-                    </div>
-                    <button type="button" class="solution-cta choose-plan-btn" data-plan="starter">
-    Choose Starter
-</button>
-                </div>
-
-                <!-- Zero Tools Business Chatbot -->
-                <div class="solution-card">
-                    <span class="solution-badge">Structured</span>
-                    <div class="solution-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="solution-title">Business</h3>
-                    <p class="solution-description">
-                        A guided website chatbot for businesses that need better lead capture, clearer routing, and more control.
-                    </p>
-
-                    <div class="embed-slot" id="embed-bot2" role="region" aria-label="Business chatbot interface">
-                        <div class="chatbot-placeholder">
-                            <i class="fas fa-robot chatbot-icon"></i>
-                            <h4>Open Zero Tools Business Chatbot</h4>
-                            <p class="placeholder-label">Open the Zero Tools Business Chatbot in its dedicated page.</p>
-
-                            <div class="bot-launch-group">
-                                <a href="bot2-english.html" class="solution-cta"
-                                    style="display:inline-block; width:auto; min-width:180px; margin-top:0;">
-                                    Open Zero Tools Business Chatbot
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-features">
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Guides visitors step by step</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Organizes lead capture</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Supports human handover</span>
-                        </div>
-                    </div>
-                    <button type="button" class="solution-cta choose-plan-btn" data-plan="business">
-    Choose Business
-</button>
-                </div>
-
-                <!-- Zero Tools Premium Chatbot -->
-                <div class="solution-card">
-                    <span class="solution-badge">Concierge</span>
-                    <div class="solution-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3 class="solution-title">Premium</h3>
-                    <p class="solution-description">
-                        A refined chatbot experience for businesses that need stronger qualification, polished replies, and brand fit.
-                    </p>
-
-                    <div class="embed-slot" id="embed-bot3" role="region" aria-label="Premium chatbot interface">
-                        <div class="chatbot-placeholder chatbot-placeholder--premium" id="bot3PremiumContainer">
-                            <i class="fas fa-robot chatbot-icon"></i>
-                            <h4>Open Zero Tools Premium Chatbot</h4>
-                            <p class="placeholder-label">Choose your preferred language after clicking.</p>
-
-                            <div class="bot-launch-group">
-                                <button
-                                    type="button"
-                                    class="solution-cta"
-                                    id="openBot3LanguageChooser"
-                                    aria-expanded="false"
-                                    aria-controls="bot3LanguageSlidePanel"
-                                    style="display:inline-block; width:auto; min-width:260px; margin-top:0;">
-                                    Open Zero Tools Premium Chatbot
-                                </button>
-                            </div>
-
-                            <div class="bot-language-slide-panel" id="bot3LanguageSlidePanel" hidden>
-                                <div class="bot-language-slide-card">
-                                    <div class="bot-language-slide-header">
-                                        <div class="bot-language-slide-copy">
-                                            <div class="bot-language-slide-title">Choose language</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="bot-language-slide-actions">
-                                        <button type="button" class="bot-language-option" id="openBot3EnglishInline">
-                                            English
-                                        </button>
-
-                                        <button type="button" class="bot-language-option" id="openBot3ArabicInline" lang="ar" dir="rtl">
-                                            العربية
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-features">
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>More refined conversations</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Stronger qualification flow</span>
-                        </div>
-                        <div class="solution-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Premium customer-facing feel</span>
-                        </div>
-                    </div>
-                    <button type="button" class="solution-cta choose-plan-btn" data-plan="premium">
-    Choose Premium
-</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Zero Tools Section -->
-    <section id="why" class="why-section section">
-        <div class="container">
-            <h2 class="section-title center">Why Zero Tools</h2>
-            <p class="section-subtitle">
-                Zero Tools is built to make chatbot selection clear, practical, and easy to understand.
-            </p>
-
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3 class="why-title">Clear options</h3>
-                    <p class="why-description">
-                        Starter, Business, and Premium are presented as distinct choices so visitors can understand the differences quickly.
-                    </p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3 class="why-title">Try before you decide</h3>
-                    <p class="why-description">
-                        The website is a live showroom, so people can explore the chatbot experience before moving forward.
-                    </p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-pen-ruler"></i>
-                    </div>
-                    <h3 class="why-title">Clean and practical</h3>
-                    <p class="why-description">
-                        The goal is a modern, minimal experience that stays focused on clarity instead of noise and distractions.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- Contact Section -->
-<section id="contact" class="contact-section section">
+    <section id="solutions" class="showcase-section section">
     <div class="container">
-        <h2 class="section-title center" id="contactLeadTitle">Need help choosing?</h2>
-        <p class="section-subtitle" id="contactLeadSubtitle">
-    Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.
-</p>
+        <h2 class="showcase-title">Choose the AI chatbot that fits your business</h2>
+        <p class="showcase-subtitle">
+            Each option offers a different way to handle customer conversations. Try them and see what fits your business best.
+        </p>
 
-        <div class="contact-form" style="text-align: center; max-width: 720px;">
-            <p id="contactLeadText" style="color: var(--dark-gray); margin-bottom: 16px;">
-    Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.
-</p>
+        <div class="showcase-grid">
+            <div class="showcase-card">
+                <h3 class="showcase-card-title">Basic</h3>
 
-            <p id="contactLeadNote" style="color: var(--dark-gray); margin-bottom: 28px;">
-    The Formal Implementation Brief is shared later once your project direction is clearer.
-</p>
+                <div class="showcase-preview showcase-preview-basic">
+                    <div class="preview-message">Hi, I’m the Basic chatbot.</div>
+                    <div class="preview-message">Ask me a question and see how I handle a simple website enquiry.</div>
+                    <img src="Basic.png" alt="Basic chatbot face" class="preview-bot-face">
+                    <a href="bot1-english.html" class="preview-try-btn preview-try-btn-basic">Try Basic</a>
+                </div>
 
-            <div class="hero-cta" style="margin-top: 0;">
-    <a href="https://forms.gle/8v73f3wvFtHjpeyt6" class="btn-primary" target="_blank" rel="noopener noreferrer">
-        Open Website Inquiry Form
-    </a>
+                <p class="showcase-description">
+                    A structured website experience for common enquiries and clear next steps.
+                </p>
 
-    <a href="mailto:support@zerotools.tech" class="btn-secondary">
-        Email Zero Tools
-    </a>
-</div>
+                <button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="starter">
+                    Choose Basic
+                </button>
+            </div>
 
-<p style="text-align: center; margin-top: 18px; color: var(--dark-gray); font-size: 0.96rem;">
-    or email us directly at
-    <span style="font-weight: 600; color: var(--black);">support@zerotools.tech</span>
-    <button
-    type="button"
-    id="copyEmailBtn"
-    aria-label="Copy email address"
-    title="Copy email address"
-    style="background: none; border: none; color: var(--accent-blue); cursor: pointer; padding: 0; margin-left: 8px; font-size: 1rem; display: inline-flex; align-items: center; vertical-align: middle;">
-    <i class="fa-regular fa-copy" aria-hidden="true"></i>
-</button>
-</p>
+            <div class="showcase-card">
+                <h3 class="showcase-card-title">Advanced</h3>
 
-<p id="copyEmailStatus" style="text-align: center; margin-top: 8px; color: var(--accent-blue); display: none; font-size: 0.95rem;">
-    Email address copied
-</p>
+                <div class="showcase-preview showcase-preview-advanced">
+                    <div class="preview-message">Hi, I’m the Advanced chatbot.</div>
+                    <div class="preview-message">I can guide the conversation better and collect more useful enquiry details.</div>
+                    <img src="Advanced.png" alt="Advanced chatbot face" class="preview-bot-face">
+                    <a href="bot2-english.html" class="preview-try-btn preview-try-btn-advanced">Try Advanced</a>
+                </div>
+
+                <p class="showcase-description">
+                    A more guided website experience for stronger conversation flow and better enquiry handling.
+                </p>
+
+                <button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="business">
+                    Choose Advanced
+                </button>
+            </div>
+
+            <div class="showcase-card">
+                <h3 class="showcase-card-title">Pro</h3>
+
+                <div class="showcase-preview showcase-preview-pro">
+                    <div class="preview-message">Hi, I’m the Pro chatbot.</div>
+                    <div class="preview-message">Try me to experience a more refined conversation and a stronger customer journey.</div>
+                    <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face">
+                    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro">Try Pro</a>
+                </div>
+
+                <p class="showcase-description">
+                    For a more polished experience and stronger qualification.
+                </p>
+
+                <button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="premium">
+                    Choose Pro
+                </button>
+            </div>
         </div>
     </div>
 </section>
+
+    <!-- Why Zero Tools Section -->
+    <section id="why" class="why-section section">
+    <div class="container">
+        <h2 class="why-refined-title">Why Zero Tools</h2>
+        <p class="why-refined-subtitle">
+            Zero Tools is built to make chatbot selection clear, practical, and easy to understand for real businesses.
+        </p>
+
+        <div class="why-refined-grid">
+            <div class="why-refined-card">
+                <h3 class="why-refined-card-title">No technical work on your side</h3>
+                <p class="why-refined-card-text">We handle the setup.</p>
+            </div>
+
+            <div class="why-refined-card">
+                <h3 class="why-refined-card-title">Try it before you choose it</h3>
+                <p class="why-refined-card-text">See how it feels before you decide</p>
+            </div>
+
+            <div class="why-refined-card">
+                <h3 class="why-refined-card-title">Different needs. Clear options.</h3>
+                <p class="why-refined-card-text">Each option has a clear role.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section">
+        <div class="container">
+            <h2 class="section-title center" id="contactLeadTitle">Need help choosing?</h2>
+            <p class="section-subtitle" id="contactLeadSubtitle">
+                Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.
+            </p>
+
+            <div class="contact-form" style="text-align: center; max-width: 720px;">
+                <p id="contactLeadText" style="color: var(--dark-gray); margin-bottom: 16px;">
+                    Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.
+                </p>
+
+                <p id="contactLeadNote" style="color: var(--dark-gray); margin-bottom: 28px;">
+                    The Formal Implementation Brief is shared later once your project direction is clearer.
+                </p>
+
+                <div class="hero-cta" style="margin-top: 0;">
+                    <a href="https://forms.gle/8v73f3wvFtHjpeyt6" class="btn-primary" target="_blank" rel="noopener noreferrer">
+                        Open Website Inquiry Form
+                    </a>
+
+                    <a href="mailto:support@zerotools.tech" class="btn-secondary">
+                        Email Zero Tools
+                    </a>
+                </div>
+
+                <p style="text-align: center; margin-top: 18px; color: var(--dark-gray); font-size: 0.96rem;">
+                    or email us directly at
+                    <span style="font-weight: 600; color: var(--black);">support@zerotools.tech</span>
+                    <button type="button" id="copyEmailBtn" aria-label="Copy email address" title="Copy email address" style="background: none; border: none; color: var(--accent-blue); cursor: pointer; padding: 0; margin-left: 8px; font-size: 1rem; display: inline-flex; align-items: center; vertical-align: middle;">
+                        <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                    </button>
+                </p>
+
+                <p id="copyEmailStatus" style="text-align: center; margin-top: 8px; color: var(--accent-blue); display: none; font-size: 0.95rem;">
+                    Email address copied
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1110,13 +1493,13 @@
             <div class="footer-content">
                 <div class="footer-logo">Zero Tools</div>
                 <div class="footer-links">
-    <a href="#home" class="footer-link">Home</a>
-    <a href="#solutions" class="footer-link">Chatbots</a>
-    <a href="#why" class="footer-link">Why Zero Tools</a>
-    <a href="#contact" class="footer-link">Contact</a>
-    <a href="privacy.html" class="footer-link">Privacy Policy</a>
-    <a href="terms.html" class="footer-link">Terms & Conditions</a>
-</div>
+                    <a href="#home" class="footer-link">Home</a>
+                    <a href="#solutions" class="footer-link">Chatbots</a>
+                    <a href="#why" class="footer-link">Why Zero Tools</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link">Terms & Conditions</a>
+                </div>
             </div>
             <div class="footer-bottom">
                 © 2026 Zero Tools. All rights reserved. Live AI chatbot showroom for modern businesses.
@@ -1252,7 +1635,7 @@
             });
         });
 
-            // ===== CTA Buttons =====
+        // ===== CTA Buttons =====
         document.getElementById('ctaButton').addEventListener('click', () => {
             document.getElementById('solutions').scrollIntoView({
                 behavior: 'smooth',
@@ -1284,128 +1667,176 @@
             }
         });
     </script>
-<script>
-    // ===== Choose Plan Buttons -> Next Step Panel =====
-    const choosePlanButtons = document.querySelectorAll('.choose-plan-btn');
-const contactSection = document.getElementById('contact');
-const contactLeadTitle = document.getElementById('contactLeadTitle');
-const contactLeadSubtitle = document.getElementById('contactLeadSubtitle');
-const contactLeadText = document.getElementById('contactLeadText');
-const contactLeadNote = document.getElementById('contactLeadNote');
 
+    <script>
+        // ===== Choose Plan Buttons -> Next Step Panel =====
+        const choosePlanButtons = document.querySelectorAll('.choose-plan-btn');
+        const contactSection = document.getElementById('contact');
+        const contactLeadTitle = document.getElementById('contactLeadTitle');
+        const contactLeadSubtitle = document.getElementById('contactLeadSubtitle');
+        const contactLeadText = document.getElementById('contactLeadText');
+        const contactLeadNote = document.getElementById('contactLeadNote');
 
-const defaultContactCopy = {
-    title: 'Need help choosing?',
-    subtitle: 'Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.',
-    text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
-    note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
-};
+        const defaultContactCopy = {
+            title: 'Need help choosing?',
+            subtitle: 'Explore the chatbot demos, submit a quick inquiry, or contact us directly if you want help choosing the right fit.',
+            text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+            note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+        };
 
-function applyContactCopy(copy) {
-    if (contactLeadTitle) {
-        contactLeadTitle.textContent = copy.title;
-    }
-
-    if (contactLeadSubtitle) {
-        contactLeadSubtitle.textContent = copy.subtitle;
-    }
-
-    if (contactLeadText) {
-        contactLeadText.textContent = copy.text;
-    }
-
-    if (contactLeadNote) {
-        contactLeadNote.textContent = copy.note;
-    }
-}
-
-function resetContactCopy() {
-    applyContactCopy(defaultContactCopy);
-}
-
-const learnMoreBtn = document.getElementById('learnMoreBtn');
-if (learnMoreBtn) {
-    learnMoreBtn.addEventListener('click', resetContactCopy);
-}
-
-const ctaButton = document.getElementById('ctaButton');
-if (ctaButton) {
-    ctaButton.addEventListener('click', resetContactCopy);
-}
-
-document.querySelectorAll('a[href="#home"], a[href="#solutions"], a[href="#why"], a[href="#contact"]').forEach(link => {
-    link.addEventListener('click', resetContactCopy);
-});
-
-
-
-
-
-const contactCopy = {
-    starter: {
-        title: 'Starter selected',
-        subtitle: 'You selected Starter. Submit a quick inquiry so we can review your interest and contact you about a simple website chatbot setup.',
-        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
-        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
-    },
-    business: {
-        title: 'Business selected',
-        subtitle: 'You selected Business. Submit a quick inquiry so we can review your interest and contact you about a more guided chatbot setup.',
-        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
-        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
-    },
-    premium: {
-        title: 'Premium selected',
-        subtitle: 'You selected Premium. Submit a quick inquiry so we can review your interest and contact you about a more refined chatbot setup.',
-        text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
-        note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
-    }
-};
-
-choosePlanButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const selectedPlan = button.getAttribute('data-plan');
-        const selectedCopy = contactCopy[selectedPlan];
-
-        if (!selectedCopy || !contactSection) return;
-
-               applyContactCopy(selectedCopy);
-
-        contactSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    });
-});
-const copyEmailBtn = document.getElementById('copyEmailBtn');
-const copyEmailStatus = document.getElementById('copyEmailStatus');
-
-if (copyEmailBtn) {
-    copyEmailBtn.addEventListener('click', async () => {
-        try {
-            await navigator.clipboard.writeText('support@zerotools.tech');
-
-            if (copyEmailStatus) {
-                copyEmailStatus.style.display = 'block';
-                copyEmailStatus.textContent = 'Email address copied';
-
-                setTimeout(() => {
-                    copyEmailStatus.style.display = 'none';
-                }, 1800);
+        function applyContactCopy(copy) {
+            if (contactLeadTitle) {
+                contactLeadTitle.textContent = copy.title;
             }
-        } catch (error) {
-            if (copyEmailStatus) {
-                copyEmailStatus.style.display = 'block';
-                copyEmailStatus.textContent = 'Could not copy email address';
 
-                setTimeout(() => {
-                    copyEmailStatus.style.display = 'none';
-                }, 1800);
+            if (contactLeadSubtitle) {
+                contactLeadSubtitle.textContent = copy.subtitle;
+            }
+
+            if (contactLeadText) {
+                contactLeadText.textContent = copy.text;
+            }
+
+            if (contactLeadNote) {
+                contactLeadNote.textContent = copy.note;
             }
         }
-    });
-}
-</script>
+
+        function resetContactCopy() {
+            applyContactCopy(defaultContactCopy);
+        }
+
+        const learnMoreBtn = document.getElementById('learnMoreBtn');
+        if (learnMoreBtn) {
+            learnMoreBtn.addEventListener('click', resetContactCopy);
+        }
+
+        const ctaButton = document.getElementById('ctaButton');
+        if (ctaButton) {
+            ctaButton.addEventListener('click', resetContactCopy);
+        }
+
+        document.querySelectorAll('a[href="#home"], a[href="#solutions"], a[href="#why"], a[href="#contact"]').forEach(link => {
+            link.addEventListener('click', resetContactCopy);
+        });
+
+        const contactCopy = {
+            starter: {
+                title: 'Starter selected',
+                subtitle: 'You selected Starter. Submit a quick inquiry so we can review your interest and contact you about a simple website chatbot setup.',
+                text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+                note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+            },
+            business: {
+                title: 'Business selected',
+                subtitle: 'You selected Business. Submit a quick inquiry so we can review your interest and contact you about a more guided chatbot setup.',
+                text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+                note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+            },
+            premium: {
+                title: 'Premium selected',
+                subtitle: 'You selected Premium. Submit a quick inquiry so we can review your interest and contact you about a more refined chatbot setup.',
+                text: 'Use our quick inquiry form to tell us what you need. It opens in a new tab and sends your details directly into the Zero Tools response system.',
+                note: 'The Formal Implementation Brief is shared later once your project direction is clearer.'
+            }
+        };
+
+        choosePlanButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedPlan = button.getAttribute('data-plan');
+                const selectedCopy = contactCopy[selectedPlan];
+
+                if (!selectedCopy || !contactSection) return;
+
+                applyContactCopy(selectedCopy);
+
+                contactSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        const copyEmailStatus = document.getElementById('copyEmailStatus');
+
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText('support@zerotools.tech');
+
+                    if (copyEmailStatus) {
+                        copyEmailStatus.style.display = 'block';
+                        copyEmailStatus.textContent = 'Email address copied';
+
+                        setTimeout(() => {
+                            copyEmailStatus.style.display = 'none';
+                        }, 1800);
+                    }
+                } catch (error) {
+                    if (copyEmailStatus) {
+                        copyEmailStatus.style.display = 'block';
+                        copyEmailStatus.textContent = 'Could not copy email address';
+
+                        setTimeout(() => {
+                            copyEmailStatus.style.display = 'none';
+                        }, 1800);
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script>
+        // ===== Hero Typing Bubble =====
+        const heroMessages = [
+    { t: "Welcome to Zero Tools", d: "ltr" },
+    { t: "أهلاً بك في Zero Tools", d: "rtl" },
+    { t: "欢迎来到 Zero Tools", d: "ltr" },
+    { t: "Bienvenue chez Zero Tools", d: "ltr" },
+    { t: "Bienvenido a Zero Tools", d: "ltr" }
+];
+
+        let heroMessageIndex = 0;
+        let heroCharIndex = 0;
+        let heroDeleting = false;
+
+        function runHeroTyping() {
+            const textEl = document.getElementById('heroTypedText');
+
+if (!textEl) return;
+
+const currentMessage = heroMessages[heroMessageIndex];
+
+textEl.dir = currentMessage.d;
+textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
+
+            if (!heroDeleting) {
+                heroCharIndex++;
+            } else {
+                heroCharIndex--;
+            }
+
+            textEl.innerHTML = currentMessage.t.substring(0, heroCharIndex) + '<span class="hero-cursor"></span>';
+
+            let speed = heroDeleting ? 40 : 70;
+
+            if (!heroDeleting && heroCharIndex === currentMessage.t.length) {
+                heroDeleting = true;
+                speed = 1200;
+            }
+
+            if (heroDeleting && heroCharIndex === 0) {
+                heroDeleting = false;
+                heroMessageIndex = (heroMessageIndex + 1) % heroMessages.length;
+                speed = 300;
+            }
+
+            setTimeout(runHeroTyping, speed);
+        }
+
+        runHeroTyping();
+    </script>
 </body>
 
 </html>
