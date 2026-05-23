@@ -90,6 +90,8 @@
             --heading-text: var(--black);
             --border-soft: var(--medium-gray);
             --surface-soft: var(--light-gray);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --hero-bg: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
             --transition: all 0.3s ease;
             --border-radius: 12px;
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -107,6 +109,8 @@
             --heading-text: #f8fafc;
             --border-soft: rgba(148, 163, 184, 0.28);
             --surface-soft: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.92);
+            --hero-bg: linear-gradient(135deg, var(--section-bg-soft) 0%, var(--section-bg) 100%);
             --brand-bg: rgba(0, 165, 229, 0.12);
             --brand-bg-soft: rgba(0, 165, 229, 0.08);
         }
@@ -173,10 +177,10 @@ body.zt-section-mode .zt-section-panel.is-section-active {
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--header-bg);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid var(--medium-gray);
+            border-bottom: 1px solid var(--border-soft);
             padding: 20px 0;
         }
 
@@ -246,8 +250,8 @@ body.zt-section-mode .zt-section-panel.is-section-active {
         .hero {
             padding-top: 140px;
             padding-bottom: 100px;
-            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
-            border-bottom: 1px solid var(--medium-gray);
+            background: var(--hero-bg);
+            border-bottom: 1px solid var(--border-soft);
         }
 
         .hero-container {
