@@ -3305,7 +3305,7 @@ html[data-theme="dark"] .why-refined-card {
     // ===== Showroom Section Mode + Smooth Scrolling + Browser History =====
 const sectionPanels = document.querySelectorAll('.zt-section-panel');
 if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+    history.scrollRestoration = 'auto';
 }
 
 function setActiveSectionPanel(targetId) {
@@ -3361,6 +3361,8 @@ setActiveSectionPanel(null);
 // index.html#pricing
 // index.html#faq
 // index.html#how-it-works
+const navigationEntry = performance.getEntriesByType('navigation')[0];
+const isPageReload = navigationEntry && navigationEntry.type === 'reload';
 const initialHash = window.location.hash;
 
 if (initialHash) {
@@ -3369,12 +3371,14 @@ if (initialHash) {
     if (initialTarget) {
         setActiveSectionPanel(initialHash);
 
-        requestAnimationFrame(() => {
-            window.scrollTo({
-                top: initialTarget.offsetTop - 100,
-                behavior: 'auto'
+        if (!isPageReload) {
+            requestAnimationFrame(() => {
+                window.scrollTo({
+                    top: initialTarget.offsetTop - 100,
+                    behavior: 'auto'
+                });
             });
-        });
+        }
     }
 }
 
@@ -3637,6 +3641,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addonsToggle = document.getElementById('pricingAddonsToggle');
     const addonsList = document.getElementById('pricingAddonsList');
     const detailButtons = document.querySelectorAll('.pricing-addon-detail-btn');
+    const addonsOpenStorageKey = 'zeroToolsPricingAddonsOpen';
 
     if (!addonsToggle || !addonsList) return;
 
@@ -3678,6 +3683,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    if (
+        window.location.hash === '#pricing' &&
+        sessionStorage.getItem(addonsOpenStorageKey) === 'true'
+    ) {
+        addonsList.classList.add('is-open');
+        addonsToggle.textContent = 'Hide add-ons';
+        addonsToggle.setAttribute('aria-expanded', 'true');
+    }
+
     addonsToggle.addEventListener('click', function () {
         const isOpen = addonsList.classList.toggle('is-open');
 
@@ -3686,6 +3700,7 @@ document.addEventListener('DOMContentLoaded', function () {
             : 'See available add-ons';
 
         addonsToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        sessionStorage.setItem(addonsOpenStorageKey, isOpen ? 'true' : 'false');
 
         if (!isOpen) {
             closeAllAddonDetails();
