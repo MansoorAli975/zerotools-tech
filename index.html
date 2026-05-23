@@ -237,6 +237,48 @@ body.zt-section-mode .zt-section-panel.is-section-active {
             width: 100%;
         }      
 
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            background: var(--surface-soft);
+            color: var(--dark-gray);
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            background: var(--white);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 3px;
+        }
+
+        .theme-toggle-icon {
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle-label {
+            display: inline-block;
+        }
+
+        html[data-theme="dark"] .theme-toggle {
+            background: var(--section-bg-soft);
+            color: var(--text-main);
+            border-color: var(--border-soft);
+        }
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -2386,6 +2428,10 @@ body.zt-section-mode .zt-section-panel.is-section-active {
     <a href="#why" class="nav-link">Why Zero Tools</a>
     <a href="#faq" class="nav-link">FAQs</a>
     <a href="#contact" class="nav-link">Contact</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <i class="fas fa-moon theme-toggle-icon" aria-hidden="true"></i>
+        <span class="theme-toggle-label">Dark</span>
+    </button>
 </nav>
         </div>
     </header>
@@ -3134,6 +3180,45 @@ body.zt-section-mode .zt-section-panel.is-section-active {
     </footer>
 
     <script>
+    // ===== Theme Toggle =====
+    const themeRoot = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleIcon = themeToggle ? themeToggle.querySelector('.theme-toggle-icon') : null;
+    const themeToggleLabel = themeToggle ? themeToggle.querySelector('.theme-toggle-label') : null;
+    const savedTheme = localStorage.getItem('zeroToolsTheme');
+
+    function setTheme(theme) {
+        const isDark = theme === 'dark';
+
+        if (isDark) {
+            themeRoot.setAttribute('data-theme', 'dark');
+            localStorage.setItem('zeroToolsTheme', 'dark');
+        } else {
+            themeRoot.removeAttribute('data-theme');
+            localStorage.setItem('zeroToolsTheme', 'light');
+        }
+
+        if (!themeToggle || !themeToggleIcon || !themeToggleLabel) return;
+
+        themeToggle.setAttribute(
+            'aria-label',
+            isDark ? 'Switch to light theme' : 'Switch to dark theme'
+        );
+        themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        themeToggleIcon.classList.toggle('fa-moon', !isDark);
+        themeToggleIcon.classList.toggle('fa-sun', isDark);
+        themeToggleLabel.textContent = isDark ? 'Light' : 'Dark';
+    }
+
+    setTheme(savedTheme === 'dark' ? 'dark' : 'light');
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = themeRoot.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            setTheme(nextTheme);
+        });
+    }
+
     // ===== Mobile Menu Toggle =====
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
