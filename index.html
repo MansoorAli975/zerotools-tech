@@ -390,14 +390,11 @@ body.zt-section-mode .zt-section-panel.is-section-active {
             filter: blur(6px);
         }
 
-
-
-
 .hero-speech-bubble {
     position: absolute;
     right: 40px;
     top: 62px;
-    width: 220px;
+    width: 225px;
     background: rgba(248, 252, 255, 0.76);
     border: 1px solid rgba(173, 216, 255, 0.40);
     border-radius: 16px;
@@ -2524,8 +2521,22 @@ html[data-theme="dark"] .why-refined-card {
     }   
 
     .hero-speech-bubble {
-        width: 220px;
+        width: 225px;
     }
+}
+
+html[data-theme="dark"] .hero-speech-bubble {
+    background: linear-gradient(135deg, rgba(0, 165, 229, 0.16) 0%, rgba(7, 21, 34, 0.88) 100%);
+    border-color: rgba(0, 165, 229, 0.32);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 12px 28px rgba(0, 165, 229, 0.08);
+}
+
+html[data-theme="dark"] .hero-typed-text {
+    color: var(--heading-text);
+}
+
+html[data-theme="dark"] .hero-helper {
+    color: var(--text-muted);
 }
 
         /* ===== Utility Classes ===== */
