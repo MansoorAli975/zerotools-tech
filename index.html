@@ -3239,6 +3239,9 @@ html[data-theme="dark"] .why-refined-card {
     const themeRoot = document.documentElement;
     const themeToggle = document.getElementById('themeToggle');
     const themeToggleIcon = themeToggle ? themeToggle.querySelector('.theme-toggle-icon') : null;
+    const siteLogoImg = document.querySelector('.logo-img');
+    const lightLogoSrc = 'logo.png';
+    const darkLogoSrc = 'logo-dark.png';
     const savedTheme = localStorage.getItem('zeroToolsTheme');
 
     function setTheme(theme) {
@@ -3250,6 +3253,10 @@ html[data-theme="dark"] .why-refined-card {
         } else {
             themeRoot.removeAttribute('data-theme');
             localStorage.setItem('zeroToolsTheme', 'light');
+        }
+
+        if (siteLogoImg) {
+            siteLogoImg.src = isDark ? darkLogoSrc : lightLogoSrc;
         }
 
         if (!themeToggle || !themeToggleIcon) return;
