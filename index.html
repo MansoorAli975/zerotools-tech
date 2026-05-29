@@ -2541,6 +2541,64 @@ html[data-theme="dark"] .contact-selection-email-strong {
             font-size: 0.9rem;
         }
 
+        .back-to-top-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 22px;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 165, 229, 0.28);
+            background: #ffffff;
+            color: var(--accent-blue);
+            box-shadow: 0 12px 28px rgba(17, 24, 39, 0.14);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 900;
+        }
+
+        .back-to-top-btn.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .back-to-top-btn:focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 3px;
+        }
+
+        html[data-theme="dark"] .back-to-top-btn {
+            background: rgba(7, 21, 34, 0.88);
+            color: var(--heading-text);
+            border-color: rgba(0, 165, 229, 0.36);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34);
+        }
+
+        html[data-theme="dark"] .back-to-top-btn:hover {
+            background: rgba(7, 21, 34, 0.88);
+            color: var(--accent-blue);
+            border-color: rgba(0, 165, 229, 0.52);
+        }
+
+        @media (min-width: 769px) {
+            .back-to-top-btn {
+                display: none;
+            }
+        }
+
         /* ===== Responsive Design ===== */
 @media (max-width: 1024px) {
     .container {
@@ -3528,6 +3586,10 @@ html[data-theme="dark"] .hero-helper {
         </div>
     </footer>
 
+    <button type="button" class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
     <script>
     // ===== Theme Toggle =====
     const themeRoot = document.documentElement;
@@ -3577,8 +3639,10 @@ html[data-theme="dark"] .hero-helper {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
 
-    mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    mobileMenuBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        navLinks.classList.toggle('active');
 
     const isMenuOpen = navLinks.classList.contains('active');
 
@@ -3601,6 +3665,21 @@ html[data-theme="dark"] .hero-helper {
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
         mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
     });
+});
+
+document.addEventListener('click', function (event) {
+    if (!navLinks || !mobileMenuBtn) return;
+
+    const isMenuOpen = navLinks.classList.contains('active');
+    const clickedInsideMenu = navLinks.contains(event.target);
+    const clickedMenuButton = mobileMenuBtn.contains(event.target);
+
+    if (isMenuOpen && !clickedInsideMenu && !clickedMenuButton) {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+    }
 });
 
     // ===== Showroom Section Mode + Smooth Scrolling + Browser History =====
@@ -3694,6 +3773,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         scrollToTarget(targetId);
     });
 });
+
+const backToTopBtn = document.getElementById('backToTopBtn');
+
+function updateBackToTopButton() {
+    if (!backToTopBtn) return;
+
+    backToTopBtn.classList.toggle('is-visible', window.scrollY > 450);
+}
+
+if (backToTopBtn) {
+    window.addEventListener('scroll', updateBackToTopButton);
+
+    backToTopBtn.addEventListener('click', () => {
+        if (typeof scrollToTarget === 'function') {
+            scrollToTarget('#home');
+        } else {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    updateBackToTopButton();
+}
 
 // Handle browser Back / Forward buttons.
 window.addEventListener('popstate', () => {
