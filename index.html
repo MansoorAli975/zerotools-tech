@@ -962,6 +962,56 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     align-items: stretch;
 }
 
+.pricing-pro-combined {
+    max-width: 1050px;
+    margin: 0 auto 24px;
+    padding: 24px 22px;
+    background: linear-gradient(135deg, #ffffff 0%, #efe9d8 100%);
+    border: 1px solid rgba(200, 176, 77, 0.38);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(200, 176, 77, 0.10);
+}
+
+.pricing-pro-combined-copy {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.pricing-pro-combined-title {
+    font-size: 1.22rem;
+    font-weight: 800;
+    color: var(--heading-text);
+    margin-bottom: 8px;
+}
+
+.pricing-pro-combined-text,
+.pricing-pro-combined-note {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.pricing-pro-combined-values {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.pricing-pro-combined-note {
+    text-align: center;
+}
+
+html[data-theme="dark"] .pricing-pro-combined {
+    background: linear-gradient(
+        135deg,
+        rgba(200, 176, 77, 0.20) 0%,
+        rgba(15, 34, 51, 0.96) 100%
+    );
+    border-color: rgba(200, 176, 77, 0.30);
+    box-shadow: none;
+}
+
 .pricing-card {
     background: var(--card-bg);
     border: 1px solid var(--border-soft);
@@ -1527,6 +1577,10 @@ html[data-theme="dark"] .pricing-cta-secondary:hover {
 }
 
 @media (max-width: 768px) {
+    .pricing-pro-combined-values {
+        grid-template-columns: 1fr;
+    }
+
     .pricing-detail-grid {
         grid-template-columns: 1fr;
         max-width: 640px;
@@ -1567,6 +1621,14 @@ html[data-theme="dark"] .pricing-cta-secondary:hover {
 
     .pricing-row-value {
         font-size: 0.94rem;
+    }
+
+    .pricing-pro-combined {
+        padding: 22px 18px;
+    }
+
+    .pricing-pro-combined-title {
+        font-size: 1.12rem;
     }
 
     .pricing-usage-note {
@@ -3056,7 +3118,7 @@ html[data-theme="dark"] .hero-helper {
     <h3 class="pricing-card-title">Pro</h3>
 
     <div class="pricing-panel">
-        <p class="pricing-card-label">Smart visitor handling</p>
+        <p class="pricing-card-label">Pro English or Pro Arabic</p>
 
         <div class="pricing-row">
             <span class="pricing-row-label">Setup fee</span>
@@ -3074,6 +3136,38 @@ html[data-theme="dark"] .hero-helper {
         </div>
     </div>
 </div>
+        </div>
+
+        <div class="pricing-pro-combined">
+            <div class="pricing-pro-combined-copy">
+                <h3 class="pricing-pro-combined-title">Pro English &amp; Pro Arabic</h3>
+                <p class="pricing-pro-combined-text">
+                    Two dedicated Pro chatbot deployments for businesses operating in both English and Arabic.
+                    This is not one bilingual chatbot.
+                </p>
+            </div>
+
+            <div class="pricing-pro-combined-values">
+                <div class="pricing-row">
+                    <span class="pricing-row-label">Combined setup fee</span>
+                    <span class="pricing-row-value">from $1,850</span>
+                </div>
+
+                <div class="pricing-row">
+                    <span class="pricing-row-label">Combined platform fee</span>
+                    <span class="pricing-row-value">$298/month</span>
+                </div>
+
+                <div class="pricing-row">
+                    <span class="pricing-row-label">Combined optional support</span>
+                    <span class="pricing-row-value">from $199/month</span>
+                </div>
+            </div>
+
+            <p class="pricing-pro-combined-note">
+                Combined support covers reasonable shared maintenance and language adaptation. Large changes,
+                new flows, extensive language-specific work, integrations, or major redesigns require separate review.
+            </p>
         </div>
 
         <p class="pricing-usage-note">
