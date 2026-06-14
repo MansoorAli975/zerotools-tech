@@ -749,6 +749,20 @@ html[data-theme="dark"] .preview-message {
     bottom: 74px;
 }
 
+.preview-try-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: auto;
+}
+
+.preview-try-group .preview-try-btn {
+    margin-top: 0;
+    padding: 0 6px;
+    font-size: 0.86rem;
+    text-align: center;
+}
+
 .preview-try-btn {
     display: inline-flex;
     align-items: center;
@@ -2949,7 +2963,15 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Hi, I’m the Pro chatbot.</div>
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
                     <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro">Try Pro</a>
+                    <div class="preview-try-group">
+    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro">
+        Try Pro English
+    </a>
+
+    <a href="bot3-arabic.html" class="preview-try-btn preview-try-btn-pro">
+        Try Pro Arabic
+    </a>
+</div>
                 </div>
 
     <p class="showcase-description">
