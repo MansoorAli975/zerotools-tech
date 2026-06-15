@@ -648,6 +648,10 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     background: var(--section-bg);
 }
 
+.showcase-section .container {
+    max-width: 1310px;
+}
+
 .showcase-title {
     font-size: clamp(2rem, 4vw, 3rem);
     text-align: center;
@@ -682,6 +686,12 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     transition: var(--transition);
 }
 
+#proShowcaseCard {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
 .showcase-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
@@ -704,6 +714,103 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     justify-content: flex-start;
     position: relative;
     overflow: hidden;
+}
+
+.showcase-live-chat {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 0;
+    border-radius: inherit;
+    box-shadow: none;
+}
+
+.showcase-live-chat[hidden] {
+    display: none;
+}
+
+.showcase-live-chat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 10px 12px;
+    color: var(--heading-text);
+    background: var(--section-bg-soft);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.showcase-live-chat-toolbar strong {
+    font-size: 0.92rem;
+}
+
+.showcase-live-chat-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 9px;
+    background: var(--card-bg);
+    color: var(--heading-text);
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.showcase-live-chat-close:hover {
+    border-color: var(--brand-blue);
+    color: var(--brand-blue-hover);
+}
+
+.showcase-live-chat-container {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.showcase-live-chat-container > *,
+.showcase-live-chat-container iframe {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.showcase-card.is-chat-active:hover {
+    transform: none;
+}
+
+html[data-theme="dark"] .showcase-live-chat {
+    background: var(--card-bg);
+    border-color: var(--border-soft);
+    box-shadow: none;
+}
+
+html[data-theme="dark"] .showcase-live-chat-toolbar {
+    background: rgba(7, 21, 34, 0.82);
+    border-bottom-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .showcase-live-chat-close {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--heading-text);
+    border-color: rgba(232, 244, 251, 0.34);
+}
+
+html[data-theme="dark"] .showcase-live-chat-close:hover {
+    color: #ffffff;
+    border-color: var(--accent-blue);
 }
 
 .showcase-preview-basic {
@@ -897,6 +1004,15 @@ html[data-theme="dark"] .showcase-plan-points li::before {
         min-height: 330px;
     }
 
+    .showcase-live-chat-toolbar {
+        min-height: 46px;
+        padding: 9px 10px;
+    }
+
+    .showcase-live-chat-toolbar strong {
+        font-size: 0.86rem;
+    }
+
     .preview-message {
         width: 88%;
         font-size: 0.92rem;
@@ -936,6 +1052,17 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     border-top: 1px solid var(--border-soft);
 }
 
+@media (min-width: 1025px) {
+    .pricing-section .container {
+        max-width: 1310px;
+    }
+
+    .pricing-section .pricing-card-grid,
+    .pricing-addons {
+        max-width: none;
+    }
+}
+
 .pricing-title {
     font-size: clamp(2rem, 4vw, 2.8rem);
     text-align: center;
@@ -960,56 +1087,6 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 26px;
     align-items: stretch;
-}
-
-.pricing-pro-combined {
-    max-width: 1050px;
-    margin: 0 auto 24px;
-    padding: 24px 22px;
-    background: linear-gradient(135deg, #ffffff 0%, #efe9d8 100%);
-    border: 1px solid rgba(200, 176, 77, 0.38);
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(200, 176, 77, 0.10);
-}
-
-.pricing-pro-combined-copy {
-    text-align: center;
-    margin-bottom: 18px;
-}
-
-.pricing-pro-combined-title {
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: var(--heading-text);
-    margin-bottom: 8px;
-}
-
-.pricing-pro-combined-text,
-.pricing-pro-combined-note {
-    color: var(--text-muted);
-    font-size: 0.94rem;
-    line-height: 1.5;
-}
-
-.pricing-pro-combined-values {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-.pricing-pro-combined-note {
-    text-align: center;
-}
-
-html[data-theme="dark"] .pricing-pro-combined {
-    background: linear-gradient(
-        135deg,
-        rgba(200, 176, 77, 0.20) 0%,
-        rgba(15, 34, 51, 0.96) 100%
-    );
-    border-color: rgba(200, 176, 77, 0.30);
-    box-shadow: none;
 }
 
 .pricing-card {
@@ -1055,6 +1132,59 @@ html[data-theme="dark"] .pricing-pro-combined {
 
 .pricing-card-pro .pricing-panel {
     background: #efe9d8;
+}
+
+.pricing-pro-note {
+    width: 100%;
+    min-height: 18px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+}
+
+.pricing-pro-note[hidden] {
+    display: none;
+}
+
+.pricing-pro-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 1px solid rgba(200, 176, 77, 0.62);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--heading-text);
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.pricing-pro-toggle:hover {
+    background: rgba(200, 176, 77, 0.08);
+    color: var(--heading-text);
+    border-color: rgba(169, 142, 40, 0.82);
+    transform: translateY(-1px);
+}
+
+.pricing-pro-toggle:focus-visible {
+    outline: 3px solid rgba(0, 165, 229, 0.28);
+    outline-offset: 2px;
+}
+
+.pricing-pro-toggle[aria-pressed="true"] {
+    background: #ffffff;
+    color: var(--heading-text);
+    border-color: rgba(169, 142, 40, 0.88);
 }
 
 .pricing-card-label {
@@ -1122,6 +1252,28 @@ html[data-theme="dark"] .pricing-card-advanced .pricing-panel {
 html[data-theme="dark"] .pricing-card-pro .pricing-panel {
     background: linear-gradient(135deg, rgba(200, 176, 77, 0.22) 0%, rgba(15, 34, 51, 0.96) 100%);
     border: 1px solid rgba(200, 176, 77, 0.28);
+}
+
+html[data-theme="dark"] .pricing-pro-note {
+    color: var(--text-muted);
+}
+
+html[data-theme="dark"] .pricing-pro-toggle {
+    background: rgba(200, 176, 77, 0.12);
+    color: var(--heading-text);
+    border-color: rgba(200, 176, 77, 0.52);
+}
+
+html[data-theme="dark"] .pricing-pro-toggle:hover {
+    background: rgba(200, 176, 77, 0.20);
+    color: #ffffff;
+    border-color: rgba(200, 176, 77, 0.76);
+}
+
+html[data-theme="dark"] .pricing-pro-toggle[aria-pressed="true"] {
+    background: rgba(200, 176, 77, 0.30);
+    color: #ffffff;
+    border-color: #c8b04d;
 }
 
 html[data-theme="dark"] .pricing-row {
@@ -1577,10 +1729,6 @@ html[data-theme="dark"] .pricing-cta-secondary:hover {
 }
 
 @media (max-width: 768px) {
-    .pricing-pro-combined-values {
-        grid-template-columns: 1fr;
-    }
-
     .pricing-detail-grid {
         grid-template-columns: 1fr;
         max-width: 640px;
@@ -1623,12 +1771,15 @@ html[data-theme="dark"] .pricing-cta-secondary:hover {
         font-size: 0.94rem;
     }
 
-    .pricing-pro-combined {
-        padding: 22px 18px;
+    .pricing-pro-note {
+        font-size: 0.78rem;
     }
 
-    .pricing-pro-combined-title {
-        font-size: 1.12rem;
+    .pricing-pro-toggle {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 0.82rem;
+        white-space: normal;
     }
 
     .pricing-usage-note {
@@ -3077,15 +3228,15 @@ html[data-theme="dark"] .hero-helper {
 </button>
             </div>
 
-            <div class="showcase-card">
+            <div class="showcase-card" id="proShowcaseCard">
                 <h3 class="showcase-card-title">Pro</h3>
 
-                <div class="showcase-preview showcase-preview-pro">
+                <div class="showcase-preview showcase-preview-pro" id="proShowcasePreview">
                     <div class="preview-message">Hi, I’m the Pro chatbot.</div>
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
                     <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
                     <div class="preview-try-group">
-    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro">
+    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
         Try Pro English
     </a>
 
@@ -3094,6 +3245,31 @@ html[data-theme="dark"] .hero-helper {
     </a>
 </div>
                 </div>
+
+<div
+    id="proEnglishChatPanel"
+    class="showcase-live-chat"
+    hidden
+    tabindex="-1"
+    aria-label="Pro English live chatbot">
+
+    <div class="showcase-live-chat-toolbar">
+        <strong>Pro English live chat</strong>
+
+        <button
+            type="button"
+            id="closeProEnglishChat"
+            class="showcase-live-chat-close"
+            aria-label="Close Pro English live chat">
+            Close
+        </button>
+    </div>
+
+    <div
+        id="zt_pro_english_chat"
+        class="showcase-live-chat-container">
+    </div>
+</div>
 
     <p class="showcase-description">
     A smart visitor-handling setup for different visitor situations, stronger enquiry details, and structured follow-up.
@@ -3174,59 +3350,43 @@ html[data-theme="dark"] .hero-helper {
             </div>
 
             <div class="pricing-card pricing-card-pro">
-    <h3 class="pricing-card-title">Pro</h3>
+    <h3 class="pricing-card-title" id="proPricingTitle">Pro</h3>
 
-    <div class="pricing-panel">
-        <p class="pricing-card-label">Pro English or Pro Arabic</p>
+    <div class="pricing-panel" id="proPricingPanel" aria-live="polite">
+        <p class="pricing-card-label" id="proPricingDescription">
+            Smart website chatbot
+        </p>
 
         <div class="pricing-row">
-            <span class="pricing-row-label">Setup fee</span>
-            <span class="pricing-row-value">from $1,100</span>
+            <span class="pricing-row-label" id="proSetupLabel">Setup fee</span>
+            <span class="pricing-row-value" id="proSetupValue">from $1,100</span>
         </div>
 
         <div class="pricing-row">
-            <span class="pricing-row-label">Monthly platform fee</span>
-            <span class="pricing-row-value">$149/month</span>
+            <span class="pricing-row-label" id="proPlatformLabel">Monthly platform fee</span>
+            <span class="pricing-row-value" id="proPlatformValue">$149/month</span>
         </div>
 
         <div class="pricing-row">
-            <span class="pricing-row-label">Optional support</span>
-            <span class="pricing-row-value">from $129/month</span>
+            <span class="pricing-row-label" id="proSupportLabel">Optional support</span>
+            <span class="pricing-row-value" id="proSupportValue">from $129/month</span>
         </div>
+
+        <p
+            class="pricing-pro-note"
+            id="proPricingNote"
+            hidden>
+        </p>
+
+        <button
+            type="button"
+            id="toggleProPricing"
+            class="pricing-pro-toggle"
+            aria-pressed="false">
+            View Pro English &amp; Pro Arabic
+        </button>
     </div>
 </div>
-        </div>
-
-        <div class="pricing-pro-combined">
-            <div class="pricing-pro-combined-copy">
-                <h3 class="pricing-pro-combined-title">Pro English &amp; Pro Arabic</h3>
-                <p class="pricing-pro-combined-text">
-                    Two dedicated Pro chatbot deployments for businesses operating in both English and Arabic.
-                    This is not one bilingual chatbot.
-                </p>
-            </div>
-
-            <div class="pricing-pro-combined-values">
-                <div class="pricing-row">
-                    <span class="pricing-row-label">Combined setup fee</span>
-                    <span class="pricing-row-value">from $1,850</span>
-                </div>
-
-                <div class="pricing-row">
-                    <span class="pricing-row-label">Combined platform fee</span>
-                    <span class="pricing-row-value">$298/month</span>
-                </div>
-
-                <div class="pricing-row">
-                    <span class="pricing-row-label">Combined optional support</span>
-                    <span class="pricing-row-value">from $199/month</span>
-                </div>
-            </div>
-
-            <p class="pricing-pro-combined-note">
-                Combined support covers reasonable shared maintenance and language adaptation. Large changes,
-                new flows, extensive language-specific work, integrations, or major redesigns require separate review.
-            </p>
         </div>
 
         <p class="pricing-usage-note">
@@ -4437,6 +4597,105 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         }
 
         runHeroTyping();
+
+        // ===== Pro English Inline Chat Proof of Concept =====
+        const proShowcaseCard = document.getElementById('proShowcaseCard');
+        const openProEnglishChat = document.getElementById('openProEnglishChat');
+        const proEnglishChatPanel = document.getElementById('proEnglishChatPanel');
+        const closeProEnglishChat = document.getElementById('closeProEnglishChat');
+
+        if (
+            proShowcaseCard &&
+            openProEnglishChat &&
+            proEnglishChatPanel &&
+            closeProEnglishChat
+        ) {
+            const proEnglishEmbedScriptId = 'zt-pro-english-embed-script';
+            const proEnglishEmbedScriptUrl =
+                'https://www.uchat.com.au/js/widget/eivageplmcgs6uui/embed.js?id=zt_pro_english_chat';
+
+            function openInlineProEnglishChat(event) {
+                event.preventDefault();
+
+                proEnglishChatPanel.hidden = false;
+                proShowcaseCard.classList.add('is-chat-active');
+                openProEnglishChat.setAttribute('aria-expanded', 'true');
+
+                if (!document.getElementById(proEnglishEmbedScriptId)) {
+                    const script = document.createElement('script');
+
+                    script.id = proEnglishEmbedScriptId;
+                    script.src = proEnglishEmbedScriptUrl;
+                    script.async = true;
+                    script.defer = true;
+
+                    script.addEventListener('error', function () {
+                        script.remove();
+
+                        proEnglishChatPanel.hidden = true;
+                        proShowcaseCard.classList.remove('is-chat-active');
+                        openProEnglishChat.setAttribute('aria-expanded', 'false');
+
+                        window.location.href = openProEnglishChat.href;
+                    });
+
+                    document.body.appendChild(script);
+                }
+
+                proEnglishChatPanel.focus();
+            }
+
+            function closeInlineProEnglishChat() {
+                proEnglishChatPanel.hidden = true;
+                proShowcaseCard.classList.remove('is-chat-active');
+                openProEnglishChat.setAttribute('aria-expanded', 'false');
+                openProEnglishChat.focus();
+            }
+
+            openProEnglishChat.addEventListener('click', openInlineProEnglishChat);
+            closeProEnglishChat.addEventListener('click', closeInlineProEnglishChat);
+        }
+
+        // ===== Pro Pricing Toggle =====
+        const toggleProPricing = document.getElementById('toggleProPricing');
+        const proPricingTitle = document.getElementById('proPricingTitle');
+        const proPricingNote = document.getElementById('proPricingNote');
+        const proSetupValue = document.getElementById('proSetupValue');
+        const proPlatformValue = document.getElementById('proPlatformValue');
+        const proSupportValue = document.getElementById('proSupportValue');
+
+        if (
+            toggleProPricing &&
+            proPricingTitle &&
+            proPricingNote &&
+            proSetupValue &&
+            proPlatformValue &&
+            proSupportValue
+        ) {
+            toggleProPricing.addEventListener('click', function () {
+                const isCombined = toggleProPricing.getAttribute('aria-pressed') === 'true';
+
+                if (isCombined) {
+                    proPricingTitle.textContent = 'Pro';
+                    proPricingNote.hidden = true;
+                    proPricingNote.textContent = '';
+                    proSetupValue.textContent = 'from $1,100';
+                    proPlatformValue.textContent = '$149/month';
+                    proSupportValue.textContent = 'from $129/month';
+                    toggleProPricing.textContent = 'View Pro English & Pro Arabic';
+                    toggleProPricing.setAttribute('aria-pressed', 'false');
+                } else {
+                    proPricingTitle.textContent = 'Pro English & Pro Arabic';
+                    proPricingNote.hidden = false;
+                    proPricingNote.textContent = 'Two dedicated chatbots.';
+                    proSetupValue.textContent = 'from $1,850';
+                    proPlatformValue.textContent = '$298/month';
+                    proSupportValue.textContent = 'from $199/month';
+                    toggleProPricing.textContent = 'View Pro';
+                    toggleProPricing.setAttribute('aria-pressed', 'true');
+                }
+            });
+        }
     </script>
 </body>
 
