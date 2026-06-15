@@ -2396,17 +2396,21 @@ html[data-theme="dark"] .how-step-number {
 }
 
 .contact-selection-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto 22px;
 }
 
 .contact-selection-primary,
 .contact-selection-secondary {
-    min-width: 178px;
-    padding: 16px 28px;
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+    padding: 14px 18px;
+    white-space: nowrap;
     border-radius: 12px;
     font-weight: 600;
     font-size: 1rem;
@@ -2440,6 +2444,30 @@ html[data-theme="dark"] .how-step-number {
     box-shadow: var(--shadow-md);
 }
 
+.contact-selection-brief {
+    background: var(--brand-bg-soft);
+    color: var(--brand-blue-hover);
+    border-color: rgba(0, 165, 229, 0.65);
+}
+
+.contact-selection-brief:hover {
+    background: var(--brand-bg);
+    color: var(--brand-blue-hover);
+    border-color: var(--brand-blue);
+}
+
+.contact-selection-email {
+    background: #ffffff;
+    color: var(--black);
+    border-color: #9ca3af;
+}
+
+.contact-selection-email:hover {
+    background: #ffffff;
+    color: var(--black);
+    border-color: #111827;
+}
+
 html[data-theme="dark"] .contact-selection-actions .contact-selection-primary {
     background: var(--accent-blue);
     border-color: var(--accent-blue);
@@ -2462,6 +2490,30 @@ html[data-theme="dark"] .contact-selection-actions .contact-selection-secondary:
     background: rgba(0, 165, 229, 0.12);
     border-color: var(--accent-blue);
     color: var(--heading-text);
+}
+
+html[data-theme="dark"] .contact-selection-actions .contact-selection-brief {
+    background: rgba(0, 165, 229, 0.14);
+    color: var(--heading-text);
+    border-color: rgba(0, 165, 229, 0.72);
+}
+
+html[data-theme="dark"] .contact-selection-actions .contact-selection-brief:hover {
+    background: rgba(0, 165, 229, 0.22);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+}
+
+html[data-theme="dark"] .contact-selection-actions .contact-selection-email {
+    background: rgba(7, 21, 34, 0.58);
+    color: var(--text-muted);
+    border-color: rgba(232, 244, 251, 0.42);
+}
+
+html[data-theme="dark"] .contact-selection-actions .contact-selection-email:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--heading-text);
+    border-color: rgba(232, 244, 251, 0.62);
 }
 
 .contact-selection-emailline {
@@ -2563,6 +2615,13 @@ html[data-theme="dark"] .contact-selection-email-strong {
 
     .contact-selection-strip-summary {
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-selection-actions {
+        grid-template-columns: 1fr;
+        max-width: 300px;
     }
 }
 
@@ -3710,7 +3769,15 @@ html[data-theme="dark"] .hero-helper {
     Send Quick Inquiry
 </a>
 
-            <a id="contactSecondaryBtn" href="mailto:support@zerotools.tech" class="contact-selection-secondary">
+            <a
+                id="contactBriefBtn"
+                href="/Zero-Tools-Formal-Implementation-Brief.pdf"
+                class="contact-selection-secondary contact-selection-brief"
+                download="Zero-Tools-Formal-Implementation-Brief.pdf">
+                Download Formal Brief
+            </a>
+
+            <a id="contactSecondaryBtn" href="mailto:support@zerotools.tech" class="contact-selection-secondary contact-selection-email">
                 Email Zero Tools
             </a>
         </div>
@@ -3729,7 +3796,7 @@ html[data-theme="dark"] .hero-helper {
 </p>
 
 <p class="contact-selection-note" id="contactLeadNote">
-    The Formal Implementation Brief helps us understand your requirements before setup. It may be shared through the chatbot or after your inquiry.
+    The Formal Implementation Brief helps us review your requirements before confirming scope and pricing. You may download it here, receive it through the chatbot, or request it after your inquiry.
 </p>
     </div>
 </section>
@@ -4046,7 +4113,7 @@ if (heroHelpButton) {
     const defaultContactCopy = {
     title: 'Need help choosing?',
     subtitle: 'Try the chatbot options, send a quick inquiry, or contact us directly. We will review your details and guide you toward the right next step.',
-    note: 'The Formal Implementation Brief helps us understand your requirements before setup. It may be shared through the chatbot or after your inquiry.',
+    note: 'The Formal Implementation Brief helps us review your requirements before confirming scope and pricing. You may download it here, receive it through the chatbot, or request it after your inquiry.',
     showStrip: false,
     primaryLabel: 'Send Quick Inquiry',
     primaryHref: formUrl
