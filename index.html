@@ -4815,40 +4815,6 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             const proEnglishEmbedScriptId = 'zt-pro-english-embed-script';
             const proEnglishEmbedScriptUrl =
                 'https://www.uchat.com.au/js/widget/eivageplmcgs6uui/embed.js?id=zt_pro_english_chat';
-            let proEnglishEmbedLoadScheduled = false;
-
-            function scheduleProEnglishEmbedLoad() {
-                if (document.getElementById(proEnglishEmbedScriptId)) return;
-                if (proEnglishEmbedLoadScheduled) return;
-
-                proEnglishEmbedLoadScheduled = true;
-
-                requestAnimationFrame(function () {
-                    requestAnimationFrame(function () {
-                        if (document.getElementById(proEnglishEmbedScriptId)) return;
-
-                        const script = document.createElement('script');
-
-                        script.id = proEnglishEmbedScriptId;
-                        script.src = proEnglishEmbedScriptUrl;
-                        script.async = true;
-                        script.defer = true;
-
-                        script.addEventListener('error', function () {
-                            script.remove();
-                            proEnglishEmbedLoadScheduled = false;
-
-                            proEnglishChatPanel.hidden = true;
-                            proShowcaseCard.classList.remove('is-chat-active');
-                            openProEnglishChat.setAttribute('aria-expanded', 'false');
-
-                            window.location.href = openProEnglishChat.href;
-                        });
-
-                        document.body.appendChild(script);
-                    });
-                });
-            }
 
             function openInlineProEnglishChat(event) {
                 event.preventDefault();
@@ -4857,9 +4823,36 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 proShowcaseCard.classList.add('is-chat-active');
                 openProEnglishChat.setAttribute('aria-expanded', 'true');
 
-                scheduleProEnglishEmbedLoad();
+                if (!document.getElementById(proEnglishEmbedScriptId)) {
+                    const script = document.createElement('script');
 
-                proEnglishChatPanel.focus();
+                    script.id = proEnglishEmbedScriptId;
+                    script.src = proEnglishEmbedScriptUrl;
+                    script.async = true;
+                    script.defer = true;
+
+                    script.addEventListener('error', function () {
+                        script.remove();
+
+                        proEnglishChatPanel.hidden = true;
+                        proShowcaseCard.classList.remove('is-chat-active');
+                        openProEnglishChat.setAttribute('aria-expanded', 'false');
+
+                        window.location.href = openProEnglishChat.href;
+                    });
+
+                    document.body.appendChild(script);
+                }
+
+                proEnglishChatPanel.focus({
+                    preventScroll: true
+                });
+
+                proShowcaseCard.scrollTop = 0;
+
+                requestAnimationFrame(function () {
+                    proShowcaseCard.scrollTop = 0;
+                });
             }
 
             function closeInlineProEnglishChat() {
