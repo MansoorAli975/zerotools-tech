@@ -816,6 +816,40 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     overflow: hidden;
 }
 
+.showcase-live-chat-loading {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    background: #ffffff;
+    color: var(--text-muted);
+}
+
+.showcase-live-chat-loading[hidden] {
+    display: none;
+}
+
+.showcase-live-chat-loading-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    animation: proChatLoadingPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes proChatLoadingPulse {
+    0%,
+    100% {
+        opacity: 0.58;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
 .showcase-live-chat-container > *,
 .showcase-live-chat-container iframe {
     width: 100% !important;
@@ -848,6 +882,10 @@ html:not([data-theme="dark"]) .showcase-live-chat-container {
     background: #ffffff;
 }
 
+html:not([data-theme="dark"]) .showcase-live-chat-loading {
+    background: #ffffff;
+}
+
 html[data-theme="dark"] .showcase-live-chat {
     background: var(--card-bg);
     border-color: var(--border-soft);
@@ -857,6 +895,11 @@ html[data-theme="dark"] .showcase-live-chat {
 html[data-theme="dark"] .showcase-live-chat-toolbar {
     background: rgba(7, 21, 34, 0.82);
     border-bottom-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .showcase-live-chat-loading {
+    background: var(--card-bg);
+    color: var(--text-muted);
 }
 
 html[data-theme="dark"] .showcase-live-chat-close {
@@ -1130,6 +1173,12 @@ html[data-theme="dark"] .preview-message {
 
 html[data-theme="dark"] .showcase-plan-points li::before {
     color: var(--accent-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .showcase-live-chat-loading-label {
+        animation: none;
+    }
 }
 
 .showcase-choose-btn {
@@ -3474,6 +3523,16 @@ html[data-theme="dark"] .hero-helper {
     </div>
 
     <div
+        id="proEnglishChatLoading"
+        class="showcase-live-chat-loading"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden>
+        <span class="showcase-live-chat-loading-label">Loading...</span>
+    </div>
+
+    <div
         id="zt_pro_english_chat"
         class="showcase-live-chat-container">
     </div>
@@ -4811,6 +4870,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         const openProEnglishChat = document.getElementById('openProEnglishChat');
         const proEnglishChatPanel = document.getElementById('proEnglishChatPanel');
         const proEnglishChatContainer = document.getElementById('zt_pro_english_chat');
+        const proEnglishChatLoading = document.getElementById('proEnglishChatLoading');
         const closeProEnglishChat = document.getElementById('closeProEnglishChat');
 
         if (
@@ -4818,36 +4878,120 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             openProEnglishChat &&
             proEnglishChatPanel &&
             proEnglishChatContainer &&
+            proEnglishChatLoading &&
             closeProEnglishChat
         ) {
             const proEnglishEmbedScriptId = 'zt-pro-english-embed-script';
             const proEnglishEmbedScriptUrl =
                 'https://www.uchat.com.au/js/widget/eivageplmcgs6uui/embed.js?id=zt_pro_english_chat';
             let proEnglishChatRequested = false;
+            let proEnglishIframeReady = Boolean(proEnglishChatContainer.querySelector('iframe'));
+            let proEnglishEmbedReadyPromise = null;
+            let proEnglishFirstActivationPending = true;
+            let proEnglishFirstActivationPromise = null;
 
             function ensureProEnglishEmbed() {
-                if (document.getElementById(proEnglishEmbedScriptId)) return;
+                if (proEnglishIframeReady) {
+                    return Promise.resolve(true);
+                }
 
-                const script = document.createElement('script');
+                if (proEnglishEmbedReadyPromise) {
+                    return proEnglishEmbedReadyPromise;
+                }
 
-                script.id = proEnglishEmbedScriptId;
-                script.src = proEnglishEmbedScriptUrl;
-                script.async = true;
-                script.defer = true;
+                proEnglishEmbedReadyPromise = new Promise(function (resolve) {
+                    let observedIframe = null;
+                    let script = document.getElementById(proEnglishEmbedScriptId);
 
-                script.addEventListener('error', function () {
-                    script.remove();
+                    function cleanup() {
+                        observer.disconnect();
 
-                    if (proEnglishChatRequested) {
-                        proEnglishChatPanel.hidden = true;
-                        proShowcaseCard.classList.remove('is-chat-active');
-                        openProEnglishChat.setAttribute('aria-expanded', 'false');
+                        if (observedIframe) {
+                            observedIframe.removeEventListener('load', handleIframeLoad);
+                        }
+                    }
 
-                        window.location.href = openProEnglishChat.href;
+                    function handleIframeLoad() {
+                        proEnglishIframeReady = true;
+                        cleanup();
+                        resolve(true);
+                    }
+
+                    function watchIframe(iframe) {
+                        if (!iframe || observedIframe) return;
+
+                        observedIframe = iframe;
+                        observedIframe.addEventListener('load', handleIframeLoad, { once: true });
+                    }
+
+                    const observer = new MutationObserver(function () {
+                        watchIframe(proEnglishChatContainer.querySelector('iframe'));
+                    });
+
+                    observer.observe(proEnglishChatContainer, {
+                        childList: true,
+                        subtree: true
+                    });
+
+                    watchIframe(proEnglishChatContainer.querySelector('iframe'));
+
+                    if (!script) {
+                        script = document.createElement('script');
+
+                        script.id = proEnglishEmbedScriptId;
+                        script.src = proEnglishEmbedScriptUrl;
+                        script.async = true;
+                        script.defer = true;
+
+                        script.addEventListener('error', function () {
+                            script.remove();
+                            proEnglishEmbedReadyPromise = null;
+                            cleanup();
+                            resolve(false);
+
+                            if (proEnglishChatRequested) {
+                                proEnglishChatPanel.hidden = true;
+                                proShowcaseCard.classList.remove('is-chat-active');
+                                openProEnglishChat.setAttribute('aria-expanded', 'false');
+
+                                window.location.href = openProEnglishChat.href;
+                            }
+                        });
+
+                        document.body.appendChild(script);
                     }
                 });
 
-                document.body.appendChild(script);
+                return proEnglishEmbedReadyPromise;
+            }
+
+            function startProEnglishFirstActivation() {
+                if (proEnglishFirstActivationPromise) {
+                    return proEnglishFirstActivationPromise;
+                }
+
+                proEnglishFirstActivationPromise = Promise.all([
+                    ensureProEnglishEmbed(),
+                    new Promise(function (resolve) {
+                        setTimeout(resolve, 450);
+                    })
+                ]).then(function (results) {
+                    const isReady = results[0];
+
+                    proEnglishChatLoading.hidden = true;
+                    proEnglishChatContainer.hidden = false;
+                    proEnglishChatPanel.removeAttribute('aria-busy');
+
+                    if (isReady) {
+                        proEnglishFirstActivationPending = false;
+                    } else {
+                        proEnglishFirstActivationPromise = null;
+                    }
+
+                    return isReady;
+                });
+
+                return proEnglishFirstActivationPromise;
             }
 
             ensureProEnglishEmbed();
@@ -4861,7 +5005,19 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 proShowcaseCard.classList.add('is-chat-active');
                 openProEnglishChat.setAttribute('aria-expanded', 'true');
 
-                ensureProEnglishEmbed();
+                if (proEnglishFirstActivationPending) {
+                    proEnglishChatLoading.hidden = false;
+                    proEnglishChatContainer.hidden = true;
+                    proEnglishChatPanel.setAttribute('aria-busy', 'true');
+
+                    startProEnglishFirstActivation();
+                } else {
+                    proEnglishChatLoading.hidden = true;
+                    proEnglishChatContainer.hidden = false;
+                    proEnglishChatPanel.removeAttribute('aria-busy');
+
+                    ensureProEnglishEmbed();
+                }
 
                 proEnglishChatPanel.focus({
                     preventScroll: true
