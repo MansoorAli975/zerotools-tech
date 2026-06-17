@@ -4810,17 +4810,107 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         const proShowcaseCard = document.getElementById('proShowcaseCard');
         const openProEnglishChat = document.getElementById('openProEnglishChat');
         const proEnglishChatPanel = document.getElementById('proEnglishChatPanel');
+        const proEnglishChatContainer = document.getElementById('zt_pro_english_chat');
         const closeProEnglishChat = document.getElementById('closeProEnglishChat');
 
         if (
             proShowcaseCard &&
             openProEnglishChat &&
             proEnglishChatPanel &&
+            proEnglishChatContainer &&
             closeProEnglishChat
         ) {
             const proEnglishEmbedScriptId = 'zt-pro-english-embed-script';
             const proEnglishEmbedScriptUrl =
                 'https://www.uchat.com.au/js/widget/eivageplmcgs6uui/embed.js?id=zt_pro_english_chat';
+
+            function protectProEnglishInitialIframeFocus() {
+                if (proEnglishChatContainer.querySelector('iframe')) return;
+
+                let observer;
+                let iframe;
+                let hadTabindex = false;
+                let originalTabindex = null;
+                let blurHandled = false;
+                let blurListenerAttached = false;
+                let microtaskQueued = false;
+                let cleanupTimer;
+
+                function restoreTabindex() {
+                    if (!iframe) return;
+
+                    if (hadTabindex) {
+                        iframe.setAttribute('tabindex', originalTabindex);
+                    } else {
+                        iframe.removeAttribute('tabindex');
+                    }
+                }
+
+                function removeBlurListener() {
+                    if (!blurListenerAttached) return;
+
+                    window.removeEventListener('blur', handleWindowBlur, true);
+                    blurListenerAttached = false;
+                }
+
+                function cleanup() {
+                    if (observer) {
+                        observer.disconnect();
+                    }
+
+                    removeBlurListener();
+                    restoreTabindex();
+                    clearTimeout(cleanupTimer);
+                }
+
+                function blurFocusedIframe() {
+                    if (!iframe || blurHandled) return false;
+                    if (document.activeElement !== iframe) return false;
+
+                    blurHandled = true;
+                    iframe.blur();
+                    removeBlurListener();
+
+                    return true;
+                }
+
+                function handleWindowBlur() {
+                    if (blurFocusedIframe()) return;
+                    if (microtaskQueued) return;
+
+                    microtaskQueued = true;
+
+                    queueMicrotask(function () {
+                        blurFocusedIframe();
+                    });
+                }
+
+                function protectIframe(insertedIframe) {
+                    iframe = insertedIframe;
+                    hadTabindex = iframe.hasAttribute('tabindex');
+                    originalTabindex = iframe.getAttribute('tabindex');
+
+                    iframe.setAttribute('tabindex', '-1');
+                    window.addEventListener('blur', handleWindowBlur, true);
+                    blurListenerAttached = true;
+                }
+
+                observer = new MutationObserver(function () {
+                    const insertedIframe = proEnglishChatContainer.querySelector('iframe');
+
+                    if (!insertedIframe) return;
+
+                    observer.disconnect();
+                    protectIframe(insertedIframe);
+                });
+
+                observer.observe(proEnglishChatContainer, {
+                    childList: true,
+                    subtree: true
+                });
+
+                cleanupTimer = setTimeout(cleanup, 4000);
+            }
 
             function openInlineProEnglishChat(event) {
                 event.preventDefault();
@@ -4830,6 +4920,8 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openProEnglishChat.setAttribute('aria-expanded', 'true');
 
                 if (!document.getElementById(proEnglishEmbedScriptId)) {
+                    protectProEnglishInitialIframeFocus();
+
                     const script = document.createElement('script');
 
                     script.id = proEnglishEmbedScriptId;
