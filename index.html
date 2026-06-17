@@ -4973,7 +4973,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 proEnglishFirstActivationPromise = Promise.all([
                     ensureProEnglishEmbed(),
                     new Promise(function (resolve) {
-                        setTimeout(resolve, 450);
+                        setTimeout(resolve, 600);
                     })
                 ]).then(function (results) {
                     const isReady = results[0];
