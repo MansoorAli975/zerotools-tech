@@ -3497,7 +3497,7 @@ html[data-theme="dark"] .hero-helper {
         Try Pro English
     </a>
 
-    <a href="bot3-arabic.html" class="preview-try-btn preview-try-btn-pro">
+    <a href="bot3-arabic.html" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
         Try Pro Arabic
     </a>
 </div>
@@ -3534,6 +3534,41 @@ html[data-theme="dark"] .hero-helper {
 
     <div
         id="zt_pro_english_chat"
+        class="showcase-live-chat-container">
+    </div>
+</div>
+
+<div
+    id="proArabicChatPanel"
+    class="showcase-live-chat"
+    hidden
+    tabindex="-1"
+    aria-label="Pro Arabic live chatbot">
+
+    <div class="showcase-live-chat-toolbar">
+        <strong>Pro Arabic live chat</strong>
+
+        <button
+            type="button"
+            id="closeProArabicChat"
+            class="showcase-live-chat-close"
+            aria-label="Close Pro Arabic live chat">
+            Close
+        </button>
+    </div>
+
+    <div
+        id="proArabicChatLoading"
+        class="showcase-live-chat-loading"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden>
+        <span class="showcase-live-chat-loading-label">Loading...</span>
+    </div>
+
+    <div
+        id="zt_pro_arabic_chat"
         class="showcase-live-chat-container">
     </div>
 </div>
@@ -4999,6 +5034,14 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             function openInlineProEnglishChat(event) {
                 event.preventDefault();
 
+                const proArabicChatPanel = document.getElementById('proArabicChatPanel');
+                const openProArabicChat = document.getElementById('openProArabicChat');
+
+                if (proArabicChatPanel && openProArabicChat) {
+                    proArabicChatPanel.hidden = true;
+                    openProArabicChat.setAttribute('aria-expanded', 'false');
+                }
+
                 proEnglishChatRequested = true;
 
                 proEnglishChatPanel.hidden = false;
@@ -5041,6 +5084,186 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
 
             openProEnglishChat.addEventListener('click', openInlineProEnglishChat);
             closeProEnglishChat.addEventListener('click', closeInlineProEnglishChat);
+        }
+
+        // ===== Pro Arabic Inline Chat =====
+        const openProArabicChat = document.getElementById('openProArabicChat');
+        const proArabicChatPanel = document.getElementById('proArabicChatPanel');
+        const proArabicChatContainer = document.getElementById('zt_pro_arabic_chat');
+        const proArabicChatLoading = document.getElementById('proArabicChatLoading');
+        const closeProArabicChat = document.getElementById('closeProArabicChat');
+
+        if (
+            proShowcaseCard &&
+            openProArabicChat &&
+            proArabicChatPanel &&
+            proArabicChatContainer &&
+            proArabicChatLoading &&
+            closeProArabicChat
+        ) {
+            const proArabicEmbedScriptId = 'zt-pro-arabic-embed-script';
+            const proArabicEmbedScriptUrl =
+                'https://www.uchat.com.au/js/widget/somluqubkudarep6/embed.js?id=zt_pro_arabic_chat';
+            let proArabicChatRequested = false;
+            let proArabicIframeReady = Boolean(proArabicChatContainer.querySelector('iframe'));
+            let proArabicEmbedReadyPromise = null;
+            let proArabicFirstActivationPending = true;
+            let proArabicFirstActivationPromise = null;
+
+            function ensureProArabicEmbed() {
+                if (proArabicIframeReady) {
+                    return Promise.resolve(true);
+                }
+
+                if (proArabicEmbedReadyPromise) {
+                    return proArabicEmbedReadyPromise;
+                }
+
+                proArabicEmbedReadyPromise = new Promise(function (resolve) {
+                    let observedIframe = null;
+                    let script = document.getElementById(proArabicEmbedScriptId);
+
+                    function cleanup() {
+                        observer.disconnect();
+
+                        if (observedIframe) {
+                            observedIframe.removeEventListener('load', handleIframeLoad);
+                        }
+                    }
+
+                    function handleIframeLoad() {
+                        proArabicIframeReady = true;
+                        cleanup();
+                        resolve(true);
+                    }
+
+                    function watchIframe(iframe) {
+                        if (!iframe || observedIframe) return;
+
+                        observedIframe = iframe;
+                        observedIframe.addEventListener('load', handleIframeLoad, { once: true });
+                    }
+
+                    const observer = new MutationObserver(function () {
+                        watchIframe(proArabicChatContainer.querySelector('iframe'));
+                    });
+
+                    observer.observe(proArabicChatContainer, {
+                        childList: true,
+                        subtree: true
+                    });
+
+                    watchIframe(proArabicChatContainer.querySelector('iframe'));
+
+                    if (!script) {
+                        script = document.createElement('script');
+
+                        script.id = proArabicEmbedScriptId;
+                        script.src = proArabicEmbedScriptUrl;
+                        script.async = true;
+                        script.defer = true;
+
+                        script.addEventListener('error', function () {
+                            script.remove();
+                            proArabicEmbedReadyPromise = null;
+                            cleanup();
+                            resolve(false);
+
+                            if (proArabicChatRequested) {
+                                proArabicChatPanel.hidden = true;
+                                proShowcaseCard.classList.remove('is-chat-active');
+                                openProArabicChat.setAttribute('aria-expanded', 'false');
+
+                                window.location.href = openProArabicChat.href;
+                            }
+                        });
+
+                        document.body.appendChild(script);
+                    }
+                });
+
+                return proArabicEmbedReadyPromise;
+            }
+
+            function startProArabicFirstActivation() {
+                if (proArabicFirstActivationPromise) {
+                    return proArabicFirstActivationPromise;
+                }
+
+                proArabicFirstActivationPromise = Promise.all([
+                    ensureProArabicEmbed(),
+                    new Promise(function (resolve) {
+                        setTimeout(resolve, 600);
+                    })
+                ]).then(function (results) {
+                    const isReady = results[0];
+
+                    proArabicChatLoading.hidden = true;
+                    proArabicChatContainer.hidden = false;
+                    proArabicChatPanel.removeAttribute('aria-busy');
+
+                    if (isReady) {
+                        proArabicFirstActivationPending = false;
+                    } else {
+                        proArabicFirstActivationPromise = null;
+                    }
+
+                    return isReady;
+                });
+
+                return proArabicFirstActivationPromise;
+            }
+
+            function openInlineProArabicChat(event) {
+                event.preventDefault();
+
+                if (proEnglishChatPanel && openProEnglishChat) {
+                    proEnglishChatPanel.hidden = true;
+                    openProEnglishChat.setAttribute('aria-expanded', 'false');
+                }
+
+                proArabicChatRequested = true;
+
+                proArabicChatPanel.hidden = false;
+                proShowcaseCard.classList.add('is-chat-active');
+                openProArabicChat.setAttribute('aria-expanded', 'true');
+
+                if (proArabicFirstActivationPending) {
+                    proArabicChatLoading.hidden = false;
+                    proArabicChatContainer.hidden = true;
+                    proArabicChatPanel.setAttribute('aria-busy', 'true');
+
+                    startProArabicFirstActivation();
+                } else {
+                    proArabicChatLoading.hidden = true;
+                    proArabicChatContainer.hidden = false;
+                    proArabicChatPanel.removeAttribute('aria-busy');
+
+                    ensureProArabicEmbed();
+                }
+
+                proArabicChatPanel.focus({
+                    preventScroll: true
+                });
+
+                proShowcaseCard.scrollTop = 0;
+
+                requestAnimationFrame(function () {
+                    proShowcaseCard.scrollTop = 0;
+                });
+            }
+
+            function closeInlineProArabicChat() {
+                proArabicChatRequested = false;
+
+                proArabicChatPanel.hidden = true;
+                proShowcaseCard.classList.remove('is-chat-active');
+                openProArabicChat.setAttribute('aria-expanded', 'false');
+                openProArabicChat.focus();
+            }
+
+            openProArabicChat.addEventListener('click', openInlineProArabicChat);
+            closeProArabicChat.addEventListener('click', closeInlineProArabicChat);
         }
 
         // ===== Pro Pricing Toggle =====
