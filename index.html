@@ -3568,7 +3568,7 @@ html[data-theme="dark"] .hero-helper {
     </div>
 
     <div
-        id="zt_pro_arabic_chat"
+        id="embed_chatbot_container_id"
         class="showcase-live-chat-container">
     </div>
 </div>
@@ -5089,7 +5089,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         // ===== Pro Arabic Inline Chat =====
         const openProArabicChat = document.getElementById('openProArabicChat');
         const proArabicChatPanel = document.getElementById('proArabicChatPanel');
-        const proArabicChatContainer = document.getElementById('zt_pro_arabic_chat');
+        const proArabicChatContainer = document.getElementById('embed_chatbot_container_id');
         const proArabicChatLoading = document.getElementById('proArabicChatLoading');
         const closeProArabicChat = document.getElementById('closeProArabicChat');
 
@@ -5103,7 +5103,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         ) {
             const proArabicEmbedScriptId = 'zt-pro-arabic-embed-script';
             const proArabicEmbedScriptUrl =
-                'https://www.uchat.com.au/js/widget/somluqubkudarep6/embed.js?id=zt_pro_arabic_chat';
+                'https://www.uchat.com.au/js/widget/somluqubkudarep6/embed.js?id=embed_chatbot_container_id';
             let proArabicChatRequested = false;
             let proArabicIframeReady = Boolean(proArabicChatContainer.querySelector('iframe'));
             let proArabicEmbedReadyPromise = null;
@@ -5230,7 +5230,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
 
                 if (proArabicFirstActivationPending) {
                     proArabicChatLoading.hidden = false;
-                    proArabicChatContainer.hidden = true;
+                    proArabicChatContainer.hidden = false;
                     proArabicChatPanel.setAttribute('aria-busy', 'true');
 
                     startProArabicFirstActivation();
