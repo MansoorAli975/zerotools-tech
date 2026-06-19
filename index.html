@@ -5149,6 +5149,8 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                         iframe.style.height = '100%';
                         iframe.style.border = '0';
                         iframe.style.display = 'block';
+                        iframe.style.background = 'transparent';
+                        iframe.setAttribute('loading', 'eager');
                         shouldAppendIframe = true;
                     }
 
@@ -5209,7 +5211,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
 
                 if (proArabicFirstActivationPending) {
                     proArabicChatLoading.hidden = false;
-                    proArabicChatContainer.hidden = false;
+                    proArabicChatContainer.hidden = true;
                     proArabicChatPanel.setAttribute('aria-busy', 'true');
 
                     startProArabicFirstActivation();
@@ -5240,6 +5242,8 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openProArabicChat.setAttribute('aria-expanded', 'false');
                 openProArabicChat.focus();
             }
+
+            ensureProArabicIframe();
 
             openProArabicChat.addEventListener('click', openInlineProArabicChat);
             closeProArabicChat.addEventListener('click', closeInlineProArabicChat);
