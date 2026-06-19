@@ -713,12 +713,14 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     transition: var(--transition);
 }
 
-#proShowcaseCard {
+#proShowcaseCard,
+#advancedShowcaseCard {
     position: relative;
     overflow: hidden;
     isolation: isolate;
 }
 
+#advancedShowcaseCard.is-chat-active,
 #proShowcaseCard.is-chat-active {
     align-self: start;
     height: 620px;
@@ -864,7 +866,8 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     transform: none;
 }
 
-html:not([data-theme="dark"]) #proShowcaseCard.is-chat-active {
+html:not([data-theme="dark"]) #proShowcaseCard.is-chat-active,
+html:not([data-theme="dark"]) #advancedShowcaseCard.is-chat-active {
     border-color: rgba(200, 176, 77, 0.58);
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.11);
 }
@@ -1217,6 +1220,7 @@ html[data-theme="dark"] .showcase-plan-points li::before {
         min-height: 600px;
     }
 
+    #advancedShowcaseCard.is-chat-active,
     #proShowcaseCard.is-chat-active {
         height: 600px;
         min-height: 600px;
@@ -1242,6 +1246,7 @@ html[data-theme="dark"] .showcase-plan-points li::before {
         min-height: 560px;
     }
 
+    #advancedShowcaseCard.is-chat-active,
     #proShowcaseCard.is-chat-active {
         height: 560px;
         min-height: 560px;
@@ -3455,15 +3460,50 @@ html[data-theme="dark"] .hero-helper {
             </div>
 
             <div class="showcase-package">
-            <div class="showcase-card">
+            <div class="showcase-card" id="advancedShowcaseCard">
                 <h3 class="showcase-card-title">Advanced</h3>
 
                 <div class="showcase-preview showcase-preview-advanced">
                     <div class="preview-message">Hi, I'm the Advanced chatbot.</div>
                     <div class="preview-message">I can guide the conversation better and collect more useful enquiry details.</div>
                     <img src="Advanced.png" alt="Advanced chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="bot2-english.html" class="preview-try-btn preview-try-btn-advanced">Try Advanced</a>
+                    <a href="bot2-english.html" class="preview-try-btn preview-try-btn-advanced" id="openAdvancedChat" aria-controls="advancedChatPanel" aria-expanded="false">Try Advanced</a>
                 </div>
+
+<div
+    id="advancedChatPanel"
+    class="showcase-live-chat"
+    hidden
+    tabindex="-1"
+    aria-label="Advanced live chatbot">
+
+    <div class="showcase-live-chat-toolbar">
+        <strong>Advanced live chat</strong>
+
+        <button
+            type="button"
+            id="closeAdvancedChat"
+            class="showcase-live-chat-close"
+            aria-label="Close Advanced live chat">
+            Close
+        </button>
+    </div>
+
+    <div
+        id="advancedChatLoading"
+        class="showcase-live-chat-loading"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden>
+        <span class="showcase-live-chat-loading-label">Loading...</span>
+    </div>
+
+    <div
+        id="advancedChatContainer"
+        class="showcase-live-chat-container">
+    </div>
+</div>
 
                 <p class="showcase-description">
     A guided website chatbot for organized conversations, better enquiry details, and clearer visitor handling.
@@ -4899,6 +4939,165 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         }
 
         runHeroTyping();
+
+        // ===== Advanced Inline Chat =====
+        const advancedShowcaseCard = document.getElementById('advancedShowcaseCard');
+        const openAdvancedChat = document.getElementById('openAdvancedChat');
+        const advancedChatPanel = document.getElementById('advancedChatPanel');
+        const advancedChatContainer = document.getElementById('advancedChatContainer');
+        const advancedChatLoading = document.getElementById('advancedChatLoading');
+        const closeAdvancedChat = document.getElementById('closeAdvancedChat');
+
+        if (
+            advancedShowcaseCard &&
+            openAdvancedChat &&
+            advancedChatPanel &&
+            advancedChatContainer &&
+            advancedChatLoading &&
+            closeAdvancedChat
+        ) {
+            let advancedChatRequested = false;
+            let advancedIframeReady = false;
+            let advancedIframeReadyPromise = null;
+            let advancedFirstActivationPending = true;
+            let advancedFirstActivationPromise = null;
+
+            function ensureAdvancedIframe() {
+                if (advancedIframeReady) {
+                    return Promise.resolve(true);
+                }
+
+                if (advancedIframeReadyPromise) {
+                    return advancedIframeReadyPromise;
+                }
+
+                advancedIframeReadyPromise = new Promise(function (resolve) {
+                    let iframe = advancedChatContainer.querySelector('iframe');
+                    let shouldAppendIframe = false;
+
+                    function handleIframeLoad() {
+                        advancedIframeReady = true;
+                        iframe.removeEventListener('load', handleIframeLoad);
+                        iframe.removeEventListener('error', handleIframeError);
+                        resolve(true);
+                    }
+
+                    function handleIframeError() {
+                        advancedIframeReadyPromise = null;
+                        iframe.removeEventListener('load', handleIframeLoad);
+                        iframe.removeEventListener('error', handleIframeError);
+                        resolve(false);
+
+                        if (advancedChatRequested) {
+                            advancedChatPanel.hidden = true;
+                            advancedShowcaseCard.classList.remove('is-chat-active');
+                            openAdvancedChat.setAttribute('aria-expanded', 'false');
+
+                            window.location.href = openAdvancedChat.href;
+                        }
+                    }
+
+                    if (!iframe) {
+                        iframe = document.createElement('iframe');
+                        iframe.title = 'Advanced live chatbot';
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        iframe.style.border = '0';
+                        iframe.style.display = 'block';
+                        iframe.style.background = 'transparent';
+                        iframe.setAttribute('loading', 'eager');
+                        shouldAppendIframe = true;
+                    }
+
+                    iframe.addEventListener('load', handleIframeLoad, { once: true });
+                    iframe.addEventListener('error', handleIframeError, { once: true });
+
+                    if (shouldAppendIframe) {
+                        iframe.src = '/advanced-inline.html';
+                        advancedChatContainer.appendChild(iframe);
+                    }
+                });
+
+                return advancedIframeReadyPromise;
+            }
+
+            function startAdvancedFirstActivation() {
+                if (advancedFirstActivationPromise) {
+                    return advancedFirstActivationPromise;
+                }
+
+                advancedFirstActivationPromise = Promise.all([
+                    ensureAdvancedIframe(),
+                    new Promise(function (resolve) {
+                        setTimeout(resolve, 600);
+                    })
+                ]).then(function (results) {
+                    const isReady = results[0];
+
+                    advancedChatLoading.hidden = true;
+                    advancedChatContainer.hidden = false;
+                    advancedChatPanel.removeAttribute('aria-busy');
+
+                    if (isReady) {
+                        advancedFirstActivationPending = false;
+                    } else {
+                        advancedFirstActivationPromise = null;
+                    }
+
+                    return isReady;
+                });
+
+                return advancedFirstActivationPromise;
+            }
+
+            function openInlineAdvancedChat(event) {
+                event.preventDefault();
+
+                advancedChatRequested = true;
+
+                advancedChatPanel.hidden = false;
+                advancedShowcaseCard.classList.add('is-chat-active');
+                openAdvancedChat.setAttribute('aria-expanded', 'true');
+
+                if (advancedFirstActivationPending) {
+                    advancedChatLoading.hidden = false;
+                    advancedChatContainer.hidden = true;
+                    advancedChatPanel.setAttribute('aria-busy', 'true');
+
+                    startAdvancedFirstActivation();
+                } else {
+                    advancedChatLoading.hidden = true;
+                    advancedChatContainer.hidden = false;
+                    advancedChatPanel.removeAttribute('aria-busy');
+
+                    ensureAdvancedIframe();
+                }
+
+                advancedChatPanel.focus({
+                    preventScroll: true
+                });
+
+                advancedShowcaseCard.scrollTop = 0;
+
+                requestAnimationFrame(function () {
+                    advancedShowcaseCard.scrollTop = 0;
+                });
+            }
+
+            function closeInlineAdvancedChat() {
+                advancedChatRequested = false;
+
+                advancedChatPanel.hidden = true;
+                advancedShowcaseCard.classList.remove('is-chat-active');
+                openAdvancedChat.setAttribute('aria-expanded', 'false');
+                openAdvancedChat.focus();
+            }
+
+            ensureAdvancedIframe();
+
+            openAdvancedChat.addEventListener('click', openInlineAdvancedChat);
+            closeAdvancedChat.addEventListener('click', closeInlineAdvancedChat);
+        }
 
         // ===== Pro English Inline Chat Proof of Concept =====
         const proShowcaseCard = document.getElementById('proShowcaseCard');
