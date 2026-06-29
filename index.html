@@ -843,6 +843,40 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     animation: proChatLoadingPulse 1.4s ease-in-out infinite;
 }
 
+.showcase-live-chat-retry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 6px 10px;
+    color: var(--text-muted);
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.78rem;
+    line-height: 1.2;
+}
+
+.showcase-live-chat-retry button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--heading-text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.showcase-live-chat-retry button:hover {
+    border-color: var(--brand-blue);
+    color: var(--brand-blue-hover);
+}
+
 @keyframes proChatLoadingPulse {
     0%,
     100% {
@@ -892,6 +926,11 @@ html:not([data-theme="dark"]) .showcase-live-chat-loading {
     background: #ffffff;
 }
 
+html:not([data-theme="dark"]) .showcase-live-chat-retry {
+    background: #ffffff;
+    border-bottom-color: #ddd6bf;
+}
+
 html[data-theme="dark"] .showcase-live-chat {
     background: var(--card-bg);
     border-color: var(--border-soft);
@@ -906,6 +945,22 @@ html[data-theme="dark"] .showcase-live-chat-toolbar {
 html[data-theme="dark"] .showcase-live-chat-loading {
     background: var(--card-bg);
     color: var(--text-muted);
+}
+
+html[data-theme="dark"] .showcase-live-chat-retry {
+    background: rgba(7, 21, 34, 0.58);
+    border-bottom-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .showcase-live-chat-retry button {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--heading-text);
+    border-color: rgba(232, 244, 251, 0.34);
+}
+
+html[data-theme="dark"] .showcase-live-chat-retry button:hover {
+    color: #ffffff;
+    border-color: var(--accent-blue);
 }
 
 html[data-theme="dark"] .showcase-live-chat-close {
@@ -1275,6 +1330,17 @@ html[data-theme="dark"] .showcase-plan-points li::before {
 
     .showcase-live-chat-toolbar strong {
         font-size: 0.86rem;
+    }
+
+    .showcase-live-chat-retry {
+        min-height: 36px;
+        padding: 5px 8px;
+        font-size: 0.74rem;
+    }
+
+    .showcase-live-chat-retry button {
+        min-height: 27px;
+        padding: 4px 9px;
     }
 
     .preview-message {
@@ -3476,6 +3542,11 @@ html[data-theme="dark"] .hero-helper {
         <span class="showcase-live-chat-loading-label">Loading...</span>
     </div>
 
+    <div class="showcase-live-chat-retry">
+        <span>Chat not loading?</span>
+        <button type="button" id="retryBasicChat">Retry demo</button>
+    </div>
+
     <div
         id="basicChatContainer"
         class="showcase-live-chat-container">
@@ -4989,6 +5060,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
         const basicChatContainer = document.getElementById('basicChatContainer');
         const basicChatLoading = document.getElementById('basicChatLoading');
         const closeBasicChat = document.getElementById('closeBasicChat');
+        const retryBasicChat = document.getElementById('retryBasicChat');
 
         if (
             basicShowcaseCard &&
@@ -4996,15 +5068,48 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             basicChatPanel &&
             basicChatContainer &&
             basicChatLoading &&
-            closeBasicChat
+            closeBasicChat &&
+            retryBasicChat
         ) {
+            const basicIframeBaseUrl = '/basic-inline.html';
             let basicChatRequested = false;
             let basicIframeReady = false;
             let basicIframeReadyPromise = null;
             let basicFirstActivationPending = true;
             let basicFirstActivationPromise = null;
+            let basicIframeLoadTimer = null;
+            let basicIframeLoadSequence = 0;
 
-            function ensureBasicIframe() {
+            function buildBasicIframeUrl(cacheParam) {
+                return basicIframeBaseUrl + '?' + cacheParam + '=' + Date.now();
+            }
+
+            function getBasicIframe() {
+                let iframe = basicChatContainer.querySelector('iframe');
+
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.title = 'Basic live chatbot';
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.style.border = '0';
+                    iframe.style.display = 'block';
+                    iframe.style.background = 'transparent';
+                    iframe.setAttribute('loading', 'lazy');
+                    iframe.dataset.src = basicIframeBaseUrl;
+                    iframe.src = 'about:blank';
+                    basicChatContainer.appendChild(iframe);
+                } else if (!iframe.dataset.src) {
+                    iframe.dataset.src = basicIframeBaseUrl;
+                }
+
+                return iframe;
+            }
+
+            function ensureBasicIframe(loadDelay, cacheParam) {
+                const delay = typeof loadDelay === 'number' ? loadDelay : 700;
+                const cacheKey = cacheParam || 'v';
+
                 if (basicIframeReady) {
                     return Promise.resolve(true);
                 }
@@ -5013,21 +5118,39 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     return basicIframeReadyPromise;
                 }
 
-                basicIframeReadyPromise = new Promise(function (resolve) {
-                    let iframe = basicChatContainer.querySelector('iframe');
-                    let shouldAppendIframe = false;
+                const loadSequence = ++basicIframeLoadSequence;
 
-                    function handleIframeLoad() {
-                        basicIframeReady = true;
+                basicIframeReadyPromise = new Promise(function (resolve) {
+                    const iframe = getBasicIframe();
+
+                    function cleanup() {
                         iframe.removeEventListener('load', handleIframeLoad);
                         iframe.removeEventListener('error', handleIframeError);
+                    }
+
+                    function handleIframeLoad() {
+                        if (loadSequence !== basicIframeLoadSequence) {
+                            cleanup();
+                            return;
+                        }
+
+                        if (iframe.getAttribute('src') === 'about:blank') {
+                            return;
+                        }
+
+                        basicIframeReady = true;
+                        cleanup();
                         resolve(true);
                     }
 
                     function handleIframeError() {
+                        if (loadSequence !== basicIframeLoadSequence) {
+                            cleanup();
+                            return;
+                        }
+
                         basicIframeReadyPromise = null;
-                        iframe.removeEventListener('load', handleIframeLoad);
-                        iframe.removeEventListener('error', handleIframeError);
+                        cleanup();
                         resolve(false);
 
                         if (basicChatRequested) {
@@ -5039,25 +5162,17 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                         }
                     }
 
-                    if (!iframe) {
-                        iframe = document.createElement('iframe');
-                        iframe.title = 'Basic live chatbot';
-                        iframe.style.width = '100%';
-                        iframe.style.height = '100%';
-                        iframe.style.border = '0';
-                        iframe.style.display = 'block';
-                        iframe.style.background = 'transparent';
-                        iframe.setAttribute('loading', 'eager');
-                        shouldAppendIframe = true;
-                    }
+                    iframe.addEventListener('load', handleIframeLoad);
+                    iframe.addEventListener('error', handleIframeError);
 
-                    iframe.addEventListener('load', handleIframeLoad, { once: true });
-                    iframe.addEventListener('error', handleIframeError, { once: true });
+                    basicIframeLoadTimer = setTimeout(function () {
+                        if (loadSequence !== basicIframeLoadSequence) {
+                            return;
+                        }
 
-                    if (shouldAppendIframe) {
-                        iframe.src = '/basic-inline.html';
-                        basicChatContainer.appendChild(iframe);
-                    }
+                        basicIframeLoadTimer = null;
+                        iframe.src = buildBasicIframeUrl(cacheKey);
+                    }, delay);
                 });
 
                 return basicIframeReadyPromise;
@@ -5092,6 +5207,57 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 return basicFirstActivationPromise;
             }
 
+            function showBasicLoadingState() {
+                basicChatLoading.hidden = false;
+                basicChatContainer.hidden = true;
+                basicChatPanel.setAttribute('aria-busy', 'true');
+            }
+
+            function retryInlineBasicChat() {
+                const iframe = getBasicIframe();
+
+                basicChatRequested = true;
+                basicIframeLoadSequence += 1;
+
+                if (basicIframeLoadTimer) {
+                    clearTimeout(basicIframeLoadTimer);
+                    basicIframeLoadTimer = null;
+                }
+
+                basicIframeReady = false;
+                basicIframeReadyPromise = null;
+                basicFirstActivationPending = true;
+                basicFirstActivationPromise = null;
+
+                iframe.src = 'about:blank';
+
+                basicChatPanel.hidden = false;
+                basicShowcaseCard.classList.add('is-chat-active');
+                openBasicChat.setAttribute('aria-expanded', 'true');
+                showBasicLoadingState();
+
+                basicFirstActivationPromise = Promise.all([
+                    ensureBasicIframe(300, 'retry'),
+                    new Promise(function (resolve) {
+                        setTimeout(resolve, 600);
+                    })
+                ]).then(function (results) {
+                    const isReady = results[0];
+
+                    basicChatLoading.hidden = true;
+                    basicChatContainer.hidden = false;
+                    basicChatPanel.removeAttribute('aria-busy');
+
+                    if (isReady) {
+                        basicFirstActivationPending = false;
+                    } else {
+                        basicFirstActivationPromise = null;
+                    }
+
+                    return isReady;
+                });
+            }
+
             function openInlineBasicChat(event) {
                 event.preventDefault();
 
@@ -5102,9 +5268,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openBasicChat.setAttribute('aria-expanded', 'true');
 
                 if (basicFirstActivationPending) {
-                    basicChatLoading.hidden = false;
-                    basicChatContainer.hidden = true;
-                    basicChatPanel.setAttribute('aria-busy', 'true');
+                    showBasicLoadingState();
 
                     startBasicFirstActivation();
                 } else {
@@ -5135,10 +5299,9 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openBasicChat.focus();
             }
 
-            ensureBasicIframe();
-
             openBasicChat.addEventListener('click', openInlineBasicChat);
             closeBasicChat.addEventListener('click', closeInlineBasicChat);
+            retryBasicChat.addEventListener('click', retryInlineBasicChat);
         }
 
         // ===== Advanced Inline Chat =====
@@ -5294,8 +5457,6 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openAdvancedChat.focus();
             }
 
-            ensureAdvancedIframe();
-
             openAdvancedChat.addEventListener('click', openInlineAdvancedChat);
             closeAdvancedChat.addEventListener('click', closeInlineAdvancedChat);
         }
@@ -5428,8 +5589,6 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
 
                 return proEnglishFirstActivationPromise;
             }
-
-            ensureProEnglishEmbed();
 
             function openInlineProEnglishChat(event) {
                 event.preventDefault();
@@ -5642,8 +5801,6 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openProArabicChat.setAttribute('aria-expanded', 'false');
                 openProArabicChat.focus();
             }
-
-            ensureProArabicIframe();
 
             openProArabicChat.addEventListener('click', openInlineProArabicChat);
             closeProArabicChat.addEventListener('click', closeInlineProArabicChat);
