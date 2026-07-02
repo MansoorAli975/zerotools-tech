@@ -5094,8 +5094,35 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 return basicFirstActivationPromise;
             }
 
+            function unloadBasicIframe() {
+                const iframe = basicChatContainer.querySelector('iframe');
+
+                if (iframe) {
+                    iframe.removeAttribute('src');
+                    iframe.remove();
+                }
+
+                basicChatRequested = false;
+                basicIframeReady = false;
+                basicIframeReadyPromise = null;
+                basicFirstActivationPending = true;
+                basicFirstActivationPromise = null;
+                basicChatLoading.hidden = true;
+                basicChatContainer.hidden = false;
+                basicChatPanel.removeAttribute('aria-busy');
+                basicChatPanel.hidden = true;
+                basicShowcaseCard.classList.remove('is-chat-active');
+                openBasicChat.setAttribute('aria-expanded', 'false');
+            }
+
+            window.ztUnloadBasicIframe = unloadBasicIframe;
+
             function openInlineBasicChat(event) {
                 event.preventDefault();
+
+                if (window.ztUnloadAdvancedIframe) {
+                    window.ztUnloadAdvancedIframe();
+                }
 
                 basicChatRequested = true;
 
@@ -5129,11 +5156,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             }
 
             function closeInlineBasicChat() {
-                basicChatRequested = false;
-
-                basicChatPanel.hidden = true;
-                basicShowcaseCard.classList.remove('is-chat-active');
-                openBasicChat.setAttribute('aria-expanded', 'false');
+                unloadBasicIframe();
                 openBasicChat.focus();
             }
 
@@ -5254,8 +5277,35 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 return advancedFirstActivationPromise;
             }
 
+            function unloadAdvancedIframe() {
+                const iframe = advancedChatContainer.querySelector('iframe');
+
+                if (iframe) {
+                    iframe.removeAttribute('src');
+                    iframe.remove();
+                }
+
+                advancedChatRequested = false;
+                advancedIframeReady = false;
+                advancedIframeReadyPromise = null;
+                advancedFirstActivationPending = true;
+                advancedFirstActivationPromise = null;
+                advancedChatLoading.hidden = true;
+                advancedChatContainer.hidden = false;
+                advancedChatPanel.removeAttribute('aria-busy');
+                advancedChatPanel.hidden = true;
+                advancedShowcaseCard.classList.remove('is-chat-active');
+                openAdvancedChat.setAttribute('aria-expanded', 'false');
+            }
+
+            window.ztUnloadAdvancedIframe = unloadAdvancedIframe;
+
             function openInlineAdvancedChat(event) {
                 event.preventDefault();
+
+                if (window.ztUnloadBasicIframe) {
+                    window.ztUnloadBasicIframe();
+                }
 
                 advancedChatRequested = true;
 
@@ -5289,11 +5339,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             }
 
             function closeInlineAdvancedChat() {
-                advancedChatRequested = false;
-
-                advancedChatPanel.hidden = true;
-                advancedShowcaseCard.classList.remove('is-chat-active');
-                openAdvancedChat.setAttribute('aria-expanded', 'false');
+                unloadAdvancedIframe();
                 openAdvancedChat.focus();
             }
 
