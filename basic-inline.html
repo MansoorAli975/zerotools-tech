@@ -28,6 +28,73 @@
 </head>
 <body>
     <div id="zt_basic_embed_chat"></div>
+    <script>
+        (function () {
+            const visitorStorageKey = 'zt_webchat_visitor_id_v1';
+            const bot = 'basic';
+            const botPrefix = 'zt_basic';
+            const signEndpoint = 'https://zt-uchat-sign.zerotools.workers.dev/';
+
+            function createVisitorId() {
+                if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                    return window.crypto.randomUUID();
+                }
+
+                return String(Date.now()) + '-' + Math.random().toString(36).slice(2);
+            }
+
+            function getVisitorId() {
+                try {
+                    let visitorId = window.localStorage.getItem(visitorStorageKey);
+
+                    if (!visitorId) {
+                        visitorId = createVisitorId();
+                        window.localStorage.setItem(visitorStorageKey, visitorId);
+                    }
+
+                    return visitorId;
+                } catch (error) {
+                    return createVisitorId();
+                }
+            }
+
+            async function getIdentifierHash(userId) {
+                const url = signEndpoint + '?bot=' + encodeURIComponent(bot) + '&user_id=' + encodeURIComponent(userId);
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Signing request failed with status ' + response.status);
+                }
+
+                const data = await response.json();
+
+                if (!data.identifier_hash) {
+                    throw new Error('Missing identifier_hash in signing response');
+                }
+
+                return data.identifier_hash;
+            }
+
+            window.addEventListener('chatbot:ready', async function () {
+                const userId = botPrefix + '_' + getVisitorId();
+
+                try {
+                    const identifierHash = await getIdentifierHash(userId);
+
+                    if (window.$chatbot && typeof window.$chatbot.setUser === 'function') {
+                        window.$chatbot.setUser(userId, {
+                            name: 'Zero Tools Demo Visitor',
+                            identifier_hash: identifierHash
+                        });
+                    } else {
+                        console.warn('UChat setUser function is not available');
+                    }
+                } catch (error) {
+                    console.warn('UChat custom user setup failed', error);
+                }
+            });
+        }());
+    </script>
     <script async defer src="https://www.uchat.com.au/js/widget/jxjukkd1zbid1cea/embed.js?id=zt_basic_embed_chat"></script>
 </body>
 </html>
