@@ -5137,7 +5137,8 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openBasicChat.focus();
             }
 
-            ensureBasicIframe();
+            // TEMP TEST: Disabled Basic iframe preload to prevent hidden UChat session startup.
+            // ensureBasicIframe();
 
             openBasicChat.addEventListener('click', openInlineBasicChat);
             closeBasicChat.addEventListener('click', closeInlineBasicChat);
@@ -5296,7 +5297,8 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 openAdvancedChat.focus();
             }
 
-            ensureAdvancedIframe();
+            // TEMP TEST: Disabled Advanced iframe preload to prevent hidden UChat session startup.
+            // ensureAdvancedIframe();
 
             openAdvancedChat.addEventListener('click', openInlineAdvancedChat);
             closeAdvancedChat.addEventListener('click', closeInlineAdvancedChat);
