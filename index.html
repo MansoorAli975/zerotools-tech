@@ -5057,7 +5057,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/basic-inline.html';
+                        iframe.src = '/basic-inline.html?v=embed-id-test-1';
                         basicChatContainer.appendChild(iframe);
                     }
                 });
@@ -5216,7 +5216,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/advanced-inline.html';
+                        iframe.src = '/advanced-inline.html?v=embed-id-test-1';
                         advancedChatContainer.appendChild(iframe);
                     }
                 });
