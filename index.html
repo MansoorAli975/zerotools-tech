@@ -3575,11 +3575,11 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
                     <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
                     <div class="preview-try-group">
-    <a href="/pro-english-inline.html?v=custom-user-id-v1" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
+    <a href="/pro-english-inline.html?v=dynamic-load-v1" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
         Try Pro English
     </a>
 
-    <a href="/pro-arabic-inline.html?v=custom-user-id-v1" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
+    <a href="/pro-arabic-inline.html?v=dynamic-load-v1" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
         Try Pro Arabic
     </a>
 </div>
@@ -5055,7 +5055,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/basic-inline.html?v=custom-user-id-v1';
+                        iframe.src = '/basic-inline.html?v=dynamic-load-v1';
                         basicChatContainer.appendChild(iframe);
                     }
                 });
@@ -5215,7 +5215,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/advanced-inline.html?v=custom-user-id-v1';
+                        iframe.src = '/advanced-inline.html?v=dynamic-load-v1';
                         advancedChatContainer.appendChild(iframe);
                     }
                 });
@@ -5336,7 +5336,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     openButton: openProEnglishChat,
                     closeButton: closeProEnglishChat,
                     iframeTitle: 'Pro English live chatbot',
-                    iframeSrc: '/pro-english-inline.html?v=custom-user-id-v1',
+                    iframeSrc: '/pro-english-inline.html?v=dynamic-load-v1',
                     iframeReady: false,
                     iframeReadyPromise: null,
                     firstActivationPending: true,
@@ -5349,7 +5349,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     openButton: openProArabicChat,
                     closeButton: closeProArabicChat,
                     iframeTitle: 'Pro Arabic live chatbot',
-                    iframeSrc: '/pro-arabic-inline.html?v=custom-user-id-v1',
+                    iframeSrc: '/pro-arabic-inline.html?v=dynamic-load-v1',
                     iframeReady: false,
                     iframeReadyPromise: null,
                     firstActivationPending: true,

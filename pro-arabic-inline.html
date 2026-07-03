@@ -35,6 +35,7 @@
             const bot = 'pro_ar';
             const botPrefix = 'zt_pro_ar';
             const signEndpoint = 'https://zt-uchat-sign.zerotools.workers.dev/';
+            const embedScriptUrl = 'https://www.uchat.com.au/js/widget/somluqubkudarep6/embed.js?id=zt_pro_arabic_embed_chat';
 
             function createVisitorId() {
                 if (window.crypto && typeof window.crypto.randomUUID === 'function') {
@@ -76,11 +77,12 @@
                 return data.identifier_hash;
             }
 
-            window.addEventListener('chatbot:ready', async function () {
-                const userId = botPrefix + '_' + getVisitorId();
-
-                try {
-                    const identifierHash = await getIdentifierHash(userId);
+            function registerReadyListener(userId, identifierHash) {
+                window.addEventListener('chatbot:ready', function () {
+                    if (!identifierHash) {
+                        console.warn('UChat custom user setup skipped because identifier_hash is not available');
+                        return;
+                    }
 
                     if (window.$chatbot && typeof window.$chatbot.setUser === 'function') {
                         window.$chatbot.setUser(userId, {
@@ -90,12 +92,36 @@
                     } else {
                         console.warn('UChat setUser function is not available');
                     }
+                });
+            }
+
+            function loadEmbedScript() {
+                const script = document.createElement('script');
+                script.src = embedScriptUrl;
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            }
+
+            async function prepareAndLoadChatbot() {
+                const userId = botPrefix + '_' + getVisitorId();
+                let identifierHash = null;
+
+                try {
+                    identifierHash = await getIdentifierHash(userId);
                 } catch (error) {
                     console.warn('UChat custom user setup failed', error);
                 }
-            });
+
+                registerReadyListener(userId, identifierHash);
+
+                // Loading without a signed user may reintroduce duplicate menu/session behavior,
+                // but it keeps the inline chat visually available if signing is temporarily down.
+                loadEmbedScript();
+            }
+
+            prepareAndLoadChatbot();
         }());
     </script>
-    <script async defer src="https://www.uchat.com.au/js/widget/somluqubkudarep6/embed.js?id=zt_pro_arabic_embed_chat"></script>
 </body>
 </html>
