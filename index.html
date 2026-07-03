@@ -3566,7 +3566,6 @@ html[data-theme="dark"] .hero-helper {
 </div>
             </div>
 
-            <!-- TEMP TEST: Pro card disabled to test Basic + Advanced embed isolation.
             <div class="showcase-package">
             <div class="showcase-card" id="proShowcaseCard">
                 <h3 class="showcase-card-title">Pro</h3>
@@ -3576,11 +3575,11 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
                     <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
                     <div class="preview-try-group">
-    <a href="bot3-english.html" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
+    <a href="/pro-english-inline.html?v=custom-user-id-v1" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
         Try Pro English
     </a>
 
-    <a href="bot3-arabic.html" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
+    <a href="/pro-arabic-inline.html?v=custom-user-id-v1" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
         Try Pro Arabic
     </a>
 </div>
@@ -3616,7 +3615,7 @@ html[data-theme="dark"] .hero-helper {
     </div>
 
     <div
-        id="zt_pro_english_chat"
+        id="proEnglishChatContainer"
         class="showcase-live-chat-container">
     </div>
 </div>
@@ -3651,7 +3650,7 @@ html[data-theme="dark"] .hero-helper {
     </div>
 
     <div
-        id="embed_chatbot_container_id"
+        id="proArabicChatContainer"
         class="showcase-live-chat-container">
     </div>
 </div>
@@ -3674,7 +3673,6 @@ html[data-theme="dark"] .hero-helper {
     </ul>
 </div>
             </div>
-            TEMP TEST: End disabled Pro showcase card. -->
         </div>
     </div>
 </section>
@@ -5304,14 +5302,18 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             closeAdvancedChat.addEventListener('click', closeInlineAdvancedChat);
         }
 
-        /* TEMP TEST: Pro homepage chatbot loading disabled to test Basic + Advanced embed isolation.
-        // ===== Pro English Inline Chat Proof of Concept =====
+        // ===== Pro Inline Chat =====
         const proShowcaseCard = document.getElementById('proShowcaseCard');
         const openProEnglishChat = document.getElementById('openProEnglishChat');
         const proEnglishChatPanel = document.getElementById('proEnglishChatPanel');
-        const proEnglishChatContainer = document.getElementById('zt_pro_english_chat');
+        const proEnglishChatContainer = document.getElementById('proEnglishChatContainer');
         const proEnglishChatLoading = document.getElementById('proEnglishChatLoading');
         const closeProEnglishChat = document.getElementById('closeProEnglishChat');
+        const openProArabicChat = document.getElementById('openProArabicChat');
+        const proArabicChatPanel = document.getElementById('proArabicChatPanel');
+        const proArabicChatContainer = document.getElementById('proArabicChatContainer');
+        const proArabicChatLoading = document.getElementById('proArabicChatLoading');
+        const closeProArabicChat = document.getElementById('closeProArabicChat');
 
         if (
             proShowcaseCard &&
@@ -5319,237 +5321,84 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
             proEnglishChatPanel &&
             proEnglishChatContainer &&
             proEnglishChatLoading &&
-            closeProEnglishChat
-        ) {
-            const proEnglishEmbedScriptId = 'zt-pro-english-embed-script';
-            const proEnglishEmbedScriptUrl =
-                'https://www.uchat.com.au/js/widget/eivageplmcgs6uui/embed.js?id=zt_pro_english_chat';
-            let proEnglishChatRequested = false;
-            let proEnglishIframeReady = Boolean(proEnglishChatContainer.querySelector('iframe'));
-            let proEnglishEmbedReadyPromise = null;
-            let proEnglishFirstActivationPending = true;
-            let proEnglishFirstActivationPromise = null;
-
-            function ensureProEnglishEmbed() {
-                if (proEnglishIframeReady) {
-                    return Promise.resolve(true);
-                }
-
-                if (proEnglishEmbedReadyPromise) {
-                    return proEnglishEmbedReadyPromise;
-                }
-
-                proEnglishEmbedReadyPromise = new Promise(function (resolve) {
-                    let observedIframe = null;
-                    let script = document.getElementById(proEnglishEmbedScriptId);
-
-                    function cleanup() {
-                        observer.disconnect();
-
-                        if (observedIframe) {
-                            observedIframe.removeEventListener('load', handleIframeLoad);
-                        }
-                    }
-
-                    function handleIframeLoad() {
-                        proEnglishIframeReady = true;
-                        cleanup();
-                        resolve(true);
-                    }
-
-                    function watchIframe(iframe) {
-                        if (!iframe || observedIframe) return;
-
-                        observedIframe = iframe;
-                        observedIframe.addEventListener('load', handleIframeLoad, { once: true });
-                    }
-
-                    const observer = new MutationObserver(function () {
-                        watchIframe(proEnglishChatContainer.querySelector('iframe'));
-                    });
-
-                    observer.observe(proEnglishChatContainer, {
-                        childList: true,
-                        subtree: true
-                    });
-
-                    watchIframe(proEnglishChatContainer.querySelector('iframe'));
-
-                    if (!script) {
-                        script = document.createElement('script');
-
-                        script.id = proEnglishEmbedScriptId;
-                        script.src = proEnglishEmbedScriptUrl;
-                        script.async = true;
-                        script.defer = true;
-
-                        script.addEventListener('error', function () {
-                            script.remove();
-                            proEnglishEmbedReadyPromise = null;
-                            cleanup();
-                            resolve(false);
-
-                            if (proEnglishChatRequested) {
-                                proEnglishChatPanel.hidden = true;
-                                proShowcaseCard.classList.remove('is-chat-active');
-                                openProEnglishChat.setAttribute('aria-expanded', 'false');
-
-                                window.location.href = openProEnglishChat.href;
-                            }
-                        });
-
-                        document.body.appendChild(script);
-                    }
-                });
-
-                return proEnglishEmbedReadyPromise;
-            }
-
-            function startProEnglishFirstActivation() {
-                if (proEnglishFirstActivationPromise) {
-                    return proEnglishFirstActivationPromise;
-                }
-
-                proEnglishFirstActivationPromise = Promise.all([
-                    ensureProEnglishEmbed(),
-                    new Promise(function (resolve) {
-                        setTimeout(resolve, 600);
-                    })
-                ]).then(function (results) {
-                    const isReady = results[0];
-
-                    proEnglishChatLoading.hidden = true;
-                    proEnglishChatContainer.hidden = false;
-                    proEnglishChatPanel.removeAttribute('aria-busy');
-
-                    if (isReady) {
-                        proEnglishFirstActivationPending = false;
-                    } else {
-                        proEnglishFirstActivationPromise = null;
-                    }
-
-                    return isReady;
-                });
-
-                return proEnglishFirstActivationPromise;
-            }
-
-            ensureProEnglishEmbed();
-
-            function openInlineProEnglishChat(event) {
-                event.preventDefault();
-
-                const proArabicChatPanel = document.getElementById('proArabicChatPanel');
-                const openProArabicChat = document.getElementById('openProArabicChat');
-
-                if (proArabicChatPanel && openProArabicChat) {
-                    proArabicChatPanel.hidden = true;
-                    openProArabicChat.setAttribute('aria-expanded', 'false');
-                }
-
-                proEnglishChatRequested = true;
-
-                proEnglishChatPanel.hidden = false;
-                proShowcaseCard.classList.add('is-chat-active');
-                openProEnglishChat.setAttribute('aria-expanded', 'true');
-
-                if (proEnglishFirstActivationPending) {
-                    proEnglishChatLoading.hidden = false;
-                    proEnglishChatContainer.hidden = true;
-                    proEnglishChatPanel.setAttribute('aria-busy', 'true');
-
-                    startProEnglishFirstActivation();
-                } else {
-                    proEnglishChatLoading.hidden = true;
-                    proEnglishChatContainer.hidden = false;
-                    proEnglishChatPanel.removeAttribute('aria-busy');
-
-                    ensureProEnglishEmbed();
-                }
-
-                proEnglishChatPanel.focus({
-                    preventScroll: true
-                });
-
-                proShowcaseCard.scrollTop = 0;
-
-                requestAnimationFrame(function () {
-                    proShowcaseCard.scrollTop = 0;
-                });
-            }
-
-            function closeInlineProEnglishChat() {
-                proEnglishChatRequested = false;
-
-                proEnglishChatPanel.hidden = true;
-                proShowcaseCard.classList.remove('is-chat-active');
-                openProEnglishChat.setAttribute('aria-expanded', 'false');
-                openProEnglishChat.focus();
-            }
-
-            openProEnglishChat.addEventListener('click', openInlineProEnglishChat);
-            closeProEnglishChat.addEventListener('click', closeInlineProEnglishChat);
-        }
-
-        // ===== Pro Arabic Inline Chat =====
-        const openProArabicChat = document.getElementById('openProArabicChat');
-        const proArabicChatPanel = document.getElementById('proArabicChatPanel');
-        const proArabicChatContainer = document.getElementById('embed_chatbot_container_id');
-        const proArabicChatLoading = document.getElementById('proArabicChatLoading');
-        const closeProArabicChat = document.getElementById('closeProArabicChat');
-
-        if (
-            proShowcaseCard &&
+            closeProEnglishChat &&
             openProArabicChat &&
             proArabicChatPanel &&
             proArabicChatContainer &&
             proArabicChatLoading &&
             closeProArabicChat
         ) {
-            let proArabicChatRequested = false;
-            let proArabicIframeReady = false;
-            let proArabicIframeReadyPromise = null;
-            let proArabicFirstActivationPending = true;
-            let proArabicFirstActivationPromise = null;
+            const proChatConfigs = {
+                english: {
+                    panel: proEnglishChatPanel,
+                    container: proEnglishChatContainer,
+                    loading: proEnglishChatLoading,
+                    openButton: openProEnglishChat,
+                    closeButton: closeProEnglishChat,
+                    iframeTitle: 'Pro English live chatbot',
+                    iframeSrc: '/pro-english-inline.html?v=custom-user-id-v1',
+                    iframeReady: false,
+                    iframeReadyPromise: null,
+                    firstActivationPending: true,
+                    firstActivationPromise: null
+                },
+                arabic: {
+                    panel: proArabicChatPanel,
+                    container: proArabicChatContainer,
+                    loading: proArabicChatLoading,
+                    openButton: openProArabicChat,
+                    closeButton: closeProArabicChat,
+                    iframeTitle: 'Pro Arabic live chatbot',
+                    iframeSrc: '/pro-arabic-inline.html?v=custom-user-id-v1',
+                    iframeReady: false,
+                    iframeReadyPromise: null,
+                    firstActivationPending: true,
+                    firstActivationPromise: null
+                }
+            };
 
-            function ensureProArabicIframe() {
-                if (proArabicIframeReady) {
+            function otherProChatConfig(key) {
+                return key === 'english' ? proChatConfigs.arabic : proChatConfigs.english;
+            }
+
+            function ensureProIframe(config) {
+                if (config.iframeReady) {
                     return Promise.resolve(true);
                 }
 
-                if (proArabicIframeReadyPromise) {
-                    return proArabicIframeReadyPromise;
+                if (config.iframeReadyPromise) {
+                    return config.iframeReadyPromise;
                 }
 
-                proArabicIframeReadyPromise = new Promise(function (resolve) {
-                    let iframe = proArabicChatContainer.querySelector('iframe');
+                config.iframeReadyPromise = new Promise(function (resolve) {
+                    let iframe = config.container.querySelector('iframe');
                     let shouldAppendIframe = false;
 
                     function handleIframeLoad() {
-                        proArabicIframeReady = true;
+                        config.iframeReady = true;
                         iframe.removeEventListener('load', handleIframeLoad);
                         iframe.removeEventListener('error', handleIframeError);
                         resolve(true);
                     }
 
                     function handleIframeError() {
-                        proArabicIframeReadyPromise = null;
+                        config.iframeReadyPromise = null;
                         iframe.removeEventListener('load', handleIframeLoad);
                         iframe.removeEventListener('error', handleIframeError);
                         resolve(false);
 
-                        if (proArabicChatRequested) {
-                            proArabicChatPanel.hidden = true;
+                        if (!config.panel.hidden) {
+                            config.panel.hidden = true;
                             proShowcaseCard.classList.remove('is-chat-active');
-                            openProArabicChat.setAttribute('aria-expanded', 'false');
+                            config.openButton.setAttribute('aria-expanded', 'false');
 
-                            window.location.href = openProArabicChat.href;
+                            window.location.href = config.openButton.href;
                         }
                     }
 
                     if (!iframe) {
                         iframe = document.createElement('iframe');
-                        iframe.title = 'Pro Arabic live chatbot';
+                        iframe.title = config.iframeTitle;
                         iframe.style.width = '100%';
                         iframe.style.height = '100%';
                         iframe.style.border = '0';
@@ -5563,72 +5412,71 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/pro-arabic-inline.html';
-                        proArabicChatContainer.appendChild(iframe);
+                        iframe.src = config.iframeSrc;
+                        config.container.appendChild(iframe);
                     }
                 });
 
-                return proArabicIframeReadyPromise;
+                return config.iframeReadyPromise;
             }
 
-            function startProArabicFirstActivation() {
-                if (proArabicFirstActivationPromise) {
-                    return proArabicFirstActivationPromise;
+            function startProFirstActivation(config) {
+                if (config.firstActivationPromise) {
+                    return config.firstActivationPromise;
                 }
 
-                proArabicFirstActivationPromise = Promise.all([
-                    ensureProArabicIframe(),
+                config.firstActivationPromise = Promise.all([
+                    ensureProIframe(config),
                     new Promise(function (resolve) {
                         setTimeout(resolve, 600);
                     })
                 ]).then(function (results) {
                     const isReady = results[0];
 
-                    proArabicChatLoading.hidden = true;
-                    proArabicChatContainer.hidden = false;
-                    proArabicChatPanel.removeAttribute('aria-busy');
+                    config.loading.hidden = true;
+                    config.container.hidden = false;
+                    config.panel.removeAttribute('aria-busy');
 
                     if (isReady) {
-                        proArabicFirstActivationPending = false;
+                        config.firstActivationPending = false;
                     } else {
-                        proArabicFirstActivationPromise = null;
+                        config.firstActivationPromise = null;
                     }
 
                     return isReady;
                 });
 
-                return proArabicFirstActivationPromise;
+                return config.firstActivationPromise;
             }
 
-            function openInlineProArabicChat(event) {
+            function openInlineProChat(key, event) {
                 event.preventDefault();
 
-                if (proEnglishChatPanel && openProEnglishChat) {
-                    proEnglishChatPanel.hidden = true;
-                    openProEnglishChat.setAttribute('aria-expanded', 'false');
-                }
+                const config = proChatConfigs[key];
+                const otherConfig = otherProChatConfig(key);
 
-                proArabicChatRequested = true;
+                otherConfig.panel.hidden = true;
+                otherConfig.openButton.setAttribute('aria-expanded', 'false');
 
-                proArabicChatPanel.hidden = false;
+                config.panel.hidden = false;
                 proShowcaseCard.classList.add('is-chat-active');
-                openProArabicChat.setAttribute('aria-expanded', 'true');
+                config.openButton.setAttribute('aria-expanded', 'true');
 
-                if (proArabicFirstActivationPending) {
-                    proArabicChatLoading.hidden = false;
-                    proArabicChatContainer.hidden = true;
-                    proArabicChatPanel.setAttribute('aria-busy', 'true');
+                if (config.firstActivationPending) {
+                    config.loading.hidden = false;
+                    config.container.hidden = true;
+                    config.panel.setAttribute('aria-busy', 'true');
 
-                    startProArabicFirstActivation();
+                    startProFirstActivation(config);
                 } else {
-                    proArabicChatLoading.hidden = true;
-                    proArabicChatContainer.hidden = false;
-                    proArabicChatPanel.removeAttribute('aria-busy');
+                    config.loading.hidden = true;
+                    config.container.hidden = false;
+                    config.panel.removeAttribute('aria-busy');
 
-                    ensureProArabicIframe();
+                    ensureProIframe(config);
                 }
 
-                proArabicChatPanel.focus({
+                config.panel.focus({
                     preventScroll: true
                 });
 
@@ -5639,21 +5487,36 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 });
             }
 
-            function closeInlineProArabicChat() {
-                proArabicChatRequested = false;
+            function closeInlineProChat(key) {
+                const config = proChatConfigs[key];
+                const otherConfig = otherProChatConfig(key);
 
-                proArabicChatPanel.hidden = true;
-                proShowcaseCard.classList.remove('is-chat-active');
-                openProArabicChat.setAttribute('aria-expanded', 'false');
-                openProArabicChat.focus();
+                config.panel.hidden = true;
+                config.openButton.setAttribute('aria-expanded', 'false');
+
+                if (otherConfig.panel.hidden) {
+                    proShowcaseCard.classList.remove('is-chat-active');
+                }
+
+                config.openButton.focus();
             }
 
-            ensureProArabicIframe();
+            openProEnglishChat.addEventListener('click', function (event) {
+                openInlineProChat('english', event);
+            });
 
-            openProArabicChat.addEventListener('click', openInlineProArabicChat);
-            closeProArabicChat.addEventListener('click', closeInlineProArabicChat);
+            closeProEnglishChat.addEventListener('click', function () {
+                closeInlineProChat('english');
+            });
+
+            openProArabicChat.addEventListener('click', function (event) {
+                openInlineProChat('arabic', event);
+            });
+
+            closeProArabicChat.addEventListener('click', function () {
+                closeInlineProChat('arabic');
+            });
         }
-        TEMP TEST: End disabled Pro homepage chatbot loading. */
 
         // ===== Pro Pricing Toggle =====
         const toggleProPricing = document.getElementById('toggleProPricing');
