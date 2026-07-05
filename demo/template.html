@@ -174,7 +174,7 @@
 
     .preview-grid {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 460px);
       gap: 28px;
       align-items: stretch;
       padding: 28px 0 58px;
@@ -190,6 +190,9 @@
     .preview-grid .chat-panel {
       grid-column: 2;
       grid-row: 1;
+      width: 100%;
+      max-width: 460px;
+      justify-self: end;
     }
 
     .section-panel,
@@ -342,6 +345,11 @@
         grid-row: auto;
       }
 
+      .preview-grid .chat-panel {
+        max-width: none;
+        justify-self: stretch;
+      }
+
       .chat-panel {
         min-height: auto;
       }
@@ -382,6 +390,11 @@
       .preview-grid {
         gap: 18px;
         padding-bottom: 40px;
+      }
+
+      .preview-grid .chat-panel {
+        width: calc(100% - 24px);
+        justify-self: center;
       }
 
       .chat-placeholder {
