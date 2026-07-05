@@ -247,7 +247,7 @@
     }
 
     .chat-copy {
-      padding: 28px 28px 22px;
+      padding: 18px 24px 14px;
       border-bottom: 1px solid rgba(0, 165, 229, 0.18);
       background: var(--surface);
     }
@@ -272,6 +272,15 @@
       height: 560px;
       border: 0;
       background: var(--surface);
+    }
+
+    .chat-footnote {
+      padding: 10px 16px 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+      background: var(--surface);
+      border-top: 1px solid rgba(0, 165, 229, 0.14);
     }
 
     .cta-wrap {
@@ -382,9 +391,12 @@
 
       .scope-note,
       .section-panel,
-      .chat-copy,
       .cta {
         padding: 20px;
+      }
+
+      .chat-copy {
+        padding: 18px 20px 14px;
       }
 
       .preview-grid {
@@ -441,12 +453,13 @@
         <section class="chat-panel" aria-labelledby="chatbot-preview-title">
           <div class="chat-copy">
             <h2 id="chatbot-preview-title">Try the preview chatbot</h2>
-            <p>Ask a common question or try a sample enquiry path. This preview is intentionally limited, but a full version can be expanded after scope review.</p>
+            <p>Try a common question or sample enquiry path.</p>
           </div>
           <div class="chat-placeholder">
             <!-- Replace this placeholder with the prospect-specific UChat embed when the custom preview bot is ready. -->
             <iframe class="chat-iframe" src="../basic-inline.html?v=dynamic-load-v1" title="Basic inline chatbot layout test"></iframe>
           </div>
+          <p class="chat-footnote">This preview is intentionally limited, but a full version can be expanded after scope review.</p>
         </section>
 
         <div class="details-stack">
