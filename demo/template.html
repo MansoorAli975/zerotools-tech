@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Private Preview Demo | Zero Tools</title>
+  <meta name="description" content="A private small preview demo showing how a website chatbot could help visitors ask questions and send enquiries more easily.">
+  <link rel="icon" type="image/png" href="../favicon.png?v=1">
+  <style>
+    :root {
+      --brand-blue: #00A5E5;
+      --brand-blue-dark: #007fb3;
+      --soft-blue: #def1fb;
+      --ink: #071522;
+      --muted: #526576;
+      --line: #c8e3f1;
+      --surface: #ffffff;
+      --surface-soft: #f5fbfe;
+      --shadow: 0 22px 60px rgba(7, 21, 34, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(222, 241, 251, 0.98) 0%, rgba(255, 255, 255, 0.94) 46%, rgba(230, 247, 255, 0.92) 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--brand-blue-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0, 165, 229, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink);
+      font-weight: 800;
+      letter-spacing: 0;
+      flex-shrink: 0;
+    }
+
+    .brand img {
+      display: block;
+      height: 30px;
+      width: auto;
+    }
+
+    .brand span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 70px 0 36px;
+    }
+
+    .preview-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: var(--brand-blue-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .preview-label::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      box-shadow: 0 0 0 5px rgba(0, 165, 229, 0.14);
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(2.2rem, 6vw, 4.7rem);
+      font-weight: 850;
+    }
+
+    h2 {
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      font-weight: 820;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 22px;
+      color: #263746;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .scope-note {
+      margin: 34px 0 0;
+      padding: 24px;
+      max-width: 980px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--brand-blue);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 30px rgba(7, 21, 34, 0.08);
+    }
+
+    .scope-note p + p {
+      margin-top: 14px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 28px 0 58px;
+    }
+
+    .details-stack {
+      display: grid;
+      gap: 20px;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .preview-grid .chat-panel {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .section-panel,
+    .chat-panel,
+    .cta {
+      border: 1px solid rgba(0, 165, 229, 0.18);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .section-panel {
+      padding: 28px;
+    }
+
+    .section-panel p {
+      margin-top: 14px;
+      color: var(--muted);
+    }
+
+    ul {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      padding-left: 28px;
+      color: #263746;
+    }
+
+    li::before {
+      content: "";
+      position: absolute;
+      top: 0.68em;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      transform: translateY(-50%);
+    }
+
+    .chat-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+      overflow: hidden;
+    }
+
+    .chat-copy {
+      padding: 28px 28px 22px;
+      border-bottom: 1px solid rgba(0, 165, 229, 0.18);
+      background: var(--surface);
+    }
+
+    .chat-copy p {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    .chat-placeholder {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      min-height: 340px;
+      padding: 28px;
+      background:
+        linear-gradient(180deg, rgba(222, 241, 251, 0.62), rgba(255, 255, 255, 0.82)),
+        var(--surface-soft);
+    }
+
+    .placeholder-card {
+      width: min(100%, 420px);
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 1px dashed rgba(0, 127, 179, 0.42);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--muted);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .cta-wrap {
+      padding: 0 0 54px;
+    }
+
+    .cta {
+      display: grid;
+      gap: 16px;
+      padding: 30px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(222, 241, 251, 0.78));
+    }
+
+    .cta p {
+      max-width: 860px;
+      color: var(--muted);
+    }
+
+    .cta-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid rgba(0, 165, 229, 0.28);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .site-footer {
+      padding: 24px 0;
+      color: #526576;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(0, 165, 229, 0.18);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        padding-top: 88px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .container {
+        width: min(100% - 28px, 720px);
+      }
+
+      .header-container {
+        padding: 0 24px;
+      }
+
+      .brand img {
+        height: 28px;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .details-stack,
+      .preview-grid .chat-panel {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .chat-panel {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 24px, 520px);
+      }
+
+      .site-header {
+        padding: 20px 0;
+      }
+
+      .brand img {
+        height: 26px;
+      }
+
+      .hero {
+        padding: 54px 0 24px;
+      }
+
+      .scope-note,
+      .section-panel,
+      .chat-copy,
+      .cta {
+        padding: 20px;
+      }
+
+      .preview-grid {
+        gap: 18px;
+        padding-bottom: 40px;
+      }
+
+      .chat-placeholder {
+        min-height: 280px;
+        padding: 20px;
+      }
+
+      .placeholder-card {
+        min-height: 190px;
+      }
+
+      .cta-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-container">
+        <a class="brand" href="https://www.zerotools.tech" aria-label="Zero Tools home">
+          <img src="../logo.png" alt="Zero Tools" width="487" height="71">
+          <span>Zero Tools</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="container">
+          <div class="preview-label">Private Preview Demo</div>
+          <h1 id="page-title">Small Preview Demo for [Company Name]</h1>
+          <p class="hero-copy">This private preview shows how a website chatbot could help visitors ask questions, understand your services, and send enquiries more easily.</p>
+
+          <div class="scope-note" aria-label="Preview scope note">
+            <p>This is a small preview demo prepared using publicly available website information. It is not a full production chatbot and is not connected to your internal systems, CRM, WhatsApp, pricing database, calendar, or private business data.</p>
+            <p>If the direction looks useful, Zero Tools can review your real requirements and recommend the right package before confirming final scope and pricing.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container preview-grid" aria-label="Private preview details">
+        <section class="chat-panel" aria-labelledby="chatbot-preview-title">
+          <div class="chat-copy">
+            <h2 id="chatbot-preview-title">Try the preview chatbot</h2>
+            <p>Ask a common question or try a sample enquiry path. This preview is intentionally limited, but a full version can be expanded after scope review.</p>
+          </div>
+          <div class="chat-placeholder">
+            <!-- Replace this placeholder with the prospect-specific UChat embed when the custom preview bot is ready. -->
+            <div class="placeholder-card">Custom preview chatbot will appear here.</div>
+          </div>
+        </section>
+
+        <div class="details-stack">
+          <section class="section-panel" aria-labelledby="preview-shows-title">
+            <h2 id="preview-shows-title">What this preview shows</h2>
+            <ul>
+              <li>How visitors could ask common questions</li>
+              <li>How your services can be explained conversationally</li>
+              <li>How basic enquiries can be collected</li>
+              <li>How visitors can be guided toward a clear next step</li>
+            </ul>
+          </section>
+
+          <section class="section-panel" aria-labelledby="full-version-title">
+            <h2 id="full-version-title">What a full version can add</h2>
+            <p>Depending on confirmed package and scope, a full version can add:</p>
+            <ul>
+              <li>More complete FAQ coverage</li>
+              <li>Guided service or product selection</li>
+              <li>Quote, consultation, or appointment request capture</li>
+              <li>Better enquiry qualification</li>
+              <li>Priority enquiry alerts</li>
+              <li>Follow-up tracking</li>
+              <li>Arabic version where required</li>
+              <li>Business Automation review for CRM/API/backend needs</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <section class="cta-wrap">
+        <div class="container">
+          <div class="cta">
+            <h2>Interested in a version for your business?</h2>
+            <p>Reply to our email or contact Zero Tools. If the direction looks useful, we can review your actual requirements and recommend the right package before confirming final scope and pricing.</p>
+            <div class="cta-links">
+              <a class="cta-link" href="mailto:support@zerotools.tech">support@zerotools.tech</a>
+              <a class="cta-link" href="https://www.zerotools.tech">www.zerotools.tech</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">Zero Tools — Website AI Chatbots &amp; Business Automation Review</div>
+    </footer>
+  </div>
+</body>
+</html>
