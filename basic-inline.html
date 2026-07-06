@@ -77,13 +77,20 @@
             }
 
             function registerReadyListener(userId, identifierHash) {
-                window.addEventListener('chatbot:ready', function () {
+                let customUserApplied = false;
+
+                function handleChatbotReady() {
+                    if (customUserApplied) return;
+
                     if (!identifierHash) {
                         console.warn('UChat custom user setup skipped because identifier_hash is not available');
+                        window.removeEventListener('chatbot:ready', handleChatbotReady);
                         return;
                     }
 
                     if (window.$chatbot && typeof window.$chatbot.setUser === 'function') {
+                        customUserApplied = true;
+                        window.removeEventListener('chatbot:ready', handleChatbotReady);
                         window.$chatbot.setUser(userId, {
                             name: 'Zero Tools Demo Visitor',
                             identifier_hash: identifierHash
@@ -91,7 +98,9 @@
                     } else {
                         console.warn('UChat setUser function is not available');
                     }
-                });
+                }
+
+                window.addEventListener('chatbot:ready', handleChatbotReady);
             }
 
             function loadEmbedScript() {
