@@ -37,11 +37,7 @@
             const embedScriptUrl = 'https://www.uchat.com.au/js/widget/jxjukkd1zbid1cea/embed.js?id=zt_basic_embed_chat';
 
             function createRandomId() {
-                if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-                    return window.crypto.randomUUID();
-                }
-
-                return String(Date.now()) + '-' + Math.random().toString(36).slice(2);
+                return Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
             }
 
             async function getIdentifierHash(userId) {
@@ -59,6 +55,24 @@
                 }
 
                 return data.identifier_hash;
+            }
+
+            function getIdentifierHashWithTimeout(userId) {
+                return new Promise((resolve, reject) => {
+                    const timeoutId = window.setTimeout(() => {
+                        reject(new Error('Signing request timed out after 4 seconds'));
+                    }, 4000);
+
+                    getIdentifierHash(userId)
+                        .then((identifierHash) => {
+                            window.clearTimeout(timeoutId);
+                            resolve(identifierHash);
+                        })
+                        .catch((error) => {
+                            window.clearTimeout(timeoutId);
+                            reject(error);
+                        });
+                });
             }
 
             function registerReadyListener(userId, identifierHash) {
@@ -97,13 +111,13 @@
             }
 
             async function prepareAndLoadChatbot() {
-                const userId = 'zt_basic_debug_random_' + createRandomId();
+                const userId = 'zt_basic_' + createRandomId();
                 let identifierHash = null;
 
                 try {
-                    identifierHash = await getIdentifierHash(userId);
+                    identifierHash = await getIdentifierHashWithTimeout(userId);
                 } catch (error) {
-                    console.warn('UChat custom user setup failed', error);
+                    console.warn('UChat debug signing failed or timed out; loading embed without identifier_hash', error);
                 }
 
                 registerReadyListener(userId, identifierHash);
