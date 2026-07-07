@@ -3451,7 +3451,7 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Hi, I’m the Basic chatbot.</div>
                     <div class="preview-message">Ask me a question and see how I handle a simple website enquiry.</div>
                     <img src="Basic.png" alt="Basic chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="bot1-english.html" class="preview-try-btn preview-try-btn-basic" id="openBasicChat" aria-controls="basicChatPanel" aria-expanded="false">Try Basic</a>
+                    <a href="https://basic.zerotools.tech/embed/basic.html" class="preview-try-btn preview-try-btn-basic" id="openBasicChat" aria-controls="basicChatPanel" aria-expanded="false">Try Basic</a>
                 </div>
 
 <div
@@ -3516,7 +3516,7 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Hi, I'm the Advanced chatbot.</div>
                     <div class="preview-message">I can guide the conversation better and collect more useful enquiry details.</div>
                     <img src="Advanced.png" alt="Advanced chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="bot2-english.html" class="preview-try-btn preview-try-btn-advanced" id="openAdvancedChat" aria-controls="advancedChatPanel" aria-expanded="false">Try Advanced</a>
+                    <a href="https://advanced.zerotools.tech/embed/advanced.html" class="preview-try-btn preview-try-btn-advanced" id="openAdvancedChat" aria-controls="advancedChatPanel" aria-expanded="false">Try Advanced</a>
                 </div>
 
 <div
@@ -3582,11 +3582,11 @@ html[data-theme="dark"] .hero-helper {
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
                     <img src="pro.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
                     <div class="preview-try-group">
-    <a href="/pro-english-inline.html?v=dynamic-load-v1" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
+    <a href="https://pro-en.zerotools.tech/embed/pro-english.html" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
         Try Pro English
     </a>
 
-    <a href="/pro-arabic-inline.html?v=dynamic-load-v1" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
+    <a href="https://pro-ar.zerotools.tech/embed/pro-arabic.html" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
         Try Pro Arabic
     </a>
 </div>
@@ -5062,7 +5062,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/basic-inline.html?v=dynamic-load-v1';
+                        iframe.src = 'https://basic.zerotools.tech/embed/basic.html';
                         basicChatContainer.appendChild(iframe);
                     }
                 });
@@ -5222,7 +5222,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     iframe.addEventListener('error', handleIframeError, { once: true });
 
                     if (shouldAppendIframe) {
-                        iframe.src = '/advanced-inline.html?v=dynamic-load-v1';
+                        iframe.src = 'https://advanced.zerotools.tech/embed/advanced.html';
                         advancedChatContainer.appendChild(iframe);
                     }
                 });
@@ -5343,7 +5343,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     openButton: openProEnglishChat,
                     closeButton: closeProEnglishChat,
                     iframeTitle: 'Pro English live chatbot',
-                    iframeSrc: '/pro-english-inline.html?v=dynamic-load-v1',
+                    iframeSrc: 'https://pro-en.zerotools.tech/embed/pro-english.html',
                     iframeReady: false,
                     iframeReadyPromise: null,
                     firstActivationPending: true,
@@ -5356,7 +5356,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                     openButton: openProArabicChat,
                     closeButton: closeProArabicChat,
                     iframeTitle: 'Pro Arabic live chatbot',
-                    iframeSrc: '/pro-arabic-inline.html?v=dynamic-load-v1',
+                    iframeSrc: 'https://pro-ar.zerotools.tech/embed/pro-arabic.html',
                     iframeReady: false,
                     iframeReadyPromise: null,
                     firstActivationPending: true,
