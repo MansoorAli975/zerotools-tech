@@ -4679,6 +4679,7 @@ function scrollToTarget(targetId, options = {}) {
 
     const shouldUpdateHistory = options.updateHistory !== false;
     const scrollBehavior = options.behavior || 'smooth';
+    const scrollOffset = targetId === '#solutions' ? 40 : 100;
 
     setActiveSectionPanel(targetId);
 
@@ -4687,7 +4688,7 @@ function scrollToTarget(targetId, options = {}) {
     }
 
     window.scrollTo({
-        top: targetElement.offsetTop - 100,
+        top: targetElement.offsetTop - scrollOffset,
         behavior: scrollBehavior
     });
 }
@@ -4712,8 +4713,10 @@ if (initialHash) {
 
         if (!isPageReload) {
             requestAnimationFrame(() => {
+                const initialScrollOffset = initialHash === '#solutions' ? 40 : 100;
+
                 window.scrollTo({
-                    top: initialTarget.offsetTop - 100,
+                    top: initialTarget.offsetTop - initialScrollOffset,
                     behavior: 'auto'
                 });
             });
