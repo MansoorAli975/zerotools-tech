@@ -705,7 +705,7 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     background: var(--card-bg);
     border: 1px solid var(--border-soft);
     border-radius: 18px;
-    padding: 28px 26px 26px;
+    padding: 14px 26px 12px;
     display: flex;
     flex-direction: column;
     height: 620px;
@@ -737,22 +737,69 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
 }
 
 .showcase-card-title {
-    text-align: center;
-    font-size: 1.55rem;
-    font-weight: 700;
-    color: var(--heading-text);
-    margin-bottom: 22px;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .showcase-preview {
-    border-radius: 10px;
-    padding: 135px 22px 20px;
-    min-height: 385px;
+    --preview-header-start: #61b35f;
+    --preview-header-end: #8acb86;
+    --preview-header-text: #ffffff;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 82px 22px 126px;
+    min-height: 468px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    border-radius: 10px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.52),
+        0 10px 22px rgba(17, 24, 39, 0.05);
+}
+
+.showcase-preview::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    background: linear-gradient(
+        90deg,
+        var(--preview-header-start),
+        var(--preview-header-end)
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    z-index: 0;
+}
+
+.showcase-preview::after {
+    content: attr(data-preview-title);
+    position: absolute;
+    top: 0;
+    left: 22px;
+    right: 22px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--preview-header-text);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .showcase-live-chat {
@@ -920,14 +967,23 @@ html[data-theme="dark"] .showcase-live-chat-close:hover {
 }
 
 .showcase-preview-basic {
+    --preview-header-start: #61b35f;
+    --preview-header-end: #8acb86;
+    --preview-header-text: #ffffff;
     background: #F2FAEF;
 }
 
 .showcase-preview-advanced {
+    --preview-header-start: #8251b8;
+    --preview-header-end: #a884d0;
+    --preview-header-text: #ffffff;
     background: #e6dcf3;
 }
 
 .showcase-preview-pro {
+    --preview-header-start: #c8b04d;
+    --preview-header-end: #dccb79;
+    --preview-header-text: #2f2710;
     background: #efe9d8;
 }
 
@@ -953,27 +1009,61 @@ html[data-theme="dark"] .preview-message {
     box-shadow: none;
 }
 
+html[data-theme="dark"] .showcase-preview {
+    border-color: rgba(232, 244, 251, 0.12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
 .preview-bot-face {
-    width: 48px;
-    height: 48px;
+    width: 86px;
+    height: 86px;
     object-fit: contain;
-    position: absolute;
-    right: 18px;
-    bottom: 74px;
+    flex: 0 0 auto;
+    margin: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 18px rgba(7, 21, 34, 0.18));
+    animation: botFaceFloat 4s ease-in-out infinite;
+    transform-origin: center;
+    transition:
+        filter 0.18s ease,
+        transform 0.18s ease;
+}
+
+@keyframes botFaceFloat {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-4px) scale(1.012);
+    }
 }
 
 .preview-try-group {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: auto;
+    position: absolute;
+    left: 24px;
+    right: 34px;
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 24px;
+    max-width: none;
 }
 
 .preview-try-group .preview-try-btn {
-    margin-top: 0;
-    padding: 0 8px;
-    font-size: 0.82rem;
-    text-align: center;
+    position: static;
+    font-size: 0.84rem;
+    gap: 10px;
+}
+
+.preview-try-group .preview-bot-face {
+    width: 70px;
+    height: 70px;
 }
 
 .preview-try-btn {
@@ -987,68 +1077,42 @@ html[data-theme="dark"] .preview-message {
     --try-hover-bg-end: rgba(97, 179, 95, 0.22);
     --try-pulse-start: rgba(97, 179, 95, 0.55);
     --try-pulse-end: rgba(97, 179, 95, 0);
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    margin-top: auto;
-    width: 100%;
-    min-height: 50px;
-    padding: 0 16px;
+    gap: 24px;
+    margin: 0;
+    width: fit-content;
+    max-width: calc(100% - 48px);
+    min-height: 0;
+    padding: 0;
     border: none;
-    border-radius: 999px;
-    background: linear-gradient(
-        135deg,
-        var(--try-bg-start),
-        var(--try-bg-end)
-    );
+    border-radius: 0;
+    background: transparent;
     color: var(--try-text);
-    box-shadow:
-        0 10px 28px var(--try-shadow),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85);
-    font-size: 1rem;
+    box-shadow: none;
+    font-size: 0.9rem;
     font-weight: 800;
-    letter-spacing: 0.02em;
+    line-height: 1;
+    letter-spacing: 0;
     text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.72);
+    white-space: nowrap;
     transform-origin: center;
     transition:
-        background 0.18s ease,
-        box-shadow 0.18s ease,
+        color 0.18s ease,
         transform 0.18s ease;
 }
 
 .preview-try-btn::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--try-primary);
-    border: none;
-    box-shadow: 0 0 0 0 var(--try-pulse-start);
-    animation: tryButtonPulse 1.8s ease-out infinite;
+    display: none;
 }
 
 .preview-try-btn::after {
-    content: "";
-    position: absolute;
-    top: -40%;
-    left: -35%;
-    width: 30%;
-    height: 180%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.55),
-        transparent
-    );
-    transform: rotate(22deg);
-    animation: badgeShine 4.8s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
+    display: none;
 }
 
 @keyframes tryButtonPulse {
@@ -1067,7 +1131,7 @@ html[data-theme="dark"] .preview-message {
 
 .preview-try-btn-basic {
     --try-primary: #FFFFFF;
-    --try-text: #FFFFFF;
+    --try-text: #356f34;
     --try-bg-start: rgba(97, 179, 95, 0.98);
     --try-bg-end: rgba(97, 179, 95, 0.84);
     --try-border: rgba(97, 179, 95, 0.55);
@@ -1080,7 +1144,7 @@ html[data-theme="dark"] .preview-message {
 
 .preview-try-btn-advanced {
     --try-primary: #FFFFFF;
-    --try-text: #FFFFFF;
+    --try-text: #60408f;
     --try-bg-start: rgba(130, 81, 184, 0.98);
     --try-bg-end: rgba(130, 81, 184, 0.84);
     --try-border: rgba(130, 81, 184, 0.58);
@@ -1093,7 +1157,7 @@ html[data-theme="dark"] .preview-message {
 
 .preview-try-btn-pro {
     --try-primary: #FFFFFF;
-    --try-text: #FFFFFF;
+    --try-text: #7a6720;
     --try-bg-start: rgba(200, 176, 77, 0.98);
     --try-bg-end: rgba(200, 176, 77, 0.84);
     --try-border: rgba(200, 176, 77, 0.65);
@@ -1105,25 +1169,30 @@ html[data-theme="dark"] .preview-message {
 }
 
 .preview-try-btn:hover {
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(-1px);
     filter: none;
-    background: linear-gradient(
-        135deg,
-        var(--try-hover-bg-start),
-        var(--try-hover-bg-end)
-    );
-    box-shadow:
-        0 14px 32px var(--try-shadow),
-        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    background: transparent;
+    box-shadow: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.preview-try-btn:hover .preview-bot-face,
+.preview-try-btn:focus-visible .preview-bot-face {
+    filter:
+        brightness(1.04)
+        drop-shadow(0 14px 20px rgba(7, 21, 34, 0.22));
+    transform: translateY(-1px);
 }
 
 .preview-try-btn:active {
-    transform: translateY(0) scale(0.99);
+    transform: translateY(0);
 }
 
 .preview-try-btn:focus-visible {
     outline: 3px solid rgba(0, 165, 229, 0.30);
-    outline-offset: 3px;
+    outline-offset: 5px;
+    border-radius: 8px;
 }
 
 .showcase-description {
@@ -1131,8 +1200,8 @@ html[data-theme="dark"] .preview-message {
     color: var(--text-muted);
     font-size: 0.98rem;
     line-height: 1.45;
-    margin: 24px 0 22px;
-    min-height: 72px;
+    margin: 10px 0 6px;
+    min-height: 58px;
 }
 
 .showcase-plan-points {
@@ -1185,6 +1254,10 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     .showcase-live-chat-loading-label {
         animation: none;
     }
+
+    .preview-bot-face {
+        animation: none;
+    }
 }
 
 .showcase-choose-btn {
@@ -1200,11 +1273,12 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     transition: var(--transition);
     width: 80%;
     align-self: center;
-    margin-top: auto;
+    margin-top: 4px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 0;
     position: relative;
-    top: -12px;
+    top: 0;
 }
 
 .showcase-choose-btn:hover {
@@ -1230,10 +1304,21 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     #proShowcaseCard.is-chat-active {
         height: 600px;
         min-height: 600px;
+        padding: 0;
+        border-color: transparent;
+    }
+
+    #basicShowcaseCard.is-chat-active .showcase-live-chat,
+    #advancedShowcaseCard.is-chat-active .showcase-live-chat,
+    #proShowcaseCard.is-chat-active .showcase-live-chat {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
     }
 
     .showcase-preview {
-        min-height: 360px;
+        min-height: 412px;
     }
 
     .showcase-description {
@@ -1247,7 +1332,7 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     }
 
     .showcase-card {
-        padding: 22px 18px 20px;
+        padding: 12px 18px 12px;
         height: 560px;
         min-height: 560px;
     }
@@ -1257,6 +1342,8 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     #proShowcaseCard.is-chat-active {
         height: 560px;
         min-height: 560px;
+        padding: 0;
+        border-color: transparent;
     }
 
     .showcase-live-chat {
@@ -1266,13 +1353,24 @@ html[data-theme="dark"] .showcase-plan-points li::before {
         border-radius: 12px;
     }
 
+    #basicShowcaseCard.is-chat-active .showcase-live-chat,
+    #advancedShowcaseCard.is-chat-active .showcase-live-chat,
+    #proShowcaseCard.is-chat-active .showcase-live-chat {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+    }
+
     .showcase-preview {
-        padding: 115px 16px 18px;
-        min-height: 330px;
+        margin-left: -10px;
+        margin-right: -10px;
+        padding: 80px 16px 112px;
+        min-height: 375px;
     }
 
     .showcase-preview-advanced {
-        padding-top: 103px;
+        padding-top: 80px;
     }
 
     .showcase-live-chat-toolbar {
@@ -1290,10 +1388,34 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     }
 
     .preview-bot-face {
-        width: 42px;
-        height: 42px;
-        right: 14px;
-        bottom: 70px;
+        width: 72px;
+        height: 72px;
+    }
+
+    .preview-try-btn {
+        right: 18px;
+        bottom: 16px;
+        gap: 14px;
+        max-width: calc(100% - 36px);
+        font-size: 0.84rem;
+    }
+
+    .preview-try-group {
+        left: 14px;
+        right: 18px;
+        bottom: 16px;
+        gap: 12px;
+        max-width: none;
+    }
+
+    .preview-try-group .preview-try-btn {
+        gap: 8px;
+        font-size: 0.76rem;
+    }
+
+    .preview-try-group .preview-bot-face {
+        width: 54px;
+        height: 54px;
     }
 
     .showcase-subtitle {
@@ -1306,6 +1428,10 @@ html[data-theme="dark"] .showcase-plan-points li::before {
         margin-bottom: 20px;
     }
 
+    .showcase-description {
+        margin: 10px 0 6px;
+    }
+
     .showcase-plan-points-title {
         font-size: 0.88rem;
     }
@@ -1313,6 +1439,28 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     .showcase-plan-points li {
         font-size: 0.88rem;
         line-height: 1.32;
+    }
+}
+
+@media (max-width: 420px) {
+    .showcase-preview-pro {
+        padding-bottom: 150px;
+    }
+
+    .preview-try-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .preview-try-group .preview-try-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .preview-try-group .preview-bot-face {
+        width: 52px;
+        height: 52px;
     }
 }
 /* new */
@@ -3447,11 +3595,10 @@ html[data-theme="dark"] .hero-helper {
             <div class="showcase-card" id="basicShowcaseCard">
                 <h3 class="showcase-card-title">Basic</h3>
 
-                <div class="showcase-preview showcase-preview-basic">
+                <div class="showcase-preview showcase-preview-basic" data-preview-title="Basic">
                     <div class="preview-message">Hi, I’m the Basic chatbot.</div>
                     <div class="preview-message">Ask me a question and see how I handle a simple website enquiry.</div>
-                    <img src="basic-bot-face-3d.png" alt="Basic chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="https://basic.zerotools.tech/embed/basic.html" class="preview-try-btn preview-try-btn-basic" id="openBasicChat" aria-controls="basicChatPanel" aria-expanded="false">Try Basic</a>
+                    <a href="https://basic.zerotools.tech/embed/basic.html" class="preview-try-btn preview-try-btn-basic" id="openBasicChat" aria-controls="basicChatPanel" aria-expanded="false">Try Basic → <img src="basic-bot-face-3d.png" alt="" aria-hidden="true" class="preview-bot-face" width="245" height="245" loading="lazy"></a>
                 </div>
 
 <div
@@ -3512,11 +3659,10 @@ html[data-theme="dark"] .hero-helper {
             <div class="showcase-card" id="advancedShowcaseCard">
                 <h3 class="showcase-card-title">Advanced</h3>
 
-                <div class="showcase-preview showcase-preview-advanced">
+                <div class="showcase-preview showcase-preview-advanced" data-preview-title="Advanced">
                     <div class="preview-message">Hi, I'm the Advanced chatbot.</div>
                     <div class="preview-message">I can guide the conversation better and collect more useful enquiry details.</div>
-                    <img src="advanced-bot-face-3d.png" alt="Advanced chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
-                    <a href="https://advanced.zerotools.tech/embed/advanced.html" class="preview-try-btn preview-try-btn-advanced" id="openAdvancedChat" aria-controls="advancedChatPanel" aria-expanded="false">Try Advanced</a>
+                    <a href="https://advanced.zerotools.tech/embed/advanced.html" class="preview-try-btn preview-try-btn-advanced" id="openAdvancedChat" aria-controls="advancedChatPanel" aria-expanded="false">Try Advanced → <img src="advanced-bot-face-3d.png" alt="" aria-hidden="true" class="preview-bot-face" width="245" height="245" loading="lazy"></a>
                 </div>
 
 <div
@@ -3577,17 +3723,16 @@ html[data-theme="dark"] .hero-helper {
             <div class="showcase-card" id="proShowcaseCard">
                 <h3 class="showcase-card-title">Pro</h3>
 
-                <div class="showcase-preview showcase-preview-pro" id="proShowcasePreview">
+                <div class="showcase-preview showcase-preview-pro" id="proShowcasePreview" data-preview-title="Pro">
                     <div class="preview-message">Hi, I’m the Pro chatbot.</div>
                     <div class="preview-message">Try me to see how a chatbot can handle different visitor situations more clearly.</div>
-                    <img src="pro-bot-face-3d.png" alt="Pro chatbot face" class="preview-bot-face" width="245" height="245" loading="lazy">
                     <div class="preview-try-group">
     <a href="https://pro-en.zerotools.tech/embed/pro-english.html" class="preview-try-btn preview-try-btn-pro" id="openProEnglishChat" aria-controls="proEnglishChatPanel" aria-expanded="false">
-        Try Pro English
+        Try Pro → <img src="pro-bot-face-3d.png" alt="" aria-hidden="true" class="preview-bot-face" width="245" height="245" loading="lazy">
     </a>
 
     <a href="https://pro-ar.zerotools.tech/embed/pro-arabic.html" class="preview-try-btn preview-try-btn-pro" id="openProArabicChat" aria-controls="proArabicChatPanel" aria-expanded="false">
-        Try Pro Arabic
+        Try Pro Arabic → <img src="pro-bot-face-3d.png" alt="" aria-hidden="true" class="preview-bot-face" width="245" height="245" loading="lazy">
     </a>
 </div>
                 </div>
