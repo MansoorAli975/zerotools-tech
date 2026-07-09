@@ -697,7 +697,15 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     gap: 18px;
 }
 
-.showcase-package > .showcase-plan-points {
+.showcase-plan-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.showcase-plan-footer > .showcase-plan-points {
+    align-self: stretch;
     margin: 0;
 }
 
@@ -756,6 +764,7 @@ html[data-theme="dark"] .hero-cta .btn-secondary.hero-secondary-btn:hover {
     margin-right: -16px;
     padding: 82px 22px 126px;
     min-height: 468px;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1195,13 +1204,48 @@ html[data-theme="dark"] .showcase-preview {
     border-radius: 8px;
 }
 
-.showcase-description {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.98rem;
-    line-height: 1.45;
-    margin: 10px 0 6px;
-    min-height: 58px;
+.showcase-price {
+    align-self: stretch;
+    margin: 14px 0 0;
+    text-align: left;
+    line-height: 1.15;
+}
+
+.showcase-price-amount {
+    display: block;
+    color: var(--heading-text);
+    font-size: 0.84rem;
+    font-weight: 800;
+}
+
+.showcase-price-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2px;
+    color: var(--brand-blue);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.showcase-price-link:hover {
+    color: var(--brand-blue-hover);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.showcase-price-link:focus-visible {
+    outline: 3px solid rgba(0, 165, 229, 0.28);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+html[data-theme="dark"] .showcase-price-link {
+    color: var(--accent-blue);
+}
+
+html[data-theme="dark"] .showcase-price-link:hover {
+    color: #ffffff;
 }
 
 .showcase-plan-points {
@@ -1264,10 +1308,10 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff;
-    color: var(--black);
-    border: 1px solid #9ca3af;
-    border-radius: 9px;
+    background: var(--card-bg);
+    color: var(--heading-text);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
     min-height: 34px;
     padding: 5px 16px;
     font-weight: 600;
@@ -1275,11 +1319,11 @@ html[data-theme="dark"] .showcase-plan-points li::before {
     line-height: 1.1;
     cursor: pointer;
     transition: var(--transition);
-    width: auto;
-    max-width: max-content;
-    min-width: unset;
-    align-self: center;
-    margin-top: 4px;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    align-self: stretch;
+    margin-top: 0;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0;
@@ -1290,26 +1334,26 @@ html[data-theme="dark"] .showcase-plan-points li::before {
 .showcase-choose-btn:hover {
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
-    background: #ffffff;
-    color: var(--black);
-    border-color: #111827;
+    background: var(--section-bg);
+    color: var(--heading-text);
+    border-color: var(--border-soft);
 }
 
 .showcase-choose-btn:focus-visible {
-    outline: 3px solid rgba(0, 165, 229, 0.28);
-    outline-offset: 3px;
+    outline: 2px solid var(--border-soft);
+    outline-offset: 2px;
 }
 
 html[data-theme="dark"] .showcase-choose-btn {
-    background: rgba(7, 21, 34, 0.58);
-    color: var(--text-muted);
-    border-color: rgba(232, 244, 251, 0.42);
+    background: var(--card-bg);
+    color: var(--heading-text);
+    border-color: var(--border-soft);
 }
 
 html[data-theme="dark"] .showcase-choose-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--section-bg);
     color: var(--heading-text);
-    border-color: rgba(232, 244, 251, 0.62);
+    border-color: var(--border-soft);
 }
 
 @media (max-width: 1024px) {
@@ -1346,14 +1390,15 @@ html[data-theme="dark"] .showcase-choose-btn:hover {
         min-height: 412px;
     }
 
-    .showcase-description {
-        min-height: auto;
-    }
 }
 
 @media (max-width: 640px) {
     .showcase-package {
         gap: 16px;
+    }
+
+    .showcase-plan-footer {
+        gap: 9px;
     }
 
     .showcase-card {
@@ -1450,11 +1495,7 @@ html[data-theme="dark"] .showcase-choose-btn:hover {
 
     .showcase-plan-points {
         padding: 13px 14px;
-        margin-bottom: 20px;
-    }
-
-    .showcase-description {
-        margin: 10px 0 6px;
+        margin-bottom: 0;
     }
 
     .showcase-plan-points-title {
@@ -3052,15 +3093,20 @@ html[data-theme="dark"] .how-step-number {
 }
 
 .contact-selection-email {
-    background: #ffffff;
-    color: var(--black);
-    border-color: #9ca3af;
+    background: var(--card-bg);
+    color: var(--heading-text);
+    border-color: var(--border-soft);
 }
 
 .contact-selection-email:hover {
-    background: #ffffff;
-    color: var(--black);
-    border-color: #111827;
+    background: var(--section-bg);
+    color: var(--heading-text);
+    border-color: var(--border-soft);
+}
+
+.contact-selection-email:focus-visible {
+    outline: 2px solid var(--border-soft);
+    outline-offset: 2px;
 }
 
 html[data-theme="dark"] .contact-selection-actions .contact-selection-primary {
@@ -3100,15 +3146,15 @@ html[data-theme="dark"] .contact-selection-actions .contact-selection-brief:hove
 }
 
 html[data-theme="dark"] .contact-selection-actions .contact-selection-email {
-    background: rgba(7, 21, 34, 0.58);
-    color: var(--text-muted);
-    border-color: rgba(232, 244, 251, 0.42);
+    background: var(--card-bg);
+    color: var(--heading-text);
+    border-color: var(--border-soft);
 }
 
 html[data-theme="dark"] .contact-selection-actions .contact-selection-email:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--section-bg);
     color: var(--heading-text);
-    border-color: rgba(232, 244, 251, 0.62);
+    border-color: var(--border-soft);
 }
 
 .contact-selection-emailline {
@@ -3661,15 +3707,13 @@ html[data-theme="dark"] .hero-helper {
     </div>
 </div>
 
-                <p class="showcase-description">
-    A simple website chatbot for common questions, basic enquiry capture, and clear next steps.
-</p>
-
-<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="basic">
-    Choose Basic
-</button>
+<div class="showcase-price">
+    <span class="showcase-price-amount">From $249 setup</span>
+    <a href="#pricing" class="showcase-price-link">View pricing →</a>
+</div>
             </div>
 
+<div class="showcase-plan-footer">
 <div class="showcase-plan-points">
     <span class="showcase-plan-points-title">Best for:</span>
     <ul>
@@ -3677,6 +3721,10 @@ html[data-theme="dark"] .hero-helper {
         <li>Basic enquiry capture</li>
         <li>Simple visitor guidance</li>
     </ul>
+</div>
+<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="basic">
+    Choose Basic
+</button>
 </div>
             </div>
 
@@ -3725,15 +3773,13 @@ html[data-theme="dark"] .hero-helper {
     </div>
 </div>
 
-                <p class="showcase-description">
-    A guided website chatbot for organized conversations, better enquiry details, and clearer visitor handling.
-</p>
-
-<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="advanced">
-    Choose Advanced
-</button>
+<div class="showcase-price">
+    <span class="showcase-price-amount">From $599 setup</span>
+    <a href="#pricing" class="showcase-price-link">View pricing →</a>
+</div>
             </div>
 
+<div class="showcase-plan-footer">
 <div class="showcase-plan-points">
     <span class="showcase-plan-points-title">Best for:</span>
     <ul>
@@ -3741,6 +3787,10 @@ html[data-theme="dark"] .hero-helper {
         <li>Better enquiry details</li>
         <li>Clearer visitor handling</li>
     </ul>
+</div>
+<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="advanced">
+    Choose Advanced
+</button>
 </div>
             </div>
 
@@ -3832,15 +3882,13 @@ html[data-theme="dark"] .hero-helper {
     </div>
 </div>
 
-    <p class="showcase-description">
-    A smart visitor-handling setup for different visitor situations, stronger enquiry details, and structured follow-up.
-</p>
-
-<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="pro">
-    Choose Pro
-</button>
+<div class="showcase-price">
+    <span class="showcase-price-amount">From $1,100 setup</span>
+    <a href="#pricing" class="showcase-price-link">View pricing →</a>
+</div>
             </div>
 
+<div class="showcase-plan-footer">
 <div class="showcase-plan-points">
     <span class="showcase-plan-points-title">Best for:</span>
     <ul>
@@ -3848,6 +3896,10 @@ html[data-theme="dark"] .hero-helper {
         <li>Priority enquiry handling</li>
         <li>Structured follow-up</li>
     </ul>
+</div>
+<button type="button" class="showcase-choose-btn choose-plan-btn" data-plan="pro">
+    Choose Pro
+</button>
 </div>
             </div>
         </div>
