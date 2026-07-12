@@ -5303,7 +5303,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 basicFirstActivationPromise = Promise.all([
                     ensureBasicIframe(),
                     new Promise(function (resolve) {
-                        setTimeout(resolve, 600);
+                        setTimeout(resolve, 0);
                     })
                 ]).then(function (results) {
                     const isReady = results[0];
@@ -5463,7 +5463,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 advancedFirstActivationPromise = Promise.all([
                     ensureAdvancedIframe(),
                     new Promise(function (resolve) {
-                        setTimeout(resolve, 600);
+                        setTimeout(resolve, 0);
                     })
                 ]).then(function (results) {
                     const isReady = results[0];
@@ -5660,7 +5660,7 @@ textEl.classList.toggle('rtl', currentMessage.d === 'rtl');
                 config.firstActivationPromise = Promise.all([
                     ensureProIframe(config),
                     new Promise(function (resolve) {
-                        setTimeout(resolve, 600);
+                        setTimeout(resolve, 0);
                     })
                 ]).then(function (results) {
                     const isReady = results[0];
