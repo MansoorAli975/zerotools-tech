@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- MASTER TEMPLATE — REPLACE ALL PROSPECT METADATA BEFORE DEPLOYMENT
+       Static values must remain in the HTML head so social crawlers can read them. -->
+  <title>Website Chatbot Concept for Prospect Company | Zero Tools</title>
+  <meta name="description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <link rel="canonical" href="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/">
+  <meta property="og:title" content="Website Chatbot Concept for Prospect Company | Zero Tools">
+  <meta property="og:description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Website chatbot concept displayed on the Prospect Company homepage">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Website Chatbot Concept for Prospect Company | Zero Tools">
+  <meta name="twitter:description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
+  <meta name="twitter:image:alt" content="Website chatbot concept displayed on the Prospect Company homepage">
+  <link rel="icon" href="/favicon.png?v=1">
+
+  <!-- PROSPECT DUPLICATION CHECKLIST
+    1. Copy the template into demo/<prospect-slug>/index.html
+    2. Create the assets folder
+    3. Add company-homepage.png
+    4. Add og-preview.jpg at 1200 × 630
+    5. Replace all static metadata
+    6. Update DEMO_CONFIG
+    7. Update brand colours
+    8. Update conversation sequence
+    9. Update enquiry-summary fields
+    10. Review medical or industry safety wording
+    11. Confirm the disclaimer
+    12. Test desktop
+    13. Test mobile
+    14. Test replay
+    15. Test animation timing
+    16. Confirm no prospect-placeholder text remains
+    17. Confirm noindex,nofollow
+    18. Deploy
+    19. Test the live URL
+    20. Test Meta Sharing Debugger
+    21. Test WhatsApp preview
+  -->
+
+  <!-- TEMPLATE IDENTITY
+    concept-template.html is the reusable scripted animated-concept master.
+    demo/template.html is the older UChat embedded-preview design.
+    The two files serve different purposes and must not be confused.
+  -->
+
+  <style>
+    :root {
+      --brand: #167a8b;
+      --brand-dark: #173f4a;
+      --zero-tools-blue: #167a8b;
+      --ink: #182231;
+      --muted: #687486;
+      --surface: #fff;
+      --line: #e5e9ef;
+      --page: #eef1f4;
+      --shadow: 0 24px 70px rgba(22,34,53,.22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body { margin: 0; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--page); }
+    button, input { font: inherit; }
+
+    .presentation {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: 28px clamp(22px,5vw,76px);
+      background:
+        linear-gradient(90deg,rgba(246,248,250,.98) 0%,rgba(246,248,250,.88) 48%,rgba(232,236,241,.78) 100%),
+        linear-gradient(135deg,#f7f8fa,#dde2e8);
+    }
+
+    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; }
+    .site-mockup.is-missing { display: none; }
+    .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
+
+    .concept-tools { position: relative; z-index: 4; display: flex; justify-content: flex-start; }
+    .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
+    .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 4px rgba(125,226,188,.17); }
+
+    .chat-shell { position: absolute; top: 50%; right: clamp(22px,5vw,76px); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - 96px)); min-height: 510px; overflow: hidden; transform: translateY(-50%); border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); }
+    .chat-header { display: flex; flex: 0 0 auto; align-items: center; gap: 11px; min-height: 76px; padding: 14px 15px; color: #fff; background: linear-gradient(135deg,var(--brand-dark),var(--brand)); }
+    .avatar, .message-avatar { display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #fff; background: rgba(255,255,255,.16); font-weight: 900; }
+    .avatar { width: 45px; height: 45px; border: 1px solid rgba(255,255,255,.35); font-size: 14px; }
+    .chat-title { min-width: 0; flex: 1; }
+    .chat-title strong { display: block; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .chat-title span { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 11.5px; opacity: .88; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 3px rgba(125,226,188,.15); }
+    .replay { padding: 7px 10px; border: 1px solid rgba(255,255,255,.27); border-radius: 10px; color: rgba(255,255,255,.88); background: rgba(255,255,255,.08); font-size: 11px; font-weight: 800; cursor: pointer; transition: .18s ease; }
+    .replay:hover { border-color: rgba(255,255,255,.4); color: #fff; background: rgba(255,255,255,.14); }
+    .replay:active { transform: scale(.97); }
+    .replay:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 40%,transparent); outline-offset: 2px; }
+    .replay:disabled { cursor: not-allowed; opacity: .5; }
+
+    .messages { min-height: 0; flex: 1 1 auto; overflow-y: auto; padding: 18px 16px 24px; background: linear-gradient(180deg,#fbfcfd,#f7f8fa); scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(122,132,144,.22) transparent; }
+    .messages::-webkit-scrollbar { width: 2px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(122,132,144,.22); }
+    .messages::-webkit-scrollbar-thumb:hover { background: rgba(122,132,144,.38); }
+
+    .composer-area { flex: 0 0 auto; padding: 8px 11px 6px; border-top: 1px solid #ddd8d3; background: #f8f7f5; }
+    .composer { display: flex; align-items: center; gap: 7px; min-height: 46px; padding: 6px 7px 6px 10px; border: 1px solid #d7dce2; border-radius: 15px; background: #fff; box-shadow: 0 2px 7px rgba(33,43,54,.04); transition: border-color .18s ease,box-shadow .18s ease; }
+    .composer-input { min-width: 0; height: 34px; flex: 1; padding: 0 3px; border: 0; outline: 0; color: #3d4754; background: transparent; font-size: 12.5px; caret-color: var(--brand); }
+    .composer-input::placeholder { color: #929ba8; }
+    .composer:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent); }
+    .composer-icon { display: grid; width: 20px; height: 20px; flex: 0 0 auto; place-items: center; color: #86919f; }
+    .composer-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .send-button { display: grid; width: 32px; height: 32px; flex: 0 0 auto; place-items: center; border: 0; border-radius: 10px; color: #9ba4af; background: #eef0f2; pointer-events: none; transition: color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease; }
+    .send-button svg { width: 16px; height: 16px; fill: currentColor; transform: translateX(1px); }
+    .send-button.active, .send-button.sending { color: #fff; background: var(--brand); box-shadow: 0 2px 7px color-mix(in srgb,var(--brand) 24%,transparent); }
+    .send-button.sending { transform: scale(.9); }
+    .powered-by { margin: 5px 0 0; color: #8a939e; font-size: 9px; font-weight: 700; text-align: center; }
+
+    .message-row { display: flex; margin: 0 0 12px; opacity: 0; transform: translateY(8px); animation: message-in .34s ease forwards; }
+    .message-row.bot { align-items: flex-end; gap: 8px; }
+    .message-row.bot.continuation { padding-left: 36px; }
+    .message-row.visitor { justify-content: flex-end; }
+    .message-avatar { width: 28px; height: 28px; border: 1px solid color-mix(in srgb,var(--brand) 25%,transparent); color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 10%,white); font-size: 9px; }
+    .bubble { max-width: 84%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 15px 15px 15px 5px; color: #303b49; background: #fff; box-shadow: 0 3px 10px rgba(33,43,54,.05); font-size: 12.5px; line-height: 1.52; white-space: pre-line; }
+    .visitor .bubble { border-color: var(--brand); border-radius: 15px 15px 5px 15px; color: #fff; background: var(--brand); }
+    .message-row.bot.has-choices .bubble { width: min(92%,320px); max-width: 92%; }
+    .message-text { display: block; }
+
+    .choice-row { overflow: hidden; margin-top: 10px; }
+    .choice-panel { display: grid; gap: 7px; max-height: 280px; overflow: hidden; transform-origin: top; transition: max-height .3s ease,margin .3s ease,padding .3s ease,opacity .22s ease,transform .3s ease; }
+    .choice-panel.collapsing { max-height: 0 !important; margin: 0; padding: 0; opacity: 0; transform: scaleY(.92); }
+    .choice-option { padding: 9px 10px; border: 1px solid color-mix(in srgb,var(--brand) 30%,#d8dee5); border-radius: 10px; color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 5%,white); font-size: 11.5px; font-weight: 750; transition: color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease; }
+    .choice-option.selected { border-color: var(--brand); color: #fff; background: var(--brand); transform: translateX(2px); }
+
+    .business-result { position: absolute; top: 50%; left: clamp(22px,5vw,76px); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: var(--shadow); transform: translateY(calc(-50% + 18px)); transition: opacity .6s ease,transform .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
+    .business-result.visible { visibility: visible; opacity: 1; transform: translateY(-50%); transition-delay: 0s; }
+    .summary-heading { padding: 20px 22px 16px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
+    .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
+    .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
+    .summary-list { margin: 0; padding: 7px 22px 13px; }
+    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
+    .summary-item:last-child { border-bottom: 0; }
+    .summary-item dt { color: var(--muted); }
+    .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+
+    .typing { display: inline-flex; min-width: 48px; align-items: center; gap: 4px; }
+    .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
+    .typing i:nth-child(2) { animation-delay: .15s; }
+    .typing i:nth-child(3) { animation-delay: .3s; }
+    .disclaimer { position: fixed; z-index: 2; left: 150px; bottom: 18px; width: min(850px,calc(100vw - 650px)); margin: 0; color: #000000; font-size: 12.5px; line-height: 1.45; font-weight: 600; text-align: left; }
+
+    @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
+    @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
+
+    @media (max-width:720px) {
+      .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
+      .site-mockup { opacity: .35; }
+      .concept-label { width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
+      .chat-shell { position: relative; top: auto; right: auto; width: min(410px,calc(100vw - 28px)); height: min(670px,calc(100svh - 92px)); min-height: 500px; margin: 18px auto 0; transform: none; }
+      .chat-header { min-height: 70px; padding: 13px 14px; }
+      .messages { padding: 16px 13px 22px; }
+      .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
+      .composer-input { height: 32px; }
+      .business-result { position: relative; top: auto; left: auto; width: min(410px,calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px); }
+      .business-result.visible { max-height: 560px; margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
+      .summary-heading { padding: 17px 18px 14px; font-size: 17px; }
+      .summary-list { padding: 6px 18px 11px; }
+      .summary-item { grid-template-columns: 105px 1fr; gap: 12px; }
+      .disclaimer { position: relative; left: auto; bottom: auto; width: min(900px,calc(100vw - 28px)); margin: 12px auto 0; transform: none; font-size: 11.5px; }
+    }
+
+    @media (max-height:620px) and (min-width:721px) {
+      .chat-shell { height: calc(100svh - 80px); min-height: 0; }
+      .disclaimer { bottom: 6px; font-size: 11.5px; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+      .messages { scroll-behavior: auto; }
+      .typing i { animation: none; }
+      .choice-panel, .business-result, .send-button, .composer-input { transition-duration: .01ms; }
+    }
+  </style>
+</head>
+<body>
+  <main class="presentation">
+    <img class="site-mockup" id="site-mockup" alt="" draggable="false">
+
+    <div class="concept-tools">
+      <p class="concept-label" id="concept-label"></p>
+    </div>
+
+    <section class="chat-shell" aria-label="Animated chatbot concept">
+      <header class="chat-header">
+        <div class="avatar" id="header-avatar" aria-hidden="true"></div>
+        <div class="chat-title">
+          <strong id="chatbot-name"></strong>
+          <span><i class="status-dot"></i>Online now</span>
+        </div>
+        <button class="replay" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+      </header>
+      <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+      <div class="composer-area">
+        <div class="composer" aria-label="Scripted message composer">
+          <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9.5 12.5 5.8-5.8a3 3 0 0 1 4.2 4.2l-8.3 8.3a5 5 0 0 1-7.1-7.1l8.1-8.1"/></svg></span>
+          <input class="composer-input" id="composer-input" type="text" placeholder="Type a message…" readonly aria-readonly="true" autocomplete="off" spellcheck="false">
+          <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/></svg></span>
+          <button class="send-button" id="send-button" type="button" tabindex="-1" aria-disabled="true" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21.8 12 3.4 3.6 3 10.1l12.1 1.9L3 13.9l.4 6.5Z"/></svg></button>
+        </div>
+        <p class="powered-by">Powered by Zero Tools</p>
+      </div>
+    </section>
+
+    <aside class="business-result" id="business-result" aria-hidden="true">
+      <div class="summary-heading" id="summary-heading"></div>
+      <dl class="summary-list" id="summary-list"></dl>
+    </aside>
+
+    <p class="disclaimer" id="disclaimer"></p>
+  </main>
+
+  <script>
+    /* MASTER PROSPECT CONFIGURATION
+       Keep prospect content here. Static crawler metadata must still be replaced in <head>. */
+    const DEMO_CONFIG = {
+      companyName: 'Prospect Company',
+      shortCompanyName: 'Prospect Company',
+      chatbotName: 'Website Assistant',
+      botInitials: 'PC',
+      backgroundImagePath: 'assets/company-homepage.png',
+      backgroundImageAltText: 'Public homepage of Prospect Company used as the concept background',
+      primaryBrandColour: '#167a8b',
+      secondaryBrandColour: '#173f4a',
+      prospectLabel: 'Website Chatbot Concept for Prospect Company',
+      welcomeMessage: 'Hello, I’m the Prospect Company Website Assistant.\nHow can I help you today?',
+      conversationSequence: [
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
+        { type: 'composer-entry', delay: 2200, entryMode: 'opening', text: 'I’m interested in your services, but I’m not sure which option would suit my needs.' },
+        { type: 'message', role: 'bot', delay: 2800, typing: 1050, text: 'I can help you understand the available options. What would you mainly like help with?' },
+        { type: 'choice', delay: 1200, selectionDelay: 4200, afterSelection: 650, options: ['Service information', 'Choosing an option', 'General guidance'], selected: 'Choosing an option' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. A few details can help the team respond with the most relevant information.' },
+        { type: 'message', role: 'bot', delay: 2300, typing: 1050, text: 'What would you prefer as the next step?' },
+        { type: 'choice', delay: 1100, selectionDelay: 3800, afterSelection: 650, options: ['Request a consultation', 'Ask a question', 'Review information first'], selected: 'Request a consultation' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer the team to contact you?' },
+        { type: 'choice', delay: 1100, selectionDelay: 3800, afterSelection: 650, options: ['Email', 'Phone call', 'Messaging app'], selected: 'Email' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter a sample email address so the team can follow up.' },
+        { type: 'composer-entry', delay: 350, entryMode: 'contact', text: 'visitor@example.com' },
+        { type: 'message', role: 'bot', delay: 1400, typing: 1050, text: 'Thank you. Your enquiry has been prepared for the team to review and follow up.' }
+      ],
+      enquiryResult: {
+        title: 'What the company team receives',
+        supportText: 'Example structured enquiry from this conversation',
+        fields: [
+          { label: 'Interest:', value: 'Service guidance' },
+          { label: 'Main need:', value: 'Help choosing an option' },
+          { label: 'Requested step:', value: 'Consultation' },
+          { label: 'Preferred contact:', value: 'Email' },
+          { label: 'Contact detail:', value: 'visitor@example.com' }
+        ]
+      },
+      disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to the company’s live website. This preview will be removed after the agreed review period, or earlier upon request.',
+      timing: {
+        initialSettle: 2500,
+        selectedHighlight: 650,
+        choiceCollapse: 300,
+        resultRevealPause: 1400,
+        resultRevealTime: 600,
+        contactCharacterDelays: [170,180,165,195,260,175,205,250,180,165,190,280,200,175,185,170,190,180,205],
+        contactGroupPause: 300,
+        contactTypedPause: 800,
+        contactSendPress: 325,
+        openingCharacterDelays: [42,55,47,61,45,52,40,58,49,44,63,46],
+        openingSentencePause: 360,
+        openingClausePause: 300,
+        openingTypedPause: 650,
+        openingSendPress: 275
+      }
+    };
+
+    const messagesElement = document.getElementById('messages');
+    const replayButton = document.getElementById('replay');
+    const businessResult = document.getElementById('business-result');
+    const composerInput = document.getElementById('composer-input');
+    const sendButton = document.getElementById('send-button');
+    const siteMockup = document.getElementById('site-mockup');
+    let runId = 0;
+    let lastMessageRole = null;
+
+    function applyConfig() {
+      document.documentElement.style.setProperty('--brand', DEMO_CONFIG.primaryBrandColour);
+      document.documentElement.style.setProperty('--brand-dark', DEMO_CONFIG.secondaryBrandColour);
+      document.documentElement.style.setProperty('--zero-tools-blue', DEMO_CONFIG.primaryBrandColour);
+      document.getElementById('concept-label').textContent = DEMO_CONFIG.prospectLabel;
+      document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
+      document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
+      document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
+      siteMockup.alt = DEMO_CONFIG.backgroundImageAltText;
+      siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
+      siteMockup.src = DEMO_CONFIG.backgroundImagePath;
+      const heading = document.getElementById('summary-heading');
+      heading.textContent = DEMO_CONFIG.enquiryResult.title;
+      const support = document.createElement('span');
+      support.className = 'summary-support';
+      support.textContent = DEMO_CONFIG.enquiryResult.supportText;
+      heading.appendChild(support);
+      document.getElementById('summary-list').replaceChildren(...DEMO_CONFIG.enquiryResult.fields.map(field => {
+        const row = document.createElement('div');
+        row.className = 'summary-item';
+        const term = document.createElement('dt');
+        const detail = document.createElement('dd');
+        term.textContent = field.label;
+        detail.textContent = field.value;
+        row.append(term, detail);
+        return row;
+      }));
+    }
+
+    const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+
+    function scrollToLatest() {
+      const latestRow = messagesElement.lastElementChild;
+      if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function addBotAvatar(row) {
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = DEMO_CONFIG.botInitials;
+      row.appendChild(avatar);
+    }
+
+    function addTypingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'message-row bot';
+      row.dataset.typing = 'true';
+      if (lastMessageRole === 'bot') row.classList.add('continuation');
+      else addBotAvatar(row);
+      row.insertAdjacentHTML('beforeend', '<div class="bubble typing" aria-label="Chatbot is typing"><i></i><i></i><i></i></div>');
+      messagesElement.appendChild(row);
+      scrollToLatest();
+      return row;
+    }
+
+    function addMessage(item) {
+      const row = document.createElement('div');
+      row.className = `message-row ${item.role}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      const text = document.createElement('span');
+      text.className = 'message-text';
+      text.textContent = item.textFrom ? DEMO_CONFIG[item.textFrom] : item.text;
+      bubble.appendChild(text);
+      if (item.role === 'bot') {
+        if (lastMessageRole === 'bot') row.classList.add('continuation');
+        else addBotAvatar(row);
+      }
+      row.appendChild(bubble);
+      messagesElement.appendChild(row);
+      lastMessageRole = item.role;
+      scrollToLatest();
+    }
+
+    function showChoices(item) {
+      const botRow = messagesElement.lastElementChild;
+      const bubble = botRow.querySelector('.bubble');
+      const choiceRow = document.createElement('div');
+      choiceRow.className = 'choice-row';
+      const panel = document.createElement('div');
+      panel.className = 'choice-panel';
+      panel.setAttribute('aria-label', 'Available choices');
+      item.options.forEach(optionText => {
+        const option = document.createElement('div');
+        option.className = 'choice-option';
+        option.textContent = optionText;
+        option.dataset.value = optionText;
+        panel.appendChild(option);
+      });
+      botRow.classList.add('has-choices');
+      choiceRow.appendChild(panel);
+      bubble.appendChild(choiceRow);
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+      scrollToLatest();
+      return choiceRow;
+    }
+
+    function markSelected(choiceRow, selectedValue) {
+      const selectedOption = Array.from(choiceRow.querySelectorAll('.choice-option')).find(option => option.dataset.value === selectedValue);
+      if (selectedOption) {
+        selectedOption.classList.add('selected');
+        selectedOption.setAttribute('aria-label', `${selectedValue}, selected`);
+      }
+    }
+
+    async function collapseChoices(choiceRow) {
+      choiceRow.querySelector('.choice-panel').classList.add('collapsing');
+      await wait(DEMO_CONFIG.timing.choiceCollapse);
+      choiceRow.remove();
+    }
+
+    function resetComposer() {
+      composerInput.value = '';
+      composerInput.blur();
+      sendButton.classList.remove('active', 'sending');
+    }
+
+    async function simulateComposerEntry(item, currentRun) {
+      const isOpening = item.entryMode === 'opening';
+      const delays = isOpening ? DEMO_CONFIG.timing.openingCharacterDelays : DEMO_CONFIG.timing.contactCharacterDelays;
+      composerInput.focus({ preventScroll: true });
+      composerInput.setSelectionRange(0,0);
+      for (const [index, character] of Array.from(item.text).entries()) {
+        await wait(delays[index % delays.length]);
+        if (currentRun !== runId) return false;
+        composerInput.value += character;
+        sendButton.classList.add('active');
+        composerInput.setSelectionRange(composerInput.value.length,composerInput.value.length);
+        if (isOpening && character === '.') await wait(DEMO_CONFIG.timing.openingSentencePause);
+        if (isOpening && character === ',') await wait(DEMO_CONFIG.timing.openingClausePause);
+        if (!isOpening && (index === 3 || index === 11)) await wait(DEMO_CONFIG.timing.contactGroupPause);
+      }
+      await wait(isOpening ? DEMO_CONFIG.timing.openingTypedPause : DEMO_CONFIG.timing.contactTypedPause);
+      if (currentRun !== runId) return false;
+      sendButton.classList.add('sending');
+      await wait(isOpening ? DEMO_CONFIG.timing.openingSendPress : DEMO_CONFIG.timing.contactSendPress);
+      if (currentRun !== runId) return false;
+      resetComposer();
+      addMessage({ role: 'visitor', text: item.text });
+      return true;
+    }
+
+    async function playConversation() {
+      const currentRun = ++runId;
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      businessResult.classList.remove('visible');
+      businessResult.setAttribute('aria-hidden','true');
+      replayButton.disabled = true;
+
+      await wait(DEMO_CONFIG.timing.initialSettle);
+      if (currentRun !== runId) return;
+
+      for (const item of DEMO_CONFIG.conversationSequence) {
+        await wait(item.delay);
+        if (currentRun !== runId) return;
+        if (item.type === 'choice') {
+          const choiceRow = showChoices(item);
+          await wait(item.selectionDelay);
+          if (currentRun !== runId) return;
+          markSelected(choiceRow,item.selected);
+          await wait(DEMO_CONFIG.timing.selectedHighlight);
+          if (currentRun !== runId) return;
+          await collapseChoices(choiceRow);
+          if (currentRun !== runId) return;
+          addMessage({ role: 'visitor choice', text: item.selected });
+          await wait(item.afterSelection);
+          if (currentRun !== runId) return;
+          continue;
+        }
+        if (item.type === 'composer-entry') {
+          if (!await simulateComposerEntry(item,currentRun)) return;
+          continue;
+        }
+        if (item.role === 'bot') {
+          const typing = addTypingIndicator();
+          await wait(item.typing);
+          if (currentRun !== runId) return;
+          typing.remove();
+        }
+        addMessage(item);
+      }
+
+      await wait(DEMO_CONFIG.timing.resultRevealPause);
+      if (currentRun !== runId) return;
+      businessResult.classList.add('visible');
+      businessResult.setAttribute('aria-hidden','false');
+      await wait(DEMO_CONFIG.timing.resultRevealTime);
+      if (currentRun === runId) replayButton.disabled = false;
+    }
+
+    applyConfig();
+    replayButton.addEventListener('click',playConversation);
+    playConversation();
+  </script>
+</body>
+</html>
