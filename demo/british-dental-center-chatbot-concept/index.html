@@ -68,6 +68,9 @@
     .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
     .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
     .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb,var(--accent) 17%,transparent); }
+    .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.58); text-underline-offset: 2px; }
+    .concept-label a:hover { text-decoration-color: currentColor; }
+    .concept-label a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
 
     .chat-shell { position: absolute; right: clamp(22px,5vw,76px); bottom: var(--chat-window-bottom-offset); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - var(--chat-window-bottom-offset) - 24px)); min-height: 510px; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
     .chat-shell.is-closed { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(28px) scale(.86); transition: opacity .28s ease,transform .28s ease,visibility 0s linear .28s; }
@@ -155,6 +158,27 @@
     .summary-item:last-child { border-bottom: 0; }
     .summary-item dt { color: var(--muted); }
     .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; background: rgba(247,249,252,.9); }
+    .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-trigger:hover { background: #223d68; }
+    .contact-trigger:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+
+    .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
+    .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
+    .contact-panel { position: relative; width: min(430px,100%); max-height: calc(100svh - 40px); overflow-y: auto; padding: 28px; border: 1px solid rgba(23,43,77,.15); border-radius: 18px; background: #fff; box-shadow: 0 26px 80px rgba(6,18,38,.32); transform: translateY(10px) scale(.98); transition: transform .2s ease; }
+    .contact-modal.is-open .contact-panel { transform: none; }
+    .contact-brand { margin: 0 0 5px; color: #172b4d; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .contact-title { margin: 0; color: #142238; font-size: 24px; line-height: 1.2; }
+    .contact-intro { margin: 8px 0 20px; color: #627086; font-size: 14px; }
+    .contact-close { position: absolute; top: 13px; right: 13px; display: grid; width: 34px; height: 34px; padding: 0; place-items: center; border: 0; border-radius: 50%; color: #526075; background: #f0f3f7; font-size: 22px; line-height: 1; cursor: pointer; }
+    .email-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 13px; border: 1px solid #dce3ec; border-radius: 11px; background: #f8fafc; }
+    .email-address { min-width: 0; overflow-wrap: anywhere; color: #172b4d; font-size: 13.5px; font-weight: 800; }
+    .copy-email { flex: 0 0 auto; padding: 6px 9px; border: 1px solid #cbd5e1; border-radius: 7px; color: #34445d; background: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
+    .contact-action { display: grid; min-height: 42px; padding: 9px 12px; place-items: center; border-radius: 9px; color: #fff; background: #172b4d; font-size: 12px; font-weight: 800; text-align: center; text-decoration: none; }
+    .contact-action.secondary { border: 1px solid #cbd5e1; color: #253750; background: #fff; }
+    .contact-site-link { display: inline-block; margin-top: 18px; color: #53647b; font-size: 12px; font-weight: 750; text-decoration-color: #a7b1bf; text-underline-offset: 3px; }
 
     .typing { display: inline-flex; min-width: 48px; align-items: center; gap: 4px; }
     .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
@@ -188,6 +212,8 @@
       .summary-heading { padding: 17px 18px 14px; font-size: 17px; }
       .summary-list { padding: 6px 18px 11px; }
       .summary-item { grid-template-columns: 105px 1fr; gap: 12px; }
+      .result-cta { padding: 12px 18px 14px; }
+      .contact-panel { padding: 25px 20px 22px; }
       .disclaimer { position: relative; left: auto; bottom: auto; width: min(900px,calc(100vw - 28px)); margin: 12px auto 0; transform: none; font-size: 12.5px; }
     }
 
@@ -201,6 +227,7 @@
       .messages { scroll-behavior: auto; }
       .typing i { animation: none; }
       .choice-panel, .business-result, .send-button, .composer-input { transition-duration: .01ms; }
+      .contact-modal, .contact-panel { transition-duration: .01ms; }
       .chat-shell, .launcher-wrap { transition-duration: .18s; }
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
@@ -261,10 +288,32 @@
     <aside class="business-result" id="business-result" aria-hidden="true">
       <div class="summary-heading" id="summary-heading"></div>
       <dl class="summary-list" id="summary-list"></dl>
+      <div class="result-cta">
+        <p>Interested in this for British Dental Center?</p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Contact Zero Tools</button>
+      </div>
     </aside>
 
     <p class="disclaimer" id="disclaimer"></p>
   </main>
+
+  <div class="contact-modal" id="contact-modal" aria-hidden="true">
+    <section class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-describedby="contact-intro">
+      <button class="contact-close" id="contact-close" type="button" aria-label="Close contact panel">×</button>
+      <p class="contact-brand">Zero Tools</p>
+      <h2 class="contact-title" id="contact-title">Contact Zero Tools</h2>
+      <p class="contact-intro" id="contact-intro">We’ll guide you through the next steps.</p>
+      <div class="email-copy-row">
+        <span class="email-address">support@zerotools.tech</span>
+        <button class="copy-email" id="copy-email" type="button">Copy</button>
+      </div>
+      <div class="contact-actions">
+        <a class="contact-action" id="gmail-link" target="_blank" rel="noopener noreferrer">Open Gmail</a>
+        <a class="contact-action secondary" id="email-app-link">Open email app</a>
+      </div>
+      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">Visit zerotools.tech →</a>
+    </section>
+  </div>
 
   <script>
     const DEMO_CONFIG = {
@@ -281,7 +330,7 @@
       chatWindowBottomOffset: '150px',
       mobileLauncherBottomOffset: '110px',
       mobileChatWindowBottomOffset: '0px',
-      prospectLabel: 'Website Chatbot Concept for British Dental Center',
+      prospectLabel: 'Website Chatbot Concept for British Dental Center · Prepared by zerotools.tech',
       welcomeMessage: 'Hello, this is the BDC Website Assistant. How can I help you today?',
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
@@ -353,11 +402,24 @@
     const launcherWrap = document.getElementById('launcher-wrap');
     const chatLauncher = document.getElementById('chat-launcher');
     const demoCursor = document.getElementById('demo-cursor');
+    const contactModal = document.getElementById('contact-modal');
+    const contactTrigger = document.getElementById('contact-trigger');
+    const contactClose = document.getElementById('contact-close');
+    const copyEmailButton = document.getElementById('copy-email');
+    const contactEmail = 'support@zerotools.tech';
+    const contactSubject = 'British Dental Center chatbot concept';
+    const contactBody = 'Hi, I reviewed the British Dental Center chatbot concept and would like to discuss it.';
+    const encodedContactSubject = encodeURIComponent(contactSubject);
+    const encodedContactBody = encodeURIComponent(contactBody);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
+    const mailtoUrl = `mailto:${contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
     let runId = 0;
     let lastMessageRole = null;
     let chatOpened = false;
     let launcherRunId = 0;
     let responsiveFrame = 0;
+    let contactReturnFocus = null;
+    let copyResetTimer = 0;
 
     const SOURCE_SCREENSHOT_WIDTH = 1920;
     const SOURCE_SCREENSHOT_HEIGHT = 1080;
@@ -372,7 +434,15 @@
       document.documentElement.style.setProperty('--chat-window-bottom-offset', DEMO_CONFIG.chatWindowBottomOffset);
       document.documentElement.style.setProperty('--mobile-launcher-bottom-offset', DEMO_CONFIG.mobileLauncherBottomOffset);
       document.documentElement.style.setProperty('--mobile-chat-window-bottom-offset', DEMO_CONFIG.mobileChatWindowBottomOffset);
-      document.getElementById('concept-label').textContent = DEMO_CONFIG.prospectLabel;
+      const conceptLabel = document.getElementById('concept-label');
+      const zeroToolsIdentity = 'zerotools.tech';
+      conceptLabel.replaceChildren(document.createTextNode(DEMO_CONFIG.prospectLabel.slice(0,-zeroToolsIdentity.length)));
+      const zeroToolsLink = document.createElement('a');
+      zeroToolsLink.href = 'https://zerotools.tech/';
+      zeroToolsLink.target = '_blank';
+      zeroToolsLink.rel = 'noopener noreferrer';
+      zeroToolsLink.textContent = zeroToolsIdentity;
+      conceptLabel.appendChild(zeroToolsLink);
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
       document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
@@ -398,6 +468,45 @@
     }
 
     const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+
+    function openContactPanel() {
+      contactReturnFocus = document.activeElement;
+      contactModal.classList.add('is-open');
+      contactModal.setAttribute('aria-hidden','false');
+      contactClose.focus();
+    }
+
+    function closeContactPanel() {
+      if (!contactModal.classList.contains('is-open')) return;
+      contactModal.classList.remove('is-open');
+      contactModal.setAttribute('aria-hidden','true');
+      if (contactReturnFocus && typeof contactReturnFocus.focus === 'function') contactReturnFocus.focus();
+    }
+
+    async function copyContactEmail() {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(contactEmail);
+        } else {
+          const copyField = document.createElement('textarea');
+          copyField.value = contactEmail;
+          copyField.setAttribute('readonly','');
+          copyField.style.position = 'fixed';
+          copyField.style.opacity = '0';
+          document.body.appendChild(copyField);
+          copyField.select();
+          document.execCommand('copy');
+          copyField.remove();
+        }
+        window.clearTimeout(copyResetTimer);
+        copyEmailButton.textContent = 'Copied';
+        copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+      } catch (error) {
+        copyEmailButton.textContent = 'Copy failed';
+        window.clearTimeout(copyResetTimer);
+        copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+      }
+    }
 
     function updateResponsivePresentationState() {
       const desktopLandscape = window.matchMedia('(min-width: 721px) and (orientation: landscape)').matches;
@@ -666,6 +775,13 @@
     updateResponsivePresentationState();
     chatLauncher.addEventListener('click',openChatWindow);
     replayButton.addEventListener('click',playConversation);
+    document.getElementById('gmail-link').href = gmailUrl;
+    document.getElementById('email-app-link').href = mailtoUrl;
+    contactTrigger.addEventListener('click',openContactPanel);
+    contactClose.addEventListener('click',closeContactPanel);
+    copyEmailButton.addEventListener('click',copyContactEmail);
+    contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
+    document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
     playInitialLauncherSequence();
   </script>
 </body>
