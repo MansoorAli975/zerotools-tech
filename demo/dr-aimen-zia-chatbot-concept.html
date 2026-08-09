@@ -41,6 +41,11 @@
       --line: #e5e9ef;
       --page: #eef1f4;
       --shadow: 0 24px 70px rgba(22, 34, 53, 0.22);
+      --launcher-bottom-offset: 116px;
+      --chat-window-bottom-offset: 78px;
+      --mobile-launcher-bottom-offset: 110px;
+      --mobile-chat-window-bottom-offset: 0px;
+      --whatsapp-axis-right: 68px;
     }
 
     * { box-sizing: border-box; }
@@ -106,6 +111,9 @@
       background: var(--zero-tools-blue);
       content: "";
     }
+    .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(63,75,93,.48); text-underline-offset: 2px; }
+    .concept-label a:hover { text-decoration-color: currentColor; }
+    .concept-label a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 2px; }
 
     .concept-tools {
       position: fixed;
@@ -117,14 +125,33 @@
       transform: translateX(-50%);
     }
 
+    .launcher-wrap { position: fixed; right: calc(var(--whatsapp-axis-right) - 32px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
+    .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
+    .launcher-tooltip { padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: rgba(39,39,39,.94); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; padding: 0; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
+    .chat-launcher:focus-visible { outline: 3px solid rgba(237,102,36,.48); outline-offset: 4px; }
+    .chat-launcher.is-pressed { transform: scale(.9); }
+    .launcher-icon { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--brand); font-size: 8px; font-weight: 900; }
+    .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
+    .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
+    .demo-cursor { --cursor-x: 0px; --cursor-y: 0px; position: fixed; right: 18px; bottom: 30px; z-index: 8; width: 27px; height: 34px; pointer-events: none; visibility: hidden; opacity: 0; transform: translate(var(--cursor-x),var(--cursor-y)); transition: transform 1.08s cubic-bezier(.2,.76,.25,1),opacity .18s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
+    .demo-cursor.is-visible { visibility: visible; opacity: 1; }
+    .demo-cursor.is-pressing { transform: translate(var(--cursor-x),var(--cursor-y)) scale(.88); }
+    .demo-cursor svg { width: 100%; height: 100%; fill: #fff; stroke: #111827; stroke-width: 1.25; stroke-linejoin: round; }
+    .whatsapp-fallback { position: fixed; right: calc(var(--whatsapp-axis-right) - 29px); bottom: 21px; z-index: 5; display: none; width: 58px; height: 58px; pointer-events: none; user-select: none; }
+    .presentation.is-bottom-cropped .whatsapp-fallback { display: block; }
+    .whatsapp-fallback svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 3px 5px rgba(0,0,0,.2)); }
+
     .chat-shell {
       position: absolute;
       z-index: 3;
-      top: 50%;
-      right: clamp(22px, 6vw, 94px);
+      right: clamp(22px,5vw,76px);
+      bottom: var(--chat-window-bottom-offset);
       width: min(410px, calc(100vw - 44px));
-      height: min(690px, calc(100svh - 132px));
-      min-height: 520px;
+      height: min(690px,calc(100svh - var(--chat-window-bottom-offset) - 24px));
+      min-height: 510px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -132,8 +159,13 @@
       border-radius: 22px;
       background: var(--surface);
       box-shadow: var(--shadow);
-      transform: translateY(-47%);
+      opacity: 1;
+      transform: scale(1);
+      transform-origin: right bottom;
+      visibility: visible;
+      transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s;
     }
+    .chat-shell.is-closed { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(28px) scale(.86); transition: opacity .28s ease,transform .28s ease,visibility 0s linear .28s; }
 
     .chat-header {
       display: flex;
@@ -425,6 +457,26 @@
     .summary-item:last-child { border-bottom: 0; }
     .summary-item dt { color: var(--muted); }
     .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; background: rgba(247,249,252,.9); }
+    .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-trigger:hover { background: #223d68; }
+    .contact-trigger:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+    .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
+    .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
+    .contact-panel { position: relative; width: min(430px,100%); max-height: calc(100svh - 40px); overflow-y: auto; padding: 28px; border: 1px solid rgba(23,43,77,.15); border-radius: 18px; background: #fff; box-shadow: 0 26px 80px rgba(6,18,38,.32); transform: translateY(10px) scale(.98); transition: transform .2s ease; }
+    .contact-modal.is-open .contact-panel { transform: none; }
+    .contact-brand { margin: 0 0 5px; color: #172b4d; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .contact-title { margin: 0; color: #142238; font-size: 24px; line-height: 1.2; }
+    .contact-intro { margin: 8px 0 20px; color: #627086; font-size: 14px; }
+    .contact-close { position: absolute; top: 13px; right: 13px; display: grid; width: 34px; height: 34px; padding: 0; place-items: center; border: 0; border-radius: 50%; color: #526075; background: #f0f3f7; font-size: 22px; line-height: 1; cursor: pointer; }
+    .email-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 13px; border: 1px solid #dce3ec; border-radius: 11px; background: #f8fafc; }
+    .email-address { min-width: 0; overflow-wrap: anywhere; color: #172b4d; font-size: 13.5px; font-weight: 800; }
+    .copy-email { flex: 0 0 auto; padding: 6px 9px; border: 1px solid #cbd5e1; border-radius: 7px; color: #34445d; background: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
+    .contact-action { display: grid; min-height: 42px; padding: 9px 12px; place-items: center; border-radius: 9px; color: #fff; background: #172b4d; font-size: 12px; font-weight: 800; text-align: center; text-decoration: none; }
+    .contact-action.secondary { border: 1px solid #cbd5e1; color: #253750; background: #fff; }
+    .contact-site-link { display: inline-block; margin-top: 18px; color: #53647b; font-size: 12px; font-weight: 750; text-decoration-color: #a7b1bf; text-underline-offset: 3px; }
 
     .typing { display: inline-flex; gap: 4px; align-items: center; min-width: 48px; }
     .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
@@ -447,22 +499,31 @@
 
     @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
     @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
+    @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 0 rgba(237,102,36,.22); } 50% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 10px rgba(237,102,36,0); } }
+    @keyframes launcher-ripple { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.4); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.5); } }
 
     @media (max-width: 720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
       .concept-label { display: flex; width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
+      .launcher-wrap { right: 24px; bottom: var(--mobile-launcher-bottom-offset); }
+      .presentation.is-bottom-cropped .whatsapp-fallback { display: none; }
+      .launcher-tooltip { font-size: 10.5px; }
+      .chat-launcher { width: 60px; height: 60px; }
+      .demo-cursor { display: none; }
       .chat-shell {
         position: relative;
         top: auto;
         right: auto;
+        bottom: auto;
         width: min(410px, calc(100vw - 28px));
-        height: calc(100svh - 128px);
-        min-height: 470px;
-        margin: 26px auto 0;
+        height: min(670px,calc(100svh - 92px - var(--mobile-chat-window-bottom-offset)));
+        min-height: 500px;
+        margin: 18px auto var(--mobile-chat-window-bottom-offset);
         border-radius: 19px;
         transform: none;
       }
+      .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
       .chat-header { min-height: 70px; padding: 13px 14px; }
       .avatar { width: 39px; height: 39px; }
       .messages { padding: 16px 13px 22px; }
@@ -474,11 +535,13 @@
       .summary-heading { padding: 17px 18px 14px; font-size: 17px; }
       .summary-list { padding: 6px 18px 11px; }
       .summary-item { grid-template-columns: 105px 1fr; gap: 12px; }
+      .result-cta { padding: 12px 18px 14px; }
+      .contact-panel { padding: 25px 20px 22px; }
       .disclaimer { position: relative; left: auto; bottom: auto; width: min(900px, calc(100vw - 28px)); margin: 12px auto 0; transform: none; font-size: 11.5px; }
     }
 
     @media (max-height: 620px) and (min-width: 721px) {
-      .chat-shell { height: calc(100svh - 80px); min-height: 0; transform: translateY(-50%); }
+      .chat-shell { height: calc(100svh - var(--chat-window-bottom-offset) - 24px); min-height: 0; }
       .disclaimer { bottom: 6px; font-size: 11.5px; }
     }
 
@@ -487,19 +550,43 @@
       .messages { scroll-behavior: auto; }
       .typing i { animation: none; }
       .choice-panel, .business-result, .send-button, .composer-input { transition-duration: .01ms; }
+      .contact-modal, .contact-panel { transition-duration: .01ms; }
+      .chat-shell, .launcher-wrap { transition-duration: .18s; }
+      .chat-launcher { animation: none; transition-duration: .01ms; }
+      .demo-cursor { display: none; }
     }
   </style>
 </head>
 <body>
   <main class="presentation">
-    <img class="site-mockup" src="draimen-zia-homepage.png" alt="" aria-hidden="true" draggable="false">
+    <img class="site-mockup" id="site-mockup" src="draimen-zia-homepage.png" alt="" aria-hidden="true" draggable="false">
 
     <!-- PROSPECT REPLACEMENT: Replace [Company Name] everywhere with the prospect's company name. -->
     <div class="concept-tools">
-      <p class="concept-label">Website Chatbot Concept for Dr Aimen Zia Dental Clinic</p>
+      <p class="concept-label">Website Chatbot Concept for Dr Aimen Zia Dental Clinic · Prepared by <a href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">zerotools.tech</a></p>
     </div>
 
-    <section class="chat-shell" aria-label="Animated chatbot concept">
+    <div class="launcher-wrap" id="launcher-wrap">
+      <span class="launcher-tooltip" id="launcher-tooltip">Chat with Smile Assistant</span>
+      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Smile Assistant" aria-describedby="launcher-tooltip">
+        <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
+        <span class="launcher-id" aria-hidden="true">DZ</span>
+        <span class="launcher-ripple" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="demo-cursor" id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 28 36"><path d="M3 2.5 23 21l-9 .8 5 9-4.5 2.4-4.8-9-6.7 6.2V2.5Z"/></svg></div>
+
+    <div class="whatsapp-fallback" role="img" aria-label="Website WhatsApp contact option, visual representation only">
+      <svg viewBox="0 0 58 58" aria-hidden="true">
+        <circle cx="29" cy="29" r="27" fill="#fff"/>
+        <circle cx="29" cy="29" r="23.5" fill="#25d366"/>
+        <path d="M18.8 42.2l1.9-7a15.2 15.2 0 1 1 5.6 5.3l-7.5 1.7Z" fill="none" stroke="#fff" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M24.2 21.3c.4-.9.8-.9 1.3-.9h1c.3 0 .7.1.9.7l1.5 3.5c.2.5.1.8-.1 1.1l-1.2 1.5c-.3.3-.2.7 0 1 1.2 2.1 2.8 3.8 5 5 .4.2.8.3 1.1-.1l1.6-1.9c.3-.4.7-.4 1.1-.2l3.3 1.6c.5.2.8.4.9.6.1.3.1 1.8-.7 3.4-.8 1.5-2.8 2.5-4.4 2.5-1.2 0-2.8-.4-5.4-1.5-3.9-1.7-6.8-5.8-7.1-6.3-.3-.5-1.8-2.5-1.8-4.7 0-2.3 1.2-4.4 3-5.3Z" fill="#fff"/>
+      </svg>
+    </div>
+
+    <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
       <header class="chat-header">
         <!-- PROSPECT REPLACEMENT: Replace this DZ placeholder with the official clinic logo/tooth-icon asset. -->
         <div class="avatar" aria-hidden="true">DZ</div>
@@ -538,10 +625,32 @@
         <div class="summary-item"><dt>Preferred contact:</dt><dd>WhatsApp</dd></div>
         <div class="summary-item"><dt>WhatsApp number:</dt><dd>+971 5X XXX XXXX</dd></div>
       </dl>
+      <div class="result-cta">
+        <p>Interested in this for Dr Aimen Zia Dental Clinic?</p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Contact Zero Tools</button>
+      </div>
     </aside>
 
     <p class="disclaimer">Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to the clinic’s live website. This preview will be removed 30 days after it is shared, or earlier upon request.</p>
   </main>
+
+  <div class="contact-modal" id="contact-modal" aria-hidden="true">
+    <section class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-describedby="contact-intro">
+      <button class="contact-close" id="contact-close" type="button" aria-label="Close contact panel">×</button>
+      <p class="contact-brand">Zero Tools</p>
+      <h2 class="contact-title" id="contact-title">Contact Zero Tools</h2>
+      <p class="contact-intro" id="contact-intro">We’ll guide you through the next steps.</p>
+      <div class="email-copy-row">
+        <span class="email-address">support@zerotools.tech</span>
+        <button class="copy-email" id="copy-email" type="button">Copy</button>
+      </div>
+      <div class="contact-actions">
+        <a class="contact-action" id="gmail-link" target="_blank" rel="noopener noreferrer">Open Gmail</a>
+        <a class="contact-action secondary" id="email-app-link">Open email app</a>
+      </div>
+      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">Visit zerotools.tech →</a>
+    </section>
+  </div>
 
   <script>
     (() => {
@@ -550,8 +659,30 @@
       const businessResult = document.getElementById('business-result');
       const composerInput = document.getElementById('composer-input');
       const sendButton = document.getElementById('send-button');
+      const chatShell = document.getElementById('chat-shell');
+      const launcherWrap = document.getElementById('launcher-wrap');
+      const chatLauncher = document.getElementById('chat-launcher');
+      const demoCursor = document.getElementById('demo-cursor');
+      const presentation = document.querySelector('.presentation');
+      const siteMockup = document.getElementById('site-mockup');
+      const contactModal = document.getElementById('contact-modal');
+      const contactTrigger = document.getElementById('contact-trigger');
+      const contactClose = document.getElementById('contact-close');
+      const copyEmailButton = document.getElementById('copy-email');
+      const contactEmail = 'support@zerotools.tech';
+      const contactSubject = 'Dr Aimen Zia Dental Clinic chatbot concept';
+      const contactBody = 'Hi, I reviewed the Dr Aimen Zia Dental Clinic chatbot concept and would like to discuss it.';
       let runId = 0;
       let lastMessageRole = null;
+      let chatOpened = false;
+      let launcherRunId = 0;
+      let contactReturnFocus = null;
+      let copyResetTimer = 0;
+      let responsiveFrame = 0;
+
+      const SOURCE_SCREENSHOT_WIDTH = 1920;
+      const SOURCE_SCREENSHOT_HEIGHT = 1080;
+      const BOTTOM_CROP_FALLBACK_THRESHOLD = 50;
 
       /*
        * PROSPECT REPLACEMENT: Reusable conversation model.
@@ -622,10 +753,10 @@
         }
       ];
 
-      const INITIAL_SETTLE_TIME = 2500;
+      const INITIAL_SETTLE_TIME = 200;
       const SELECTED_HIGHLIGHT_TIME = 650;
       const CHOICE_COLLAPSE_TIME = 300;
-      const RESULT_REVEAL_PAUSE = 1400;
+      const RESULT_REVEAL_PAUSE = 2300;
       const RESULT_REVEAL_TIME = 600;
       const COMPOSER_CHARACTER_DELAYS = [170, 180, 165, 195, 260, 175, 205, 250, 180, 165, 190, 280, 200, 175, 185, 170];
       const COMPOSER_GROUP_PAUSE = 300;
@@ -638,6 +769,124 @@
       const OPENING_SEND_PRESS_TIME = 275;
 
       const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+
+      function updateWhatsAppFallbackState() {
+        const desktopLandscape = window.matchMedia('(min-width: 721px) and (orientation: landscape)').matches;
+        let bottomCropInSourcePixels = 0;
+        if (desktopLandscape) {
+          const imageBox = siteMockup.getBoundingClientRect();
+          const coverScale = Math.max(
+            imageBox.width / SOURCE_SCREENSHOT_WIDTH,
+            imageBox.height / SOURCE_SCREENSHOT_HEIGHT
+          );
+          const visibleSourceHeight = imageBox.height / coverScale;
+          bottomCropInSourcePixels = Math.max(0,SOURCE_SCREENSHOT_HEIGHT - visibleSourceHeight);
+        }
+        presentation.classList.toggle(
+          'is-bottom-cropped',
+          desktopLandscape && bottomCropInSourcePixels >= BOTTOM_CROP_FALLBACK_THRESHOLD
+        );
+      }
+
+      function scheduleWhatsAppFallbackUpdate() {
+        window.cancelAnimationFrame(responsiveFrame);
+        responsiveFrame = window.requestAnimationFrame(updateWhatsAppFallbackState);
+      }
+
+      function showLauncherRipple() {
+        chatLauncher.classList.remove('show-ripple');
+        void chatLauncher.offsetWidth;
+        chatLauncher.classList.add('show-ripple');
+        window.setTimeout(() => chatLauncher.classList.remove('show-ripple'),600);
+      }
+
+      async function openChatWindow() {
+        if (chatOpened) return;
+        chatOpened = true;
+        ++launcherRunId;
+        chatLauncher.classList.add('is-pressed');
+        showLauncherRipple();
+        await wait(140);
+        launcherWrap.classList.add('is-hidden');
+        chatShell.setAttribute('aria-hidden','false');
+        chatShell.classList.remove('is-closed');
+        await wait(650);
+        chatLauncher.classList.remove('is-pressed');
+        demoCursor.classList.remove('is-visible','is-pressing');
+        await wait(1200);
+        playConversation();
+      }
+
+      async function playInitialLauncherSequence() {
+        const sequenceId = ++launcherRunId;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const touchSized = window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
+        await wait(1800);
+        if (sequenceId !== launcherRunId || chatOpened) return;
+        if (reducedMotion || touchSized) {
+          showLauncherRipple();
+          chatLauncher.classList.add('is-pressed');
+          await wait(reducedMotion ? 220 : 420);
+          if (sequenceId !== launcherRunId || chatOpened) return;
+          await openChatWindow();
+          return;
+        }
+        demoCursor.classList.add('is-visible');
+        await wait(120);
+        if (sequenceId !== launcherRunId || chatOpened) return;
+        const launcherRect = chatLauncher.getBoundingClientRect();
+        const cursorRect = demoCursor.getBoundingClientRect();
+        demoCursor.style.setProperty('--cursor-x',`${launcherRect.left + launcherRect.width * .58 - cursorRect.left}px`);
+        demoCursor.style.setProperty('--cursor-y',`${launcherRect.top + launcherRect.height * .58 - cursorRect.top}px`);
+        await wait(1080);
+        if (sequenceId !== launcherRunId || chatOpened) return;
+        await wait(360);
+        demoCursor.classList.add('is-pressing');
+        chatLauncher.classList.add('is-pressed');
+        showLauncherRipple();
+        await wait(280);
+        if (sequenceId !== launcherRunId || chatOpened) return;
+        await openChatWindow();
+      }
+
+      function openContactPanel() {
+        contactReturnFocus = document.activeElement;
+        contactModal.classList.add('is-open');
+        contactModal.setAttribute('aria-hidden','false');
+        contactClose.focus();
+      }
+
+      function closeContactPanel() {
+        if (!contactModal.classList.contains('is-open')) return;
+        contactModal.classList.remove('is-open');
+        contactModal.setAttribute('aria-hidden','true');
+        if (contactReturnFocus && typeof contactReturnFocus.focus === 'function') contactReturnFocus.focus();
+      }
+
+      async function copyContactEmail() {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(contactEmail);
+          } else {
+            const copyField = document.createElement('textarea');
+            copyField.value = contactEmail;
+            copyField.setAttribute('readonly','');
+            copyField.style.position = 'fixed';
+            copyField.style.opacity = '0';
+            document.body.appendChild(copyField);
+            copyField.select();
+            document.execCommand('copy');
+            copyField.remove();
+          }
+          window.clearTimeout(copyResetTimer);
+          copyEmailButton.textContent = 'Copied';
+          copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+        } catch (error) {
+          copyEmailButton.textContent = 'Copy failed';
+          window.clearTimeout(copyResetTimer);
+          copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+        }
+      }
 
       function scrollToLatest() {
         const latestRow = messagesElement.lastElementChild;
@@ -817,7 +1066,18 @@
       }
 
       replayButton.addEventListener('click', playConversation);
-      playConversation();
+      document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
+      document.getElementById('email-app-link').href = `mailto:${contactEmail}?subject=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
+      chatLauncher.addEventListener('click',openChatWindow);
+      contactTrigger.addEventListener('click',openContactPanel);
+      contactClose.addEventListener('click',closeContactPanel);
+      copyEmailButton.addEventListener('click',copyContactEmail);
+      contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
+      document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
+      siteMockup.addEventListener('load',scheduleWhatsAppFallbackUpdate);
+      window.addEventListener('resize',scheduleWhatsAppFallbackUpdate);
+      updateWhatsAppFallbackState();
+      playInitialLauncherSequence();
     })();
   </script>
 </body>
