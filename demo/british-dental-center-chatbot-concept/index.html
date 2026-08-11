@@ -420,6 +420,7 @@
     let responsiveFrame = 0;
     let contactReturnFocus = null;
     let copyResetTimer = 0;
+    let initialSequenceScheduled = false;
 
     const SOURCE_SCREENSHOT_WIDTH = 1920;
     const SOURCE_SCREENSHOT_HEIGHT = 1080;
@@ -769,6 +770,25 @@
       if (currentRun === runId) replayButton.disabled = false;
     }
 
+    function scheduleInitialLauncherSequence() {
+      if (initialSequenceScheduled) return;
+      initialSequenceScheduled = true;
+      const postImageDelay = 1200;
+      const imageWaitTimeout = 5000;
+      let imageReadinessResolved = false;
+      let fallbackTimer = 0;
+      const beginAfterImage = () => {
+        if (imageReadinessResolved) return;
+        imageReadinessResolved = true;
+        window.clearTimeout(fallbackTimer);
+        siteMockup.removeEventListener('load', beginAfterImage);
+        window.setTimeout(playInitialLauncherSequence, postImageDelay);
+      };
+      siteMockup.addEventListener('load', beginAfterImage, { once: true });
+      fallbackTimer = window.setTimeout(beginAfterImage, imageWaitTimeout);
+      if (siteMockup.complete && siteMockup.naturalWidth > 0) beginAfterImage();
+    }
+
     siteMockup.addEventListener('load',scheduleResponsivePresentationUpdate);
     window.addEventListener('resize',scheduleResponsivePresentationUpdate);
     applyConfig();
@@ -782,7 +802,7 @@
     copyEmailButton.addEventListener('click',copyContactEmail);
     contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
     document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
-    playInitialLauncherSequence();
+    scheduleInitialLauncherSequence();
   </script>
 </body>
 </html>

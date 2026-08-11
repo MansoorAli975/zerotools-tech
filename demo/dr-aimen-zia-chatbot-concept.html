@@ -655,6 +655,7 @@
       const businessResult = document.getElementById('business-result');
       const composerInput = document.getElementById('composer-input');
       const sendButton = document.getElementById('send-button');
+      const siteMockup = document.getElementById('site-mockup');
       const chatShell = document.getElementById('chat-shell');
       const launcherWrap = document.getElementById('launcher-wrap');
       const chatLauncher = document.getElementById('chat-launcher');
@@ -672,6 +673,7 @@
       let launcherRunId = 0;
       let contactReturnFocus = null;
       let copyResetTimer = 0;
+      let initialSequenceScheduled = false;
 
       /*
        * PROSPECT REPLACEMENT: Reusable conversation model.
@@ -1031,6 +1033,25 @@
         if (currentRun === runId) replayButton.disabled = false;
       }
 
+      function scheduleInitialLauncherSequence() {
+        if (initialSequenceScheduled) return;
+        initialSequenceScheduled = true;
+        const postImageDelay = 1200;
+        const imageWaitTimeout = 5000;
+        let imageReadinessResolved = false;
+        let fallbackTimer = 0;
+        const beginAfterImage = () => {
+          if (imageReadinessResolved) return;
+          imageReadinessResolved = true;
+          window.clearTimeout(fallbackTimer);
+          siteMockup.removeEventListener('load', beginAfterImage);
+          window.setTimeout(playInitialLauncherSequence, postImageDelay);
+        };
+        siteMockup.addEventListener('load', beginAfterImage, { once: true });
+        fallbackTimer = window.setTimeout(beginAfterImage, imageWaitTimeout);
+        if (siteMockup.complete && siteMockup.naturalWidth > 0) beginAfterImage();
+      }
+
       replayButton.addEventListener('click', playConversation);
       document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
       document.getElementById('email-app-link').href = `mailto:${contactEmail}?subject=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
@@ -1040,7 +1061,7 @@
       copyEmailButton.addEventListener('click',copyContactEmail);
       contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
       document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
-      playInitialLauncherSequence();
+      scheduleInitialLauncherSequence();
     })();
   </script>
 </body>
