@@ -95,7 +95,7 @@
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
 
-    .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
+    .concept-tools { position: fixed; z-index: 4; top: clamp(112px,13.2svh,144px); left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
     .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
     .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 4px rgba(125,226,188,.17); }
     .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.58); text-underline-offset: 2px; }
