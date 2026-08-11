@@ -5,44 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
 
-  <title>Website Chatbot Concept for British Dental Center | Zero Tools</title>
-  <meta name="description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from British Dental Center’s website.">
-  <link rel="canonical" href="https://www.zerotools.tech/demo/british-dental-center-chatbot-concept/">
+  <!-- Static values remain in the HTML head so social crawlers can read them. -->
+  <title>Website Chatbot Concept for Blue Dental Clinic | Zero Tools</title>
+  <meta name="description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from Blue Dental Clinic’s website.">
+  <link rel="canonical" href="https://www.zerotools.tech/demo/blue-dental-clinic-chatbot-concept/">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zerotools.tech/demo/british-dental-center-chatbot-concept/">
-  <meta property="og:title" content="Website Chatbot Concept for British Dental Center | Zero Tools">
-  <meta property="og:description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from British Dental Center’s website.">
-  <meta property="og:image" content="https://www.zerotools.tech/demo/british-dental-center-chatbot-concept/assets/og-preview.jpg">
-  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/british-dental-center-chatbot-concept/assets/og-preview.jpg">
+  <meta property="og:url" content="https://www.zerotools.tech/demo/blue-dental-clinic-chatbot-concept/">
+  <meta property="og:title" content="Website Chatbot Concept for Blue Dental Clinic | Zero Tools">
+  <meta property="og:description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from Blue Dental Clinic’s website.">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/blue-dental-clinic-chatbot-concept/assets/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/blue-dental-clinic-chatbot-concept/assets/og-preview.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Website chatbot concept displayed on the British Dental Center homepage">
+  <meta property="og:image:alt" content="Website chatbot concept displayed on the Blue Dental Clinic homepage">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Website Chatbot Concept for British Dental Center | Zero Tools">
-  <meta name="twitter:description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from British Dental Center’s website.">
-  <meta name="twitter:image" content="https://www.zerotools.tech/demo/british-dental-center-chatbot-concept/assets/og-preview.jpg">
-  <meta name="twitter:image:alt" content="Website chatbot concept displayed on the British Dental Center homepage">
+  <meta name="twitter:title" content="Website Chatbot Concept for Blue Dental Clinic | Zero Tools">
+  <meta name="twitter:description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from Blue Dental Clinic’s website.">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/blue-dental-clinic-chatbot-concept/assets/og-preview.jpg">
+  <meta name="twitter:image:alt" content="Website chatbot concept displayed on the Blue Dental Clinic homepage">
   <link rel="icon" href="/favicon.png?v=1">
+
+  <!-- PROSPECT DUPLICATION CHECKLIST
+    1. Copy the template into demo/<prospect-slug>/index.html
+    2. Create the assets folder
+    3. Add company-homepage.png
+    4. Add og-preview.jpg at 1200 × 630
+    5. Replace all static metadata
+    6. Update DEMO_CONFIG
+    7. Update brand colours
+    8. Update conversation sequence
+    9. Update enquiry-summary fields
+    10. Review medical or industry safety wording
+    11. Confirm the disclaimer
+    12. Test desktop
+    13. Test mobile
+    14. Test replay
+    15. Test animation timing
+    16. Confirm no prospect-placeholder text remains
+    17. Confirm noindex,nofollow
+    18. Deploy
+    19. Test the live URL
+    20. Test Meta Sharing Debugger
+    21. Test WhatsApp preview
+  -->
+
+  <!-- TEMPLATE IDENTITY
+    concept-template.html is the reusable scripted animated-concept master.
+    demo/template.html is the older UChat embedded-preview design.
+    The two files serve different purposes and must not be confused.
+  -->
 
   <style>
     :root {
-      --brand: #393995;
-      --brand-dark: #2B2B78;
-      --accent: #B21E28;
-      --zero-tools-blue: #393995;
+      --brand: #087fc3;
+      --brand-dark: #075b91;
+      --zero-tools-blue: #087fc3;
       --ink: #182231;
       --muted: #687486;
       --surface: #fff;
       --line: #e5e9ef;
       --page: #eef1f4;
       --shadow: 0 24px 70px rgba(22,34,53,.22);
-      --launcher-bottom-offset: 118px;
-      --chat-window-bottom-offset: 48px;
-      --mobile-launcher-bottom-offset: 110px;
-      --mobile-chat-window-bottom-offset: 0px;
+      --launcher-bottom-offset: 110px;
+      --chat-window-bottom-offset: 110px;
+      --mobile-launcher-bottom-offset: 90px;
+      --mobile-chat-window-bottom-offset: 82px;
     }
 
     * { box-sizing: border-box; }
@@ -52,7 +82,6 @@
 
     .presentation {
       position: relative;
-      width: 100%;
       min-height: 100svh;
       overflow: hidden;
       padding: 28px clamp(22px,5vw,76px);
@@ -67,34 +96,28 @@
 
     .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
     .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
-    .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb,var(--accent) 17%,transparent); }
+    .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 4px rgba(125,226,188,.17); }
     .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.58); text-underline-offset: 2px; }
     .concept-label a:hover { text-decoration-color: currentColor; }
     .concept-label a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
 
-    .chat-shell { position: absolute; right: clamp(22px,5vw,76px); bottom: var(--chat-window-bottom-offset); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - var(--chat-window-bottom-offset) - 24px)); min-height: 510px; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
+    .chat-shell { position: absolute; right: max(12px,calc(clamp(22px,5vw,76px) - 52px)); bottom: var(--chat-window-bottom-offset); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - var(--chat-window-bottom-offset) - 24px)); min-height: 510px; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
     .chat-shell.is-closed { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(28px) scale(.86); transition: opacity .28s ease,transform .28s ease,visibility 0s linear .28s; }
 
-    .launcher-wrap { position: fixed; right: 36px; bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
+    .launcher-wrap { position: fixed; right: clamp(28px,4vw,64px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
     .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
-    .launcher-tooltip { padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: linear-gradient(135deg,rgba(69,68,168,.96),rgba(41,40,120,.96)); box-shadow: 0 7px 20px rgba(34,33,101,.2); font-size: 11px; font-weight: 750; white-space: nowrap; }
-    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(135deg,#4544A8,#292878); box-shadow: 0 12px 28px rgba(34,33,101,.3); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
-    .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(34,33,101,.35); }
-    .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--accent) 55%,white); outline-offset: 4px; }
-    .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(34,33,101,.28); }
+    .launcher-tooltip { padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: color-mix(in srgb,var(--brand-dark) 92%,transparent); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
+    .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
+    .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(5,11,25,.32); }
     .launcher-icon { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid #fff; border-radius: 999px; color: #fff; background: #4544A8; font-size: 8px; font-weight: 900; letter-spacing: .03em; }
+    .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--brand); font-size: 8px; font-weight: 900; letter-spacing: .03em; }
     .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
     .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
 
-    .existing-whatsapp { position: fixed; right: 42px; bottom: 34px; z-index: 5; display: none; align-items: center; gap: 8px; pointer-events: none; user-select: none; }
-    .presentation.is-bottom-cropped .existing-whatsapp { display: flex; }
-    .existing-whatsapp-label { padding: 12px 14px; border-radius: 6px; color: #263343; background: #fff; box-shadow: 0 5px 15px rgba(15,23,42,.12); font-size: 12.5px; font-weight: 400; line-height: 1; white-space: nowrap; }
-    .existing-whatsapp-label strong { font-weight: 650; }
-    .existing-whatsapp-icon { display: grid; width: 58px; height: 58px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #fff; background: #20b94b; box-shadow: 0 6px 15px rgba(19,115,48,.22); }
-    .existing-whatsapp-icon svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
-    .existing-whatsapp-icon .whatsapp-logo-outline { stroke-width: 2.2; }
-    .existing-whatsapp-icon .whatsapp-logo-handset { fill: currentColor; stroke: none; }
+    .clinic-whatsapp { position: fixed; right: calc(clamp(28px,4vw,64px) + 7px); bottom: 40px; z-index: 5; display: block; width: 50px; height: 50px; }
+    .clinic-whatsapp img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
     .demo-cursor { --cursor-x: 0px; --cursor-y: 0px; position: fixed; right: 18px; bottom: 30px; z-index: 8; width: 27px; height: 34px; pointer-events: none; visibility: hidden; opacity: 0; transform: translate(var(--cursor-x),var(--cursor-y)); transition: transform 1.08s cubic-bezier(.2,.76,.25,1),opacity .18s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
     .demo-cursor.is-visible { visibility: visible; opacity: 1; }
@@ -106,7 +129,7 @@
     .chat-title { min-width: 0; flex: 1; }
     .chat-title strong { display: block; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
     .chat-title span { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 11.5px; opacity: .88; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 3px rgba(125,226,188,.15); }
     .replay { padding: 7px 10px; border: 1px solid rgba(255,255,255,.27); border-radius: 10px; color: rgba(255,255,255,.88); background: rgba(255,255,255,.08); font-size: 11px; font-weight: 800; cursor: pointer; transition: .18s ease; }
     .replay:hover { border-color: rgba(255,255,255,.4); color: #fff; background: rgba(255,255,255,.14); }
     .replay:active { transform: scale(.97); }
@@ -150,15 +173,15 @@
 
     .business-result { position: absolute; top: 50%; left: clamp(22px,5vw,76px); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: var(--shadow); transform: translateY(calc(-50% + 18px)); transition: opacity .6s ease,transform .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
     .business-result.visible { visibility: visible; opacity: 1; transform: translateY(-50%); transition-delay: 0s; }
-    .summary-heading { padding: 20px 22px 16px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
+    .summary-heading { padding: 15px 22px 12px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
     .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
-    .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
-    .summary-list { margin: 0; padding: 7px 22px 13px; }
-    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
+    .summary-support { display: block; margin: 4px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
+    .summary-list { margin: 0; padding: 4px 22px 8px; }
+    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding: 7px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
     .summary-item:last-child { border-bottom: 0; }
     .summary-item dt { color: var(--muted); }
     .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
-    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; background: rgba(247,249,252,.9); }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 22px 10px; border-top: 1px solid #e6e9ed; background: rgba(247,249,252,.9); }
     .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
     .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
     .contact-trigger:hover { background: #223d68; }
@@ -188,7 +211,7 @@
 
     @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
     @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
-    @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(34,33,101,.3),0 0 0 0 rgba(69,68,168,.2); } 50% { box-shadow: 0 12px 28px rgba(34,33,101,.3),0 0 0 10px rgba(69,68,168,0); } }
+    @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 0 color-mix(in srgb,var(--brand) 22%,transparent); } 50% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 10px color-mix(in srgb,var(--brand) 0%,transparent); } }
     @keyframes launcher-ripple { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.4); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.5); } }
 
     @media (max-width:720px) {
@@ -199,7 +222,7 @@
       .chat-shell { position: relative; top: auto; right: auto; bottom: auto; width: min(410px,calc(100vw - 28px)); height: min(670px,calc(100svh - 92px - var(--mobile-chat-window-bottom-offset))); min-height: 500px; margin: 18px auto var(--mobile-chat-window-bottom-offset); transform: none; transform-origin: center bottom; }
       .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
       .launcher-wrap { right: 24px; bottom: var(--mobile-launcher-bottom-offset); }
-      .presentation.is-bottom-cropped .existing-whatsapp { display: none; }
+      .clinic-whatsapp { right: 29px; bottom: 20px; }
       .launcher-tooltip { font-size: 10.5px; }
       .chat-launcher { width: 60px; height: 60px; }
       .demo-cursor { display: none; }
@@ -243,24 +266,17 @@
     </div>
 
     <div class="launcher-wrap" id="launcher-wrap">
-      <span class="launcher-tooltip" id="launcher-tooltip">Chat with BDC Website Assistant</span>
-      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open BDC Website Assistant" aria-describedby="launcher-tooltip">
+      <span class="launcher-tooltip" id="launcher-tooltip">Chat with Blue Dental Assistant</span>
+      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Blue Dental Assistant" aria-describedby="launcher-tooltip">
         <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
-        <span class="launcher-id" aria-hidden="true">BDC</span>
+        <span class="launcher-id" id="launcher-id" aria-hidden="true">BD</span>
         <span class="launcher-ripple" aria-hidden="true"></span>
       </button>
     </div>
 
-    <!-- Existing website WhatsApp control recreated visually only when responsive cover-cropping hides the control in the static homepage screenshot. This is not part of the Zero Tools chatbot. -->
-    <div class="existing-whatsapp" role="img" aria-label="British Dental Center website WhatsApp contact option, visual representation only">
-      <span class="existing-whatsapp-label">Need Help? <strong>Chat with us</strong></span>
-      <span class="existing-whatsapp-icon" aria-hidden="true">
-        <svg viewBox="0 0 32 32" focusable="false" aria-hidden="true">
-          <path class="whatsapp-logo-outline" d="M16 4.5C9.65 4.5 4.5 9.48 4.5 15.62c0 2.08.58 4.03 1.65 5.72L4.5 27.5l6.25-1.65A11.78 11.78 0 0 0 16 27.13c6.35 0 11.5-5 11.5-11.5S22.35 4.5 16 4.5Z"/>
-          <path class="whatsapp-logo-handset" d="M11.1 9.2c-.35 0-.68.18-.86.48-.62 1.03-.78 2.27-.45 3.42 1.2 4.12 4.46 7.38 8.58 8.58 1.15.33 2.39.17 3.42-.45.3-.18.48-.51.48-.86v-1.42c0-.38-.22-.73-.57-.9l-3.07-1.44c-.38-.18-.84-.08-1.11.24l-1.22 1.49a9.2 9.2 0 0 1-3.76-3.76l1.49-1.22c.32-.27.42-.73.24-1.11L12.83 9.8a1 1 0 0 0-.9-.57L11.1 9.2Z"/>
-        </svg>
-      </span>
-    </div>
+    <a class="clinic-whatsapp" href="https://wa.me/971507691575" target="_blank" rel="noopener noreferrer" aria-label="Contact Blue Dental Clinic on WhatsApp">
+      <img src="assets/blue-whatsapp-icon.png" alt="" width="100" height="100">
+    </a>
 
     <div class="demo-cursor" id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 28 36"><path d="M3 2.5 23 21l-9 .8 5 9-4.5 2.4-4.8-9-6.7 6.2V2.5Z"/></svg></div>
 
@@ -289,7 +305,7 @@
       <div class="summary-heading" id="summary-heading"></div>
       <dl class="summary-list" id="summary-list"></dl>
       <div class="result-cta">
-        <p>Interested in this for British Dental Center?</p>
+        <p id="result-cta-copy"></p>
         <button class="contact-trigger" id="contact-trigger" type="button">Contact Zero Tools</button>
       </div>
     </aside>
@@ -304,7 +320,7 @@
       <h2 class="contact-title" id="contact-title">Contact Zero Tools</h2>
       <p class="contact-intro" id="contact-intro">We’ll guide you through the next steps.</p>
       <div class="email-copy-row">
-        <span class="email-address">support@zerotools.tech</span>
+        <span class="email-address" id="contact-email-address"></span>
         <button class="copy-email" id="copy-email" type="button">Copy</button>
       </div>
       <div class="contact-actions">
@@ -316,51 +332,55 @@
   </div>
 
   <script>
+    /* MASTER PROSPECT CONFIGURATION
+       Keep prospect content here. Static crawler metadata must still be replaced in <head>. */
     const DEMO_CONFIG = {
-      companyName: 'British Dental Center',
-      shortCompanyName: 'BDC',
-      chatbotName: 'BDC Website Assistant',
-      botInitials: 'BDC',
+      prospectName: 'Blue Dental Clinic',
+      companyName: 'Blue Dental Clinic',
+      shortCompanyName: 'Blue Dental Clinic',
+      chatbotName: 'Blue Dental Assistant',
+      botInitials: 'BD',
       backgroundImagePath: 'assets/company-homepage.png',
-      backgroundImageAltText: 'British Dental Center homepage',
-      primaryBrandColour: '#393995',
-      secondaryBrandColour: '#2B2B78',
-      accentBrandColour: '#B21E28',
-      launcherBottomOffset: '118px',
-      chatWindowBottomOffset: '150px',
-      mobileLauncherBottomOffset: '110px',
-      mobileChatWindowBottomOffset: '0px',
-      prospectLabel: 'Website Chatbot Concept for British Dental Center · Prepared by zerotools.tech',
-      welcomeMessage: 'Hello, this is the BDC Website Assistant. How can I help you today?',
+      backgroundImageAltText: 'Public homepage of Blue Dental Clinic used as the concept background',
+      primaryBrandColour: '#087fc3',
+      secondaryBrandColour: '#075b91',
+      launcherBottomOffset: '110px',
+      chatWindowBottomOffset: '110px',
+      mobileLauncherBottomOffset: '90px',
+      mobileChatWindowBottomOffset: '82px',
+      contactEmail: 'support@zerotools.tech',
+      contactSubject: 'Blue Dental Clinic chatbot concept',
+      contactBody: 'Hi, I reviewed the Blue Dental Clinic chatbot concept and would like to discuss it.',
+      welcomeMessage: 'Welcome to Blue Dental Clinic. I’m the Blue Dental Assistant. How can I help you today?',
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
-        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I think I need a dental check-up, but I’m quite nervous about visiting.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'That’s completely understandable. I can help organize your request for the BDC team. Is this your first visit to the clinic?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes, first visit', 'No, visited before'], selected: 'Yes, first visit' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What best describes the reason for your visit?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Routine check-up', 'Pain or sensitivity', 'Something else'], selected: 'Pain or sensitivity' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer to begin your first visit?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Full assessment', 'Discuss concerns first', 'Treatment if appropriate'], selected: 'Discuss concerns first' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Would you like the team to know that you feel nervous about dental treatment?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes, please', 'No, not necessary'], selected: 'Yes, please' },
+        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I’d like to improve my smile but I’m not sure what treatment I need.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'I’d be happy to guide you. What is your main concern?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Discolouration', 'Shape or uneven teeth', 'Both'], selected: 'Both', transcriptText: 'Discolouration and uneven teeth' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What matters most to you?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Natural-looking improvement', 'Brighter smile', 'Not sure yet'], selected: 'Natural-looking improvement' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Blue Dental Clinic offers cosmetic options such as teeth whitening and veneers. The suitable treatment depends on an examination and consultation, so the dentist can assess your teeth and discuss your goals with you.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Would you like to arrange a consultation?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes', 'Not right now'], selected: 'Yes' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer the clinic to contact you?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['WhatsApp', 'Telephone', 'Email'], selected: 'WhatsApp' },
-        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: '+973 3XXX XXXX' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. This concept shows how a guided chatbot could prepare a clear enquiry for the BDC team. It does not provide a diagnosis or confirm treatment suitability.' }
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['WhatsApp', 'Phone', 'Email'], selected: 'WhatsApp' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter your WhatsApp number, including the country code.' },
+        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: '+971 5X XXX XXXX' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. Your consultation enquiry is ready for the Blue Dental Clinic team. They can contact you by WhatsApp to discuss the next step.' }
       ],
       enquiryResult: {
-        title: 'New patient enquiry',
+        title: 'Cosmetic consultation enquiry',
         supportText: 'Example structured enquiry from this conversation',
         fields: [
-          { label: 'Patient type:', value: 'New patient' },
-          { label: 'Reason for visit:', value: 'Pain or sensitivity' },
-          { label: 'Preferred first step:', value: 'Discuss concerns before treatment' },
-          { label: 'Dental anxiety noted:', value: 'Yes' },
-          { label: 'Preferred contact method:', value: 'WhatsApp' },
-          { label: 'Contact number:', value: '+973 3XXX XXXX' }
+          { label: 'Concern:', value: 'Discolouration and uneven front teeth' },
+          { label: 'Goal:', value: 'Natural-looking smile improvement' },
+          { label: 'Treatment interest:', value: 'To be assessed during consultation' },
+          { label: 'Consultation requested:', value: 'Yes' },
+          { label: 'Preferred contact:', value: 'WhatsApp' },
+          { label: 'Phone:', value: '+971 5X XXX XXXX' }
         ]
       },
-      disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to British Dental Center’s live website. This preview will be removed 30 days after it is shared, or earlier upon request.',
+      disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to Blue Dental Clinic’s live website. This preview will be removed 30 days after it is shared, or earlier upon request.',
       timing: {
         launcherDelay: 1800,
         cursorRevealPause: 120,
@@ -396,55 +416,46 @@
     const businessResult = document.getElementById('business-result');
     const composerInput = document.getElementById('composer-input');
     const sendButton = document.getElementById('send-button');
-    const presentation = document.querySelector('.presentation');
     const siteMockup = document.getElementById('site-mockup');
     const chatShell = document.getElementById('chat-shell');
     const launcherWrap = document.getElementById('launcher-wrap');
     const chatLauncher = document.getElementById('chat-launcher');
+    const launcherTooltip = document.getElementById('launcher-tooltip');
+    const launcherId = document.getElementById('launcher-id');
     const demoCursor = document.getElementById('demo-cursor');
     const contactModal = document.getElementById('contact-modal');
     const contactTrigger = document.getElementById('contact-trigger');
     const contactClose = document.getElementById('contact-close');
     const copyEmailButton = document.getElementById('copy-email');
-    const contactEmail = 'support@zerotools.tech';
-    const contactSubject = 'British Dental Center chatbot concept';
-    const contactBody = 'Hi, I reviewed the British Dental Center chatbot concept and would like to discuss it.';
-    const encodedContactSubject = encodeURIComponent(contactSubject);
-    const encodedContactBody = encodeURIComponent(contactBody);
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
-    const mailtoUrl = `mailto:${contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
     let runId = 0;
     let lastMessageRole = null;
     let chatOpened = false;
     let launcherRunId = 0;
-    let responsiveFrame = 0;
     let contactReturnFocus = null;
     let copyResetTimer = 0;
-
-    const SOURCE_SCREENSHOT_WIDTH = 1920;
-    const SOURCE_SCREENSHOT_HEIGHT = 1080;
-    const BOTTOM_CROP_FALLBACK_THRESHOLD = 108;
 
     function applyConfig() {
       document.documentElement.style.setProperty('--brand', DEMO_CONFIG.primaryBrandColour);
       document.documentElement.style.setProperty('--brand-dark', DEMO_CONFIG.secondaryBrandColour);
-      document.documentElement.style.setProperty('--accent', DEMO_CONFIG.accentBrandColour);
       document.documentElement.style.setProperty('--zero-tools-blue', DEMO_CONFIG.primaryBrandColour);
       document.documentElement.style.setProperty('--launcher-bottom-offset', DEMO_CONFIG.launcherBottomOffset);
       document.documentElement.style.setProperty('--chat-window-bottom-offset', DEMO_CONFIG.chatWindowBottomOffset);
       document.documentElement.style.setProperty('--mobile-launcher-bottom-offset', DEMO_CONFIG.mobileLauncherBottomOffset);
       document.documentElement.style.setProperty('--mobile-chat-window-bottom-offset', DEMO_CONFIG.mobileChatWindowBottomOffset);
       const conceptLabel = document.getElementById('concept-label');
-      const zeroToolsIdentity = 'zerotools.tech';
-      conceptLabel.replaceChildren(document.createTextNode(DEMO_CONFIG.prospectLabel.slice(0,-zeroToolsIdentity.length)));
+      conceptLabel.replaceChildren(document.createTextNode(`Website Chatbot Concept for ${DEMO_CONFIG.prospectName} · Prepared by `));
       const zeroToolsLink = document.createElement('a');
       zeroToolsLink.href = 'https://zerotools.tech/';
       zeroToolsLink.target = '_blank';
       zeroToolsLink.rel = 'noopener noreferrer';
-      zeroToolsLink.textContent = zeroToolsIdentity;
+      zeroToolsLink.textContent = 'zerotools.tech';
       conceptLabel.appendChild(zeroToolsLink);
+      document.getElementById('result-cta-copy').textContent = `Interested in this for ${DEMO_CONFIG.prospectName}?`;
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
+      launcherId.textContent = DEMO_CONFIG.botInitials;
+      launcherTooltip.textContent = `Chat with ${DEMO_CONFIG.chatbotName}`;
+      chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
       document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
       siteMockup.alt = DEMO_CONFIG.backgroundImageAltText;
       siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
@@ -465,6 +476,13 @@
         row.append(term, detail);
         return row;
       }));
+      const contactSubject = DEMO_CONFIG.contactSubject || `${DEMO_CONFIG.prospectName} chatbot concept`;
+      const contactBody = DEMO_CONFIG.contactBody || `Hi, I reviewed the ${DEMO_CONFIG.prospectName} chatbot concept and would like to discuss it.`;
+      const encodedContactSubject = encodeURIComponent(contactSubject);
+      const encodedContactBody = encodeURIComponent(contactBody);
+      document.getElementById('contact-email-address').textContent = DEMO_CONFIG.contactEmail;
+      document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEMO_CONFIG.contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
+      document.getElementById('email-app-link').href = `mailto:${DEMO_CONFIG.contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
     }
 
     const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
@@ -486,10 +504,10 @@
     async function copyContactEmail() {
       try {
         if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(contactEmail);
+          await navigator.clipboard.writeText(DEMO_CONFIG.contactEmail);
         } else {
           const copyField = document.createElement('textarea');
-          copyField.value = contactEmail;
+          copyField.value = DEMO_CONFIG.contactEmail;
           copyField.setAttribute('readonly','');
           copyField.style.position = 'fixed';
           copyField.style.opacity = '0';
@@ -506,31 +524,6 @@
         window.clearTimeout(copyResetTimer);
         copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
       }
-    }
-
-    function updateResponsivePresentationState() {
-      const desktopLandscape = window.matchMedia('(min-width: 721px) and (orientation: landscape)').matches;
-      let bottomCropInSourcePixels = 0;
-
-      if (desktopLandscape) {
-        const imageBox = siteMockup.getBoundingClientRect();
-        const coverScale = Math.max(
-          imageBox.width / SOURCE_SCREENSHOT_WIDTH,
-          imageBox.height / SOURCE_SCREENSHOT_HEIGHT
-        );
-        const visibleSourceHeight = imageBox.height / coverScale;
-        bottomCropInSourcePixels = Math.max(0,SOURCE_SCREENSHOT_HEIGHT - visibleSourceHeight);
-      }
-
-      presentation.classList.toggle(
-        'is-bottom-cropped',
-        desktopLandscape && bottomCropInSourcePixels >= BOTTOM_CROP_FALLBACK_THRESHOLD
-      );
-    }
-
-    function scheduleResponsivePresentationUpdate() {
-      window.cancelAnimationFrame(responsiveFrame);
-      responsiveFrame = window.requestAnimationFrame(updateResponsivePresentationState);
     }
 
     function getBotReadingDelay(item) {
@@ -737,7 +730,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
-          addMessage({ role: 'visitor choice', text: item.selected });
+          addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
           await wait(item.afterSelection);
           if (currentRun !== runId) return;
           continue;
@@ -769,14 +762,9 @@
       if (currentRun === runId) replayButton.disabled = false;
     }
 
-    siteMockup.addEventListener('load',scheduleResponsivePresentationUpdate);
-    window.addEventListener('resize',scheduleResponsivePresentationUpdate);
     applyConfig();
-    updateResponsivePresentationState();
     chatLauncher.addEventListener('click',openChatWindow);
     replayButton.addEventListener('click',playConversation);
-    document.getElementById('gmail-link').href = gmailUrl;
-    document.getElementById('email-app-link').href = mailtoUrl;
     contactTrigger.addEventListener('click',openContactPanel);
     contactClose.addEventListener('click',closeContactPanel);
     copyEmailButton.addEventListener('click',copyContactEmail);

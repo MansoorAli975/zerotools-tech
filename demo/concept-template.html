@@ -205,7 +205,7 @@
     .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
     .typing i:nth-child(2) { animation-delay: .15s; }
     .typing i:nth-child(3) { animation-delay: .3s; }
-    .disclaimer { position: fixed; z-index: 2; left: 150px; bottom: 18px; width: min(850px,calc(100vw - 650px)); margin: 0; color: #000000; font-size: 14px; line-height: 1.5; font-weight: 600; text-align: left; }
+    .disclaimer { position: fixed; z-index: 2; left: clamp(22px,5vw,76px); bottom: 10px; width: min(1040px,calc(100vw - 510px)); margin: 0; padding: 7px 12px; border: 1px solid rgba(20,49,74,.13); border-radius: 8px; color: #172536; background: rgba(255,255,255,.9); box-shadow: 0 3px 12px rgba(17,31,48,.08); font-size: 12px; line-height: 1.45; font-weight: 600; text-align: left; backdrop-filter: blur(5px); }
 
     @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
     @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
