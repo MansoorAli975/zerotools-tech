@@ -215,6 +215,7 @@
     @media (max-width:720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
       .site-mockup { opacity: .35; }
+      .prospect-widget { display: none; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
       .concept-label { width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
       .chat-shell { position: relative; top: auto; right: auto; bottom: auto; width: min(410px,calc(100vw - 28px)); height: min(670px,calc(100svh - 92px - var(--mobile-chat-window-bottom-offset))); min-height: 500px; margin: 18px auto var(--mobile-chat-window-bottom-offset); transform: none; transform-origin: center bottom; }
@@ -271,6 +272,7 @@
       </button>
     </div>
 
+    <!-- Future prospect-specific WhatsApp, live-chat, or contact overlays must include class="prospect-widget"; the template intentionally hides that class at its mobile breakpoint. -->
     <div class="demo-cursor" id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 28 36"><path d="M3 2.5 23 21l-9 .8 5 9-4.5 2.4-4.8-9-6.7 6.2V2.5Z"/></svg></div>
 
     <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
