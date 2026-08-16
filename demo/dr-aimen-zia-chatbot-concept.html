@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
 
-  <!-- PROSPECT REPLACEMENT: Edit the page title and description for each company. -->
   <title>Website Chatbot Concept for Dr Aimen Zia Dental Clinic | Zero Tools</title>
   <meta name="description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from Dr Aimen Zia Dental Clinic’s website.">
   <link rel="canonical" href="https://www.zerotools.tech/demo/dr-aimen-zia-chatbot-concept.html">
 
-  <!-- PROSPECT REPLACEMENT: Update Open Graph text, URL, and thumbnail before sharing. -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Website Chatbot Concept for Dr Aimen Zia Dental Clinic | Zero Tools">
   <meta property="og:description" content="A temporary private website chatbot concept prepared by Zero Tools using publicly available information from Dr Aimen Zia Dental Clinic’s website.">
@@ -31,7 +29,6 @@
 
   <style>
     :root {
-      /* PROSPECT REPLACEMENT: Replace this neutral brand colour with the prospect's brand colour. */
       --brand: #ed6624;
       --brand-dark: #272727;
       --zero-tools-blue: #ed6624;
@@ -66,7 +63,6 @@
       min-height: 100svh;
       overflow: hidden;
       padding: 28px clamp(22px, 5vw, 76px);
-      /* PROSPECT REPLACEMENT: Replace this neutral website background with the selected prospect screenshot. */
       background:
         linear-gradient(90deg, rgba(246, 248, 250, 0.98) 0%, rgba(246, 248, 250, 0.88) 48%, rgba(232, 236, 241, 0.78) 100%),
         linear-gradient(135deg, #f7f8fa, #dde2e8);
@@ -140,7 +136,7 @@
     .demo-cursor.is-visible { visibility: visible; opacity: 1; }
     .demo-cursor.is-pressing { transform: translate(var(--cursor-x),var(--cursor-y)) scale(.88); }
     .demo-cursor svg { width: 100%; height: 100%; fill: #fff; stroke: #111827; stroke-width: 1.25; stroke-linejoin: round; }
-    .whatsapp-overlay { position: fixed; right: var(--right-overlay-axis); bottom: 21px; z-index: 5; width: 58px; height: 58px; pointer-events: none; user-select: none; transform: translateX(50%); }
+    .whatsapp-overlay { position: fixed; right: var(--right-overlay-axis); bottom: 30px; z-index: 5; width: 58px; height: 58px; pointer-events: none; user-select: none; transform: translateX(50%); }
     .whatsapp-overlay img { display: block; width: 52px; height: 52px; margin: 3px; object-fit: contain; filter: drop-shadow(0 3px 5px rgba(0,0,0,.2)); }
 
     .chat-shell {
@@ -415,21 +411,22 @@
       position: absolute;
       z-index: 3;
       top: 50%;
-      left: clamp(22px, 6vw, 94px);
+      left: clamp(22px, calc(42vw - 225px), calc(100vw - var(--right-overlay-axis) - 8px - min(410px, calc(100vw - 44px)) - clamp(18px, 2vw, 32px) - min(450px, calc(100vw - 570px))));
       width: min(450px, calc(100vw - 570px));
       overflow: hidden;
       border: 1px solid #dfe5eb;
       border-radius: 20px;
       background: rgba(255, 255, 255, .94);
-      box-shadow: 0 22px 60px rgba(31, 43, 59, .15);
+      box-shadow: 0 14px 38px rgba(31, 43, 59, .10);
       opacity: 0;
-      transform: translateY(calc(-50% + 18px));
+      transform: translate(min(400px, 29vw), calc(-50% + 10px)) scale(.92) rotate(.55deg);
+      transform-origin: right center;
       visibility: hidden;
-      transition: opacity .6s ease, transform .6s ease, visibility 0s linear .6s;
+      transition: opacity .34s ease, transform .6s cubic-bezier(.22,.78,.24,1), box-shadow .6s ease, visibility 0s linear .6s;
       backdrop-filter: blur(12px);
     }
 
-    .business-result.visible { opacity: 1; transform: translateY(-50%); visibility: visible; transition-delay: 0s; }
+    .business-result.visible { opacity: 1; box-shadow: 0 22px 60px rgba(31, 43, 59, .15); transform: translate(0, -50%) scale(1) rotate(0); visibility: visible; transition-delay: 0s; }
 
     .summary-heading {
       padding: 20px 22px 16px;
@@ -456,7 +453,8 @@
     .summary-item:last-child { border-bottom: 0; }
     .summary-item dt { color: var(--muted); }
     .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
-    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; background: rgba(247,249,252,.9); }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
+    .business-result.visible .result-cta { opacity: 1; transform: none; }
     .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
     .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
     .contact-trigger:hover { background: #223d68; }
@@ -531,7 +529,7 @@
       .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
       .composer-input { height: 32px; }
       .send-button { width: 30px; height: 30px; }
-      .business-result { position: relative; top: auto; left: auto; width: min(410px, calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px); }
+      .business-result { position: relative; top: auto; left: auto; width: min(410px, calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px) scale(.98); }
       .business-result.visible { max-height: 560px; margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
       .summary-heading { padding: 17px 18px 14px; font-size: 17px; }
       .summary-list { padding: 6px 18px 11px; }
@@ -550,7 +548,7 @@
       .message-row { animation-duration: .01ms; }
       .messages { scroll-behavior: auto; }
       .typing i { animation: none; }
-      .choice-panel, .business-result, .send-button, .composer-input { transition-duration: .01ms; }
+      .choice-panel, .business-result, .result-cta, .send-button, .composer-input { transition-duration: .01ms; transition-delay: 0s; }
       .contact-modal, .contact-panel { transition-duration: .01ms; }
       .chat-shell, .launcher-wrap { transition-duration: .18s; }
       .chat-launcher { animation: none; transition-duration: .01ms; }
@@ -562,7 +560,6 @@
   <main class="presentation">
     <img class="site-mockup" id="site-mockup" src="draimen-zia-homepage.png" alt="" aria-hidden="true" draggable="false">
 
-    <!-- PROSPECT REPLACEMENT: Replace [Company Name] everywhere with the prospect's company name. -->
     <div class="concept-tools">
       <p class="concept-label">Website Chatbot Concept for Dr Aimen Zia Dental Clinic · Prepared by <a href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">zerotools.tech</a></p>
     </div>
@@ -584,10 +581,8 @@
 
     <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
       <header class="chat-header">
-        <!-- PROSPECT REPLACEMENT: Replace this DZ placeholder with the official clinic logo/tooth-icon asset. -->
         <div class="avatar" aria-hidden="true">DZ</div>
         <div class="chat-title">
-          <!-- PROSPECT REPLACEMENT: Replace the chatbot name and initials for each prospect. -->
           <strong>Smile Assistant</strong>
           <span><i class="status-dot"></i>Online now</span>
         </div>
@@ -675,12 +670,6 @@
       let copyResetTimer = 0;
       let initialSequenceScheduled = false;
 
-      /*
-       * PROSPECT REPLACEMENT: Reusable conversation model.
-       * Use type "message" for visitor/bot text, type "choice" for visible options
-       * plus an automatic selection.
-       * All timings are milliseconds and can be tuned to the reading length.
-       */
       const sequence = [
         {
           type: 'message', role: 'bot', delay: 0, typing: 1050,
@@ -862,7 +851,6 @@
       }
 
       function addBotAvatar(row) {
-        // PROSPECT REPLACEMENT: Replace this DZ placeholder with the official clinic logo/tooth-icon asset.
         const avatar = document.createElement('div');
         avatar.className = 'message-avatar';
         avatar.setAttribute('aria-hidden', 'true');
@@ -1030,7 +1018,23 @@
         businessResult.classList.add('visible');
         businessResult.setAttribute('aria-hidden', 'false');
         await wait(RESULT_REVEAL_TIME);
-        if (currentRun === runId) replayButton.disabled = false;
+        if (currentRun === runId) {
+          replayButton.disabled = false;
+          scrollMobileElementIntoView(businessResult);
+        }
+      }
+
+      function scrollMobileElementIntoView(element) {
+        if (!window.matchMedia('(max-width: 720px)').matches) return;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.requestAnimationFrame(() => {
+          element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center', inline: 'nearest' });
+        });
+      }
+
+      function replayConversation() {
+        playConversation();
+        scrollMobileElementIntoView(chatShell);
       }
 
       function scheduleInitialLauncherSequence() {
@@ -1052,7 +1056,7 @@
         if (siteMockup.complete && siteMockup.naturalWidth > 0) beginAfterImage();
       }
 
-      replayButton.addEventListener('click', playConversation);
+      replayButton.addEventListener('click', replayConversation);
       document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
       document.getElementById('email-app-link').href = `mailto:${contactEmail}?subject=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
       chatLauncher.addEventListener('click',openChatWindow);
