@@ -77,12 +77,12 @@
     .launcher-wrap { position: fixed; right: max(16px,calc(clamp(28px,4vw,64px) - 8px)); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 2px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
     .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
     .launcher-tooltip { width: 148px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: color-mix(in srgb,var(--brand-dark) 92%,transparent); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; text-align: center; white-space: nowrap; }
-    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher { position: relative; display: grid; width: 72px; height: 72px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
     .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
     .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
     .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(5,11,25,.32); }
-    .launcher-icon { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid color-mix(in srgb,var(--brand-warm) 28%,white); border-radius: 999px; color: #fff; background: var(--brand); font-size: 8px; font-weight: 900; letter-spacing: .03em; }
+    .launcher-image { display: block; width: 64px; height: 64px; padding: 1px; border-radius: 50%; object-fit: contain; object-position: center; }
+    .launcher-id { display: none; }
     .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
     .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
 
@@ -204,7 +204,8 @@
       .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
       .launcher-wrap { right: 24px; bottom: var(--mobile-launcher-bottom-offset); gap: 10px; }
       .launcher-tooltip { width: auto; font-size: 10.5px; }
-      .chat-launcher { width: 60px; height: 60px; }
+      .chat-launcher { width: 68px; height: 68px; }
+      .launcher-image { width: 60px; height: 60px; }
       .demo-cursor { display: none; }
       .chat-header { min-height: 70px; padding: 13px 14px; }
       .messages { padding: 16px 13px 22px; }
@@ -248,7 +249,7 @@
     <div class="launcher-wrap" id="launcher-wrap">
       <span class="launcher-tooltip" id="launcher-tooltip">Chat with Apex Assistant</span>
       <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Apex Dental Assistant" aria-describedby="launcher-tooltip">
-        <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
+        <img class="launcher-image" src="assets/chatbot-launcher.png" alt="" width="1254" height="1254" aria-hidden="true">
         <span class="launcher-id" id="launcher-id" aria-hidden="true">AD</span>
         <span class="launcher-ripple" aria-hidden="true"></span>
       </button>
