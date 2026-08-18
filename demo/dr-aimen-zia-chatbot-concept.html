@@ -1349,23 +1349,47 @@
         scrollMobileElementIntoView(chatShell);
       }
 
-      function scheduleInitialLauncherSequence() {
+      async function waitForPaintFrames(count = 2) {
+        for (let frame = 0; frame < count; frame += 1) {
+          await new Promise(resolve => window.requestAnimationFrame(resolve));
+        }
+      }
+
+      function waitForSiteMockupState() {
+        return new Promise(resolve => {
+          let resolved = false;
+          const finish = loaded => {
+            if (resolved) return;
+            resolved = true;
+            siteMockup.removeEventListener('load', handleLoad);
+            siteMockup.removeEventListener('error', handleError);
+            resolve(loaded);
+          };
+          const handleLoad = () => finish(siteMockup.naturalWidth > 0);
+          const handleError = () => finish(false);
+          siteMockup.addEventListener('load', handleLoad);
+          siteMockup.addEventListener('error', handleError);
+          if (siteMockup.complete) finish(siteMockup.naturalWidth > 0);
+        });
+      }
+
+      async function scheduleInitialLauncherSequence() {
         if (initialSequenceScheduled) return;
         initialSequenceScheduled = true;
-        const postImageDelay = 1200;
-        const imageWaitTimeout = 5000;
-        let imageReadinessResolved = false;
-        let fallbackTimer = 0;
-        const beginAfterImage = () => {
-          if (imageReadinessResolved) return;
-          imageReadinessResolved = true;
-          window.clearTimeout(fallbackTimer);
-          siteMockup.removeEventListener('load', beginAfterImage);
-          window.setTimeout(playInitialLauncherSequence, postImageDelay);
-        };
-        siteMockup.addEventListener('load', beginAfterImage, { once: true });
-        fallbackTimer = window.setTimeout(beginAfterImage, imageWaitTimeout);
-        if (siteMockup.complete && siteMockup.naturalWidth > 0) beginAfterImage();
+        const postImageDelay = 400;
+        let imageLoaded = await waitForSiteMockupState();
+
+        if (imageLoaded && typeof siteMockup.decode === 'function') {
+          try {
+            await siteMockup.decode();
+          } catch {
+            imageLoaded = siteMockup.complete && siteMockup.naturalWidth > 0;
+          }
+        }
+
+        if (!imageLoaded) siteMockup.classList.add('is-missing');
+        await waitForPaintFrames(2);
+        window.setTimeout(playInitialLauncherSequence, postImageDelay);
       }
 
       replayButton.addEventListener('click', replayConversation);
