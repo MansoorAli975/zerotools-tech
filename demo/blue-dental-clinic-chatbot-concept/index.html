@@ -31,6 +31,13 @@
     :root {
       --brand: #087fc3;
       --brand-dark: #075b91;
+      --timer-track: rgba(7,91,145,.32);
+      --timer-fill-start: #075b91;
+      --timer-fill-mid: #087fc3;
+      --timer-fill-end: #7de2bc;
+      --timer-glow: rgba(8,127,195,.48);
+      --timer-highlight: #fff;
+      --timer-highlight-glow: rgba(125,226,188,.72);
       --zero-tools-blue: #087fc3;
       --ink: #182231;
       --muted: #687486;
@@ -59,9 +66,15 @@
         linear-gradient(135deg,#f7f8fa,#dde2e8);
     }
 
-    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; }
+    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; transform: translate(0,0) scale(1); transform-origin: 89% 54%; transition: transform 1.2s cubic-bezier(.16,1,.3,1),filter 1.2s cubic-bezier(.16,1,.3,1); }
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
+    .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(5,35,58,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
+    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.3%,0) scale(1.15); }
+    body.chat-focus-mode .focus-overlay { opacity: 1; }
+    body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-5px,-4px) scale(1.035); box-shadow: 0 32px 86px rgba(7,38,61,.32); }
+    body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
+    body.chat-replay-refocus .site-mockup, body.chat-replay-refocus .focus-overlay, body.chat-replay-refocus .chat-shell:not(.is-closed) { transition-duration: .55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
 
     .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
     .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
@@ -76,7 +89,7 @@
     .launcher-wrap { position: fixed; right: clamp(28px,4vw,64px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
     .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
     .launcher-tooltip { padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: color-mix(in srgb,var(--brand-dark) 92%,transparent); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; }
-    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: none; transition: transform .16s ease,box-shadow .16s ease; }
     .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
     .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
     .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(5,11,25,.32); }
@@ -92,18 +105,23 @@
     .demo-cursor.is-visible { visibility: visible; opacity: 1; }
     .demo-cursor.is-pressing { transform: translate(var(--cursor-x),var(--cursor-y)) scale(.88); }
     .demo-cursor svg { width: 100%; height: 100%; fill: #fff; stroke: #111827; stroke-width: 1.25; stroke-linejoin: round; }
-    .chat-header { display: flex; flex: 0 0 auto; align-items: center; gap: 11px; min-height: 76px; padding: 14px 15px; color: #fff; background: linear-gradient(135deg,var(--brand-dark),var(--brand)); }
+    .chat-header { display: flex; flex: 0 0 auto; align-items: center; gap: 9px; min-height: 76px; padding: 14px 11px 14px 15px; color: #fff; background: linear-gradient(135deg,var(--brand-dark),var(--brand)); }
     .avatar, .message-avatar { display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #fff; background: rgba(255,255,255,.16); font-weight: 900; }
     .avatar { width: 45px; height: 45px; border: 1px solid rgba(255,255,255,.35); font-size: 14px; }
     .chat-title { min-width: 0; flex: 1; }
     .chat-title strong { display: block; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
     .chat-title span { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 11.5px; opacity: .88; }
     .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 3px rgba(125,226,188,.15); }
-    .replay { padding: 7px 10px; border: 1px solid rgba(255,255,255,.27); border-radius: 10px; color: rgba(255,255,255,.88); background: rgba(255,255,255,.08); font-size: 11px; font-weight: 800; cursor: pointer; transition: .18s ease; }
-    .replay:hover { border-color: rgba(255,255,255,.4); color: #fff; background: rgba(255,255,255,.14); }
-    .replay:active { transform: scale(.97); }
-    .replay:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 40%,transparent); outline-offset: 2px; }
-    .replay:disabled { cursor: not-allowed; opacity: .5; }
+    .playback-controls { display: flex; flex: 0 0 auto; gap: 4px; }
+    .playback-control { min-height: 32px; padding: 6px 7px; border: 1px solid rgba(255,255,255,.27); border-radius: 9px; color: rgba(255,255,255,.9); background: rgba(255,255,255,.08); font-size: 9.8px; font-weight: 800; cursor: pointer; transition: .18s ease; }
+    .playback-control:hover { border-color: rgba(255,255,255,.42); color: #fff; background: rgba(255,255,255,.14); }
+    .playback-control:active { transform: scale(.97); }
+    .playback-control:focus-visible { outline: 3px solid rgba(125,226,188,.5); outline-offset: 2px; }
+    .playback-control:disabled { cursor: not-allowed; opacity: .45; }
+    body.demo-paused .typing i { animation-play-state: paused; }
+    .playback-timer { position: relative; z-index: 4; display: flex; width: 100%; height: 6px; align-items: center; overflow: hidden; background: var(--timer-track); }
+    .playback-timer-fill { position: relative; width: 100%; height: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg,var(--timer-fill-start) 0%,var(--timer-fill-mid) 70%,var(--timer-fill-end) 100%); box-shadow: 0 0 5px var(--timer-glow),0 0 2px rgba(255,255,255,.48); transform: scaleX(0); transform-origin: left center; will-change: transform; }
+    .playback-timer-fill::after { content: ""; position: absolute; top: 50%; right: 0; width: 6px; height: 4px; border-radius: 999px; background: var(--timer-highlight); box-shadow: 0 0 5px var(--timer-highlight-glow),0 0 2px rgba(255,255,255,.7); transform: translateY(-50%); }
 
     .messages { min-height: 0; flex: 1 1 auto; overflow-y: auto; padding: 18px 16px 24px; background: linear-gradient(180deg,#fbfcfd,#f7f8fa); scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(122,132,144,.22) transparent; }
     .messages::-webkit-scrollbar { width: 2px; }
@@ -143,6 +161,7 @@
     .business-result { position: absolute; top: 50%; left: clamp(22px,calc(42vw - 215px),calc(100vw - max(12px,calc(clamp(22px,5vw,76px) - 52px)) - min(410px,calc(100vw - 44px)) - clamp(18px,2vw,32px) - min(430px,calc(100vw - 490px)))); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(430px,31vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
     .business-result.visible { visibility: visible; opacity: 1; box-shadow: var(--shadow); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
     .summary-heading { padding: 15px 22px 12px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
+    .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
     .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
     .summary-support { display: block; margin: 4px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
     .summary-list { margin: 0; padding: 4px 22px 8px; }
@@ -183,10 +202,18 @@
     @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
     @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 0 color-mix(in srgb,var(--brand) 22%,transparent); } 50% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 10px color-mix(in srgb,var(--brand) 0%,transparent); } }
     @keyframes launcher-ripple { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.4); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.5); } }
+    @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
+    .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
+
+    @media (min-width:1000px) and (max-width:1250px) {
+      .site-mockup { top: 0; right: auto; bottom: auto; left: 0; width: 100%; height: auto; object-fit: contain; object-position: center top; }
+    }
 
     @media (max-width:720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
       .site-mockup { opacity: .35; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); transform: none; }
+      body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
       .concept-label { width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
       .chat-shell { position: relative; top: auto; right: auto; bottom: auto; width: min(410px,calc(100vw - 28px)); height: min(670px,calc(100svh - 92px - var(--mobile-chat-window-bottom-offset))); min-height: 500px; margin: 18px auto var(--mobile-chat-window-bottom-offset); transform: none; transform-origin: center bottom; }
@@ -197,7 +224,13 @@
       .chat-launcher { width: 60px; height: 60px; }
       .launcher-image { width: 52px; height: 52px; }
       .demo-cursor { display: none; }
-      .chat-header { min-height: 70px; padding: 13px 14px; }
+      .chat-header { min-height: 70px; padding: 13px 9px 13px 13px; }
+      .avatar { width: 40px; height: 40px; font-size: 12.5px; }
+      .playback-controls { gap: 3px; }
+      .playback-control { min-height: 32px; padding: 5px 6px; font-size: 9.4px; }
+      .playback-timer { height: 5px; }
+      .playback-timer-fill { height: 3px; }
+      .playback-timer-fill::after { width: 5px; height: 3px; }
       .messages { padding: 16px 13px 22px; }
       .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
       .composer-input { height: 32px; }
@@ -220,9 +253,12 @@
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
       .messages { scroll-behavior: auto; }
       .typing i { animation: none; }
+      .launcher-wrap.show-attention .chat-launcher { animation: none; }
       .choice-panel, .business-result, .result-cta, .send-button, .composer-input { transition-duration: .01ms; transition-delay: 0s; }
       .contact-modal, .contact-panel { transition-duration: .01ms; }
-      .chat-shell, .launcher-wrap { transition-duration: .18s; }
+      .chat-shell, .launcher-wrap { transition-duration: .01ms; }
+      .site-mockup, .focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); transform: none; }
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
     }
@@ -231,6 +267,7 @@
 <body>
   <main class="presentation">
     <img class="site-mockup" id="site-mockup" alt="" draggable="false">
+    <div class="focus-overlay" aria-hidden="true"></div>
 
     <div class="concept-tools">
       <p class="concept-label" id="concept-label"></p>
@@ -258,8 +295,13 @@
           <strong id="chatbot-name"></strong>
           <span><i class="status-dot"></i>Online now</span>
         </div>
-        <button class="replay" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+        <div class="playback-controls">
+          <button class="playback-control" id="pause-resume" type="button" aria-label="Pause demo" disabled>Pause</button>
+          <button class="playback-control" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+          <button class="playback-control" id="skip-result" type="button" aria-label="Skip to result" disabled>Skip</button>
+        </div>
       </header>
+      <div class="playback-timer" id="playback-timer" aria-hidden="true"><div class="playback-timer-fill" id="playback-timer-fill"></div></div>
       <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat conversation"></div>
       <div class="composer-area">
         <div class="composer" aria-label="Scripted message composer">
@@ -273,11 +315,11 @@
     </section>
 
     <aside class="business-result" id="business-result" aria-hidden="true">
-      <div class="summary-heading" id="summary-heading"></div>
+      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">WHAT YOUR TEAM RECEIVES</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span></div>
       <dl class="summary-list" id="summary-list"></dl>
       <div class="result-cta">
-        <p id="result-cta-copy"></p>
-        <button class="contact-trigger" id="contact-trigger" type="button">Contact Zero Tools</button>
+        <p id="result-cta-copy">Like this direction for Blue Dental Clinic?</p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
       </div>
     </aside>
 
@@ -302,9 +344,10 @@
     </section>
   </div>
 
-  <script>
+<script>
     const DEMO_CONFIG = {
       prospectName: 'Blue Dental Clinic',
+      trackingProspect: 'blue-dental',
       companyName: 'Blue Dental Clinic',
       shortCompanyName: 'Blue Dental Clinic',
       chatbotName: 'Blue Dental Assistant',
@@ -313,6 +356,7 @@
       backgroundImageAltText: 'Public homepage of Blue Dental Clinic used as the concept background',
       primaryBrandColour: '#087fc3',
       secondaryBrandColour: '#075b91',
+      accentBrandColour: '#7de2bc',
       launcherBottomOffset: '110px',
       chatWindowBottomOffset: '110px',
       mobileLauncherBottomOffset: '90px',
@@ -320,6 +364,8 @@
       contactEmail: 'support@zerotools.tech',
       contactSubject: 'Blue Dental Clinic chatbot concept',
       contactBody: 'Hi, I reviewed the Blue Dental Clinic chatbot concept and would like to discuss it.',
+      prospectLabel: 'Website Chatbot Concept for Blue Dental Clinic · Prepared by zerotools.tech',
+      conversationTimerDuration: 63965,
       welcomeMessage: 'Welcome to Blue Dental Clinic. I’m the Blue Dental Assistant. How can I help you today?',
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
@@ -351,7 +397,7 @@
       },
       disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to Blue Dental Clinic’s live website. This preview will be removed 30 days after it is shared, or earlier upon request.',
       timing: {
-        launcherDelay: 1800,
+        launcherDelay: 800,
         cursorRevealPause: 120,
         cursorTravel: 1080,
         cursorHoverPause: 360,
@@ -382,60 +428,120 @@
 
     const messagesElement = document.getElementById('messages');
     const replayButton = document.getElementById('replay');
+    const pauseResumeButton = document.getElementById('pause-resume');
+    const skipResultButton = document.getElementById('skip-result');
+    const progressFill = document.getElementById('playback-timer-fill');
     const businessResult = document.getElementById('business-result');
     const composerInput = document.getElementById('composer-input');
     const sendButton = document.getElementById('send-button');
+    const presentation = document.querySelector('.presentation');
     const siteMockup = document.getElementById('site-mockup');
     const chatShell = document.getElementById('chat-shell');
     const launcherWrap = document.getElementById('launcher-wrap');
     const chatLauncher = document.getElementById('chat-launcher');
-    const launcherTooltip = document.getElementById('launcher-tooltip');
-    const launcherId = document.getElementById('launcher-id');
     const demoCursor = document.getElementById('demo-cursor');
     const contactModal = document.getElementById('contact-modal');
     const contactTrigger = document.getElementById('contact-trigger');
     const contactClose = document.getElementById('contact-close');
     const copyEmailButton = document.getElementById('copy-email');
+    const contactEmail = DEMO_CONFIG.contactEmail;
+    const contactSubject = DEMO_CONFIG.contactSubject;
+    const contactBody = DEMO_CONFIG.contactBody;
+    const encodedContactSubject = encodeURIComponent(contactSubject);
+    const encodedContactBody = encodeURIComponent(contactBody);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
+    const mailtoUrl = `mailto:${contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
     let runId = 0;
     let lastMessageRole = null;
     let chatOpened = false;
     let launcherRunId = 0;
+    let responsiveFrame = 0;
     let contactReturnFocus = null;
     let copyResetTimer = 0;
     let initialSequenceScheduled = false;
+    let cameraFocusStarted = false;
+    let cameraNoticeStarted = false;
+    let cameraNoticeElapsed = 0;
+    let manualPause = false;
+    let visibilityPause = false;
+    let manualReadPause = false;
+    let playbackPaused = false;
+    let activeDelay = null;
+    let delayGeneration = 0;
+    let resumeWaiters = [];
+    let playbackActive = false;
+    let playbackSkipped = false;
+    let isReplayPlayback = false;
+    let touchStartY = 0;
+    let autoScrollEnabled = true;
+    let displayedProgress = 0;
+    let progressStartValue = 0;
+    let progressDuration = 0;
+    let progressElapsed = 0;
+    let progressLastTimestamp = 0;
+    let progressAnimationFrame = 0;
+    let progressTimerRunning = false;
+    const demoEvents = [];
+    const TRACKING_ENDPOINT = 'https://zero-tools-demo-tracker.zerotools.workers.dev/collect';
+    const trackingSessionId = crypto.randomUUID();
+    const trackingSuppressed = new URLSearchParams(window.location.search).get('test') === '1';
+    const trackingProspectIsValid = /^[a-z0-9-]{1,80}$/.test(DEMO_CONFIG.trackingProspect);
+    const persistentDemoEvents = new Set([
+      'page_view',
+      'chatbot_opened',
+      'demo_started',
+      'result_shown',
+      'demo_completed',
+      'replay_clicked',
+      'skip_to_result',
+      'cta_clicked'
+    ]);
+
+    function trackDemoEvent(name, detail = {}) {
+      demoEvents.push({ name, detail, timestamp: new Date().toISOString() });
+      if (trackingSuppressed || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
+      fetch(TRACKING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prospect: DEMO_CONFIG.trackingProspect,
+          session_id: trackingSessionId,
+          event_name: name
+        }),
+        keepalive: true
+      }).catch(() => {});
+    }
+
+    const SOURCE_SCREENSHOT_WIDTH = 1920;
+    const SOURCE_SCREENSHOT_HEIGHT = 1080;
+    const BOTTOM_CROP_FALLBACK_THRESHOLD = 108;
 
     function applyConfig() {
       document.documentElement.style.setProperty('--brand', DEMO_CONFIG.primaryBrandColour);
       document.documentElement.style.setProperty('--brand-dark', DEMO_CONFIG.secondaryBrandColour);
+      document.documentElement.style.setProperty('--accent', DEMO_CONFIG.accentBrandColour);
       document.documentElement.style.setProperty('--zero-tools-blue', DEMO_CONFIG.primaryBrandColour);
       document.documentElement.style.setProperty('--launcher-bottom-offset', DEMO_CONFIG.launcherBottomOffset);
       document.documentElement.style.setProperty('--chat-window-bottom-offset', DEMO_CONFIG.chatWindowBottomOffset);
       document.documentElement.style.setProperty('--mobile-launcher-bottom-offset', DEMO_CONFIG.mobileLauncherBottomOffset);
       document.documentElement.style.setProperty('--mobile-chat-window-bottom-offset', DEMO_CONFIG.mobileChatWindowBottomOffset);
       const conceptLabel = document.getElementById('concept-label');
-      conceptLabel.replaceChildren(document.createTextNode(`Website Chatbot Concept for ${DEMO_CONFIG.prospectName} · Prepared by `));
+      const zeroToolsIdentity = 'zerotools.tech';
+      conceptLabel.replaceChildren(document.createTextNode(DEMO_CONFIG.prospectLabel.slice(0,-zeroToolsIdentity.length)));
       const zeroToolsLink = document.createElement('a');
       zeroToolsLink.href = 'https://zerotools.tech/';
       zeroToolsLink.target = '_blank';
       zeroToolsLink.rel = 'noopener noreferrer';
-      zeroToolsLink.textContent = 'zerotools.tech';
+      zeroToolsLink.textContent = zeroToolsIdentity;
       conceptLabel.appendChild(zeroToolsLink);
-      document.getElementById('result-cta-copy').textContent = `Interested in this for ${DEMO_CONFIG.prospectName}?`;
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
-      launcherId.textContent = DEMO_CONFIG.botInitials;
-      launcherTooltip.textContent = `Chat with ${DEMO_CONFIG.chatbotName}`;
-      chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
       document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
       siteMockup.alt = DEMO_CONFIG.backgroundImageAltText;
       siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
       siteMockup.src = DEMO_CONFIG.backgroundImagePath;
-      const heading = document.getElementById('summary-heading');
-      heading.textContent = DEMO_CONFIG.enquiryResult.title;
-      const support = document.createElement('span');
-      support.className = 'summary-support';
-      support.textContent = DEMO_CONFIG.enquiryResult.supportText;
-      heading.appendChild(support);
+      document.getElementById('summary-title').textContent = DEMO_CONFIG.enquiryResult.title;
+      document.getElementById('summary-support').textContent = DEMO_CONFIG.enquiryResult.supportText;
       document.getElementById('summary-list').replaceChildren(...DEMO_CONFIG.enquiryResult.fields.map(field => {
         const row = document.createElement('div');
         row.className = 'summary-item';
@@ -446,16 +552,115 @@
         row.append(term, detail);
         return row;
       }));
-      const contactSubject = DEMO_CONFIG.contactSubject || `${DEMO_CONFIG.prospectName} chatbot concept`;
-      const contactBody = DEMO_CONFIG.contactBody || `Hi, I reviewed the ${DEMO_CONFIG.prospectName} chatbot concept and would like to discuss it.`;
-      const encodedContactSubject = encodeURIComponent(contactSubject);
-      const encodedContactBody = encodeURIComponent(contactBody);
-      document.getElementById('contact-email-address').textContent = DEMO_CONFIG.contactEmail;
-      document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEMO_CONFIG.contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
-      document.getElementById('email-app-link').href = `mailto:${DEMO_CONFIG.contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
     }
 
-    const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+    function updatePauseControl() {
+      const paused = manualPause || visibilityPause || manualReadPause;
+      if (paused === playbackPaused) return;
+      playbackPaused = paused;
+      progressLastTimestamp = 0;
+      document.body.classList.toggle('demo-paused', paused);
+      if (paused && activeDelay) {
+        window.clearTimeout(activeDelay.timer);
+        const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+        const resolve = activeDelay.resolve;
+        activeDelay = null;
+        resolve(elapsed);
+      }
+      if (!paused) {
+        const waiters = resumeWaiters;
+        resumeWaiters = [];
+        waiters.forEach(resolve => resolve());
+      }
+      pauseResumeButton.textContent = paused ? 'Resume' : 'Pause';
+      pauseResumeButton.setAttribute('aria-label', paused ? 'Resume demo' : 'Pause demo');
+    }
+
+    function waitUntilResumed() {
+      return playbackPaused ? new Promise(resolve => resumeWaiters.push(resolve)) : Promise.resolve();
+    }
+
+    async function wait(milliseconds) {
+      let remaining = milliseconds;
+      const generation = delayGeneration;
+      while (remaining > 0) {
+        if (generation !== delayGeneration) return;
+        await waitUntilResumed();
+        if (generation !== delayGeneration) return;
+        const elapsed = await new Promise(resolve => {
+          const started = performance.now();
+          const timer = window.setTimeout(() => {
+            activeDelay = null;
+            resolve(remaining);
+          }, remaining);
+          activeDelay = { timer, started, remaining, resolve };
+        });
+        if (generation !== delayGeneration) return;
+        remaining = Math.max(0, remaining - elapsed);
+      }
+    }
+
+    function renderProgress(value) {
+      const clampedProgress = Math.max(0, Math.min(1, value));
+      displayedProgress = clampedProgress;
+      progressFill.style.transform = `scaleX(${clampedProgress})`;
+    }
+
+    function animateProgress(timestamp) {
+      if (!progressTimerRunning) return;
+      if (!progressLastTimestamp) progressLastTimestamp = timestamp;
+      const elapsedSinceFrame = timestamp - progressLastTimestamp;
+      progressLastTimestamp = timestamp;
+      if (!playbackPaused) progressElapsed = Math.min(progressDuration, progressElapsed + elapsedSinceFrame);
+      const ratio = progressDuration > 0 ? progressElapsed / progressDuration : 1;
+      renderProgress(progressStartValue + (1 - progressStartValue) * ratio);
+      if (ratio < 1) progressAnimationFrame = window.requestAnimationFrame(animateProgress);
+      else {
+        progressAnimationFrame = 0;
+        progressTimerRunning = false;
+      }
+    }
+
+    function startProgressTimer(duration, startValue = 0) {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressStartValue = Math.max(0, Math.min(1, startValue));
+      progressDuration = Math.max(0, duration);
+      progressLastTimestamp = 0;
+      progressElapsed = 0;
+      progressTimerRunning = progressDuration > 0 && progressStartValue < 1;
+      renderProgress(progressStartValue);
+      if (!progressTimerRunning) return;
+      progressAnimationFrame = window.requestAnimationFrame(animateProgress);
+    }
+
+    function resetProgressTimer() {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressTimerRunning = false;
+      progressStartValue = 0;
+      progressDuration = 0;
+      progressElapsed = 0;
+      progressLastTimestamp = 0;
+      renderProgress(0);
+    }
+
+    function completeProgressTimer() {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressTimerRunning = false;
+      renderProgress(1);
+    }
+
+    function cancelPendingDelay() {
+      ++delayGeneration;
+      if (!activeDelay) return;
+      window.clearTimeout(activeDelay.timer);
+      const resolve = activeDelay.resolve;
+      const remaining = activeDelay.remaining;
+      activeDelay = null;
+      resolve(remaining);
+    }
 
     function openContactPanel() {
       contactReturnFocus = document.activeElement;
@@ -474,10 +679,10 @@
     async function copyContactEmail() {
       try {
         if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(DEMO_CONFIG.contactEmail);
+          await navigator.clipboard.writeText(contactEmail);
         } else {
           const copyField = document.createElement('textarea');
-          copyField.value = DEMO_CONFIG.contactEmail;
+          copyField.value = contactEmail;
           copyField.setAttribute('readonly','');
           copyField.style.position = 'fixed';
           copyField.style.opacity = '0';
@@ -494,6 +699,31 @@
         window.clearTimeout(copyResetTimer);
         copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
       }
+    }
+
+    function updateResponsivePresentationState() {
+      const desktopLandscape = window.matchMedia('(min-width: 721px) and (orientation: landscape)').matches;
+      let bottomCropInSourcePixels = 0;
+
+      if (desktopLandscape) {
+        const imageBox = siteMockup.getBoundingClientRect();
+        const coverScale = Math.max(
+          imageBox.width / SOURCE_SCREENSHOT_WIDTH,
+          imageBox.height / SOURCE_SCREENSHOT_HEIGHT
+        );
+        const visibleSourceHeight = imageBox.height / coverScale;
+        bottomCropInSourcePixels = Math.max(0,SOURCE_SCREENSHOT_HEIGHT - visibleSourceHeight);
+      }
+
+      presentation.classList.toggle(
+        'is-bottom-cropped',
+        desktopLandscape && bottomCropInSourcePixels >= BOTTOM_CROP_FALLBACK_THRESHOLD
+      );
+    }
+
+    function scheduleResponsivePresentationUpdate() {
+      window.cancelAnimationFrame(responsiveFrame);
+      responsiveFrame = window.requestAnimationFrame(updateResponsivePresentationState);
     }
 
     function getBotReadingDelay(item) {
@@ -520,6 +750,8 @@
       launcherWrap.classList.add('is-hidden');
       chatShell.setAttribute('aria-hidden', 'false');
       chatShell.classList.remove('is-closed');
+      resetProgressTimer();
+      trackDemoEvent('chatbot_opened');
       await wait(DEMO_CONFIG.timing.chatOpenDuration);
       chatLauncher.classList.remove('is-pressed');
       demoCursor.classList.remove('is-visible', 'is-pressing');
@@ -533,6 +765,14 @@
       const touchSized = window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
       await wait(DEMO_CONFIG.timing.launcherDelay);
       if (sequenceId !== launcherRunId || chatOpened) return;
+
+      if (!reducedMotion) {
+        launcherWrap.classList.add('show-attention');
+        trackDemoEvent('launcher_attention_shown');
+        await wait(850);
+        launcherWrap.classList.remove('show-attention');
+        if (sequenceId !== launcherRunId || chatOpened) return;
+      }
 
       if (reducedMotion || touchSized) {
         showLauncherRipple();
@@ -564,6 +804,7 @@
     }
 
     function scrollToLatest() {
+      if (!autoScrollEnabled) return;
       const latestRow = messagesElement.lastElementChild;
       if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
@@ -659,6 +900,18 @@
         await wait(delays[index % delays.length]);
         if (currentRun !== runId) return false;
         composerInput.value += character;
+        if (!cameraNoticeStarted) {
+          cameraNoticeStarted = true;
+          cameraNoticeElapsed = 0;
+        } else if (!cameraFocusStarted) {
+          cameraNoticeElapsed += delays[index % delays.length];
+        }
+        if (!cameraFocusStarted && cameraNoticeElapsed >= 800) {
+          cameraFocusStarted = true;
+          document.body.classList.remove('chat-focus-returning');
+          document.body.classList.add('chat-focus-mode');
+          trackDemoEvent('camera_focus_started', { noticeDelay: cameraNoticeElapsed });
+        }
         sendButton.classList.add('active');
         composerInput.setSelectionRange(composerInput.value.length,composerInput.value.length);
         if (isOpening && character === '.') await wait(DEMO_CONFIG.timing.openingSentencePause);
@@ -675,20 +928,40 @@
       return true;
     }
 
-    async function playConversation() {
+    async function playConversation({ replayPlayback = false } = {}) {
       const currentRun = ++runId;
+      isReplayPlayback = replayPlayback;
+      cameraFocusStarted = replayPlayback;
+      cameraNoticeStarted = replayPlayback;
+      cameraNoticeElapsed = replayPlayback ? 800 : 0;
+      manualPause = false;
+      manualReadPause = false;
+      playbackSkipped = false;
+      playbackActive = true;
+      autoScrollEnabled = true;
+      updatePauseControl();
+      if (replayPlayback) {
+        document.body.classList.remove('chat-focus-returning');
+        document.body.classList.add('chat-focus-mode');
+      } else {
+        document.body.classList.remove('chat-focus-mode', 'chat-focus-returning');
+      }
       messagesElement.replaceChildren();
       messagesElement.scrollTop = 0;
       lastMessageRole = null;
       resetComposer();
       businessResult.classList.remove('visible');
       businessResult.setAttribute('aria-hidden','true');
-      replayButton.disabled = true;
+      replayButton.disabled = false;
+      pauseResumeButton.disabled = false;
+      skipResultButton.disabled = false;
+      startProgressTimer(DEMO_CONFIG.conversationTimerDuration);
+      trackDemoEvent('demo_started');
 
       await wait(DEMO_CONFIG.timing.initialSettle);
       if (currentRun !== runId) return;
 
-      for (const item of DEMO_CONFIG.conversationSequence) {
+      for (const [itemIndex, item] of DEMO_CONFIG.conversationSequence.entries()) {
         await wait(item.delay);
         if (currentRun !== runId) return;
         if (item.type === 'choice') {
@@ -700,7 +973,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
-          addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
+          addMessage({ role: 'visitor choice', text: item.selected });
           await wait(item.afterSelection);
           if (currentRun !== runId) return;
           continue;
@@ -718,20 +991,28 @@
           typing.remove();
         }
         addMessage(item);
+        if (itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot') completeProgressTimer();
         if (item.role === 'bot') {
           await wait(getBotReadingDelay(item));
           if (currentRun !== runId) return;
         }
       }
 
+      document.body.classList.add('chat-focus-returning');
+      document.body.classList.remove('chat-focus-mode');
       await wait(DEMO_CONFIG.timing.resultRevealPause);
       if (currentRun !== runId) return;
       businessResult.classList.add('visible');
       businessResult.setAttribute('aria-hidden','false');
       await wait(DEMO_CONFIG.timing.resultRevealTime);
       if (currentRun === runId) {
+        playbackActive = false;
+        pauseResumeButton.disabled = true;
+        skipResultButton.disabled = true;
         replayButton.disabled = false;
         scrollMobileElementIntoView(businessResult);
+        trackDemoEvent('demo_completed');
+        trackDemoEvent('result_shown');
       }
     }
 
@@ -743,8 +1024,96 @@
       });
     }
 
-    function replayConversation() {
-      playConversation();
+    function toggleManualPause() {
+      if (!playbackActive) return;
+      if (manualPause || manualReadPause) {
+        manualPause = false;
+        manualReadPause = false;
+        autoScrollEnabled = true;
+        updatePauseControl();
+        scrollToLatest();
+        trackDemoEvent('demo_resumed_manual');
+      } else {
+        manualPause = true;
+        updatePauseControl();
+        trackDemoEvent('demo_paused_manual');
+      }
+    }
+
+    function pauseForManualReading() {
+      if (!playbackActive || manualReadPause) return;
+      manualReadPause = true;
+      autoScrollEnabled = false;
+      updatePauseControl();
+      trackDemoEvent('manual_read_pause');
+    }
+
+    async function skipToResult() {
+      if (!playbackActive) return;
+      trackDemoEvent('skip_to_result');
+      playbackSkipped = true;
+      playbackActive = false;
+      const skipRunId = ++runId;
+      manualPause = false;
+      visibilityPause = false;
+      manualReadPause = false;
+      updatePauseControl();
+      cancelPendingDelay();
+      resetComposer();
+      messagesElement.querySelectorAll('[data-typing="true"], .choice-row').forEach(element => element.remove());
+      document.body.classList.add('chat-focus-returning');
+      document.body.classList.remove('chat-focus-mode');
+      startProgressTimer(1200, displayedProgress);
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      await wait(1200);
+      if (skipRunId !== runId) return;
+      completeProgressTimer();
+      businessResult.classList.add('visible');
+      businessResult.setAttribute('aria-hidden','false');
+      replayButton.disabled = false;
+      scrollMobileElementIntoView(businessResult);
+      trackDemoEvent('demo_completed', { skipped: true });
+      trackDemoEvent('result_shown', { skipped: true });
+    }
+
+    async function replayConversation() {
+      trackDemoEvent('replay_clicked');
+      const wasFocused = document.body.classList.contains('chat-focus-mode');
+      isReplayPlayback = true;
+      ++runId;
+      cancelPendingDelay();
+      manualPause = false;
+      visibilityPause = false;
+      manualReadPause = false;
+      playbackPaused = false;
+      playbackActive = false;
+      playbackSkipped = false;
+      autoScrollEnabled = true;
+      resumeWaiters.splice(0).forEach(resolve => resolve());
+      document.body.classList.remove('demo-paused');
+      pauseResumeButton.textContent = 'Pause';
+      pauseResumeButton.setAttribute('aria-label','Pause demo');
+      replayButton.disabled = true;
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      resetProgressTimer();
+      businessResult.classList.remove('visible');
+      businessResult.setAttribute('aria-hidden','true');
+      if (!wasFocused) {
+        document.body.classList.remove('chat-focus-returning');
+        document.body.classList.add('chat-replay-refocus');
+        void siteMockup.offsetWidth;
+        document.body.classList.add('chat-focus-mode');
+        const replayRefocusDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 550;
+        if (replayRefocusDelay) await wait(replayRefocusDelay);
+        document.body.classList.remove('chat-replay-refocus');
+      }
+      playConversation({ replayPlayback: true });
       scrollMobileElementIntoView(chatShell);
     }
 
@@ -767,14 +1136,38 @@
       if (siteMockup.complete && siteMockup.naturalWidth > 0) beginAfterImage();
     }
 
+    siteMockup.addEventListener('load',scheduleResponsivePresentationUpdate);
+    window.addEventListener('resize',scheduleResponsivePresentationUpdate);
     applyConfig();
+    updateResponsivePresentationState();
+    trackDemoEvent('page_view');
     chatLauncher.addEventListener('click',openChatWindow);
     replayButton.addEventListener('click',replayConversation);
-    contactTrigger.addEventListener('click',openContactPanel);
+    pauseResumeButton.addEventListener('click',toggleManualPause);
+    skipResultButton.addEventListener('click',skipToResult);
+    document.getElementById('gmail-link').href = gmailUrl;
+    document.getElementById('email-app-link').href = mailtoUrl;
+    contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
     contactClose.addEventListener('click',closeContactPanel);
     copyEmailButton.addEventListener('click',copyContactEmail);
     contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
     document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
+    document.addEventListener('visibilitychange',() => {
+      if (!playbackActive) return;
+      if (document.hidden && !manualPause && !manualReadPause) {
+        visibilityPause = true;
+        updatePauseControl();
+        trackDemoEvent('demo_paused_visibility');
+      } else if (!document.hidden && visibilityPause) {
+        visibilityPause = false;
+        updatePauseControl();
+        trackDemoEvent('demo_resumed_visibility');
+      }
+    });
+    messagesElement.addEventListener('wheel',event => { if (event.deltaY < 0) pauseForManualReading(); }, { passive: true });
+    messagesElement.addEventListener('touchstart',event => { touchStartY = event.touches[0]?.clientY || 0; }, { passive: true });
+    messagesElement.addEventListener('touchmove',event => { const y = event.touches[0]?.clientY || 0; if (y > touchStartY + 6) pauseForManualReading(); touchStartY = y; }, { passive: true });
+    messagesElement.addEventListener('pointerdown',event => { if (event.offsetX >= messagesElement.clientWidth - 12) pauseForManualReading(); });
     scheduleInitialLauncherSequence();
   </script>
 </body>

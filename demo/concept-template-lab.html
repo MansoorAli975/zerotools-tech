@@ -5,40 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
 
-  <title>Website Chatbot Concept for Achira Clinics | Zero Tools</title>
-  <meta name="description" content="A temporary scripted website chatbot concept prepared for Achira Clinics using publicly available information.">
-  <link rel="canonical" href="https://www.zerotools.tech/demo/achira-clinics-chatbot-concept/">
+  <!-- MASTER TEMPLATE — REPLACE ALL PROSPECT METADATA BEFORE DEPLOYMENT
+       Static values must remain in the HTML head so social crawlers can read them. -->
+  <title>Website Chatbot Concept for Prospect Company | Zero Tools</title>
+  <meta name="description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <link rel="canonical" href="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zerotools.tech/demo/achira-clinics-chatbot-concept/">
-  <meta property="og:title" content="Website Chatbot Concept for Achira Clinics | Zero Tools">
-  <meta property="og:description" content="A temporary scripted website chatbot concept prepared for Achira Clinics using publicly available information.">
-  <meta property="og:image" content="https://www.zerotools.tech/demo/achira-clinics-chatbot-concept/assets/og-preview.jpg">
-  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/achira-clinics-chatbot-concept/assets/og-preview.jpg">
+  <meta property="og:url" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/">
+  <meta property="og:title" content="Website Chatbot Concept for Prospect Company | Zero Tools">
+  <meta property="og:description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Achira Clinics website chatbot concept shown over the clinic homepage">
+  <meta property="og:image:alt" content="Website chatbot concept displayed on the Prospect Company homepage">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Website Chatbot Concept for Achira Clinics | Zero Tools">
-  <meta name="twitter:description" content="A temporary scripted website chatbot concept prepared for Achira Clinics using publicly available information.">
-  <meta name="twitter:image" content="https://www.zerotools.tech/demo/achira-clinics-chatbot-concept/assets/og-preview.jpg">
-  <meta name="twitter:image:alt" content="Achira Clinics website chatbot concept shown over the clinic homepage">
+  <meta name="twitter:title" content="Website Chatbot Concept for Prospect Company | Zero Tools">
+  <meta name="twitter:description" content="A temporary scripted website chatbot concept prepared for Prospect Company using publicly available information.">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/REPLACE-PROSPECT-SLUG/assets/og-preview.jpg">
+  <meta name="twitter:image:alt" content="Website chatbot concept displayed on the Prospect Company homepage">
   <link rel="icon" href="/favicon.png?v=1">
+
+  <!-- PROSPECT DUPLICATION CHECKLIST
+    1. Copy the template into demo/<prospect-slug>/index.html
+    2. Create the assets folder
+    3. Add company-homepage.png
+    4. Add og-preview.jpg at 1200 × 630
+    5. Replace all static metadata
+    6. Update DEMO_CONFIG
+    7. Update brand colours
+    8. Update conversation sequence
+    9. Update enquiry-summary fields
+    10. Review medical or industry safety wording
+    11. Confirm the disclaimer
+    12. Test desktop
+    13. Test mobile
+    14. Test replay
+    15. Test animation timing
+    16. Confirm no prospect-placeholder text remains
+    17. Confirm noindex,nofollow
+    18. Deploy
+    19. Test the live URL
+    20. Test Meta Sharing Debugger
+    21. Test WhatsApp preview
+  -->
+
+  <!-- TEMPLATE IDENTITY
+    concept-template.html is the reusable scripted animated-concept master.
+    demo/template.html is the older UChat embedded-preview design.
+    The two files serve different purposes and must not be confused.
+  -->
 
   <style>
     :root {
-      --brand: #3e7d82;
-      --brand-dark: #2d5d61;
-      --brand-warm: #b08366;
-      --cream: #f7f1eb;
-      --zero-tools-blue: #3e7d82;
-      --ink: #242321;
-      --muted: #6f6963;
-      --surface: #fffdfb;
-      --line: #e8e0d8;
-      --page: #f2eeea;
+      --brand: #167a8b;
+      --brand-dark: #173f4a;
+      --zero-tools-blue: #167a8b;
+      --timer-track: rgba(10,58,67,.3);
+      --timer-fill-start: #269eaa;
+      --timer-fill-mid: #63d3d8;
+      --timer-fill-end: #e2ffff;
+      --timer-glow: rgba(62,205,214,.45);
+      --timer-highlight: #f1ffff;
+      --timer-highlight-glow: rgba(190,255,255,.66);
+      --ink: #182231;
+      --muted: #687486;
+      --surface: #fff;
+      --line: #e5e9ef;
+      --page: #eef1f4;
       --shadow: 0 24px 70px rgba(22,34,53,.22);
       --launcher-bottom-offset: 116px;
       --chat-window-bottom-offset: 48px;
@@ -61,15 +98,42 @@
         linear-gradient(135deg,#f7f8fa,#dde2e8);
     }
 
-    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; transform: translate(0,0) scale(1); transform-origin: 90% 55%; transition: transform 1.2s cubic-bezier(.16,1,.3,1),filter 1.2s cubic-bezier(.16,1,.3,1); }
+    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; }
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
-    .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
-    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.5%,0) scale(1.16); }
-    body.chat-focus-mode .focus-overlay { opacity: 1; }
+
+    .lab-site-camera { position: absolute; inset: 0; z-index: 0; overflow: hidden; color: #16313a; background: #f7fbfc; transform: translate(0,0) scale(1); transform-origin: 90% 55%; transition: transform 1.2s cubic-bezier(.16,1,.3,1),filter 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; user-select: none; }
+    .lab-site-header { display: flex; height: 76px; padding: 0 clamp(34px,6vw,92px); align-items: center; gap: 34px; border-bottom: 1px solid #dce8ea; background: rgba(255,255,255,.96); }
+    .lab-site-logo { margin-right: auto; color: #123e49; font-size: 20px; font-weight: 900; letter-spacing: -.03em; }
+    .lab-site-logo::before { content: "P"; display: inline-grid; width: 34px; height: 34px; margin-right: 10px; place-items: center; border-radius: 10px; color: #fff; background: #167a8b; font-size: 16px; vertical-align: middle; }
+    .lab-site-nav { display: flex; gap: clamp(18px,2.4vw,36px); color: #526970; font-size: 13px; font-weight: 700; }
+    .lab-site-cta, .lab-site-button { display: inline-flex; min-height: 42px; padding: 0 18px; align-items: center; justify-content: center; border-radius: 10px; font-size: 12px; font-weight: 850; }
+    .lab-site-cta, .lab-site-button.primary { color: #fff; background: #167a8b; box-shadow: 0 9px 22px rgba(22,122,139,.18); }
+    .lab-site-hero { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(330px,.92fr); min-height: 430px; padding: clamp(54px,8vh,88px) clamp(40px,7vw,108px) 58px; gap: clamp(44px,7vw,110px); background: linear-gradient(120deg,#f5fbfc 0%,#eaf6f7 58%,#d9edef 100%); }
+    .lab-site-eyebrow { margin: 0 0 16px; color: #167a8b; font-size: 12px; font-weight: 900; letter-spacing: .16em; }
+    .lab-site-copy h1 { max-width: 690px; margin: 0; color: #123942; font-size: clamp(42px,5.2vw,76px); line-height: .98; letter-spacing: -.055em; }
+    .lab-site-copy > p:not(.lab-site-eyebrow) { max-width: 620px; margin: 24px 0 28px; color: #587078; font-size: clamp(15px,1.45vw,20px); line-height: 1.6; }
+    .lab-site-actions { display: flex; gap: 12px; }
+    .lab-site-button.secondary { border: 1px solid #bdd3d7; color: #214c56; background: rgba(255,255,255,.75); }
+    .lab-site-visual { position: relative; min-height: 300px; overflow: hidden; border-radius: 30px 10px 30px 30px; background: linear-gradient(145deg,#205967,#123842); box-shadow: 0 26px 60px rgba(28,72,81,.2); }
+    .lab-site-visual::before { content: ""; position: absolute; width: 270px; height: 270px; top: 42px; right: 42px; border-radius: 50%; background: linear-gradient(145deg,#84d1cf,#248b98); box-shadow: -150px 130px 0 -70px rgba(255,255,255,.13); }
+    .lab-site-visual::after { content: "GUIDANCE  •  CLARITY  •  CARE"; position: absolute; right: 28px; bottom: 25px; color: rgba(255,255,255,.76); font-size: 11px; font-weight: 850; letter-spacing: .16em; }
+    .lab-site-services { padding: 34px clamp(40px,7vw,108px) 70px; background: #fff; }
+    .lab-site-trust { display: flex; margin: -22px 0 30px; padding: 17px 24px; gap: 46px; border: 1px solid #dfebed; border-radius: 15px; color: #546c73; background: #fff; box-shadow: 0 14px 34px rgba(31,67,75,.08); font-size: 12px; font-weight: 750; }
+    .lab-site-trust strong { color: #143f49; font-size: 18px; }
+    .lab-site-services h2 { margin: 0 0 20px; color: #173f48; font-size: 28px; }
+    .lab-site-card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .lab-site-card { min-height: 128px; padding: 22px; border: 1px solid #dfebed; border-radius: 16px; background: #f9fcfc; }
+    .lab-site-card i { display: block; width: 32px; height: 6px; margin-bottom: 16px; border-radius: 999px; background: #4ba9b2; }
+    .lab-site-card strong { display: block; margin-bottom: 7px; color: #183f48; font-size: 15px; }
+    .lab-site-card p { margin: 0; color: #687d83; font-size: 12px; line-height: 1.5; }
+    .lab-focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
+
+    body.chat-focus-mode .lab-site-camera { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.5%,0) scale(1.16); }
+    body.chat-focus-mode .lab-focus-overlay { opacity: 1; }
     body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-6px,-4px) scale(1.04); box-shadow: 0 32px 86px rgba(22,34,53,.32); }
     body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
-    body.chat-replay-refocus .site-mockup, body.chat-replay-refocus .focus-overlay, body.chat-replay-refocus .chat-shell:not(.is-closed) { transition-duration: .55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
+    body.chat-replay-refocus .lab-site-camera, body.chat-replay-refocus .lab-focus-overlay, body.chat-replay-refocus .chat-shell:not(.is-closed) { transition-duration: .55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
 
     .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
     .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
@@ -78,7 +142,7 @@
     .concept-label a:hover { text-decoration-color: currentColor; }
     .concept-label a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
 
-    .chat-shell { position: absolute; right: clamp(22px,5vw,76px); bottom: var(--chat-window-bottom-offset); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(662px,calc(100svh - var(--chat-window-bottom-offset) - 24px)); min-height: 510px; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
+    .chat-shell { position: absolute; right: clamp(22px,5vw,76px); bottom: var(--chat-window-bottom-offset); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - var(--chat-window-bottom-offset) - 24px)); min-height: 510px; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
     .chat-shell.is-closed { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(28px) scale(.86); transition: opacity .28s ease,transform .28s ease,visibility 0s linear .28s; }
 
     .launcher-wrap { position: fixed; right: clamp(28px,4vw,64px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
@@ -92,16 +156,14 @@
     .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--brand); font-size: 8px; font-weight: 900; letter-spacing: .03em; }
     .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
     .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
-    .achira-whatsapp { position: fixed; right: calc(clamp(28px,4vw,64px) - 4px); bottom: 24px; z-index: 5; display: block; width: 72px; pointer-events: none; user-select: none; }
-    .achira-whatsapp img { display: block; width: 100%; height: auto; }
 
     .demo-cursor { --cursor-x: 0px; --cursor-y: 0px; position: fixed; right: 18px; bottom: 30px; z-index: 8; width: 27px; height: 34px; pointer-events: none; visibility: hidden; opacity: 0; transform: translate(var(--cursor-x),var(--cursor-y)); transition: transform 1.08s cubic-bezier(.2,.76,.25,1),opacity .18s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
     .demo-cursor.is-visible { visibility: visible; opacity: 1; }
     .demo-cursor.is-pressing { transform: translate(var(--cursor-x),var(--cursor-y)) scale(.88); }
     .demo-cursor svg { width: 100%; height: 100%; fill: #fff; stroke: #111827; stroke-width: 1.25; stroke-linejoin: round; }
     .chat-header { display: flex; flex: 0 0 auto; align-items: center; gap: 9px; min-height: 76px; padding: 14px 12px 14px 15px; color: #fff; background: linear-gradient(135deg,var(--brand-dark),var(--brand)); }
-    .avatar, .message-avatar { display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #875f49; background: var(--cream); font-family: "Bodoni MT",Didot,"Times New Roman",serif; font-weight: 600; letter-spacing: .035em; }
-    .avatar { width: 45px; height: 45px; border: 1px solid color-mix(in srgb,var(--brand-warm) 72%,white); font-size: 15px; }
+    .avatar, .message-avatar { display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #fff; background: rgba(255,255,255,.16); font-weight: 900; }
+    .avatar { width: 45px; height: 45px; border: 1px solid rgba(255,255,255,.35); font-size: 14px; }
     .chat-title { min-width: 0; flex: 1; }
     .chat-title strong { display: block; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
     .chat-title span { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 11.5px; opacity: .88; }
@@ -113,11 +175,11 @@
     .playback-control:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 40%,transparent); outline-offset: 2px; }
     .playback-control:disabled { cursor: not-allowed; opacity: .45; }
     body.demo-paused .typing i { animation-play-state: paused; }
-    .playback-progress { position: relative; z-index: 4; display: flex; width: 100%; height: 6px; align-items: center; overflow: hidden; background: rgba(15,70,73,.34); }
-    .playback-progress-fill { position: relative; width: 100%; height: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg,#45c8c7 0%,#72e0df 70%,#d9ffff 100%); box-shadow: 0 0 5px rgba(100,235,235,.45),0 0 2px rgba(255,255,255,.52); transform: scaleX(0); transform-origin: left center; will-change: transform; }
-    .playback-progress-fill::after { content: ""; position: absolute; top: 50%; right: 0; width: 6px; height: 4px; border-radius: 999px; background: #eaffff; box-shadow: 0 0 5px rgba(180,255,255,.68),0 0 2px rgba(255,255,255,.72); transform: translateY(-50%); }
+    .playback-timer { position: relative; z-index: 4; display: flex; width: 100%; height: 6px; align-items: center; overflow: hidden; background: var(--timer-track); }
+    .playback-timer-fill { position: relative; width: 100%; height: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg,var(--timer-fill-start) 0%,var(--timer-fill-mid) 70%,var(--timer-fill-end) 100%); box-shadow: 0 0 5px var(--timer-glow),0 0 2px rgba(255,255,255,.48); transform: scaleX(0); transform-origin: left center; will-change: transform; }
+    .playback-timer-fill::after { content: ""; position: absolute; top: 50%; right: 0; width: 6px; height: 4px; border-radius: 999px; background: var(--timer-highlight); box-shadow: 0 0 5px var(--timer-highlight-glow),0 0 2px rgba(255,255,255,.7); transform: translateY(-50%); }
 
-    .messages { min-height: 0; flex: 1 1 auto; overflow-y: auto; padding: 18px 16px 24px; background: linear-gradient(180deg,#fffdfb,#f8f4f0); scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(122,132,144,.22) transparent; }
+    .messages { min-height: 0; flex: 1 1 auto; overflow-y: auto; padding: 18px 16px 24px; background: linear-gradient(180deg,#fbfcfd,#f7f8fa); scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(122,132,144,.22) transparent; }
     .messages::-webkit-scrollbar { width: 2px; }
     .messages::-webkit-scrollbar-track { background: transparent; }
     .messages::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(122,132,144,.22); }
@@ -140,8 +202,8 @@
     .message-row.bot { align-items: flex-end; gap: 8px; }
     .message-row.bot.continuation { padding-left: 36px; }
     .message-row.visitor { justify-content: flex-end; }
-    .message-avatar { width: 28px; height: 28px; border: 1px solid color-mix(in srgb,var(--brand-warm) 58%,white); font-size: 10px; }
-    .bubble { max-width: 84%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 15px 15px 15px 5px; color: #2f2d2a; background: #fffdfb; box-shadow: 0 3px 10px rgba(33,43,54,.05); font-size: 12.5px; line-height: 1.52; white-space: pre-line; }
+    .message-avatar { width: 28px; height: 28px; border: 1px solid color-mix(in srgb,var(--brand) 25%,transparent); color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 10%,white); font-size: 9px; }
+    .bubble { max-width: 84%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 15px 15px 15px 5px; color: #303b49; background: #fff; box-shadow: 0 3px 10px rgba(33,43,54,.05); font-size: 12.5px; line-height: 1.52; white-space: pre-line; }
     .visitor .bubble { border-color: var(--brand); border-radius: 15px 15px 5px 15px; color: #fff; background: var(--brand); }
     .message-row.bot.has-choices .bubble { width: min(92%,320px); max-width: 92%; }
     .message-text { display: block; }
@@ -152,22 +214,22 @@
     .choice-option { padding: 9px 10px; border: 1px solid color-mix(in srgb,var(--brand) 30%,#d8dee5); border-radius: 10px; color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 5%,white); font-size: 11.5px; font-weight: 750; transition: color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease; }
     .choice-option.selected { border-color: var(--brand); color: #fff; background: var(--brand); transform: translateX(2px); }
 
-    .business-result { position: absolute; top: 50%; left: clamp(22px,calc(42vw - 215px),calc(100vw - clamp(22px,5vw,76px) - min(410px,calc(100vw - 44px)) - clamp(18px,2vw,32px) - min(430px,calc(100vw - 490px)))); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid color-mix(in srgb,var(--brand-warm) 22%,white); border-radius: 20px; opacity: 0; background: rgba(255,253,251,.97); box-shadow: 0 14px 38px rgba(35,42,43,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
-    .business-result.visible { visibility: visible; opacity: 1; box-shadow: 0 26px 68px rgba(35,42,43,.24); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
-    .summary-heading { padding: 21px 23px 17px; border-bottom: 1px solid color-mix(in srgb,var(--brand-warm) 18%,white); color: var(--ink); font-size: 18px; font-weight: 900; }
+    .business-result { position: absolute; top: 50%; left: clamp(22px,calc(42vw - 215px),calc(100vw - clamp(22px,5vw,76px) - min(410px,calc(100vw - 44px)) - clamp(18px,2vw,32px) - min(430px,calc(100vw - 490px)))); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
+    .business-result.visible { visibility: visible; opacity: 1; box-shadow: var(--shadow); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
+    .summary-heading { padding: 20px 22px 16px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
     .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
     .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
     .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
-    .summary-list { margin: 0; padding: 9px 23px 15px; }
-    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 15px; padding: 11px 0; border-bottom: 1px solid color-mix(in srgb,var(--brand-warm) 12%,white); font-size: 12.5px; }
+    .summary-list { margin: 0; padding: 7px 22px 13px; }
+    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
     .summary-item:last-child { border-bottom: 0; }
-    .summary-item dt { color: var(--muted); font-weight: 500; }
-    .summary-item dd { margin: 0; color: var(--ink); font-weight: 750; text-align: left; }
-    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 23px 14px; border-top: 1px solid color-mix(in srgb,var(--brand-warm) 18%,white); opacity: 0; background: color-mix(in srgb,var(--cream) 72%,white); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
+    .summary-item dt { color: var(--muted); }
+    .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
     .business-result.visible .result-cta { opacity: 1; transform: none; }
-    .result-cta p { margin: 0; color: var(--muted); font-size: 11.5px; font-weight: 650; line-height: 1.35; }
-    .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 1px solid color-mix(in srgb,var(--brand) 42%,white); border-radius: 9px; color: var(--brand-dark); background: rgba(255,255,255,.7); font-size: 11px; font-weight: 800; cursor: pointer; }
-    .contact-trigger:hover { color: #fff; background: var(--brand); }
+    .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-trigger:hover { background: #223d68; }
     .contact-trigger:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
 
     .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
@@ -199,14 +261,19 @@
     @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
     .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
 
-    @media (min-width:721px) and (max-width:1250px) {
-      .site-mockup { top: 0; right: auto; bottom: auto; left: 0; width: 100%; height: auto; object-fit: contain; object-position: center top; }
-    }
-
     @media (max-width:720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
       .site-mockup { opacity: .35; }
-      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); transform: none; }
+      .lab-site-camera { height: 100svh; transform-origin: right center; }
+      .lab-site-header { height: 62px; padding: 0 20px; }
+      .lab-site-logo { font-size: 15px; }
+      .lab-site-logo::before { width: 29px; height: 29px; }
+      .lab-site-nav, .lab-site-cta { display: none; }
+      .lab-site-hero { grid-template-columns: 1fr; min-height: calc(100svh - 62px); padding: 70px 24px 40px; }
+      .lab-site-copy h1 { font-size: clamp(38px,12vw,56px); }
+      .lab-site-visual { display: none; }
+      .lab-site-services { display: none; }
+      body.chat-focus-mode .lab-site-camera { filter: brightness(.9) contrast(.94); transform: none; }
       body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
       .prospect-widget { display: none; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
@@ -218,16 +285,16 @@
       .chat-launcher { width: 60px; height: 60px; }
       .demo-cursor { display: none; }
       .chat-header { min-height: 70px; padding: 13px 10px 13px 14px; }
-      .avatar { width: 40px; height: 40px; font-size: 13.5px; }
-      .playback-progress { height: 5px; }
-      .playback-progress-fill { height: 3px; }
-      .playback-progress-fill::after { width: 5px; height: 3px; }
+      .avatar { width: 40px; height: 40px; font-size: 12.5px; }
+      .playback-timer { height: 5px; }
+      .playback-timer-fill { height: 3px; }
+      .playback-timer-fill::after { width: 5px; height: 3px; }
       .playback-controls { gap: 3px; }
       .playback-control { min-height: 32px; padding: 5px 6px; font-size: 9.5px; }
       .messages { padding: 16px 13px 22px; }
       .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
       .composer-input { height: 32px; }
-      .business-result { position: relative; top: auto; right: auto; left: auto; width: min(410px,calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px) scale(.98); }
+      .business-result { position: relative; top: auto; left: auto; width: min(410px,calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px) scale(.98); }
       .business-result.visible { max-height: 560px; margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
       .summary-heading { padding: 17px 18px 14px; font-size: 17px; }
       .summary-list { padding: 6px 18px 11px; }
@@ -250,8 +317,8 @@
       .choice-panel, .business-result, .result-cta, .send-button, .composer-input { transition-duration: .01ms; transition-delay: 0s; }
       .contact-modal, .contact-panel { transition-duration: .01ms; }
       .chat-shell, .launcher-wrap { transition-duration: .01ms; }
-      .site-mockup, .focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
-      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); transform: none; }
+      .lab-site-camera, .lab-focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
+      body.chat-focus-mode .lab-site-camera { filter: brightness(.92) contrast(.95); transform: none; }
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
     }
@@ -260,24 +327,48 @@
 <body>
   <main class="presentation">
     <img class="site-mockup" id="site-mockup" alt="" draggable="false">
-    <div class="focus-overlay" aria-hidden="true"></div>
+
+    <div class="lab-site-camera" aria-hidden="true">
+      <header class="lab-site-header">
+        <div class="lab-site-logo">Prospect Company</div>
+        <nav class="lab-site-nav"><span>Home</span><span>About</span><span>Services</span><span>Contact</span></nav>
+        <span class="lab-site-cta">Book Consultation</span>
+      </header>
+      <section class="lab-site-hero">
+        <div class="lab-site-copy">
+          <p class="lab-site-eyebrow">PROFESSIONAL SERVICES</p>
+          <h1>Better Service Starts With Better Guidance</h1>
+          <p>Helping customers understand their options, find the right service and connect with our team.</p>
+          <div class="lab-site-actions"><span class="lab-site-button primary">Explore Services</span><span class="lab-site-button secondary">Contact Us</span></div>
+        </div>
+        <div class="lab-site-visual"></div>
+      </section>
+      <section class="lab-site-services">
+        <div class="lab-site-trust"><span><strong>15+</strong> Years serving clients</span><span><strong>98%</strong> Positive feedback</span><span><strong>24h</strong> Typical response</span></div>
+        <h2>Services built around your needs</h2>
+        <div class="lab-site-card-grid">
+          <article class="lab-site-card"><i></i><strong>Personal Guidance</strong><p>Clear recommendations shaped around individual goals and priorities.</p></article>
+          <article class="lab-site-card"><i></i><strong>Professional Support</strong><p>Experienced assistance from first question through the next step.</p></article>
+          <article class="lab-site-card"><i></i><strong>Simple Connections</strong><p>Fast, convenient ways to reach the right member of our team.</p></article>
+        </div>
+      </section>
+    </div>
+    <div class="lab-focus-overlay" aria-hidden="true"></div>
 
     <div class="concept-tools">
       <p class="concept-label" id="concept-label"></p>
     </div>
 
     <div class="launcher-wrap" id="launcher-wrap">
-      <span class="launcher-tooltip" id="launcher-tooltip">Chat with Achira Clinics Assistant</span>
-      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Achira Clinics Assistant" aria-describedby="launcher-tooltip">
+      <span class="launcher-tooltip" id="launcher-tooltip">Chat with Website Assistant</span>
+      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Website Assistant" aria-describedby="launcher-tooltip">
         <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
-        <span class="launcher-id" id="launcher-id" aria-hidden="true">AC</span>
+        <span class="launcher-id" id="launcher-id" aria-hidden="true">PC</span>
         <span class="launcher-ripple" aria-hidden="true"></span>
       </button>
     </div>
 
-    <div class="achira-whatsapp prospect-widget" role="img" aria-label="Achira Clinics website WhatsApp contact option, visual representation only">
-      <img src="assets/prospect-whatsapp.png" alt="" width="144" height="80" draggable="false">
-    </div>
+    <!-- Future prospect-specific WhatsApp, live-chat, or contact overlays must include class="prospect-widget"; the template intentionally hides that class at its mobile breakpoint. -->
     <div class="demo-cursor" id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 28 36"><path d="M3 2.5 23 21l-9 .8 5 9-4.5 2.4-4.8-9-6.7 6.2V2.5Z"/></svg></div>
 
     <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
@@ -293,7 +384,7 @@
           <button class="playback-control" id="skip-result" type="button" aria-label="Skip to result" disabled>Skip</button>
         </div>
       </header>
-      <div class="playback-progress" id="playback-progress" aria-hidden="true"><div class="playback-progress-fill" id="playback-progress-fill"></div></div>
+      <div class="playback-timer" id="playback-timer" aria-hidden="true"><div class="playback-timer-fill" id="playback-timer-fill"></div></div>
       <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat conversation"></div>
       <div class="composer-area">
         <div class="composer" aria-label="Scripted message composer">
@@ -337,54 +428,56 @@
   </div>
 
   <script>
+    /* MASTER PROSPECT CONFIGURATION
+       Keep prospect content here. Static crawler metadata must still be replaced in <head>. */
     const DEMO_CONFIG = {
-      prospectName: 'Achira Clinics',
-      trackingProspect: 'achira-clinics',
-      companyName: 'Achira Clinics',
-      shortCompanyName: 'Achira Clinics',
-      chatbotName: 'Achira Clinics Assistant',
-      botInitials: 'AC',
+      prospectName: 'Prospect Company',
+      // Remote tracking stays disabled until this is set to a deliberate lowercase test slug.
+      trackingProspect: '',
+      companyName: 'Prospect Company',
+      shortCompanyName: 'Prospect Company',
+      chatbotName: 'Website Assistant',
+      botInitials: 'PC',
       backgroundImagePath: 'assets/company-homepage.png',
-      backgroundImageAltText: 'Public homepage of Achira Clinics used as the concept background',
-      primaryBrandColour: '#3e7d82',
-      secondaryBrandColour: '#2d5d61',
+      backgroundImageAltText: 'Public homepage of Prospect Company used as the concept background',
+      primaryBrandColour: '#167a8b',
+      secondaryBrandColour: '#173f4a',
       launcherBottomOffset: '116px',
-      chatWindowBottomOffset: '76px',
+      chatWindowBottomOffset: '48px',
       mobileLauncherBottomOffset: '110px',
       mobileChatWindowBottomOffset: '0px',
       contactEmail: 'support@zerotools.tech',
-      contactSubject: '',
-      contactBody: '',
-      welcomeMessage: 'Hello, this is Achira Clinics Assistant. How can I help you today?',
+      contactSubject: '', // Optional override; leave blank to derive from prospectName.
+      contactBody: '', // Optional override; leave blank to derive from prospectName.
+      welcomeMessage: 'Hello, I’m the Prospect Company Website Assistant.\nHow can I help you today?',
+      // Recalculate whenever the Lab conversation or timing is changed.
+      conversationTimerDuration: 56898,
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
-        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I have acne marks and dark patches, but I’m not sure whether I should book dermatology, laser treatment, or a skin treatment.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'I can help you narrow that down. You don’t need to choose a treatment before speaking with the clinic.\n\nWhat would you mainly like help with?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Acne marks / scarring', 'Pigmentation / dark spots', 'Both concerns'], selected: 'Both concerns', visitorText: 'Acne marks / scarring + Pigmentation / dark spots' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Since you’re dealing with both acne-related marks and pigmentation, Dermatology & Cosmetic Dermatology would be a sensible starting point.\n\nAchira also offers laser and skin-therapy treatments, but which option is appropriate depends on your skin and should be decided after assessment.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Would you like me to help you request a Dermatology & Cosmetic Dermatology consultation?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes, request consultation', 'I have another question'], selected: 'Yes, request consultation' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Which Achira location would you prefer?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Deira', 'Al Garhoud', 'No preference'], selected: 'Deira' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'When would you ideally like to visit?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['This week', 'Next week', 'Flexible'], selected: 'This week' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter your WhatsApp number, including the country code.' },
-        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: '+971 5X XXX XXXX' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. The Achira Clinics team can contact you to confirm your Dermatology & Cosmetic Dermatology consultation at Deira.' }
+        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I’m interested in your services, but I’m not sure which option would suit my needs.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'I can help you understand the available options. What would you mainly like help with?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Service information', 'Choosing an option', 'General guidance'], selected: 'Choosing an option' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. A few details can help the team respond with the most relevant information.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What would you prefer as the next step?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Request a consultation', 'Ask a question', 'Review information first'], selected: 'Request a consultation' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer the team to contact you?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Email', 'Phone call', 'Messaging app'], selected: 'Email' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter a sample email address so the team can follow up.' },
+        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: 'visitor@example.com' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. Your enquiry has been prepared for the team to review and follow up.' }
       ],
       enquiryResult: {
-        title: 'Consultation request',
-        supportText: 'Details captured from this conversation',
+        title: 'What the company team receives',
+        supportText: 'Example structured enquiry from this conversation',
         fields: [
-          { label: 'Visitor need:', value: 'Acne marks + pigmentation' },
-          { label: 'Guided to:', value: 'Dermatology & Cosmetic Dermatology' },
-          { label: 'Other relevant options:', value: 'Laser / Skin Therapy — subject to assessment' },
-          { label: 'Preferred branch:', value: 'Deira' },
-          { label: 'Preferred timing:', value: 'This week' },
-          { label: 'WhatsApp:', value: '+971 5X XXX XXXX' }
+          { label: 'Interest:', value: 'Service guidance' },
+          { label: 'Main need:', value: 'Help choosing an option' },
+          { label: 'Requested step:', value: 'Consultation' },
+          { label: 'Preferred contact:', value: 'Email' },
+          { label: 'Contact detail:', value: 'visitor@example.com' }
         ]
       },
-      disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to Achira Clinics’ live website. This preview will be removed 30 days after it is shared, or earlier upon request.',
+      disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to the company’s live website. This preview will be removed after the agreed review period, or earlier upon request.',
       timing: {
         launcherDelay: 800,
         cursorRevealPause: 120,
@@ -419,7 +512,7 @@
     const replayButton = document.getElementById('replay');
     const pauseResumeButton = document.getElementById('pause-resume');
     const skipResultButton = document.getElementById('skip-result');
-    const progressFill = document.getElementById('playback-progress-fill');
+    const progressFill = document.getElementById('playback-timer-fill');
     const businessResult = document.getElementById('business-result');
     const composerInput = document.getElementById('composer-input');
     const sendButton = document.getElementById('send-button');
@@ -617,9 +710,7 @@
       progressElapsed = 0;
       progressTimerRunning = progressDuration > 0 && progressStartValue < 1;
       renderProgress(progressStartValue);
-      if (!progressTimerRunning) {
-        return;
-      }
+      if (!progressTimerRunning) return;
       progressAnimationFrame = window.requestAnimationFrame(animateProgress);
     }
 
@@ -696,39 +787,6 @@
       if (text.length <= 120) return DEMO_CONFIG.timing.mediumBotReadingPause;
       return DEMO_CONFIG.timing.longBotReadingPause;
     }
-
-    function getComposerEntryDuration(item) {
-      const isOpening = item.entryMode === 'opening';
-      const delays = isOpening ? DEMO_CONFIG.timing.openingCharacterDelays : DEMO_CONFIG.timing.contactCharacterDelays;
-      let duration = 0;
-      Array.from(item.text).forEach((character, index) => {
-        duration += delays[index % delays.length];
-        if (isOpening && character === '.') duration += DEMO_CONFIG.timing.openingSentencePause;
-        if (isOpening && character === ',') duration += DEMO_CONFIG.timing.openingClausePause;
-        if (!isOpening && (index === 3 || index === 11)) duration += DEMO_CONFIG.timing.contactGroupPause;
-      });
-      duration += isOpening ? DEMO_CONFIG.timing.openingTypedPause : DEMO_CONFIG.timing.contactTypedPause;
-      duration += isOpening ? DEMO_CONFIG.timing.openingSendPress : DEMO_CONFIG.timing.contactSendPress;
-      return duration + DEMO_CONFIG.timing.visitorMessagePause;
-    }
-
-    function getConversationPlaybackDuration() {
-      const timing = DEMO_CONFIG.timing;
-      return DEMO_CONFIG.conversationSequence.reduce((duration, item, itemIndex) => {
-        let itemDuration = item.delay;
-        if (item.type === 'choice') {
-          itemDuration += item.selectionDelay + timing.selectedHighlight + timing.choiceCollapse + item.afterSelection;
-        } else if (item.type === 'composer-entry') {
-          itemDuration += getComposerEntryDuration(item);
-        } else if (item.role === 'bot') {
-          const isFinalMessage = itemIndex === DEMO_CONFIG.conversationSequence.length - 1;
-          itemDuration += item.typing + (isFinalMessage ? 0 : getBotReadingDelay(item));
-        }
-        return duration + itemDuration;
-      }, timing.initialSettle);
-    }
-
-    const CONVERSATION_PROGRESS_DURATION = getConversationPlaybackDuration();
 
     function showLauncherRipple() {
       chatLauncher.classList.remove('show-ripple');
@@ -952,7 +1010,7 @@
       replayButton.disabled = false;
       pauseResumeButton.disabled = false;
       skipResultButton.disabled = false;
-      startProgressTimer(CONVERSATION_PROGRESS_DURATION);
+      startProgressTimer(DEMO_CONFIG.conversationTimerDuration);
       trackDemoEvent('demo_started');
 
       await wait(DEMO_CONFIG.timing.initialSettle);
@@ -970,7 +1028,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
-          addMessage({ role: 'visitor choice', text: item.visitorText || item.selected });
+          addMessage({ role: 'visitor choice', text: item.selected });
           await wait(item.afterSelection);
           if (currentRun !== runId) return;
           continue;
@@ -988,7 +1046,7 @@
           typing.remove();
         }
         addMessage(item);
-        if (itemIndex === DEMO_CONFIG.conversationSequence.length - 1) completeProgressTimer();
+        if (itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot') completeProgressTimer();
         if (item.role === 'bot') {
           await wait(getBotReadingDelay(item));
           if (currentRun !== runId) return;
@@ -1077,7 +1135,6 @@
     async function replayConversation() {
       trackDemoEvent('replay_clicked');
       const wasFocused = document.body.classList.contains('chat-focus-mode');
-      const replayRefocusDelay = !wasFocused && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 550 : 0;
       isReplayPlayback = true;
       ++runId;
       cancelPendingDelay();
@@ -1105,8 +1162,9 @@
       if (!wasFocused) {
         document.body.classList.remove('chat-focus-returning');
         document.body.classList.add('chat-replay-refocus');
-        void siteMockup.offsetWidth;
+        void document.querySelector('.lab-site-camera').offsetWidth;
         document.body.classList.add('chat-focus-mode');
+        const replayRefocusDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 550;
         if (replayRefocusDelay) await wait(replayRefocusDelay);
         document.body.classList.remove('chat-replay-refocus');
       }

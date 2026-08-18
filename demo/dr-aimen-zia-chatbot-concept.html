@@ -32,6 +32,13 @@
       --brand: #ed6624;
       --brand-dark: #272727;
       --zero-tools-blue: #ed6624;
+      --timer-track: rgba(39,39,39,.32);
+      --timer-fill-start: #272727;
+      --timer-fill-mid: #ed6624;
+      --timer-fill-end: #fff;
+      --timer-glow: rgba(237,102,36,.48);
+      --timer-highlight: #fff;
+      --timer-highlight-glow: rgba(237,102,36,.72);
       --ink: #182231;
       --muted: #687486;
       --surface: #ffffff;
@@ -78,7 +85,16 @@
       object-position: center top;
       pointer-events: none;
       user-select: none;
+      transform: translate(0,0) scale(1);
+      transform-origin: 89% 54%;
+      transition: transform 1.2s cubic-bezier(.16,1,.3,1),filter 1.2s cubic-bezier(.16,1,.3,1);
     }
+    .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(22,18,16,.08); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
+    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.3%,0) scale(1.15); }
+    body.chat-focus-mode .focus-overlay { opacity: 1; }
+    body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-5px,-4px) scale(1.035); box-shadow: 0 32px 86px rgba(39,27,20,.32); }
+    body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
+    body.chat-replay-refocus .site-mockup, body.chat-replay-refocus .focus-overlay, body.chat-replay-refocus .chat-shell:not(.is-closed) { transition-duration: .55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
 
     .concept-label {
       position: relative;
@@ -124,7 +140,7 @@
     .launcher-wrap { position: fixed; right: var(--right-overlay-axis); bottom: var(--launcher-bottom-offset); z-index: 6; width: 64px; height: 64px; opacity: 1; transform: translateX(50%); transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
     .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translate(50%,8px) scale(.92); transition-delay: 0s,0s,.24s; }
     .launcher-tooltip { position: absolute; right: calc(100% + 10px); top: 50%; padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: rgba(39,39,39,.94); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; transform: translateY(-50%); }
-    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; padding: 0; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: launcher-pulse 2.4s ease-in-out infinite; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; padding: 0; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: none; transition: transform .16s ease,box-shadow .16s ease; }
     .chat-launcher:hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
     .chat-launcher:focus-visible { outline: 3px solid rgba(237,102,36,.48); outline-offset: 4px; }
     .chat-launcher.is-pressed { transform: scale(.9); }
@@ -202,7 +218,8 @@
       background: #63d6a0;
     }
 
-    .replay {
+    .playback-controls { display: flex; flex: 0 0 auto; gap: 4px; }
+    .playback-control {
       flex: 0 0 auto;
       padding: 6px 10px;
       border: 1px solid rgba(255, 255, 255, .25);
@@ -216,10 +233,14 @@
       transition: background .2s ease, transform .2s ease;
     }
 
-    .replay:hover { border-color: rgba(255, 255, 255, .4); color: #fff; background: rgba(255, 255, 255, .14); }
-    .replay:active { transform: scale(.97); }
-    .replay:focus-visible { outline: 3px solid rgba(237, 102, 36, .4); outline-offset: 2px; }
-    .replay:disabled { cursor: not-allowed; opacity: .5; }
+    .playback-control:hover { border-color: rgba(255, 255, 255, .4); color: #fff; background: rgba(255, 255, 255, .14); }
+    .playback-control:active { transform: scale(.97); }
+    .playback-control:focus-visible { outline: 3px solid rgba(237, 102, 36, .4); outline-offset: 2px; }
+    .playback-control:disabled { cursor: not-allowed; opacity: .45; }
+    body.demo-paused .typing i { animation-play-state: paused; }
+    .playback-timer { position: relative; z-index: 4; display: flex; width: 100%; height: 6px; align-items: center; overflow: hidden; background: var(--timer-track); }
+    .playback-timer-fill { position: relative; width: 100%; height: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg,var(--timer-fill-start) 0%,var(--timer-fill-mid) 72%,var(--timer-fill-end) 100%); box-shadow: 0 0 5px var(--timer-glow),0 0 2px rgba(255,255,255,.48); transform: scaleX(0); transform-origin: left center; will-change: transform; }
+    .playback-timer-fill::after { content: ""; position: absolute; top: 50%; right: 0; width: 6px; height: 4px; border-radius: 999px; background: var(--timer-highlight); box-shadow: 0 0 5px var(--timer-highlight-glow),0 0 2px rgba(255,255,255,.7); transform: translateY(-50%); }
 
     .messages {
       flex: 1;
@@ -435,6 +456,7 @@
       font-size: 19px;
       font-weight: 750;
     }
+    .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
 
     .summary-heading::before {
       display: inline-block;
@@ -498,11 +520,19 @@
     @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
     @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 0 rgba(237,102,36,.22); } 50% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 10px rgba(237,102,36,0); } }
     @keyframes launcher-ripple { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.4); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.5); } }
+    @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
+    .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
+
+    @media (min-width: 1000px) and (max-width: 1250px) {
+      .site-mockup { top: 0; right: auto; bottom: auto; left: 0; width: 100%; height: auto; object-fit: contain; object-position: center top; }
+    }
 
     @media (max-width: 720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
       .concept-label { display: flex; width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); transform: none; }
+      body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
       .launcher-wrap { right: 24px; left: auto; bottom: var(--mobile-launcher-bottom-offset); width: 60px; height: 60px; transform: none; }
       .launcher-wrap.is-hidden { transform: translateY(8px) scale(.92); }
       .launcher-tooltip { right: calc(100% + 10px); }
@@ -523,8 +553,13 @@
         transform: none;
       }
       .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
-      .chat-header { min-height: 70px; padding: 13px 14px; }
+      .chat-header { min-height: 70px; padding: 13px 9px 13px 13px; }
       .avatar { width: 39px; height: 39px; }
+      .playback-controls { gap: 3px; }
+      .playback-control { min-height: 32px; padding: 5px 6px; font-size: 9.4px; }
+      .playback-timer { height: 5px; }
+      .playback-timer-fill { height: 3px; }
+      .playback-timer-fill::after { width: 5px; height: 3px; }
       .messages { padding: 16px 13px 22px; }
       .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
       .composer-input { height: 32px; }
@@ -548,9 +583,12 @@
       .message-row { animation-duration: .01ms; }
       .messages { scroll-behavior: auto; }
       .typing i { animation: none; }
+      .launcher-wrap.show-attention .chat-launcher { animation: none; }
       .choice-panel, .business-result, .result-cta, .send-button, .composer-input { transition-duration: .01ms; transition-delay: 0s; }
       .contact-modal, .contact-panel { transition-duration: .01ms; }
-      .chat-shell, .launcher-wrap { transition-duration: .18s; }
+      .chat-shell, .launcher-wrap { transition-duration: .01ms; }
+      .site-mockup, .focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); transform: none; }
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
     }
@@ -559,6 +597,7 @@
 <body>
   <main class="presentation">
     <img class="site-mockup" id="site-mockup" src="draimen-zia-homepage.png" alt="" aria-hidden="true" draggable="false">
+    <div class="focus-overlay" aria-hidden="true"></div>
 
     <div class="concept-tools">
       <p class="concept-label">Website Chatbot Concept for Dr Aimen Zia Dental Clinic · Prepared by <a href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">zerotools.tech</a></p>
@@ -586,8 +625,13 @@
           <strong>Smile Assistant</strong>
           <span><i class="status-dot"></i>Online now</span>
         </div>
-        <button class="replay" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+        <div class="playback-controls">
+          <button class="playback-control" id="pause-resume" type="button" aria-label="Pause demo" disabled>Pause</button>
+          <button class="playback-control" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+          <button class="playback-control" id="skip-result" type="button" aria-label="Skip to result" disabled>Skip</button>
+        </div>
       </header>
+      <div class="playback-timer" id="playback-timer" aria-hidden="true"><div class="playback-timer-fill" id="playback-timer-fill"></div></div>
       <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat conversation"></div>
       <div class="composer-area">
         <div class="composer" aria-label="Scripted message composer">
@@ -604,6 +648,7 @@
 
     <aside class="business-result" id="business-result" aria-hidden="true">
       <div class="summary-heading">
+        <span class="result-eyebrow">WHAT YOUR TEAM RECEIVES</span>
         What the clinic team receives
         <span class="summary-support">Example structured enquiry from this conversation</span>
       </div>
@@ -617,8 +662,8 @@
         <div class="summary-item"><dt>WhatsApp number:</dt><dd>+971 5X XXX XXXX</dd></div>
       </dl>
       <div class="result-cta">
-        <p>Interested in this for Dr Aimen Zia Dental Clinic?</p>
-        <button class="contact-trigger" id="contact-trigger" type="button">Contact Zero Tools</button>
+        <p>Like this direction for Dr Aimen Zia Dental Clinic?</p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
       </div>
     </aside>
 
@@ -647,6 +692,9 @@
     (() => {
       const messagesElement = document.getElementById('messages');
       const replayButton = document.getElementById('replay');
+      const pauseResumeButton = document.getElementById('pause-resume');
+      const skipResultButton = document.getElementById('skip-result');
+      const progressFill = document.getElementById('playback-timer-fill');
       const businessResult = document.getElementById('business-result');
       const composerInput = document.getElementById('composer-input');
       const sendButton = document.getElementById('send-button');
@@ -669,6 +717,48 @@
       let contactReturnFocus = null;
       let copyResetTimer = 0;
       let initialSequenceScheduled = false;
+      let cameraFocusStarted = false;
+      let cameraNoticeStarted = false;
+      let cameraNoticeElapsed = 0;
+      let manualPause = false;
+      let visibilityPause = false;
+      let manualReadPause = false;
+      let playbackPaused = false;
+      let activeDelay = null;
+      let delayGeneration = 0;
+      let resumeWaiters = [];
+      let playbackActive = false;
+      let touchStartY = 0;
+      let autoScrollEnabled = true;
+      let displayedProgress = 0;
+      let progressStartValue = 0;
+      let progressDuration = 0;
+      let progressElapsed = 0;
+      let progressLastTimestamp = 0;
+      let progressAnimationFrame = 0;
+      let progressTimerRunning = false;
+      const CONVERSATION_TIMER_DURATION = 62025;
+      const TRACKING_PROSPECT = 'dr-aimen-zia';
+      const TRACKING_ENDPOINT = 'https://zero-tools-demo-tracker.zerotools.workers.dev/collect';
+      const trackingSessionId = crypto.randomUUID();
+      const trackingSuppressed = new URLSearchParams(window.location.search).get('test') === '1';
+      const trackingProspectIsValid = /^[a-z0-9-]{1,80}$/.test(TRACKING_PROSPECT);
+      const demoEvents = [];
+      const persistentDemoEvents = new Set([
+        'page_view', 'chatbot_opened', 'demo_started', 'result_shown',
+        'demo_completed', 'replay_clicked', 'skip_to_result', 'cta_clicked'
+      ]);
+
+      function trackDemoEvent(name, detail = {}) {
+        demoEvents.push({ name, detail, timestamp: new Date().toISOString() });
+        if (trackingSuppressed || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
+        fetch(TRACKING_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prospect: TRACKING_PROSPECT, session_id: trackingSessionId, event_name: name }),
+          keepalive: true
+        }).catch(() => {});
+      }
 
       const sequence = [
         {
@@ -685,7 +775,8 @@
         },
         {
           type: 'choice', delay: 1200, selectionDelay: 4700, afterSelection: 650,
-          options: ['Colour or staining', 'Shape or uneven teeth', 'Both'], selected: 'Both'
+          options: ['Colour or staining', 'Shape or uneven teeth', 'Both'], selected: 'Both',
+          transcriptText: 'Staining and uneven teeth'
         },
         {
           type: 'message', role: 'bot', delay: 0, typing: 1050,
@@ -748,7 +839,100 @@
       const OPENING_TYPED_PAUSE = 650;
       const OPENING_SEND_PRESS_TIME = 275;
 
-      const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+      function updatePauseControl() {
+        const paused = manualPause || visibilityPause || manualReadPause;
+        if (paused === playbackPaused) return;
+        playbackPaused = paused;
+        progressLastTimestamp = 0;
+        document.body.classList.toggle('demo-paused', paused);
+        if (paused && activeDelay) {
+          window.clearTimeout(activeDelay.timer);
+          const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+          const resolve = activeDelay.resolve;
+          activeDelay = null;
+          resolve(elapsed);
+        }
+        if (!paused) {
+          const waiters = resumeWaiters;
+          resumeWaiters = [];
+          waiters.forEach(resolve => resolve());
+        }
+        pauseResumeButton.textContent = paused ? 'Resume' : 'Pause';
+        pauseResumeButton.setAttribute('aria-label', paused ? 'Resume demo' : 'Pause demo');
+      }
+
+      function waitUntilResumed() {
+        return playbackPaused ? new Promise(resolve => resumeWaiters.push(resolve)) : Promise.resolve();
+      }
+
+      async function wait(milliseconds) {
+        let remaining = milliseconds;
+        const generation = delayGeneration;
+        while (remaining > 0) {
+          if (generation !== delayGeneration) return;
+          await waitUntilResumed();
+          if (generation !== delayGeneration) return;
+          const elapsed = await new Promise(resolve => {
+            const started = performance.now();
+            const timer = window.setTimeout(() => { activeDelay = null; resolve(remaining); }, remaining);
+            activeDelay = { timer, started, remaining, resolve };
+          });
+          if (generation !== delayGeneration) return;
+          remaining = Math.max(0, remaining - elapsed);
+        }
+      }
+
+      function renderProgress(value) {
+        displayedProgress = Math.max(0, Math.min(1, value));
+        progressFill.style.transform = `scaleX(${displayedProgress})`;
+      }
+
+      function animateProgress(timestamp) {
+        if (!progressTimerRunning) return;
+        if (!progressLastTimestamp) progressLastTimestamp = timestamp;
+        const elapsed = timestamp - progressLastTimestamp;
+        progressLastTimestamp = timestamp;
+        if (!playbackPaused) progressElapsed = Math.min(progressDuration, progressElapsed + elapsed);
+        const ratio = progressDuration > 0 ? progressElapsed / progressDuration : 1;
+        renderProgress(progressStartValue + (1 - progressStartValue) * ratio);
+        if (ratio < 1) progressAnimationFrame = requestAnimationFrame(animateProgress);
+        else { progressAnimationFrame = 0; progressTimerRunning = false; }
+      }
+
+      function startProgressTimer(duration, startValue = 0) {
+        if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
+        progressStartValue = Math.max(0, Math.min(1, startValue));
+        progressDuration = Math.max(0, duration);
+        progressElapsed = 0;
+        progressLastTimestamp = 0;
+        progressTimerRunning = progressDuration > 0 && progressStartValue < 1;
+        renderProgress(progressStartValue);
+        if (progressTimerRunning) progressAnimationFrame = requestAnimationFrame(animateProgress);
+      }
+
+      function resetProgressTimer() {
+        if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
+        progressAnimationFrame = 0;
+        progressTimerRunning = false;
+        renderProgress(0);
+      }
+
+      function completeProgressTimer() {
+        if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
+        progressAnimationFrame = 0;
+        progressTimerRunning = false;
+        renderProgress(1);
+      }
+
+      function cancelPendingDelay() {
+        ++delayGeneration;
+        if (!activeDelay) return;
+        window.clearTimeout(activeDelay.timer);
+        const resolve = activeDelay.resolve;
+        const remaining = activeDelay.remaining;
+        activeDelay = null;
+        resolve(remaining);
+      }
 
       function showLauncherRipple() {
         chatLauncher.classList.remove('show-ripple');
@@ -767,6 +951,8 @@
         launcherWrap.classList.add('is-hidden');
         chatShell.setAttribute('aria-hidden','false');
         chatShell.classList.remove('is-closed');
+        resetProgressTimer();
+        trackDemoEvent('chatbot_opened');
         await wait(650);
         chatLauncher.classList.remove('is-pressed');
         demoCursor.classList.remove('is-visible','is-pressing');
@@ -778,8 +964,14 @@
         const sequenceId = ++launcherRunId;
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const touchSized = window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
-        await wait(1800);
+        await wait(800);
         if (sequenceId !== launcherRunId || chatOpened) return;
+        if (!reducedMotion) {
+          launcherWrap.classList.add('show-attention');
+          await wait(850);
+          launcherWrap.classList.remove('show-attention');
+          if (sequenceId !== launcherRunId || chatOpened) return;
+        }
         if (reducedMotion || touchSized) {
           showLauncherRipple();
           chatLauncher.classList.add('is-pressed');
@@ -846,6 +1038,7 @@
       }
 
       function scrollToLatest() {
+        if (!autoScrollEnabled) return;
         const latestRow = messagesElement.lastElementChild;
         if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
@@ -948,6 +1141,17 @@
           await wait(characterDelay);
           if (currentRun !== runId) return false;
           composerInput.value += character;
+          if (!cameraNoticeStarted) {
+            cameraNoticeStarted = true;
+            cameraNoticeElapsed = 0;
+          } else if (!cameraFocusStarted) {
+            cameraNoticeElapsed += characterDelay;
+          }
+          if (!cameraFocusStarted && cameraNoticeElapsed >= 800) {
+            cameraFocusStarted = true;
+            document.body.classList.remove('chat-focus-returning');
+            document.body.classList.add('chat-focus-mode');
+          }
           sendButton.classList.add('active');
           composerInput.setSelectionRange(composerInput.value.length, composerInput.value.length);
           if (isOpening && composerInput.value.endsWith('smile.')) await wait(OPENING_SENTENCE_PAUSE);
@@ -965,20 +1169,38 @@
         return true;
       }
 
-      async function playConversation() {
+      async function playConversation({ replayPlayback = false } = {}) {
         const currentRun = ++runId;
+        cameraFocusStarted = replayPlayback;
+        cameraNoticeStarted = replayPlayback;
+        cameraNoticeElapsed = replayPlayback ? 800 : 0;
+        manualPause = false;
+        manualReadPause = false;
+        playbackActive = true;
+        autoScrollEnabled = true;
+        updatePauseControl();
+        if (replayPlayback) {
+          document.body.classList.remove('chat-focus-returning');
+          document.body.classList.add('chat-focus-mode');
+        } else {
+          document.body.classList.remove('chat-focus-mode','chat-focus-returning');
+        }
         messagesElement.replaceChildren();
         messagesElement.scrollTop = 0;
         lastMessageRole = null;
         resetComposer();
         businessResult.classList.remove('visible');
         businessResult.setAttribute('aria-hidden', 'true');
-        replayButton.disabled = true;
+        replayButton.disabled = false;
+        pauseResumeButton.disabled = false;
+        skipResultButton.disabled = false;
+        startProgressTimer(CONVERSATION_TIMER_DURATION, 0);
+        trackDemoEvent('demo_started');
 
         await wait(INITIAL_SETTLE_TIME);
         if (currentRun !== runId) return;
 
-        for (const item of sequence) {
+        for (const [itemIndex, item] of sequence.entries()) {
           await wait(item.delay);
           if (currentRun !== runId) return;
 
@@ -991,7 +1213,7 @@
             if (currentRun !== runId) return;
             await collapseChoices(choiceRow);
             if (currentRun !== runId) return;
-            addMessage({ role: 'visitor choice', text: item.selected });
+            addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
             await wait(item.afterSelection);
             if (currentRun !== runId) return;
             continue;
@@ -1011,16 +1233,24 @@
           }
 
           addMessage(item);
+          if (itemIndex === sequence.length - 1 && item.role === 'bot') completeProgressTimer();
         }
 
+        document.body.classList.add('chat-focus-returning');
+        document.body.classList.remove('chat-focus-mode');
         await wait(RESULT_REVEAL_PAUSE);
         if (currentRun !== runId) return;
         businessResult.classList.add('visible');
         businessResult.setAttribute('aria-hidden', 'false');
         await wait(RESULT_REVEAL_TIME);
         if (currentRun === runId) {
+          playbackActive = false;
+          pauseResumeButton.disabled = true;
+          skipResultButton.disabled = true;
           replayButton.disabled = false;
           scrollMobileElementIntoView(businessResult);
+          trackDemoEvent('demo_completed');
+          trackDemoEvent('result_shown');
         }
       }
 
@@ -1032,8 +1262,90 @@
         });
       }
 
-      function replayConversation() {
-        playConversation();
+      function toggleManualPause() {
+        if (!playbackActive) return;
+        if (manualPause || manualReadPause) {
+          manualPause = false;
+          manualReadPause = false;
+          autoScrollEnabled = true;
+          updatePauseControl();
+          scrollToLatest();
+        } else {
+          manualPause = true;
+          updatePauseControl();
+        }
+      }
+
+      function pauseForManualReading() {
+        if (!playbackActive || manualReadPause) return;
+        manualReadPause = true;
+        autoScrollEnabled = false;
+        updatePauseControl();
+      }
+
+      async function skipToResult() {
+        if (!playbackActive) return;
+        trackDemoEvent('skip_to_result');
+        playbackActive = false;
+        const skipRunId = ++runId;
+        manualPause = false;
+        visibilityPause = false;
+        manualReadPause = false;
+        updatePauseControl();
+        cancelPendingDelay();
+        resetComposer();
+        messagesElement.querySelectorAll('[data-typing="true"], .choice-row').forEach(element => element.remove());
+        document.body.classList.add('chat-focus-returning');
+        document.body.classList.remove('chat-focus-mode');
+        startProgressTimer(1200, displayedProgress);
+        pauseResumeButton.disabled = true;
+        skipResultButton.disabled = true;
+        await wait(1200);
+        if (skipRunId !== runId) return;
+        completeProgressTimer();
+        businessResult.classList.add('visible');
+        businessResult.setAttribute('aria-hidden','false');
+        replayButton.disabled = false;
+        scrollMobileElementIntoView(businessResult);
+        trackDemoEvent('demo_completed', { skipped: true });
+        trackDemoEvent('result_shown', { skipped: true });
+      }
+
+      async function replayConversation() {
+        trackDemoEvent('replay_clicked');
+        const wasFocused = document.body.classList.contains('chat-focus-mode');
+        ++runId;
+        cancelPendingDelay();
+        manualPause = false;
+        visibilityPause = false;
+        manualReadPause = false;
+        playbackPaused = false;
+        playbackActive = false;
+        autoScrollEnabled = true;
+        resumeWaiters.splice(0).forEach(resolve => resolve());
+        document.body.classList.remove('demo-paused');
+        pauseResumeButton.textContent = 'Pause';
+        pauseResumeButton.setAttribute('aria-label','Pause demo');
+        replayButton.disabled = true;
+        pauseResumeButton.disabled = true;
+        skipResultButton.disabled = true;
+        messagesElement.replaceChildren();
+        messagesElement.scrollTop = 0;
+        lastMessageRole = null;
+        resetComposer();
+        resetProgressTimer();
+        businessResult.classList.remove('visible');
+        businessResult.setAttribute('aria-hidden','true');
+        if (!wasFocused) {
+          document.body.classList.remove('chat-focus-returning');
+          document.body.classList.add('chat-replay-refocus');
+          void siteMockup.offsetWidth;
+          document.body.classList.add('chat-focus-mode');
+          const refocusDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 550;
+          if (refocusDelay) await wait(refocusDelay);
+          document.body.classList.remove('chat-replay-refocus');
+        }
+        playConversation({ replayPlayback: true });
         scrollMobileElementIntoView(chatShell);
       }
 
@@ -1057,14 +1369,37 @@
       }
 
       replayButton.addEventListener('click', replayConversation);
+      pauseResumeButton.addEventListener('click', toggleManualPause);
+      skipResultButton.addEventListener('click', skipToResult);
       document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}&su=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
       document.getElementById('email-app-link').href = `mailto:${contactEmail}?subject=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`;
       chatLauncher.addEventListener('click',openChatWindow);
-      contactTrigger.addEventListener('click',openContactPanel);
+      contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
       contactClose.addEventListener('click',closeContactPanel);
       copyEmailButton.addEventListener('click',copyContactEmail);
       contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
       document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
+      document.addEventListener('visibilitychange',() => {
+        if (!playbackActive) return;
+        if (document.hidden && !manualPause && !manualReadPause) {
+          visibilityPause = true;
+          updatePauseControl();
+        } else if (!document.hidden && visibilityPause) {
+          visibilityPause = false;
+          updatePauseControl();
+        }
+      });
+      messagesElement.addEventListener('wheel',event => { if (event.deltaY < 0) pauseForManualReading(); }, { passive: true });
+      messagesElement.addEventListener('touchstart',event => { touchStartY = event.touches[0]?.clientY || 0; }, { passive: true });
+      messagesElement.addEventListener('touchmove',event => {
+        const y = event.touches[0]?.clientY || 0;
+        if (y > touchStartY + 6) pauseForManualReading();
+        touchStartY = y;
+      }, { passive: true });
+      messagesElement.addEventListener('pointerdown',event => {
+        if (event.offsetX >= messagesElement.clientWidth - 12) pauseForManualReading();
+      });
+      trackDemoEvent('page_view');
       scheduleInitialLauncherSequence();
     })();
   </script>
