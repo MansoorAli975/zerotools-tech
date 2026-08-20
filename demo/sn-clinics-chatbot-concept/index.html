@@ -168,7 +168,7 @@
 
     .business-result { position: absolute; top: 50%; left: clamp(22px,calc(42vw - 215px),calc(100vw - clamp(22px,5vw,76px) - min(410px,calc(100vw - 44px)) - clamp(18px,2vw,32px) - min(430px,calc(100vw - 490px)))); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); }
     .business-result.visible { visibility: visible; opacity: 1; box-shadow: var(--shadow); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
-    .summary-heading { padding: 20px 22px 16px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
+    .summary-heading { position: relative; padding: 20px 118px 16px 22px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
     .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
     .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
     .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
@@ -182,7 +182,18 @@
     .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
     .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
     .contact-trigger:hover { background: #223d68; }
-    .contact-trigger:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+    .result-minimize { position: absolute; top: 13px; right: 13px; padding: 7px 9px; border: 1px solid #d5dce5; border-radius: 8px; color: #40516a; background: #f5f7fa; font-size: 10px; font-weight: 850; cursor: pointer; }
+    .result-demo-controls { position: fixed; z-index: 9; left: clamp(22px,5vw,76px); bottom: 76px; display: flex; max-width: calc(100vw - 190px); gap: 8px; flex-wrap: wrap; }
+    .result-demo-controls.is-minimized { padding: 6px; border: 1px solid rgba(23,43,77,.14); border-radius: 13px; background: rgba(255,255,255,.94); box-shadow: 0 8px 24px rgba(6,18,38,.16); backdrop-filter: blur(8px); }
+    .result-demo-controls[hidden] { display: none; }
+    .result-action { min-height: 34px; padding: 8px 11px; border: 1px solid #cad3df; border-radius: 9px; color: #34445d; background: #fff; font: inherit; font-size: 11px; font-weight: 850; white-space: nowrap; cursor: pointer; }
+    .result-action.primary { border-color: #172b4d; color: #fff; background: #172b4d; }
+    .result-action[hidden] { display: none; }
+    .replay-demo { display: inline-flex; min-height: 38px; padding: 9px 13px; align-items: center; gap: 7px; border: 1px solid rgba(23,43,77,.16); border-radius: 11px; color: #fff; background: #172b4d; box-shadow: 0 8px 22px rgba(6,18,38,.2); font: inherit; font-size: 11px; font-weight: 850; cursor: pointer; }
+    .replay-demo svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .result-demo-controls.is-minimized .replay-demo { min-height: 34px; padding: 8px 11px; border-color: #cad3df; color: #34445d; background: #fff; box-shadow: none; white-space: nowrap; }
+    .business-result.visible.is-minimized { pointer-events: none; visibility: hidden; opacity: 0; }
+    .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
 
     .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
     .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
@@ -311,13 +322,19 @@
     </section>
 
     <aside class="business-result" id="business-result" aria-hidden="true">
-      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">WHAT YOUR TEAM RECEIVES</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span></div>
+      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">WHAT YOUR TEAM RECEIVES</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span><button class="result-minimize" id="result-minimize" type="button" aria-expanded="true">Minimize</button></div>
       <dl class="summary-list" id="summary-list"></dl>
       <div class="result-cta">
         <p id="result-cta-copy"></p>
         <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
       </div>
     </aside>
+
+    <div class="result-demo-controls" id="result-demo-controls" hidden>
+      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this concept</button>
+      <button class="result-action" id="result-restore" type="button" hidden>Restore report</button>
+      <button class="replay-demo" id="replay-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6.6M4 11V5m0 6h6"/></svg>Replay demo</button>
+    </div>
 
     <nav class="sn-contact-widget prospect-widget" aria-label="SN Clinics contact options">
       <a class="sn-contact-tab whatsapp" href="https://wa.me/9651808111" target="_blank" rel="noopener noreferrer" aria-label="Contact SN Clinics on WhatsApp">
@@ -390,7 +407,7 @@
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. Your request is now organized with the key details the team would need: your child’s care needs, current dental concern, preferred branch, and timing.\n\nThe SN Clinics team can then review the information and contact you to discuss the appropriate appointment and next steps.' }
       ],
       enquiryResult: {
-        title: 'Organized appointment enquiry',
+        title: 'Structured enquiry',
         supportText: 'Example structured request from this conversation',
         fields: [
           { label: 'Patient:', value: 'Child' },
@@ -417,7 +434,11 @@
         initialSettle: 200,
         selectedHighlight: 650,
         choiceCollapse: 300,
-        resultRevealPause: 2300,
+        finalMessageHold: 6000,
+        chatCloseSettle: 500,
+        siteRestoreDuration: 1200,
+        cleanSiteRevealHold: 800,
+        skipCleanSiteRevealHold: 500,
         resultRevealTime: 600,
         visitorMessagePause: 2100,
         shortBotReadingPause: 2500,
@@ -441,6 +462,11 @@
     const skipResultButton = document.getElementById('skip-result');
     const progressFill = document.getElementById('playback-timer-fill');
     const businessResult = document.getElementById('business-result');
+    const resultMinimizeButton = document.getElementById('result-minimize');
+    const resultDemoControls = document.getElementById('result-demo-controls');
+    const resultDiscussMinimizedButton = document.getElementById('result-discuss-minimized');
+    const resultRestoreButton = document.getElementById('result-restore');
+    const replayDemoButton = document.getElementById('replay-demo');
     const composerInput = document.getElementById('composer-input');
     const sendButton = document.getElementById('send-button');
     const siteMockup = document.getElementById('site-mockup');
@@ -791,6 +817,57 @@
       await openChatWindow();
     }
 
+    function hideResultPresentation() {
+      businessResult.classList.remove('visible', 'is-minimized');
+      businessResult.setAttribute('aria-hidden', 'true');
+      resultDemoControls.classList.remove('is-minimized');
+      resultDiscussMinimizedButton.hidden = true;
+      resultRestoreButton.hidden = true;
+      resultMinimizeButton.setAttribute('aria-expanded', 'true');
+      resultDemoControls.hidden = true;
+    }
+
+    function showResultPresentation() {
+      businessResult.classList.remove('is-minimized');
+      businessResult.classList.add('visible');
+      businessResult.setAttribute('aria-hidden', 'false');
+      resultDemoControls.classList.remove('is-minimized');
+      resultDiscussMinimizedButton.hidden = true;
+      resultRestoreButton.hidden = true;
+      resultMinimizeButton.setAttribute('aria-expanded', 'true');
+      resultDemoControls.hidden = false;
+    }
+
+    function setResultMinimized(minimized) {
+      businessResult.classList.toggle('is-minimized', minimized);
+      businessResult.setAttribute('aria-hidden', String(minimized));
+      resultDemoControls.classList.toggle('is-minimized', minimized);
+      resultDiscussMinimizedButton.hidden = !minimized;
+      resultRestoreButton.hidden = !minimized;
+      resultDemoControls.hidden = false;
+      resultMinimizeButton.setAttribute('aria-expanded', String(!minimized));
+    }
+
+    function toggleResultMinimized() {
+      setResultMinimized(!businessResult.classList.contains('is-minimized'));
+    }
+
+    function restoreNaturalSiteState() {
+      document.body.classList.remove('chat-focus-mode', 'chat-focus-returning', 'chat-replay-refocus');
+      closeChatAndRestoreLauncher();
+    }
+
+    function closeChatAndRestoreLauncher() {
+      chatShell.classList.add('is-closed');
+      chatShell.setAttribute('aria-hidden', 'true');
+      launcherWrap.classList.remove('is-hidden', 'show-attention');
+      chatLauncher.classList.remove('is-script-hover', 'is-pressed', 'show-ripple');
+      demoCursor.classList.remove('is-visible', 'is-pressing');
+      demoCursor.style.setProperty('--cursor-x', '0px');
+      demoCursor.style.setProperty('--cursor-y', '0px');
+      chatOpened = false;
+    }
+
     function scrollToLatest() {
       if (!autoScrollEnabled) return;
       const latestRow = messagesElement.lastElementChild;
@@ -938,8 +1015,7 @@
       messagesElement.scrollTop = 0;
       lastMessageRole = null;
       resetComposer();
-      businessResult.classList.remove('visible');
-      businessResult.setAttribute('aria-hidden','true');
+      hideResultPresentation();
       replayButton.disabled = false;
       pauseResumeButton.disabled = false;
       skipResultButton.disabled = false;
@@ -979,19 +1055,24 @@
           typing.remove();
         }
         addMessage(item);
-        if (itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot') completeProgressTimer();
+        const isFinalBotMessage = itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot';
+        if (isFinalBotMessage) completeProgressTimer();
         if (item.role === 'bot') {
-          await wait(getBotReadingDelay(item));
+          await wait(isFinalBotMessage ? DEMO_CONFIG.timing.finalMessageHold : getBotReadingDelay(item));
           if (currentRun !== runId) return;
         }
       }
 
-      document.body.classList.add('chat-focus-returning');
-      document.body.classList.remove('chat-focus-mode');
-      await wait(DEMO_CONFIG.timing.resultRevealPause);
+      closeChatAndRestoreLauncher();
+      await wait(DEMO_CONFIG.timing.chatCloseSettle);
       if (currentRun !== runId) return;
-      businessResult.classList.add('visible');
-      businessResult.setAttribute('aria-hidden','false');
+      restoreNaturalSiteState();
+      const siteRestoreDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DEMO_CONFIG.timing.siteRestoreDuration;
+      await wait(siteRestoreDuration);
+      if (currentRun !== runId) return;
+      await wait(DEMO_CONFIG.timing.cleanSiteRevealHold);
+      if (currentRun !== runId) return;
+      showResultPresentation();
       await wait(DEMO_CONFIG.timing.resultRevealTime);
       if (currentRun === runId) {
         playbackActive = false;
@@ -1042,6 +1123,7 @@
       playbackSkipped = true;
       playbackActive = false;
       const skipRunId = ++runId;
+      ++launcherRunId;
       manualPause = false;
       visibilityPause = false;
       manualReadPause = false;
@@ -1049,16 +1131,19 @@
       cancelPendingDelay();
       resetComposer();
       messagesElement.querySelectorAll('[data-typing="true"], .choice-row').forEach(element => element.remove());
-      document.body.classList.add('chat-focus-returning');
-      document.body.classList.remove('chat-focus-mode');
-      startProgressTimer(1200, displayedProgress);
+      completeProgressTimer();
       pauseResumeButton.disabled = true;
       skipResultButton.disabled = true;
-      await wait(1200);
+      closeChatAndRestoreLauncher();
+      await wait(DEMO_CONFIG.timing.chatCloseSettle);
       if (skipRunId !== runId) return;
-      completeProgressTimer();
-      businessResult.classList.add('visible');
-      businessResult.setAttribute('aria-hidden','false');
+      restoreNaturalSiteState();
+      const siteRestoreDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DEMO_CONFIG.timing.siteRestoreDuration;
+      await wait(siteRestoreDuration);
+      if (skipRunId !== runId) return;
+      await wait(DEMO_CONFIG.timing.skipCleanSiteRevealHold);
+      if (skipRunId !== runId) return;
+      showResultPresentation();
       replayButton.disabled = false;
       scrollMobileElementIntoView(businessResult);
       trackDemoEvent('demo_completed', { skipped: true });
@@ -1103,6 +1188,41 @@
       }
       playConversation({ replayPlayback: true });
       scrollMobileElementIntoView(chatShell);
+    }
+
+    async function replayFullDemo() {
+      ++runId;
+      ++launcherRunId;
+      cancelPendingDelay();
+      manualPause = false;
+      visibilityPause = false;
+      manualReadPause = false;
+      playbackPaused = false;
+      playbackActive = false;
+      playbackSkipped = false;
+      isReplayPlayback = false;
+      cameraFocusStarted = false;
+      cameraNoticeStarted = false;
+      cameraNoticeElapsed = 0;
+      autoScrollEnabled = true;
+      resumeWaiters.splice(0).forEach(resolve => resolve());
+      document.body.classList.remove('demo-paused');
+      pauseResumeButton.textContent = 'Pause';
+      pauseResumeButton.setAttribute('aria-label', 'Pause demo');
+      replayButton.disabled = false;
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      hideResultPresentation();
+      contactModal.classList.remove('is-open');
+      contactModal.setAttribute('aria-hidden', 'true');
+      restoreNaturalSiteState();
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      resetProgressTimer();
+      await waitForPaintFrames(2);
+      playInitialLauncherSequence();
     }
 
     async function waitForPaintFrames(count = 2) {
@@ -1151,10 +1271,15 @@
     applyConfig();
     trackDemoEvent('page_view');
     chatLauncher.addEventListener('click',openChatWindow);
+    replayButton.addEventListener('click',hideResultPresentation);
     replayButton.addEventListener('click',replayConversation);
+    replayDemoButton.addEventListener('click',replayFullDemo);
+    resultMinimizeButton.addEventListener('click',toggleResultMinimized);
+    resultRestoreButton.addEventListener('click',() => setResultMinimized(false));
     pauseResumeButton.addEventListener('click',toggleManualPause);
     skipResultButton.addEventListener('click',skipToResult);
     contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
+    resultDiscussMinimizedButton.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
     contactClose.addEventListener('click',closeContactPanel);
     copyEmailButton.addEventListener('click',copyContactEmail);
     contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
