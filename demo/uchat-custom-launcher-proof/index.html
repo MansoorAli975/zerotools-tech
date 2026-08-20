@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>UChat Custom Launcher Proof</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 48px;
+      font-family: Arial, sans-serif;
+      color: #17211b;
+      background: #f4f7f5;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: 0;
+      border-radius: 4px;
+      color: #fff;
+      background: #14532d;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    #status {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>UChat Custom Launcher Proof</h1>
+  <button id="uchat-launcher" type="button" disabled>Open real UChat</button>
+  <p id="status">Waiting for UChat...</p>
+
+  <script>
+    const launcher = document.getElementById('uchat-launcher');
+    const status = document.getElementById('status');
+
+    window.addEventListener('chatbot:ready', function () {
+      console.log('chatbot:ready');
+      console.log('window.$chatbot exists:', Boolean(window.$chatbot));
+
+      launcher.disabled = false;
+      status.textContent = 'UChat ready — custom launcher enabled';
+    });
+
+    launcher.addEventListener('click', function () {
+      console.log('custom launcher click');
+      console.log('window.$chatbot exists:', Boolean(window.$chatbot));
+
+      window.$chatbot.toggle('open');
+      status.textContent = 'Custom launcher called UChat open';
+    });
+  </script>
+
+  <script async defer src="https://portal.zerotools.tech/js/widget/jxjukkd1zbid1cea/float.js"></script>
+</body>
+</html>
