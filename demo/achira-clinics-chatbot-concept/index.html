@@ -243,6 +243,9 @@
       .summary-list { padding: 6px 18px 11px; }
       .summary-item { grid-template-columns: 105px 1fr; gap: 12px; }
       .result-cta { padding: 12px 18px 14px; }
+      .result-demo-controls.is-minimized { display: grid; width: min(360px,calc(100vw - 44px)); grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+      .result-demo-controls.is-minimized #result-discuss-minimized { grid-column: 1 / -1; }
+      .result-demo-controls.is-minimized .result-action, .result-demo-controls.is-minimized .replay-demo { width: 100%; min-width: 0; min-height: 44px; justify-content: center; white-space: nowrap; }
       .contact-panel { padding: 25px 20px 22px; }
       .disclaimer { position: relative; left: auto; bottom: auto; width: min(900px,calc(100vw - 28px)); margin: 12px auto 0; transform: none; font-size: 12.5px; }
     }
