@@ -534,7 +534,6 @@
     let cameraNoticeElapsed = 0;
     let manualPause = false;
     let visibilityPause = false;
-    let manualReadPause = false;
     let playbackPaused = false;
     let activeDelay = null;
     let delayGeneration = 0;
@@ -542,8 +541,6 @@
     let playbackActive = false;
     let playbackSkipped = false;
     let isReplayPlayback = false;
-    let touchStartY = 0;
-    let autoScrollEnabled = true;
     let displayedProgress = 0;
     let progressStartValue = 0;
     let progressDuration = 0;
@@ -629,25 +626,26 @@
     }
 
     function updatePauseControl() {
-      const paused = manualPause || visibilityPause || manualReadPause;
-      if (paused === playbackPaused) return;
-      playbackPaused = paused;
-      progressLastTimestamp = 0;
-      document.body.classList.toggle('demo-paused', paused);
-      if (paused && activeDelay) {
-        window.clearTimeout(activeDelay.timer);
-        const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
-        const resolve = activeDelay.resolve;
-        activeDelay = null;
-        resolve(elapsed);
+      const paused = manualPause || visibilityPause;
+      if (paused !== playbackPaused) {
+        playbackPaused = paused;
+        progressLastTimestamp = 0;
+        document.body.classList.toggle('demo-paused', paused);
+        if (paused && activeDelay) {
+          window.clearTimeout(activeDelay.timer);
+          const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+          const resolve = activeDelay.resolve;
+          activeDelay = null;
+          resolve(elapsed);
+        }
+        if (!paused) {
+          const waiters = resumeWaiters;
+          resumeWaiters = [];
+          waiters.forEach(resolve => resolve());
+        }
       }
-      if (!paused) {
-        const waiters = resumeWaiters;
-        resumeWaiters = [];
-        waiters.forEach(resolve => resolve());
-      }
-      pauseResumeButton.textContent = paused ? 'Resume' : 'Pause';
-      pauseResumeButton.setAttribute('aria-label', paused ? 'Resume demo' : 'Pause demo');
+      pauseResumeButton.textContent = manualPause ? 'Resume' : 'Pause';
+      pauseResumeButton.setAttribute('aria-label', manualPause ? 'Resume demo' : 'Pause demo');
     }
 
     function waitUntilResumed() {
@@ -905,7 +903,6 @@
     }
 
     function scrollToLatest() {
-      if (!autoScrollEnabled) return;
       const latestRow = messagesElement.lastElementChild;
       if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
@@ -1036,10 +1033,8 @@
       cameraNoticeStarted = replayPlayback;
       cameraNoticeElapsed = replayPlayback ? 800 : 0;
       manualPause = false;
-      manualReadPause = false;
       playbackSkipped = false;
       playbackActive = true;
-      autoScrollEnabled = true;
       updatePauseControl();
       if (replayPlayback) {
         document.body.classList.remove('chat-focus-returning');
@@ -1131,10 +1126,8 @@
 
     function toggleManualPause() {
       if (!playbackActive) return;
-      if (manualPause || manualReadPause) {
+      if (manualPause) {
         manualPause = false;
-        manualReadPause = false;
-        autoScrollEnabled = true;
         updatePauseControl();
         scrollToLatest();
         trackDemoEvent('demo_resumed_manual');
@@ -1143,14 +1136,6 @@
         updatePauseControl();
         trackDemoEvent('demo_paused_manual');
       }
-    }
-
-    function pauseForManualReading() {
-      if (!playbackActive || manualReadPause) return;
-      manualReadPause = true;
-      autoScrollEnabled = false;
-      updatePauseControl();
-      trackDemoEvent('manual_read_pause');
     }
 
     async function skipToResult() {
@@ -1162,7 +1147,6 @@
       ++launcherRunId;
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       updatePauseControl();
       cancelPendingDelay();
       resetComposer();
@@ -1194,11 +1178,9 @@
       cancelPendingDelay();
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       playbackPaused = false;
       playbackActive = false;
       playbackSkipped = false;
-      autoScrollEnabled = true;
       resumeWaiters.splice(0).forEach(resolve => resolve());
       document.body.classList.remove('demo-paused');
       pauseResumeButton.textContent = 'Pause';
@@ -1232,7 +1214,6 @@
       cancelPendingDelay();
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       playbackPaused = false;
       playbackActive = false;
       playbackSkipped = false;
@@ -1240,7 +1221,6 @@
       cameraFocusStarted = false;
       cameraNoticeStarted = false;
       cameraNoticeElapsed = 0;
-      autoScrollEnabled = true;
       resumeWaiters.splice(0).forEach(resolve => resolve());
       document.body.classList.remove('demo-paused');
       pauseResumeButton.textContent = 'Pause';
@@ -1322,7 +1302,7 @@
     document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
     document.addEventListener('visibilitychange',() => {
       if (!playbackActive) return;
-      if (document.hidden && !manualPause && !manualReadPause) {
+      if (document.hidden && !manualPause) {
         visibilityPause = true;
         updatePauseControl();
         trackDemoEvent('demo_paused_visibility');
@@ -1332,10 +1312,6 @@
         trackDemoEvent('demo_resumed_visibility');
       }
     });
-    messagesElement.addEventListener('wheel',event => { if (event.deltaY < 0) pauseForManualReading(); }, { passive: true });
-    messagesElement.addEventListener('touchstart',event => { touchStartY = event.touches[0]?.clientY || 0; }, { passive: true });
-    messagesElement.addEventListener('touchmove',event => { const y = event.touches[0]?.clientY || 0; if (y > touchStartY + 6) pauseForManualReading(); touchStartY = y; }, { passive: true });
-    messagesElement.addEventListener('pointerdown',event => { if (event.offsetX >= messagesElement.clientWidth - 12) pauseForManualReading(); });
     scheduleInitialLauncherSequence();
   </script>
 </body>

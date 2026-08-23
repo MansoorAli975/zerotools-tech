@@ -384,7 +384,7 @@
       contactSubject: 'Blue Dental Clinic chatbot concept',
       contactBody: 'Hi, I reviewed the Blue Dental Clinic chatbot concept and would like to discuss it.',
       prospectLabel: 'Website Chatbot Concept for Blue Dental Clinic · Prepared by zerotools.tech',
-      conversationTimerDuration: 63965,
+      conversationTimerDuration: 70915,
       welcomeMessage: 'Welcome to Blue Dental Clinic. I’m the Blue Dental Assistant. How can I help you today?',
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
@@ -393,6 +393,9 @@
         { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Discolouration', 'Shape or uneven teeth', 'Both'], selected: 'Both', transcriptText: 'Discolouration and uneven teeth' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What matters most to you?' },
         { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Natural-looking improvement', 'Brighter smile', 'Not sure yet'], selected: 'Natural-looking improvement' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Do you have any concerns about tooth sensitivity?' },
+        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes, some sensitivity', 'No sensitivity concerns'], selected: 'Yes, some sensitivity' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thanks. The dentist can take that into account when discussing whitening or other suitable cosmetic options.' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Blue Dental Clinic offers cosmetic options such as teeth whitening and veneers. The suitable treatment depends on an examination and consultation, so the dentist can assess your teeth and discuss your goals with you.' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Would you like to arrange a consultation?' },
         { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Yes', 'Not right now'], selected: 'Yes' },
@@ -408,6 +411,7 @@
         fields: [
           { label: 'Concern:', value: 'Discolouration and uneven front teeth' },
           { label: 'Goal:', value: 'Natural-looking smile improvement' },
+          { label: 'Sensitivity concern:', value: 'Yes, some sensitivity' },
           { label: 'Treatment interest:', value: 'To be assessed during consultation' },
           { label: 'Consultation requested:', value: 'Yes' },
           { label: 'Preferred contact:', value: 'WhatsApp' },
@@ -492,7 +496,6 @@
     let cameraNoticeElapsed = 0;
     let manualPause = false;
     let visibilityPause = false;
-    let manualReadPause = false;
     let playbackPaused = false;
     let activeDelay = null;
     let delayGeneration = 0;
@@ -500,8 +503,6 @@
     let playbackActive = false;
     let playbackSkipped = false;
     let isReplayPlayback = false;
-    let touchStartY = 0;
-    let autoScrollEnabled = true;
     let displayedProgress = 0;
     let progressStartValue = 0;
     let progressDuration = 0;
@@ -583,25 +584,26 @@
     }
 
     function updatePauseControl() {
-      const paused = manualPause || visibilityPause || manualReadPause;
-      if (paused === playbackPaused) return;
-      playbackPaused = paused;
-      progressLastTimestamp = 0;
-      document.body.classList.toggle('demo-paused', paused);
-      if (paused && activeDelay) {
-        window.clearTimeout(activeDelay.timer);
-        const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
-        const resolve = activeDelay.resolve;
-        activeDelay = null;
-        resolve(elapsed);
+      const paused = manualPause || visibilityPause;
+      if (paused !== playbackPaused) {
+        playbackPaused = paused;
+        progressLastTimestamp = 0;
+        document.body.classList.toggle('demo-paused', paused);
+        if (paused && activeDelay) {
+          window.clearTimeout(activeDelay.timer);
+          const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+          const resolve = activeDelay.resolve;
+          activeDelay = null;
+          resolve(elapsed);
+        }
+        if (!paused) {
+          const waiters = resumeWaiters;
+          resumeWaiters = [];
+          waiters.forEach(resolve => resolve());
+        }
       }
-      if (!paused) {
-        const waiters = resumeWaiters;
-        resumeWaiters = [];
-        waiters.forEach(resolve => resolve());
-      }
-      pauseResumeButton.textContent = paused ? 'Resume' : 'Pause';
-      pauseResumeButton.setAttribute('aria-label', paused ? 'Resume demo' : 'Pause demo');
+      pauseResumeButton.textContent = manualPause ? 'Resume' : 'Pause';
+      pauseResumeButton.setAttribute('aria-label', manualPause ? 'Resume demo' : 'Pause demo');
     }
 
     function waitUntilResumed() {
@@ -885,7 +887,6 @@
 
 
     function scrollToLatest() {
-      if (!autoScrollEnabled) return;
       const latestRow = messagesElement.lastElementChild;
       if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
@@ -1016,10 +1017,8 @@
       cameraNoticeStarted = replayPlayback;
       cameraNoticeElapsed = replayPlayback ? 800 : 0;
       manualPause = false;
-      manualReadPause = false;
       playbackSkipped = false;
       playbackActive = true;
-      autoScrollEnabled = true;
       updatePauseControl();
       if (replayPlayback) {
         document.body.classList.remove('chat-focus-returning');
@@ -1053,7 +1052,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
-          addMessage({ role: 'visitor choice', text: item.selected });
+          addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
           await wait(item.afterSelection);
           if (currentRun !== runId) return;
           continue;
@@ -1111,10 +1110,8 @@
 
     function toggleManualPause() {
       if (!playbackActive) return;
-      if (manualPause || manualReadPause) {
+      if (manualPause) {
         manualPause = false;
-        manualReadPause = false;
-        autoScrollEnabled = true;
         updatePauseControl();
         scrollToLatest();
         trackDemoEvent('demo_resumed_manual');
@@ -1123,14 +1120,6 @@
         updatePauseControl();
         trackDemoEvent('demo_paused_manual');
       }
-    }
-
-    function pauseForManualReading() {
-      if (!playbackActive || manualReadPause) return;
-      manualReadPause = true;
-      autoScrollEnabled = false;
-      updatePauseControl();
-      trackDemoEvent('manual_read_pause');
     }
 
     async function skipToResult() {
@@ -1142,7 +1131,6 @@
       ++launcherRunId;
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       updatePauseControl();
       cancelPendingDelay();
       resetComposer();
@@ -1174,11 +1162,9 @@
       cancelPendingDelay();
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       playbackPaused = false;
       playbackActive = false;
       playbackSkipped = false;
-      autoScrollEnabled = true;
       resumeWaiters.splice(0).forEach(resolve => resolve());
       document.body.classList.remove('demo-paused');
       pauseResumeButton.textContent = 'Pause';
@@ -1212,7 +1198,6 @@
       cancelPendingDelay();
       manualPause = false;
       visibilityPause = false;
-      manualReadPause = false;
       playbackPaused = false;
       playbackActive = false;
       playbackSkipped = false;
@@ -1220,7 +1205,6 @@
       cameraFocusStarted = false;
       cameraNoticeStarted = false;
       cameraNoticeElapsed = 0;
-      autoScrollEnabled = true;
       resumeWaiters.splice(0).forEach(resolve => resolve());
       document.body.classList.remove('demo-paused');
       pauseResumeButton.textContent = 'Pause';
@@ -1297,6 +1281,7 @@
     resultRestoreButton.addEventListener('click',() => setResultMinimized(false));
     pauseResumeButton.addEventListener('click',toggleManualPause);
     skipResultButton.addEventListener('click',skipToResult);
+    document.getElementById('contact-email-address').textContent = contactEmail;
     document.getElementById('gmail-link').href = gmailUrl;
     document.getElementById('email-app-link').href = mailtoUrl;
     contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
@@ -1307,7 +1292,7 @@
     document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
     document.addEventListener('visibilitychange',() => {
       if (!playbackActive) return;
-      if (document.hidden && !manualPause && !manualReadPause) {
+      if (document.hidden && !manualPause) {
         visibilityPause = true;
         updatePauseControl();
         trackDemoEvent('demo_paused_visibility');
@@ -1317,10 +1302,6 @@
         trackDemoEvent('demo_resumed_visibility');
       }
     });
-    messagesElement.addEventListener('wheel',event => { if (event.deltaY < 0) pauseForManualReading(); }, { passive: true });
-    messagesElement.addEventListener('touchstart',event => { touchStartY = event.touches[0]?.clientY || 0; }, { passive: true });
-    messagesElement.addEventListener('touchmove',event => { const y = event.touches[0]?.clientY || 0; if (y > touchStartY + 6) pauseForManualReading(); touchStartY = y; }, { passive: true });
-    messagesElement.addEventListener('pointerdown',event => { if (event.offsetX >= messagesElement.clientWidth - 12) pauseForManualReading(); });
     scheduleInitialLauncherSequence();
   </script>
 </body>

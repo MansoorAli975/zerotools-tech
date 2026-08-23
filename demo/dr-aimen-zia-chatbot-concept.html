@@ -123,7 +123,7 @@
       background: var(--zero-tools-blue);
       content: "";
     }
-    .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(63,75,93,.48); text-underline-offset: 2px; }
+    .concept-label a { margin-left: .25em; color: inherit; text-decoration: underline; text-decoration-color: rgba(63,75,93,.48); text-underline-offset: 2px; }
     .concept-label a:hover { text-decoration-color: currentColor; }
     .concept-label a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 2px; }
 
@@ -372,10 +372,10 @@
       width: fit-content;
       max-width: 85%;
       padding: 11px 13px;
-      border: 1px solid #bdb8b2;
+      border: 1px solid rgba(237, 102, 36, .34);
       border-radius: 16px 7px 16px 16px;
-      color: #2f3947;
-      background: #fff;
+      color: #875037;
+      background: #f7e7df;
       box-shadow: 0 3px 12px rgba(31, 43, 59, .07);
     }
 
@@ -458,17 +458,6 @@
       font-weight: 750;
     }
     .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
-
-    .summary-heading::before {
-      display: inline-block;
-      width: 5px;
-      height: 18px;
-      margin-right: 8px;
-      border-radius: 5px;
-      background: var(--zero-tools-blue);
-      content: "";
-      vertical-align: -2px;
-    }
 
     .summary-support { display: block; margin: 6px 0 0 13px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
     .summary-list { margin: 0; padding: 7px 22px 13px; }
@@ -748,14 +737,11 @@
       let cameraNoticeElapsed = 0;
       let manualPause = false;
       let visibilityPause = false;
-      let manualReadPause = false;
       let playbackPaused = false;
       let activeDelay = null;
       let delayGeneration = 0;
       let resumeWaiters = [];
       let playbackActive = false;
-      let touchStartY = 0;
-      let autoScrollEnabled = true;
       let displayedProgress = 0;
       let progressStartValue = 0;
       let progressDuration = 0;
@@ -870,25 +856,26 @@
       const OPENING_SEND_PRESS_TIME = 275;
 
       function updatePauseControl() {
-        const paused = manualPause || visibilityPause || manualReadPause;
-        if (paused === playbackPaused) return;
-        playbackPaused = paused;
-        progressLastTimestamp = 0;
-        document.body.classList.toggle('demo-paused', paused);
-        if (paused && activeDelay) {
-          window.clearTimeout(activeDelay.timer);
-          const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
-          const resolve = activeDelay.resolve;
-          activeDelay = null;
-          resolve(elapsed);
+        const paused = manualPause || visibilityPause;
+        if (paused !== playbackPaused) {
+          playbackPaused = paused;
+          progressLastTimestamp = 0;
+          document.body.classList.toggle('demo-paused', paused);
+          if (paused && activeDelay) {
+            window.clearTimeout(activeDelay.timer);
+            const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+            const resolve = activeDelay.resolve;
+            activeDelay = null;
+            resolve(elapsed);
+          }
+          if (!paused) {
+            const waiters = resumeWaiters;
+            resumeWaiters = [];
+            waiters.forEach(resolve => resolve());
+          }
         }
-        if (!paused) {
-          const waiters = resumeWaiters;
-          resumeWaiters = [];
-          waiters.forEach(resolve => resolve());
-        }
-        pauseResumeButton.textContent = paused ? 'Resume' : 'Pause';
-        pauseResumeButton.setAttribute('aria-label', paused ? 'Resume demo' : 'Pause demo');
+        pauseResumeButton.textContent = manualPause ? 'Resume' : 'Pause';
+        pauseResumeButton.setAttribute('aria-label', manualPause ? 'Resume demo' : 'Pause demo');
       }
 
       function waitUntilResumed() {
@@ -1120,7 +1107,6 @@
       }
 
       function scrollToLatest() {
-        if (!autoScrollEnabled) return;
         const latestRow = messagesElement.lastElementChild;
         if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
@@ -1257,9 +1243,7 @@
         cameraNoticeStarted = replayPlayback;
         cameraNoticeElapsed = replayPlayback ? 800 : 0;
         manualPause = false;
-        manualReadPause = false;
         playbackActive = true;
-        autoScrollEnabled = true;
         updatePauseControl();
         if (replayPlayback) {
           document.body.classList.remove('chat-focus-returning');
@@ -1354,23 +1338,14 @@
 
       function toggleManualPause() {
         if (!playbackActive) return;
-        if (manualPause || manualReadPause) {
+        if (manualPause) {
           manualPause = false;
-          manualReadPause = false;
-          autoScrollEnabled = true;
           updatePauseControl();
           scrollToLatest();
         } else {
           manualPause = true;
           updatePauseControl();
         }
-      }
-
-      function pauseForManualReading() {
-        if (!playbackActive || manualReadPause) return;
-        manualReadPause = true;
-        autoScrollEnabled = false;
-        updatePauseControl();
       }
 
       async function skipToResult() {
@@ -1381,7 +1356,6 @@
         ++launcherRunId;
         manualPause = false;
         visibilityPause = false;
-        manualReadPause = false;
         updatePauseControl();
         cancelPendingDelay();
         resetComposer();
@@ -1412,10 +1386,8 @@
         cancelPendingDelay();
         manualPause = false;
         visibilityPause = false;
-        manualReadPause = false;
         playbackPaused = false;
         playbackActive = false;
-        autoScrollEnabled = true;
         resumeWaiters.splice(0).forEach(resolve => resolve());
         document.body.classList.remove('demo-paused');
         pauseResumeButton.textContent = 'Pause';
@@ -1449,13 +1421,11 @@
         cancelPendingDelay();
         manualPause = false;
         visibilityPause = false;
-        manualReadPause = false;
         playbackPaused = false;
         playbackActive = false;
         cameraFocusStarted = false;
         cameraNoticeStarted = false;
         cameraNoticeElapsed = 0;
-        autoScrollEnabled = true;
         resumeWaiters.splice(0).forEach(resolve => resolve());
         document.body.classList.remove('demo-paused');
         pauseResumeButton.textContent = 'Pause';
@@ -1537,23 +1507,13 @@
       document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
       document.addEventListener('visibilitychange',() => {
         if (!playbackActive) return;
-        if (document.hidden && !manualPause && !manualReadPause) {
+        if (document.hidden && !manualPause) {
           visibilityPause = true;
           updatePauseControl();
         } else if (!document.hidden && visibilityPause) {
           visibilityPause = false;
           updatePauseControl();
         }
-      });
-      messagesElement.addEventListener('wheel',event => { if (event.deltaY < 0) pauseForManualReading(); }, { passive: true });
-      messagesElement.addEventListener('touchstart',event => { touchStartY = event.touches[0]?.clientY || 0; }, { passive: true });
-      messagesElement.addEventListener('touchmove',event => {
-        const y = event.touches[0]?.clientY || 0;
-        if (y > touchStartY + 6) pauseForManualReading();
-        touchStartY = y;
-      }, { passive: true });
-      messagesElement.addEventListener('pointerdown',event => {
-        if (event.offsetX >= messagesElement.clientWidth - 12) pauseForManualReading();
       });
       trackDemoEvent('page_view');
       scheduleInitialLauncherSequence();
