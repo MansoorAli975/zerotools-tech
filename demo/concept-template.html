@@ -98,11 +98,11 @@
         linear-gradient(135deg,#f7f8fa,#dde2e8);
     }
 
-    .site-mockup { position: absolute; inset: 0 -6px 0 0; z-index: 0; width: calc(100% + 6px); height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; transform: translate(0,0) scale(1); transform-origin: 90% 55%; transition: transform 1.2s cubic-bezier(.16,1,.3,1),filter 1.2s cubic-bezier(.16,1,.3,1); }
+    .site-mockup { position: absolute; inset: 0; z-index: 0; width: 100%; height: auto; pointer-events: none; user-select: none; transition: filter 1.2s cubic-bezier(.16,1,.3,1); }
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
     .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
-    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.5%,0) scale(1.16); }
+    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); }
     body.chat-focus-mode .focus-overlay { opacity: 1; }
     body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-6px,-4px) scale(1.04); box-shadow: 0 32px 86px rgba(22,34,53,.32); }
     body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
@@ -244,10 +244,18 @@
     @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
     .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
 
+    @media (min-width:1000px) and (max-width:1250px) {
+      .business-result { top: calc(50% - 22px); max-height: calc(100svh - 150px); }
+      .summary-heading { padding: 15px 118px 12px 20px; }
+      .summary-list { padding: 4px 20px 9px; }
+      .summary-item { padding: 7px 0; }
+      .result-cta { padding: 10px 20px 12px; }
+    }
+
     @media (max-width:720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
-      .site-mockup { opacity: .35; }
-      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); transform: none; }
+      .site-mockup { position: fixed; inset: 0 -6px 0 0; width: calc(100% + 6px); height: 100svh; object-fit: cover; object-position: center top; opacity: .35; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); }
       body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
       .prospect-widget { display: none; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
@@ -295,7 +303,7 @@
       .contact-modal, .contact-panel { transition-duration: .01ms; }
       .chat-shell, .launcher-wrap { transition-duration: .01ms; }
       .site-mockup, .focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
-      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); transform: none; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); }
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
     }
@@ -389,13 +397,15 @@
        Keep prospect content here. Static crawler metadata must still be replaced in <head>. */
     const DEMO_CONFIG = {
       prospectName: 'Prospect Company',
+      attributionProspectName: '', // Optional override; leave blank to use prospectName.
       // Remote tracking stays disabled until this is set to a real lowercase prospect slug.
       trackingProspect: '',
       companyName: 'Prospect Company',
       shortCompanyName: 'Prospect Company',
       chatbotName: 'Website Assistant',
+      launcherLabel: '', // Optional override; leave blank to derive from chatbotName.
       botInitials: 'PC',
-      backgroundImagePath: 'assets/company-homepage.png',
+      siteImage: '', // Set to a real prospect image path; blank uses the built-in QA calibration image.
       backgroundImageAltText: 'Public homepage of Prospect Company used as the concept background',
       primaryBrandColour: '#167a8b',
       secondaryBrandColour: '#173f4a',
@@ -524,6 +534,43 @@
     const trackingSessionId = crypto.randomUUID();
     const trackingSuppressed = new URLSearchParams(window.location.search).get('test') === '1';
     const trackingProspectIsValid = /^[a-z0-9-]{1,80}$/.test(DEMO_CONFIG.trackingProspect);
+    const QA_CALIBRATION_SITE_IMAGE = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="970" viewBox="0 0 1920 970">
+        <defs>
+          <pattern id="grid" width="120" height="97" patternUnits="userSpaceOnUse">
+            <path d="M120 0H0V97" fill="none" stroke="#8794a8" stroke-width="2" opacity=".3"/>
+          </pattern>
+        </defs>
+        <rect width="1920" height="970" fill="#e9edf3"/>
+        <rect width="1920" height="970" fill="url(#grid)"/>
+        <rect x="0" y="0" width="190" height="970" fill="#cfdef6"/>
+        <rect x="1730" y="0" width="190" height="970" fill="#f3d4d4"/>
+        <rect x="0" y="0" width="1920" height="100" fill="#d8eadb" opacity=".92"/>
+        <rect x="0" y="870" width="1920" height="100" fill="#f5e5bb" opacity=".94"/>
+        <rect x="8" y="8" width="1904" height="954" fill="none" stroke="#172b4d" stroke-width="16"/>
+        <path d="M960 0V970M0 485H1920" stroke="#7048c6" stroke-width="6" stroke-dasharray="22 14"/>
+        <g fill="none" stroke="#172b4d" stroke-width="12">
+          <path d="M28 150V28H150M1770 28h122v122M28 820v122h122M1770 942h122V820"/>
+        </g>
+        <g font-family="Arial,Helvetica,sans-serif" font-weight="700" text-anchor="middle" fill="#172b4d">
+          <text x="960" y="65" font-size="42">TOP · 1920 × 970 QA CALIBRATION</text>
+          <text x="960" y="935" font-size="42">BOTTOM</text>
+          <text x="95" y="485" font-size="34" transform="rotate(-90 95 485)">LEFT EDGE</text>
+          <text x="1825" y="485" font-size="34" transform="rotate(90 1825 485)">RIGHT EDGE</text>
+          <text x="960" y="465" font-size="38">CENTER</text>
+          <text x="960" y="520" font-size="25">960, 485</text>
+          <text x="100" y="155" font-size="24">TOP LEFT</text>
+          <text x="1820" y="155" font-size="24">TOP RIGHT</text>
+          <text x="100" y="835" font-size="24">BOTTOM LEFT</text>
+          <text x="1820" y="835" font-size="24">BOTTOM RIGHT</text>
+        </g>
+        <g fill="#172b4d">
+          <circle cx="960" cy="485" r="14"/>
+          <circle cx="480" cy="242.5" r="9"/><circle cx="1440" cy="242.5" r="9"/>
+          <circle cx="480" cy="727.5" r="9"/><circle cx="1440" cy="727.5" r="9"/>
+        </g>
+      </svg>
+    `)}`;
     const persistentDemoEvents = new Set([
       'page_view',
       'chatbot_opened',
@@ -559,7 +606,7 @@
       document.documentElement.style.setProperty('--mobile-launcher-bottom-offset', DEMO_CONFIG.mobileLauncherBottomOffset);
       document.documentElement.style.setProperty('--mobile-chat-window-bottom-offset', DEMO_CONFIG.mobileChatWindowBottomOffset);
       const conceptLabel = document.getElementById('concept-label');
-      conceptLabel.replaceChildren(document.createTextNode(`Website Chatbot Concept for ${DEMO_CONFIG.prospectName} · Prepared by `));
+      conceptLabel.replaceChildren(document.createTextNode(`Website Chatbot Concept for ${DEMO_CONFIG.attributionProspectName || DEMO_CONFIG.prospectName} · Prepared by `));
       const zeroToolsLink = document.createElement('a');
       zeroToolsLink.href = 'https://zerotools.tech/';
       zeroToolsLink.target = '_blank';
@@ -570,12 +617,12 @@
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
       launcherId.textContent = DEMO_CONFIG.botInitials;
-      launcherTooltip.textContent = `Chat with ${DEMO_CONFIG.chatbotName}`;
+      launcherTooltip.textContent = DEMO_CONFIG.launcherLabel || `Chat with ${DEMO_CONFIG.chatbotName}`;
       chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
       document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
-      siteMockup.alt = DEMO_CONFIG.backgroundImageAltText;
+      siteMockup.alt = DEMO_CONFIG.siteImage ? DEMO_CONFIG.backgroundImageAltText : 'Built-in 1920 by 970 website geometry calibration background';
       siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
-      siteMockup.src = DEMO_CONFIG.backgroundImagePath;
+      siteMockup.src = DEMO_CONFIG.siteImage || QA_CALIBRATION_SITE_IMAGE;
       document.getElementById('summary-title').textContent = DEMO_CONFIG.enquiryResult.title;
       document.getElementById('summary-support').textContent = DEMO_CONFIG.enquiryResult.supportText;
       document.getElementById('summary-list').replaceChildren(...DEMO_CONFIG.enquiryResult.fields.map(field => {
@@ -1040,7 +1087,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
-          addMessage({ role: 'visitor choice', text: item.selected });
+          addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
           await wait(item.afterSelection);
           if (currentRun !== runId) return;
           continue;
