@@ -8,8 +8,25 @@
   <!-- MASTER TEMPLATE — REPLACE ALL PROSPECT METADATA BEFORE DEPLOYMENT
        Static values must remain in the HTML head so social crawlers can read them. -->
   <title>Website Chatbot Concept for Dr. Nonie Coutts Veterinary Surgery | Zero Tools</title>
-  <meta name="description" content="A temporary scripted website chatbot concept prepared for Dr. Nonie Coutts Veterinary Surgery using publicly available information.">
-  <link rel="canonical" href="https://www.zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/">
+  <meta name="description" content="A temporary independent website chatbot concept prepared by Zero Tools for Dr. Nonie Coutts Veterinary Surgery using publicly available information.">
+  <link rel="canonical" href="https://zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/">
+  <meta property="og:title" content="Website Chatbot Concept for Dr. Nonie Coutts Veterinary Surgery | Zero Tools">
+  <meta property="og:description" content="A temporary independent website chatbot concept prepared by Zero Tools for Dr. Nonie Coutts Veterinary Surgery using publicly available information.">
+  <meta property="og:image" content="https://zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/assets/og-preview.png">
+  <meta property="og:image:secure_url" content="https://zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/assets/og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="2400">
+  <meta property="og:image:height" content="1260">
+  <meta property="og:image:alt" content="Website chatbot concept displayed on the Dr. Nonie Coutts Veterinary Surgery homepage">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Website Chatbot Concept for Dr. Nonie Coutts Veterinary Surgery | Zero Tools">
+  <meta name="twitter:description" content="A temporary independent website chatbot concept prepared by Zero Tools for Dr. Nonie Coutts Veterinary Surgery using publicly available information.">
+  <meta name="twitter:image" content="https://zerotools.tech/demo/dr-nonie-coutts-chatbot-concept/assets/og-preview.png">
+  <meta name="twitter:image:alt" content="Website chatbot concept displayed on the Dr. Nonie Coutts Veterinary Surgery homepage">
   <link rel="icon" href="/favicon.png?v=1">
 
   <!-- PROSPECT DUPLICATION CHECKLIST
@@ -84,7 +101,7 @@
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
     .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
-    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: translate(-2.5%,0) scale(1.16); }
+    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); transform: none; }
     body.chat-focus-mode .focus-overlay { opacity: 1; }
     body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-6px,-4px) scale(1.04); box-shadow: 0 32px 86px rgba(22,34,53,.32); }
     body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
@@ -102,7 +119,6 @@
 
     .launcher-wrap { position: fixed; right: clamp(28px,4vw,64px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
     .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
-    .launcher-tooltip { padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: color-mix(in srgb,var(--brand-dark) 92%,transparent); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; }
     .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 2px solid rgba(255,255,255,.88); border-radius: 50%; color: #fff; background: linear-gradient(145deg,var(--brand),var(--brand-dark)); box-shadow: 0 12px 28px rgba(5,11,25,.34); cursor: pointer; animation: none; transition: transform .16s ease,box-shadow .16s ease; }
     .chat-launcher:hover, .chat-launcher.is-script-hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
     .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
@@ -226,123 +242,11 @@
     @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
     .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
 
-    /* Dr. Nonie production architecture: native responsive website reflow into a desktop chat rail. */
-    .site-mockup { display: block; }
-    .site-architecture { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #e8e8e8; }
-    .site-frame { position: absolute; top: 0; overflow: hidden; transform-origin: left top; transition: opacity .36s ease,transform 740ms cubic-bezier(.22,.78,.24,1),filter 1.2s cubic-bezier(.16,1,.3,1); will-change: opacity,transform; }
-    .site-frame picture { position: absolute; inset: 0; display: block; }
-    .site-frame img { position: absolute; top: 0; display: block; max-width: none; pointer-events: none; user-select: none; }
-    .closed-site-frame { left: 50%; width: var(--closed-site-width); height: var(--closed-source-height); opacity: 1; transform: translateX(-50%); }
-    .closed-site-frame img { left: calc(-1 * var(--closed-crop-left)); width: var(--closed-source-width); height: var(--closed-source-height); }
-    .closed-site-frame .site-mockup { inset: auto; filter: none !important; object-fit: fill; transform: none !important; transition: none; }
-    .open-site-frame { left: calc(100vw - var(--rail-right) - var(--rail-width) - var(--rail-gap) - var(--open-site-width)); width: var(--open-site-width); height: var(--open-source-height); visibility: hidden; opacity: 0; transform: translateX(24px); }
-    .open-site-frame img { left: calc(-1 * var(--open-crop-left)); width: var(--open-source-width); height: var(--open-source-height); }
-    body.chat-rail-open .closed-site-frame { opacity: 0; transform: translateX(calc(-50% - 34px)); }
-    body.chat-rail-open .open-site-frame { visibility: visible; opacity: 1; transform: none; }
-
-    :root {
-      --closed-site-width: 1500px; --closed-site-quarter: 375px; --closed-source-width: 1577px; --closed-source-height: 970px; --closed-crop-left: 29px;
-      --open-site-width: 1500px; --open-source-width: 1577px; --open-source-height: 970px; --open-crop-left: 29px;
-      --rail-width: 380px; --rail-right: 20px; --rail-gap: 20px;
-    }
-
-    @media (min-width:1920px) {
-      .chat-shell { right: var(--rail-right); width: var(--rail-width); }
-    }
-
-    @media (min-width:1700px) and (max-width:1919px) {
-      :root { --open-site-width: 1200px; --open-source-width: 1366px; --open-source-height: 844px; --open-crop-left: 83px; }
-      .chat-shell { right: var(--rail-right); width: var(--rail-width); }
-    }
-
-    @media (min-width:1500px) and (max-width:1699px) {
-      :root { --open-site-width: 885px; --open-source-width: 885px; --open-source-height: 844px; --open-crop-left: 0px; }
-      .chat-shell { right: var(--rail-right); width: var(--rail-width); }
-    }
-
-    @media (min-width:1500px) {
-      .launcher-wrap { left: min(calc(75vw + var(--closed-site-quarter) - 26px),calc(100vw - 56px)); right: auto; }
-      .chat-launcher { width: 52px; height: 52px; border-width: 1px; background: linear-gradient(145deg,#393d40,#202326); }
-      .launcher-icon { width: 21px; height: 21px; }
-    }
-
-    @media (min-width:1500px) and (max-width:1603px) {
-      .launcher-wrap { top: 220px; right: 12px; bottom: auto; left: auto; }
-    }
-
-    @media (min-width:1250px) and (max-width:1499px) {
-      :root {
-        --closed-site-width: 1200px; --closed-site-quarter: 300px; --closed-source-width: 1366px; --closed-source-height: 844px; --closed-crop-left: 83px;
-        --open-site-width: 885px; --open-source-width: 885px; --open-source-height: 844px; --open-crop-left: 0px;
-        --rail-width: 350px; --rail-right: 0px; --rail-gap: 15px;
-      }
-      .chat-shell { right: var(--rail-right); width: var(--rail-width); }
-      .launcher-wrap { left: min(calc(75vw + var(--closed-site-quarter) - 26px),calc(100vw - 56px)); right: auto; }
-      .chat-launcher { width: 52px; height: 52px; border-width: 1px; background: linear-gradient(145deg,#393d40,#202326); }
-      .launcher-icon { width: 21px; height: 21px; }
-    }
-
-    @media (min-width:1250px) and (max-width:1303px) {
-      .launcher-wrap { top: 160px; right: 12px; bottom: auto; left: auto; }
-    }
-
-    @media (min-width:1200px) and (max-width:1249px) {
-      :root {
-        --closed-site-width: 970px; --closed-site-quarter: 242.5px; --closed-source-width: 1150px; --closed-source-height: 844px; --closed-crop-left: 90px;
-        --open-site-width: 800px; --open-source-width: 800px; --open-source-height: 844px; --open-crop-left: 0px;
-        --rail-width: 350px; --rail-right: 0px; --rail-gap: 15px;
-      }
-      .chat-shell { right: var(--rail-right); width: var(--rail-width); }
-      .launcher-wrap { left: min(calc(75vw + var(--closed-site-quarter) - 26px),calc(100vw - 56px)); right: auto; }
-      .chat-launcher { width: 52px; height: 52px; border-width: 1px; background: linear-gradient(145deg,#393d40,#202326); }
-      .launcher-icon { width: 21px; height: 21px; }
-    }
-
-    @media (min-width:1200px) {
-      body.chat-rail-open.chat-focus-mode .site-frame { filter: none; }
-      body.chat-rail-open .focus-overlay { opacity: 0; }
-      body.chat-rail-open .chat-shell:not(.is-closed) { transform: none; }
-      body.chat-rail-open .chat-shell { top: 20px; bottom: 20px; height: calc(100svh - 40px); min-height: 0; border-radius: 18px; transform-origin: right center; transition-duration: 740ms; transition-timing-function: cubic-bezier(.22,.78,.24,1); }
-    }
-
-    @media (min-width:1200px) and (max-width:1499px) {
-      .chat-header { gap: 6px; padding: 13px 8px 13px 10px; }
-      .avatar { width: 40px; height: 40px; font-size: 12.5px; }
-      .chat-title strong { font-size: 14px; }
-      .chat-title span { gap: 5px; font-size: 11px; }
-      .playback-controls { gap: 3px; }
-      .playback-control { min-height: 32px; padding: 5px; border-radius: 8px; font-size: 9.5px; }
-    }
-
-    @media (min-width:1150px) and (max-width:1249px) {
-      :root { --closed-site-width: 970px; --closed-site-quarter: 242.5px; --closed-source-width: 1150px; --closed-source-height: 844px; --closed-crop-left: 90px; }
-    }
-
-    @media (min-width:885px) and (max-width:1149px) {
-      :root { --closed-site-width: 885px; --closed-site-quarter: 221.25px; --closed-source-width: 885px; --closed-source-height: 844px; --closed-crop-left: 0px; }
-    }
-
-    @media (max-width:1199px) {
-      .site-architecture { inset: 0; width: 100vw; transform: none; }
-      .open-site-frame { display: none; }
-      .closed-site-frame, body.chat-rail-open .closed-site-frame { right: auto; left: 50%; opacity: 1; transform: translateX(-50%); }
-      body.chat-rail-open .site-architecture { right: auto; left: 0; width: 100vw; transform: none; }
-      body.chat-rail-open .closed-site-frame { filter: brightness(.76); }
-      .chat-shell { right: 50%; width: min(410px,calc(100vw - 44px)); transform: translateX(50%); }
-      .chat-shell.is-closed { transform: translate(50%,28px) scale(.86); }
-      body.chat-rail-open.chat-focus-mode .chat-shell:not(.is-closed) { transform: translateX(50%); }
-    }
-
-    @media (min-width:1150px) and (max-width:1199px) {
-      :root { --closed-site-width: 1150px; --closed-site-quarter: 287.5px; --closed-source-width: 1150px; --closed-source-height: 844px; --closed-crop-left: 0px; }
-    }
-
-    @media (min-width:721px) and (max-width:1199px) {
-      .concept-label { max-width: calc(100vw - 32px); padding: 7px 10px; font-size: 11px; white-space: nowrap; }
-    }
-
-    @media (max-width:884px) {
-      :root { --closed-site-width: min(800px,100vw); --closed-site-quarter: 25vw; --closed-source-width: min(800px,100vw); --closed-source-height: min(844px,105.5vw); --closed-crop-left: 0px; }
+    @media (min-width:721px) and (max-width:1200px) {
+      .site-mockup { inset: auto; top: 0; left: 0; width: 100%; height: auto; object-fit: contain; object-position: center top; }
+      .concept-label { max-width: calc(100vw - 32px); padding: 7px 10px; font-size: 10.5px; white-space: nowrap; }
+      .business-result { max-height: calc(100svh - 140px); }
+      .disclaimer { left: 22px; width: calc(100vw - 44px); font-size: 11px; }
     }
 
     @media (max-width:720px) {
@@ -356,7 +260,6 @@
       .chat-shell { position: relative; top: auto; right: auto; bottom: auto; width: min(410px,calc(100vw - 28px)); height: min(670px,calc(100svh - 92px - var(--mobile-chat-window-bottom-offset))); min-height: 500px; margin: 18px auto var(--mobile-chat-window-bottom-offset); transform: none; transform-origin: center bottom; }
       .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
       .launcher-wrap { right: 24px; bottom: var(--mobile-launcher-bottom-offset); }
-      .launcher-tooltip { font-size: 10.5px; }
       .chat-launcher { width: 60px; height: 60px; }
       .demo-cursor { display: none; }
       .chat-header { min-height: 70px; padding: 13px 10px 13px 14px; }
@@ -404,25 +307,7 @@
 </head>
 <body>
   <main class="presentation">
-    <div class="site-architecture" aria-hidden="true">
-      <div class="site-frame closed-site-frame">
-        <picture>
-          <source media="(min-width:1500px)" srcset="assets/company-homepage-wide-q85.webp">
-          <source media="(min-width:1250px)" srcset="assets/company-homepage-1366-q85.webp">
-          <source media="(min-width:1150px)" srcset="assets/company-homepage-1150-q85.webp">
-          <source media="(min-width:885px)" srcset="assets/company-homepage-885-q85.webp">
-          <img class="site-mockup" id="site-mockup" src="assets/company-homepage-800-q85.webp" alt="" draggable="false">
-        </picture>
-      </div>
-      <div class="site-frame open-site-frame">
-        <picture>
-          <source media="(min-width:1920px)" srcset="assets/company-homepage-wide-q85.webp">
-          <source media="(min-width:1700px)" srcset="assets/company-homepage-1366-q85.webp">
-          <source media="(min-width:1250px)" srcset="assets/company-homepage-885-q85.webp">
-          <img src="assets/company-homepage-800-q85.webp" alt="" draggable="false">
-        </picture>
-      </div>
-    </div>
+    <img class="site-mockup" id="site-mockup" src="assets/company-homepage-wide-q85.webp" alt="" draggable="false" aria-hidden="true">
     <div class="focus-overlay" aria-hidden="true"></div>
 
     <div class="concept-tools">
@@ -430,8 +315,7 @@
     </div>
 
     <div class="launcher-wrap" id="launcher-wrap">
-      <span class="launcher-tooltip" id="launcher-tooltip">Chat with us</span>
-      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Dr. Nonie Assistant" aria-describedby="launcher-tooltip">
+      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Dr. Nonie Assistant">
         <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
         <span class="launcher-id" id="launcher-id" aria-hidden="true">PC</span>
         <span class="launcher-ripple" aria-hidden="true"></span>
@@ -514,45 +398,48 @@
       shortCompanyName: 'Dr. Nonie',
       chatbotName: 'Dr. Nonie Assistant',
       botInitials: 'DN',
-      backgroundImagePath: 'assets/company-homepage-800-q85.webp',
+      backgroundImagePath: 'assets/company-homepage-wide-q85.webp',
       backgroundImageAltText: 'Public homepage of Dr. Nonie Coutts Veterinary Surgery used as the concept background',
       primaryBrandColour: '#c65a20',
       secondaryBrandColour: '#292d30',
-      launcherBottomOffset: '116px',
+      launcherBottomOffset: '92px',
       chatWindowBottomOffset: '48px',
       mobileLauncherBottomOffset: '110px',
       mobileChatWindowBottomOffset: '0px',
       contactEmail: 'support@zerotools.tech',
       contactSubject: '', // Optional override; leave blank to derive from prospectName.
       contactBody: '', // Optional override; leave blank to derive from prospectName.
-      welcomeMessage: 'Hello, I’m the Dr. Nonie Assistant.\nHow can I help you today?',
+      welcomeMessage: 'Hello, I’m the Dr. Nonie Assistant. How can I help with your pet today?',
       // Recalculate for each prospect: active conversation start through insertion of the final bot message.
-      conversationTimerDuration: 56898,
-      // TEMPORARY architecture-only conversation; replace after veterinary conversation approval.
+      conversationTimerDuration: 81080,
       conversationSequence: [
         { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
-        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I’m interested in your services, but I’m not sure which option would suit my needs.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'I can help you understand the available options. What would you mainly like help with?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Service information', 'Choosing an option', 'General guidance'], selected: 'Choosing an option' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. A few details can help the team respond with the most relevant information.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What would you prefer as the next step?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Request a consultation', 'Ask a question', 'Review information first'], selected: 'Request a consultation' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer the team to contact you?' },
-        { type: 'choice', delay: 300, selectionDelay: 2000, afterSelection: 1600, options: ['Email', 'Phone call', 'Messaging app'], selected: 'Email' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter a sample email address so the team can follow up.' },
-        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: 'visitor@example.com' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. Your enquiry has been prepared. We will review it and follow up by email.' }
+        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'My 9-year-old Labrador is slowing down, gaining weight, and his breath has become quite bad. I’m not sure what I should book.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'I can help you find a sensible starting point.\nFirst, which concern would you most like us to look at?' },
+        { type: 'choice', delay: 300, selectionDelay: 2600, afterSelection: 2200, options: ['General health', 'Teeth / bad breath', 'Weight'], selected: 'General health' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'At 9 years old, a Senior Wellness Check may be a useful starting point. These checks are tailored to the individual pet and can include a physical examination and, when appropriate, blood or urine tests.\n\nWould you also like us to know about the other concerns?' },
+        { type: 'choice', delay: 300, selectionDelay: 2600, afterSelection: 2200, options: ['Teeth + weight', 'Teeth only', 'Weight only'], selected: 'Teeth + weight' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Got it. We also provide dental care and weight-management support, so our team can consider those concerns alongside the general assessment.\n\nWhich location would you prefer?' },
+        { type: 'choice', delay: 300, selectionDelay: 2600, afterSelection: 2200, options: ['Manama', 'Saar', 'No preference'], selected: 'Manama' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'When would you prefer the appointment?' },
+        { type: 'choice', delay: 300, selectionDelay: 2600, afterSelection: 2200, options: ['This week', 'Next week', 'Flexible'], selected: 'This week' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter your WhatsApp or phone number so we can contact you about the appointment request.' },
+        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: '+973 3XXX XXXX' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. I’ve prepared the enquiry details for our team so we can follow up with the relevant information and appointment availability.' }
       ],
-      // TEMPORARY architecture-only result; replace after conversation approval.
       enquiryResult: {
         title: 'Structured enquiry',
         supportText: 'Example structured enquiry from this conversation',
         fields: [
-          { label: 'Interest:', value: 'Service guidance' },
-          { label: 'Main need:', value: 'Help choosing an option' },
-          { label: 'Requested step:', value: 'Consultation' },
-          { label: 'Preferred contact:', value: 'Email' },
-          { label: 'Contact detail:', value: 'visitor@example.com' }
+          { label: 'Pet:', value: '9-year-old Labrador' },
+          { label: 'Main need:', value: 'Senior health assessment' },
+          { label: 'Additional concerns:', value: 'Bad breath / dental + weight gain' },
+          { label: 'Guided to:', value: 'Senior Wellness Check' },
+          { label: 'Other relevant care:', value: 'Dentistry + Weight Clinic' },
+          { label: 'Preferred location:', value: 'Manama' },
+          { label: 'Preferred timing:', value: 'This week' },
+          { label: 'Contact:', value: '+973 3XXX XXXX' },
+          { label: 'Next step:', value: 'Follow up with owner regarding appointment availability' }
         ]
       },
       disclaimer: 'Temporary independent concept prepared by Zero Tools for private review using publicly available website information. It is not installed on or connected to Dr. Nonie Coutts Veterinary Surgery’s live website. This preview will be removed after the agreed review period, or earlier upon request.',
@@ -574,10 +461,10 @@
         cleanSiteRevealHold: 800,
         skipCleanSiteRevealHold: 500,
         resultRevealTime: 600,
-        visitorMessagePause: 2100,
-        shortBotReadingPause: 2500,
-        mediumBotReadingPause: 3600,
-        longBotReadingPause: 5000,
+        visitorMessagePause: 3000,
+        shortBotReadingPause: 3200,
+        mediumBotReadingPause: 4700,
+        longBotReadingPause: 6500,
         contactCharacterDelays: [170,180,165,195,260,175,205,250,180,165,190,280,200,175,185,170,190,180,205],
         contactGroupPause: 300,
         contactTypedPause: 800,
@@ -607,7 +494,6 @@
     const chatShell = document.getElementById('chat-shell');
     const launcherWrap = document.getElementById('launcher-wrap');
     const chatLauncher = document.getElementById('chat-launcher');
-    const launcherTooltip = document.getElementById('launcher-tooltip');
     const launcherId = document.getElementById('launcher-id');
     const demoCursor = document.getElementById('demo-cursor');
     const contactModal = document.getElementById('contact-modal');
@@ -694,7 +580,6 @@
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
       launcherId.textContent = DEMO_CONFIG.botInitials;
-      launcherTooltip.textContent = 'Chat with us';
       chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
       document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
       siteMockup.alt = DEMO_CONFIG.backgroundImageAltText;
@@ -890,7 +775,6 @@
       showLauncherRipple();
       await wait(140);
       launcherWrap.classList.add('is-hidden');
-      document.body.classList.add('chat-rail-open');
       chatShell.setAttribute('aria-hidden', 'false');
       chatShell.classList.remove('is-closed');
       resetProgressTimer();
@@ -988,7 +872,6 @@
     }
 
     function closeChatAndRestoreLauncher() {
-      document.body.classList.remove('chat-rail-open');
       chatShell.classList.add('is-closed');
       chatShell.setAttribute('aria-hidden', 'true');
       launcherWrap.classList.remove('is-hidden', 'show-attention');
