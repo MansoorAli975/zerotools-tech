@@ -231,35 +231,29 @@
     .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
     .contact-panel { position: relative; width: min(400px,100%); max-height: calc(100svh - 40px); overflow-y: auto; padding: 24px; border: 1px solid rgba(23,43,77,.12); border-radius: 20px; background: #fff; box-shadow: 0 18px 56px rgba(6,18,38,.22); transform: translateY(10px) scale(.98); transition: transform .2s ease; }
     .contact-modal.is-open .contact-panel { transform: none; }
-    .contact-brand { display: block; width: 148px; max-width: calc(100% - 40px); height: auto; margin: 0 0 14px; }
-    .contact-intro { margin: 0 0 18px; color: #172b4d; font-size: 16px; font-weight: 650; line-height: 1.45; }
+    .contact-brand { display: block; width: 148px; max-width: calc(100% - 40px); height: auto; margin: 0 0 24px; }
+    .contact-intro { margin: 0 0 26px; color: #172b4d; font-size: 15px; font-weight: 650; line-height: 1.45; }
     .contact-close { position: absolute; top: 13px; right: 13px; display: grid; width: 34px; height: 34px; padding: 0; place-items: center; border: 0; border-radius: 50%; color: #526075; background: #f0f3f7; font-size: 22px; line-height: 1; cursor: pointer; }
-    .contact-option-label { margin: 0 0 8px; color: #40516a; font-size: 12px; font-weight: 850; }
-    .email-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; border: 1px solid #cce7f3; border-radius: 11px; background: #f3fbff; }
-    .email-address { min-width: 0; overflow-wrap: anywhere; color: #172b4d; font-size: 13.5px; font-weight: 800; }
-    .copy-email { flex: 0 0 auto; padding: 6px 9px; border: 1px solid #9ed7ed; border-radius: 7px; color: #075a7b; background: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
-    .contact-actions { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; margin-top: 9px; }
-    .contact-action { display: grid; min-height: 36px; padding: 7px 10px; place-items: center; border: 1px solid #00a5e5; border-radius: 9px; color: #102638; background: #00a5e5; font-size: 12px; font-weight: 800; text-align: center; text-decoration: none; }
-    .contact-action.secondary { border: 1px solid #9ed7ed; color: #075a7b; background: #fff; }
-    .contact-section { margin-top: 18px; }
-    .contact-action:hover { background: #008fc8; border-color: #008fc8; }
-    .contact-action.secondary:hover { background: #e5f6fd; }
-    .contact-whatsapp:hover { border-color: #008fc8; background: #008fc8; }
-    .contact-whatsapp svg { flex: 0 0 auto; width: 20px; height: 20px; fill: currentColor; }
-    .contact-site-link:hover { border-color: #00a5e5; background: #e5f6fd; }
-    .contact-site-link svg { flex: 0 0 auto; width: 16px; height: 16px; }
-    .contact-whatsapp { display: flex; width: 100%; min-height: 42px; align-items: center; justify-content: center; gap: 9px; border-color: #00a5e5; background: #00a5e5; font-size: 13px; }
-    .contact-site-link { display: flex; min-height: 38px; padding: 8px 12px; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid #cce7f3; border-radius: 9px; color: #075a7b; background: #f3fbff; font-size: 12px; font-weight: 750; text-decoration: none; }
-
-    .copy-email:hover { border-color: #00a5e5; background: #e5f6fd; }
-    .contact-panel :is(button, a):focus-visible { outline: 3px solid #00a5e5; outline-offset: 3px; }
-
-    /* Only email actions inherit the homepage email-button style. */
-    .contact-actions .contact-action { min-width: 0; min-height: 52px; padding: 14px 18px; border: 1px solid #e5e7eb; border-radius: 12px; color: #111827; background: #fff; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; font-size: 16px; font-weight: 600; line-height: 1.6; transition: all .3s ease; }
-    .contact-actions .contact-action:hover { color: #111827; background: #fff; border-color: #e5e7eb; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,.05); }
-    .contact-panel .contact-actions .contact-action:focus-visible { outline: 2px solid #e5e7eb; outline-offset: 2px; }
-    .contact-action.contact-whatsapp { border-color: #128c4a; color: #fff; background: #128c4a; }
-    .contact-action.contact-whatsapp:hover { border-color: #0e743d; color: #fff; background: #0e743d; }
+    .contact-divider { display: flex; align-items: center; gap: 14px; margin: 0 0 22px; color: #525660; font-size: 13px; font-weight: 600; }
+    .contact-divider::before, .contact-divider::after { content: ''; flex: 1; height: 1px; background: #d8dade; }
+    .email-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; border-radius: 8px; background: #f3f4f8; }
+    .email-address { min-width: 0; overflow-wrap: anywhere; color: #303641; font-size: 13px; font-weight: 600; }
+    .copy-email { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; padding: 6px 0 6px 6px; border: 0; border-radius: 5px; color: #636975; background: transparent; font-size: 12px; font-weight: 500; cursor: pointer; }
+    .copy-email::after { content: ''; width: 16px; height: 18px; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Crect x='7' y='2' width='11' height='14' rx='2' fill='none' stroke='black' stroke-width='1.6'/%3E%3Cpath d='M13 17v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h2' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") center / contain no-repeat; }
+    .contact-actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+    .contact-action { display: flex; width: 100%; min-height: 42px; padding: 9px 12px; align-items: center; justify-content: center; gap: 9px; border: 1px solid #858990; border-radius: 8px; color: #303641; background: #fff; font-size: 14px; font-weight: 500; line-height: 1.4; text-align: center; text-decoration: none; transition: background .18s ease,border-color .18s ease; }
+    .contact-action svg { flex: 0 0 auto; width: 20px; height: 20px; }
+    .contact-section { margin-top: 24px; }
+    .contact-section .contact-divider { margin-bottom: 22px; }
+    .contact-action:hover { border-color: #303641; background: #f8f9fb; }
+    .contact-whatsapp svg { order: 1; color: #25b85a; fill: currentColor; }
+    .contact-website { margin-top: 30px; }
+    .contact-website-intro { margin: 0 0 8px; color: #525660; font-size: 13px; line-height: 1.5; }
+    .contact-site-link { display: inline-flex; min-height: 28px; align-items: center; gap: 8px; color: #202631; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .contact-site-link svg { flex: 0 0 auto; width: 19px; height: 19px; }
+    .contact-site-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .copy-email:hover { color: #202631; }
+    .contact-panel :is(button, a):focus-visible { outline: 2px solid #008fc8; outline-offset: 3px; }
 
     .typing { display: inline-flex; min-width: 48px; align-items: center; gap: 4px; }
     .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
@@ -417,24 +411,24 @@
       <button class="contact-close" id="contact-close" type="button" aria-label="Close contact panel">×</button>
       <img class="contact-brand" src="../../logo.png" alt="Zero Tools" width="457" height="71">
       <h2 class="contact-intro" id="contact-intro">Choose how you’d like to contact us.</h2>
-      <p class="contact-option-label">Email us</p>
+      <p class="contact-divider">Email us</p>
       <div class="email-copy-row">
         <span class="email-address" id="contact-email-address"></span>
         <button class="copy-email" id="copy-email" type="button">Copy</button>
       </div>
       <div class="contact-actions">
-        <a class="contact-action" id="gmail-link" target="_blank" rel="noopener noreferrer">Open Gmail</a>
-        <a class="contact-action secondary" id="email-app-link">Open email app</a>
+        <a class="contact-action" id="gmail-link" target="_blank" rel="noopener noreferrer"><span>Open Gmail</span><svg viewBox="0 0 24 18" aria-hidden="true"><path fill="#4285f4" d="M0 3v13a2 2 0 0 0 2 2h3V7z"/><path fill="#34a853" d="M19 7v11h3a2 2 0 0 0 2-2V3z"/><path fill="#ea4335" d="M5 2 12 7l7-5v5l-7 5-7-5z"/><path fill="#c5221f" d="M0 3C0 .5 2-1 5 2v5z"/><path fill="#fbbc04" d="M19 2c3-3 5-1.5 5 1l-5 4z"/></svg></a>
+        <a class="contact-action secondary" id="email-app-link"><span>Open email app</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
       </div>
       <div class="contact-section">
-        <p class="contact-option-label">WhatsApp</p>
+        <p class="contact-divider">OR</p>
       <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20reviewed%20the%20Veterinary%20Clinic%20Website%20Chatbot%20Demo%20concept%20and%20would%20like%20to%20discuss%20it." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
       </svg><span>Message us on WhatsApp</span></a>
       </div>
-      <div class="contact-section">
-        <p class="contact-option-label">Website</p>
-      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer"><span>Visit zerotools.tech</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg></a>
+      <div class="contact-website">
+        <p class="contact-website-intro">Visit our website to know more about us</p>
+      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg><span>zerotools.tech</span></a>
       </div>
     </section>
   </div>
