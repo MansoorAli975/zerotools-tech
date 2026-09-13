@@ -1598,7 +1598,7 @@
     chatLauncher.addEventListener('click',openChatWindow);
     replayButton.addEventListener('click',hideResultPresentation);
     replayButton.addEventListener('click',replayConversation);
-    replayDemoButton.addEventListener('click',replayFullDemo);
+    replayDemoButton.addEventListener('click',() => { trackDemoEvent('replay_clicked'); replayFullDemo(); });
     resultMinimizeButton.addEventListener('click',toggleResultMinimized);
     resultRestoreButton.addEventListener('click',() => setResultMinimized(false));
     pauseResumeButton.addEventListener('click',toggleManualPause);
