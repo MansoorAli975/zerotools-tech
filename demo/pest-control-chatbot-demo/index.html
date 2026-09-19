@@ -1,0 +1,1684 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- MASTER TEMPLATE — REPLACE ALL PROSPECT METADATA BEFORE DEPLOYMENT
+       Static values must remain in the HTML head so social crawlers can read them. -->
+  <title>Pest Control Website Chatbot Demo | Zero Tools</title>
+  <meta name="description" content="An illustrative pest-control website chatbot example that guides a visitor and prepares a useful enquiry for business follow-up.">
+  <link rel="canonical" href="https://www.zerotools.tech/demo/pest-control-chatbot-demo/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/">
+  <meta property="og:title" content="Pest Control Website Chatbot Demo | Zero Tools">
+  <meta property="og:description" content="An illustrative pest-control website chatbot example that guides a visitor and prepares a useful enquiry for business follow-up.">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Illustrative pest-control website chatbot demo">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pest Control Website Chatbot Demo | Zero Tools">
+  <meta name="twitter:description" content="An illustrative pest-control website chatbot example that guides a visitor and prepares a useful enquiry for business follow-up.">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
+  <meta name="twitter:image:alt" content="Illustrative pest-control website chatbot demo">
+  <link rel="icon" href="/favicon.png?v=1">
+
+  <!-- PROSPECT DUPLICATION CHECKLIST
+    1. Copy the template into demo/<prospect-slug>/index.html
+    2. Create the assets folder
+    3. Add company-homepage.png
+    4. Add og-preview.jpg at 1200 × 630
+    5. Replace all static metadata
+    6. Update DEMO_CONFIG
+    7. Update brand colours
+    8. Update conversation sequence
+    9. Update enquiry-summary fields
+    10. Review medical or industry safety wording
+    12. Test desktop
+    13. Test mobile
+    14. Test replay
+    15. Test animation timing
+    16. Confirm no prospect-placeholder text remains
+    17. Confirm noindex,nofollow
+    18. Deploy
+    19. Test the live URL
+    20. Test Meta Sharing Debugger
+    21. Test WhatsApp preview
+  -->
+
+  <!-- TEMPLATE IDENTITY
+    concept-template.html is the reusable scripted animated-concept master.
+    demo/template.html is the older UChat embedded-preview design.
+    The two files serve different purposes and must not be confused.
+  -->
+
+  <style>
+    :root {
+      --brand: #167a8b;
+      --brand-dark: #173f4a;
+      --zero-tools-blue: #167a8b;
+      --timer-track: rgba(10,58,67,.3);
+      --timer-fill-start: #269eaa;
+      --timer-fill-mid: #63d3d8;
+      --timer-fill-end: #e2ffff;
+      --timer-glow: rgba(62,205,214,.45);
+      --timer-highlight: #f1ffff;
+      --timer-highlight-glow: rgba(190,255,255,.66);
+      --ink: #182231;
+      --muted: #687486;
+      --surface: #fff;
+      --line: #e5e9ef;
+      --page: #eef1f4;
+      --stage-gutter: clamp(22px,5vw,76px);
+      --stage-clearance: 88px;
+      --result-width: min(430px,calc(100vw - 2 * var(--stage-gutter)));
+      --shadow: 0 24px 70px rgba(22,34,53,.22);
+      --launcher-bottom-offset: 116px;
+      --chat-window-bottom-offset: 48px;
+      --mobile-launcher-bottom-offset: 110px;
+      --mobile-chat-window-bottom-offset: 0px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body { margin: 0; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--page); }
+    button, input { font: inherit; }
+
+    .presentation {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: 28px var(--stage-gutter);
+      background:
+        linear-gradient(90deg,rgba(246,248,250,.98) 0%,rgba(246,248,250,.88) 48%,rgba(232,236,241,.78) 100%),
+        linear-gradient(135deg,#f7f8fa,#dde2e8);
+    }
+
+    .site-mockup { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; transition: filter 1.2s cubic-bezier(.16,1,.3,1); }
+    .site-mockup.is-missing { display: none; }
+    .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
+    .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
+    body.chat-focus-mode .site-mockup { filter: blur(2.4px) brightness(.9) contrast(.94); }
+    body.chat-focus-mode .focus-overlay { opacity: 1; }
+    body.chat-focus-mode .chat-shell:not(.is-closed) { transform: translate(-6px,-4px) scale(1.04); box-shadow: 0 32px 86px rgba(22,34,53,.32); }
+    body.chat-focus-mode .chat-shell:not(.is-closed), body.chat-focus-returning .chat-shell:not(.is-closed) { transition: transform 1.2s cubic-bezier(.16,1,.3,1),box-shadow 1.2s cubic-bezier(.16,1,.3,1); }
+    body.chat-replay-refocus .site-mockup, body.chat-replay-refocus .focus-overlay, body.chat-replay-refocus .chat-shell:not(.is-closed) { transition-duration: .55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
+
+    .concept-tools { position: fixed; z-index: 4; top: 8px; left: 50%; display: inline-flex; align-items: center; transform: translateX(-50%); }
+    .concept-label { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 999px; color: #fff; background: rgba(23,63,74,.86); box-shadow: 0 7px 20px rgba(15,23,42,.2); font-size: 12px; font-weight: 800; letter-spacing: .01em; backdrop-filter: blur(8px); }
+    .concept-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 4px rgba(125,226,188,.17); }
+    .concept-label a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.58); text-underline-offset: 2px; }
+    .concept-label a:hover { text-decoration-color: currentColor; }
+    .concept-label a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
+
+    .chat-shell { position: absolute; right: var(--stage-gutter); bottom: max(var(--chat-window-bottom-offset),var(--stage-clearance)); z-index: 3; display: flex; flex-direction: column; width: min(410px,calc(100vw - 44px)); height: min(690px,calc(100svh - 2 * var(--stage-clearance))); min-height: 0; overflow: hidden; opacity: 1; transform: scale(1); transform-origin: right bottom; visibility: visible; border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); transition: opacity .62s ease,transform .62s cubic-bezier(.2,.8,.2,1),visibility 0s linear 0s; }
+    .chat-shell.is-closed { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(28px) scale(.86); transition: opacity .28s ease,transform .28s ease,visibility 0s linear .28s; }
+
+    .launcher-wrap { position: fixed; right: clamp(28px,4vw,64px); bottom: var(--launcher-bottom-offset); z-index: 6; display: flex; align-items: center; gap: 10px; opacity: 1; transition: opacity .24s ease,transform .24s ease,visibility 0s linear 0s; }
+    .launcher-wrap.is-hidden { pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(8px) scale(.92); transition-delay: 0s,0s,.24s; }
+    .launcher-tooltip { display: none; padding: 7px 10px; border: 1px solid rgba(255,255,255,.72); border-radius: 9px; color: #fff; background: color-mix(in srgb,var(--brand-dark) 92%,transparent); box-shadow: 0 7px 20px rgba(5,11,25,.22); font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .chat-launcher { position: relative; display: grid; width: 64px; height: 64px; place-items: center; overflow: visible; border: 1.5px solid rgba(255,255,255,.45); border-radius: 50%; color: #fff; background: linear-gradient(145deg,#34483a,#1f2d25); box-shadow: 0 10px 26px rgba(8,18,12,.32); cursor: pointer; animation: none; transition: transform .16s ease,box-shadow .16s ease; }
+    .chat-launcher:hover, .chat-launcher.is-script-hover { transform: translateY(-2px); box-shadow: 0 13px 30px rgba(8,18,12,.38); }
+    .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
+    .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(8,18,12,.32); }
+    .launcher-icon { width: 32px; height: 32px; fill: currentColor; }
+    .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
+    .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
+
+    .demo-cursor { --cursor-x: 0px; --cursor-y: 0px; position: fixed; right: 18px; bottom: 30px; z-index: 8; width: 27px; height: 34px; pointer-events: none; visibility: hidden; opacity: 0; transform: translate(var(--cursor-x),var(--cursor-y)); transition: transform 1.08s cubic-bezier(.2,.76,.25,1),opacity .18s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
+    .demo-cursor.is-visible { visibility: visible; opacity: 1; }
+    .demo-cursor.is-pressing { transform: translate(var(--cursor-x),var(--cursor-y)) scale(.88); }
+    .demo-cursor svg { width: 100%; height: 100%; fill: #fff; stroke: #111827; stroke-width: 1.25; stroke-linejoin: round; }
+    .chat-header { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 76px; padding: 14px 12px 14px 15px; color: #fff; background: linear-gradient(135deg,var(--brand-dark),var(--brand)); }
+    .avatar, .message-avatar { display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #fff; background: rgba(255,255,255,.16); font-weight: 900; }
+    .avatar { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.35); font-size: 14px; }
+    .chat-title { min-width: 0; flex: 1; }
+    .chat-title strong { display: block; overflow: hidden; font-size: 14px; text-overflow: ellipsis; white-space: normal; }
+    .chat-title span { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-size: 11.5px; opacity: .88; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #7de2bc; box-shadow: 0 0 0 3px rgba(125,226,188,.15); }
+    .playback-controls { display: flex; flex: 0 0 auto; gap: 5px; }
+    .playback-control { min-height: 32px; padding: 6px 8px; border: 1px solid rgba(255,255,255,.27); border-radius: 9px; color: rgba(255,255,255,.9); background: rgba(255,255,255,.08); font-size: 10px; font-weight: 800; cursor: pointer; transition: .18s ease; }
+    .playback-speed { width: 46px; flex: 0 0 46px; padding: 3px; white-space: nowrap; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; }
+    .playback-speed-label { font-size: 8px; font-weight: 600; }
+    .playback-speed-value { font-size: 10px; font-weight: 800; }
+    .playback-control:hover { border-color: rgba(255,255,255,.42); color: #fff; background: rgba(255,255,255,.14); }
+    .playback-control:active { transform: scale(.97); }
+    .playback-control:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 40%,transparent); outline-offset: 2px; }
+    .playback-control:disabled { cursor: not-allowed; opacity: .45; }
+    body.demo-paused .typing i { animation-play-state: paused; }
+    .playback-timer { position: relative; z-index: 4; display: flex; width: 100%; height: 6px; align-items: center; overflow: hidden; background: var(--timer-track); }
+    .playback-timer-fill { position: relative; width: 100%; height: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg,var(--timer-fill-start) 0%,var(--timer-fill-mid) 70%,var(--timer-fill-end) 100%); box-shadow: 0 0 5px var(--timer-glow),0 0 2px rgba(255,255,255,.48); transform: scaleX(0); transform-origin: left center; will-change: transform; }
+    .playback-timer-fill::after { content: ""; position: absolute; top: 50%; right: 0; width: 6px; height: 4px; border-radius: 999px; background: var(--timer-highlight); box-shadow: 0 0 5px var(--timer-highlight-glow),0 0 2px rgba(255,255,255,.7); transform: translateY(-50%); }
+
+    .messages { min-height: 0; flex: 1 1 auto; overflow-y: auto; padding: 18px 16px 24px; background: linear-gradient(180deg,#fbfcfd,#f7f8fa); scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(122,132,144,.22) transparent; }
+    .messages::-webkit-scrollbar { width: 2px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(122,132,144,.22); }
+    .messages::-webkit-scrollbar-thumb:hover { background: rgba(122,132,144,.38); }
+
+    .composer-area { flex: 0 0 auto; padding: 8px 11px 6px; border-top: 1px solid #ddd8d3; background: #f8f7f5; }
+    .composer { display: flex; align-items: center; gap: 7px; min-height: 46px; padding: 6px 7px 6px 10px; border: 1px solid #d7dce2; border-radius: 15px; background: #fff; box-shadow: 0 2px 7px rgba(33,43,54,.04); transition: border-color .18s ease,box-shadow .18s ease; }
+    .composer-input { min-width: 0; height: 34px; flex: 1; padding: 0 3px; border: 0; outline: 0; color: #3d4754; background: transparent; font-size: 12.5px; caret-color: var(--brand); }
+    .composer.is-input-off { border-color: #dfe3e8; background: #eef1f4; box-shadow: none; }
+    .composer.is-input-off .composer-icon, .composer.is-input-off .send-button { opacity: .45; }
+    .composer-input:disabled { cursor: not-allowed; color: #7b8592; -webkit-text-fill-color: #7b8592; opacity: 1; }
+    .composer-input::placeholder { color: #929ba8; }
+    .composer:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent); }
+    .composer-icon { display: grid; width: 20px; height: 20px; flex: 0 0 auto; place-items: center; color: #86919f; }
+    .composer-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .send-button { display: grid; width: 32px; height: 32px; flex: 0 0 auto; place-items: center; border: 0; border-radius: 10px; color: #9ba4af; background: #eef0f2; pointer-events: none; transition: color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease; }
+    .send-button svg { width: 16px; height: 16px; fill: currentColor; transform: translateX(1px); }
+    .send-button.active, .send-button.sending { color: #fff; background: var(--brand); box-shadow: 0 2px 7px color-mix(in srgb,var(--brand) 24%,transparent); }
+    .send-button.sending { transform: scale(.9); }
+    .powered-by { margin: 5px 0 0; color: #8a939e; font-size: 9px; font-weight: 700; text-align: center; }
+
+    .message-row { display: flex; margin: 0 0 12px; opacity: 0; transform: translateY(8px); animation: message-in .34s ease forwards; }
+    .message-row.bot { align-items: flex-end; gap: 8px; }
+    .message-row.bot.continuation { padding-left: 36px; }
+    .message-row.visitor { justify-content: flex-end; }
+    .message-avatar { width: 28px; height: 28px; border: 1px solid color-mix(in srgb,var(--brand) 25%,transparent); color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 10%,white); font-size: 9px; }
+    .bubble { max-width: 84%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 15px 15px 15px 5px; color: #303b49; background: #fff; box-shadow: 0 3px 10px rgba(33,43,54,.05); font-size: 12.5px; line-height: 1.52; white-space: pre-line; }
+    .visitor .bubble { border-color: var(--brand); border-radius: 15px 15px 5px 15px; color: #fff; background: var(--brand); }
+    .message-row.bot.has-choices .bubble { width: min(92%,320px); max-width: 92%; }
+    .message-text { display: block; }
+
+    .choice-row { overflow: hidden; margin-top: 10px; }
+    .choice-panel { display: grid; gap: 7px; max-height: 280px; overflow: hidden; transform-origin: top; transition: max-height .3s ease,margin .3s ease,padding .3s ease,opacity .22s ease,transform .3s ease; }
+    .choice-panel.collapsing { max-height: 0 !important; margin: 0; padding: 0; opacity: 0; transform: scaleY(.92); }
+    .choice-option { padding: 9px 10px; border: 1px solid color-mix(in srgb,var(--brand) 30%,#d8dee5); border-radius: 10px; color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 5%,white); font-size: 11.5px; font-weight: 750; transition: color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease; }
+    .choice-option.selected { border-color: var(--brand); color: #fff; background: var(--brand); transform: translateX(2px); }
+
+    .business-result { position: absolute; top: 50%; left: calc((100% - var(--result-width)) / 2); z-index: 3; width: var(--result-width); max-height: calc(100svh - 112px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); anchor-name: --result-card; }
+    .business-result.visible { visibility: visible; opacity: 1; box-shadow: var(--shadow); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
+    .summary-heading { position: sticky; top: 0; z-index: 2; background: #fff; padding: 44px 22px 10px; border-bottom: 0; color: var(--ink); font-size: 21px; line-height: 1.3; font-weight: 850; }
+    .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
+    .summary-heading::before { content: none; }
+    .summary-support:empty { display: none; }
+    .result-details { display: contents; }
+    .email-delivery { display: flex; align-items: flex-start; gap: 12px; margin: 0 18px 10px; padding: 10px 15px; border: 1px solid #c2dfdf; border-radius: 12px; color: #173f4a; background: #eaf6f5; }
+    .email-delivery-icon { display: grid; flex: 0 0 auto; width: 38px; height: 38px; place-items: center; border-radius: 10px; color: #fff; background: var(--brand); }
+    .email-delivery svg { width: 24px; height: 24px; }
+    .email-delivery h3 { margin: 0 0 7px; font-size: 11px; font-weight: 850; letter-spacing: .06em; }
+    .email-delivery p { margin: 0; font-size: 13px; line-height: 1.5; font-weight: 650; }
+    .example-email { margin: 0 18px 10px; border: 1px solid #dce3e8; border-radius: 12px; background: #fff; overflow: hidden; }
+    .example-email-heading { padding: 10px 14px; border-bottom: 1px solid #e6e9ed; background: #f6f8fa; }
+    .example-email-heading h3 { margin: 0 0 8px; color: #536478; font-size: 10px; letter-spacing: .1em; }
+    .email-routing { display: grid; gap: 6px; margin: 0; font-size: 12px; line-height: 1.45; }
+    .email-routing div { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 8px; }
+    .email-routing dt { color: var(--muted); }
+    .email-routing dd { margin: 0; font-weight: 650; }
+    .email-follow-up { margin: 0; padding: 8px 14px; border-top: 1px solid #edf0f3; color: #536478; font-size: 12px; line-height: 1.5; }
+    .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
+    .summary-list { margin: 0; padding: 4px 14px 4px; }
+    .summary-item { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.8fr); gap: 12px; padding: 6px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
+    .summary-item:last-child { border-bottom: 0; }
+    .summary-item dt { color: var(--muted); }
+    .summary-item dd { overflow-wrap: anywhere; margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 22px 11px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
+    .business-result.visible .result-cta { opacity: 1; transform: none; }
+    .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .contact-trigger:hover { background: #223d68; }
+    .result-minimize { position: absolute; top: 13px; right: 13px; padding: 7px 9px; border: 1px solid #d5dce5; border-radius: 8px; color: #40516a; background: #f5f7fa; font-size: 10px; font-weight: 850; cursor: pointer; }
+    .result-demo-controls { position: fixed; position-anchor: --result-card; z-index: 9; top: calc(anchor(top) + 14px); left: calc(anchor(right) - 104px); bottom: auto; display: flex; max-width: calc(100vw - 44px); gap: 8px; flex-wrap: wrap; transform: translateX(-100%); }
+    .result-demo-controls.is-minimized { position-anchor: auto; top: auto; left: clamp(22px,5vw,76px); bottom: 76px; padding: 6px; border: 1px solid rgba(23,43,77,.14); border-radius: 13px; background: rgba(255,255,255,.94); box-shadow: 0 8px 24px rgba(6,18,38,.16); transform: none; backdrop-filter: blur(8px); }
+    .result-demo-controls[hidden], .result-action[hidden] { display: none; }
+    .result-action { min-height: 34px; padding: 8px 11px; border: 1px solid #cad3df; border-radius: 9px; color: #34445d; background: #fff; font: inherit; font-size: 11px; font-weight: 850; white-space: nowrap; cursor: pointer; }
+    .result-action.primary { border-color: #172b4d; color: #fff; background: #172b4d; }
+    .replay-demo { display: inline-flex; min-height: 38px; padding: 9px 13px; align-items: center; gap: 7px; border: 1px solid rgba(23,43,77,.16); border-radius: 11px; color: #fff; background: #172b4d; box-shadow: 0 8px 22px rgba(6,18,38,.2); font: inherit; font-size: 11px; font-weight: 850; cursor: pointer; }
+    .replay-demo svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .result-demo-controls:not(.is-minimized) .replay-demo { min-height: 0; padding: 7px 9px; border: 1px solid #d5dce5; border-radius: 8px; gap: 0; color: #40516a; background: #f5f7fa; box-shadow: none; font-size: 10px; font-weight: 850; }
+    .result-demo-controls:not(.is-minimized) .replay-demo svg { display: none; }
+    .result-demo-controls.is-minimized .replay-demo { min-height: 34px; padding: 8px 11px; border-color: #cad3df; color: #34445d; background: #fff; box-shadow: none; white-space: nowrap; }
+    .business-result.visible.is-minimized { pointer-events: none; visibility: hidden; opacity: 0; }
+    .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+
+    .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
+    .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
+    .contact-panel { position: relative; width: min(400px,100%); max-height: calc(100svh - 40px); overflow-y: auto; padding: 24px; border: 1px solid rgba(23,43,77,.12); border-radius: 20px; background: #fff; box-shadow: 0 18px 56px rgba(6,18,38,.22); transform: translateY(10px) scale(.98); transition: transform .2s ease; }
+    .contact-modal.is-open .contact-panel { transform: none; }
+    .contact-brand { display: block; width: 148px; max-width: calc(100% - 40px); height: auto; margin: 0 0 24px; }
+    .contact-intro { margin: 0 0 26px; color: #172b4d; font-size: 15px; font-weight: 650; line-height: 1.45; }
+    .contact-close { position: absolute; top: 13px; right: 13px; display: grid; width: 34px; height: 34px; padding: 0; place-items: center; border: 0; border-radius: 50%; color: #526075; background: #f0f3f7; font-size: 22px; line-height: 1; cursor: pointer; }
+    .contact-divider { display: flex; align-items: center; gap: 14px; margin: 0 0 22px; color: #525660; font-size: 13px; font-weight: 600; }
+    .contact-divider::before, .contact-divider::after { content: ''; flex: 1; height: 1px; background: #d8dade; }
+    .email-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; border-radius: 8px; background: #f3f4f8; }
+    .email-address { min-width: 0; overflow-wrap: anywhere; color: #303641; font-size: 13px; font-weight: 600; }
+    .copy-email { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; padding: 6px 0 6px 6px; border: 0; border-radius: 5px; color: #636975; background: transparent; font-size: 12px; font-weight: 500; cursor: pointer; }
+    .copy-email::after { content: ''; width: 16px; height: 18px; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Crect x='7' y='2' width='11' height='14' rx='2' fill='none' stroke='black' stroke-width='1.6'/%3E%3Cpath d='M13 17v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h2' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") center / contain no-repeat; }
+    .contact-actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+    .contact-action { display: flex; width: 100%; min-height: 42px; padding: 9px 12px; align-items: center; justify-content: center; gap: 9px; border: 1px solid #858990; border-radius: 8px; color: #303641; background: #fff; font-size: 14px; font-weight: 500; line-height: 1.4; text-align: center; text-decoration: none; transition: background .18s ease,border-color .18s ease; }
+    .contact-action svg { flex: 0 0 auto; width: 20px; height: 20px; }
+    .contact-section { margin-top: 24px; }
+    .contact-section .contact-divider { margin-bottom: 22px; }
+    .contact-action:hover { border-color: #303641; background: #f8f9fb; }
+    .contact-whatsapp svg { order: 1; color: #25b85a; fill: currentColor; }
+    .contact-website { margin-top: 30px; }
+    .contact-website-intro { margin: 0 0 8px; color: #525660; font-size: 13px; line-height: 1.5; }
+    .contact-site-link { display: inline-flex; min-height: 28px; align-items: center; gap: 8px; color: #202631; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .contact-site-link svg { flex: 0 0 auto; width: 19px; height: 19px; }
+    .contact-site-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .copy-email:hover { color: #202631; }
+    .contact-panel :is(button, a):focus-visible { outline: 2px solid #008fc8; outline-offset: 3px; }
+
+    .typing { display: inline-flex; min-width: 48px; align-items: center; gap: 4px; }
+    .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
+    .typing i:nth-child(2) { animation-delay: .15s; }
+    .typing i:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
+    @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
+    @keyframes launcher-pulse { 0%,100% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 0 color-mix(in srgb,var(--brand) 22%,transparent); } 50% { box-shadow: 0 12px 28px rgba(5,11,25,.34),0 0 0 10px color-mix(in srgb,var(--brand) 0%,transparent); } }
+    @keyframes launcher-ripple { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.4); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.5); } }
+    @keyframes launcher-attention { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-4px); } }
+    .launcher-wrap.show-attention .chat-launcher { animation: launcher-attention .8s cubic-bezier(.22,.78,.24,1) 1; }
+
+    @media (max-width:999px) {
+      .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
+      .site-mockup { position: fixed; inset: 0; width: 100%; height: auto; }
+      body.chat-focus-mode .site-mockup { opacity: .35; filter: brightness(.9) contrast(.94); }
+      body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
+      .prospect-widget { display: none; }
+      .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
+      .concept-label { width: fit-content; max-width: 100%; font-size: 11px; text-align: center; }
+      .chat-shell { position: relative; top: auto; right: auto; bottom: auto; width: min(410px,100%); height: min(670px,calc(100svh - 204px - var(--mobile-chat-window-bottom-offset))); min-height: 500px; margin: 18px auto var(--mobile-chat-window-bottom-offset); transform: none; transform-origin: center bottom; }
+      .chat-shell.is-closed { position: absolute; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(22px) scale(.92); }
+      .launcher-wrap { right: 24px; bottom: var(--mobile-launcher-bottom-offset); }
+      .launcher-tooltip { font-size: 10.5px; }
+      .chat-launcher { width: 60px; height: 60px; }
+      .demo-cursor { display: none; }
+      .chat-header { min-height: 70px; gap: 6px; padding: 13px 8px 13px 10px; }
+      .avatar { width: 32px; height: 32px; font-size: 12.5px; }
+      .chat-title strong { font-size: 12px; }
+      .playback-timer { height: 5px; }
+      .playback-timer-fill { height: 3px; }
+      .playback-timer-fill::after { width: 5px; height: 3px; }
+      .playback-controls { gap: 3px; }
+      .playback-control { min-height: 32px; padding: 5px 6px; font-size: 9.5px; }
+      .messages { padding: 16px 13px 22px; }
+      .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
+      .composer-input { height: 32px; }
+      .business-result { position: relative; top: auto; left: auto; width: min(410px,100%); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px) scale(.98); }
+      .business-result.visible { max-height: min(740px,calc(100svh - 264px)); margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
+      .summary-heading { padding: 44px 18px 14px; font-size: 21px; }
+      .summary-list { padding: 4px 12px 8px; }
+      .summary-item { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 10px; padding: 7px 0; }
+      .result-cta { padding: 12px 18px 14px; }
+      .result-demo-controls.is-minimized { left: 50%; transform: translateX(-50%); bottom: 280px; display: grid; width: min(360px,calc(100vw - 44px)); grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+      .result-demo-controls.is-minimized #result-discuss-minimized { grid-column: 1 / -1; }
+      .result-demo-controls.is-minimized .result-action, .result-demo-controls.is-minimized .replay-demo { width: 100%; min-width: 0; min-height: 44px; justify-content: center; white-space: nowrap; }
+      .contact-panel { padding: 25px 20px 22px; }
+    }
+
+    @media (min-width:600px) and (max-width:1199px) and (orientation:portrait) {
+      .site-mockup { height: 100svh; }
+    }
+
+    @media (max-width:599px) and (orientation:portrait) {
+      .site-mockup { height: 100svh; object-position: left top; }
+      .result-demo-controls.is-minimized { bottom: calc(env(safe-area-inset-bottom, 0px) + 100px); }
+      .business-result { display: grid; grid-template-rows: auto minmax(0,1fr) auto; overflow: hidden; }
+      .result-details { display: block; min-height: 0; overflow-y: auto; padding-bottom: 12px; }
+      .result-cta { position: sticky; bottom: 0; z-index: 2; background: #f7f9fc; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+      .messages { scroll-behavior: auto; }
+      .typing i { animation: none; }
+      .launcher-wrap.show-attention .chat-launcher { animation: none; }
+      .choice-panel, .business-result, .result-cta, .send-button, .composer-input { transition-duration: .01ms; transition-delay: 0s; }
+      .contact-modal, .contact-panel { transition-duration: .01ms; }
+      .chat-shell, .launcher-wrap { transition-duration: .01ms; }
+      .site-mockup, .focus-overlay, body.chat-focus-mode .chat-shell, body.chat-focus-returning .chat-shell, body.chat-replay-refocus .chat-shell { transition-duration: .01ms; }
+      body.chat-focus-mode .site-mockup { filter: brightness(.92) contrast(.95); }
+      .chat-launcher { animation: none; transition-duration: .01ms; }
+      .demo-cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="presentation">
+    <!-- Approved final generic Pest Control premium daylight background. No OG approved. -->
+    <picture>
+      <source media="(max-width: 599px) and (orientation: portrait)" srcset="assets/company-homepage-mobile-portrait-q85.webp" type="image/webp">
+      <source media="(min-width: 600px) and (max-width: 1199px) and (orientation: portrait)" srcset="assets/company-homepage-tablet-portrait-q85.webp" type="image/webp">
+      <source media="(min-width: 1000px) and (max-width: 1440px) and (orientation: landscape) and (max-aspect-ratio: 3/2)" srcset="assets/company-homepage-compact-landscape-q85.webp" type="image/webp">
+      <img class="site-mockup" id="site-mockup" alt="" draggable="false">
+    </picture>
+    <div class="focus-overlay" aria-hidden="true"></div>
+
+    <div class="concept-tools">
+      <p class="concept-label" id="concept-label"></p>
+    </div>
+
+    <div class="launcher-wrap" id="launcher-wrap">
+      <span class="launcher-tooltip" id="launcher-tooltip">Chat with Pest Control Assistant</span>
+      <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Pest Control Assistant" aria-describedby="launcher-tooltip">
+        <img class="launcher-icon" src="assets/haven-leaf-launcher.png" width="32" height="32" alt="" aria-hidden="true">
+        <span class="launcher-ripple" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Future prospect-specific WhatsApp, live-chat, or contact overlays must include class="prospect-widget"; the template intentionally hides that class at its mobile breakpoint. -->
+    <div class="demo-cursor" id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 28 36"><path d="M3 2.5 23 21l-9 .8 5 9-4.5 2.4-4.8-9-6.7 6.2V2.5Z"/></svg></div>
+
+    <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
+      <header class="chat-header">
+        <div class="avatar" id="header-avatar" aria-hidden="true"></div>
+        <div class="chat-title">
+          <strong id="chatbot-name"></strong>
+          <span><i class="status-dot"></i>Online now</span>
+        </div>
+        <div class="playback-controls">
+          <button class="playback-control playback-speed" id="playback-speed" type="button" aria-label="Playback speed: 1 times"><span class="playback-speed-label" aria-hidden="true">Speed</span><span class="playback-speed-value" aria-hidden="true">1×</span></button>
+          <button class="playback-control" id="pause-resume" type="button" aria-label="Pause demo" disabled>Pause</button>
+          <button class="playback-control" id="replay" type="button" aria-label="Replay chatbot conversation">Replay</button>
+          <button class="playback-control" id="skip-result" type="button" aria-label="Skip to result" disabled>Skip</button>
+        </div>
+      </header>
+      <div class="playback-timer" id="playback-timer" aria-hidden="true"><div class="playback-timer-fill" id="playback-timer-fill"></div></div>
+      <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+      <div class="composer-area">
+        <div class="composer" aria-label="Scripted message composer">
+          <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9.5 12.5 5.8-5.8a3 3 0 0 1 4.2 4.2l-8.3 8.3a5 5 0 0 1-7.1-7.1l8.1-8.1"/></svg></span>
+          <input class="composer-input" id="composer-input" type="text" placeholder="Please wait…" disabled readonly aria-readonly="true" autocomplete="off" spellcheck="false">
+          <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/></svg></span>
+          <button class="send-button" id="send-button" type="button" tabindex="-1" aria-disabled="true" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21.8 12 3.4 3.6 3 10.1l12.1 1.9L3 13.9l.4 6.5Z"/></svg></button>
+        </div>
+        <p class="powered-by">Powered by Zero Tools</p>
+      </div>
+    </section>
+
+    <aside class="business-result" id="business-result" aria-hidden="true">
+      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">QUALIFIED WEBSITE ENQUIRY</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span><button class="result-minimize" id="result-minimize" type="button" aria-expanded="true">Minimize</button></div>
+      <div class="result-details">
+      <section class="email-delivery" aria-labelledby="email-delivery-label">
+        <span class="email-delivery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <div><h3 id="email-delivery-label">ENQUIRY DELIVERED</h3><p>In a live setup, the completed enquiry can be sent immediately to your chosen business email.</p></div>
+      </section>
+      <section class="example-email" aria-labelledby="example-email-label">
+        <header class="example-email-heading">
+          <h3 id="example-email-label">EXAMPLE ENQUIRY</h3>
+          <dl class="email-routing"><div><dt>To:</dt><dd>Your chosen business email</dd></div><div><dt>Subject:</dt><dd>New website enquiry — Pest Control</dd></div></dl>
+        </header>
+        <dl class="summary-list" id="summary-list"></dl>
+        <p class="email-follow-up">Your team can follow up when available.</p>
+      </section>
+      </div>
+      <div class="result-cta">
+        <p id="result-cta-copy"></p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
+      </div>
+    </aside>
+
+    <div class="result-demo-controls" id="result-demo-controls" hidden>
+      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this concept</button>
+      <button class="result-action" id="result-restore" type="button" hidden>Restore enquiry</button>
+      <button class="replay-demo" id="replay-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6.6M4 11V5m0 6h6"/></svg>Replay demo</button>
+    </div>
+
+  </main>
+
+  <div class="contact-modal" id="contact-modal" aria-hidden="true">
+    <section class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-intro">
+      <button class="contact-close" id="contact-close" type="button" aria-label="Close contact panel">×</button>
+      <img class="contact-brand" src="../../logo.png" alt="Zero Tools" width="457" height="71">
+      <h2 class="contact-intro" id="contact-intro">Choose how you’d like to contact us.</h2>
+      <p class="contact-divider">Email us</p>
+      <div class="email-copy-row">
+        <span class="email-address" id="contact-email-address"></span>
+        <button class="copy-email" id="copy-email" type="button">Copy</button>
+      </div>
+      <div class="contact-actions">
+        <a class="contact-action" id="gmail-link" target="_blank" rel="noopener noreferrer"><span>Open Gmail</span><svg viewBox="0 0 24 18" aria-hidden="true"><path fill="#4285f4" d="M0 3v13a2 2 0 0 0 2 2h3V7z"/><path fill="#34a853" d="M19 7v11h3a2 2 0 0 0 2-2V3z"/><path fill="#ea4335" d="M5 2 12 7l7-5v5l-7 5-7-5z"/><path fill="#c5221f" d="M0 3C0 .5 2-1 5 2v5z"/><path fill="#fbbc04" d="M19 2c3-3 5-1.5 5 1l-5 4z"/></svg></a>
+        <a class="contact-action secondary" id="email-app-link"><span>Open email app</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      </div>
+      <div class="contact-section">
+        <p class="contact-divider">OR</p>
+      <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20reviewed%20the%20Pest%20Control%20Website%20Chatbot%20Demo%20concept%20and%20would%20like%20to%20discuss%20it." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+      </svg><span>Message us on WhatsApp</span></a>
+      </div>
+      <div class="contact-website">
+        <p class="contact-website-intro">Visit our website to know more about us</p>
+      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg><span>zerotools.tech</span></a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /* MASTER PROSPECT CONFIGURATION
+       Keep prospect content here. Static crawler metadata must still be replaced in <head>. */
+    const DEMO_CONFIG = {
+      "prospectName": "Pest Control Website Chatbot Demo",
+      "attributionProspectName": "",
+      "trackingProspect": "pest-control-chatbot-demo",
+      "companyName": "Pest Control Website Chatbot Demo",
+      "shortCompanyName": "Pest Control Demo",
+      "chatbotName": "Pest Control Assistant",
+      "launcherLabel": "",
+      "botInitials": "PC",
+      "siteImage": "assets/company-homepage-q85.webp",
+      "backgroundImageAltText": "Generic Pest Control website background with a modern home and pest-control technician in daylight",
+      "primaryBrandColour": "#167a8b",
+      "secondaryBrandColour": "#173f4a",
+      "launcherBottomOffset": "116px",
+      "chatWindowBottomOffset": "48px",
+      "mobileLauncherBottomOffset": "18px",
+      "mobileChatWindowBottomOffset": "0px",
+      "contactEmail": "support@zerotools.tech",
+      "contactSubject": "Pest Control Website Chatbot Demo",
+      "contactBody": "Hi, I reviewed the Pest Control Website Chatbot Demo concept and would like to discuss it.",
+      "welcomeMessage": "Hello, I’m the Pest Control Assistant. Tell me what you’ve noticed and I can collect the details our team needs to follow up.",
+      "conversationSequence": [
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": true,
+          "textFrom": "welcomeMessage"
+        },
+        {
+          "type": "composer-entry",
+          "delay": 0,
+          "entryMode": "opening",
+          "text": "I’ve been hearing scratching at night and I’m not sure what it is."
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": true,
+          "text": "Thanks. Where are you noticing the problem most? You can choose an option or type a different answer."
+        },
+        {
+          "type": "composer-entry",
+          "delay": 0,
+          "entryMode": "opening",
+          "text": "None of those — it sounds like it’s inside the wall behind the bedroom.",
+          "options": [
+            "Roof / loft",
+            "Kitchen",
+            "Outside"
+          ]
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "Thanks. I’ve noted that the scratching seems to be coming from inside the wall behind the bedroom."
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "What type of property is this?"
+        },
+        {
+          "type": "choice",
+          "delay": 300,
+          "selectionDelay": 1500,
+          "afterSelection": 600,
+          "options": [
+            "House",
+            "Flat / apartment",
+            "Commercial"
+          ],
+          "selected": "House"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": true,
+          "text": "What postcode is the property in?"
+        },
+        {
+          "type": "composer-entry",
+          "delay": 0,
+          "entryMode": "contact",
+          "text": "XXXX"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "How long has this been happening?"
+        },
+        {
+          "type": "choice",
+          "delay": 300,
+          "selectionDelay": 1500,
+          "afterSelection": 600,
+          "options": [
+            "Since today",
+            "A few days",
+            "Longer"
+          ],
+          "selected": "A few days"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": true,
+          "text": "Have you noticed anything else that might help us?"
+        },
+        {
+          "type": "composer-entry",
+          "delay": 0,
+          "entryMode": "opening",
+          "text": "I’ve also seen a few small droppings near the bedroom skirting board."
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "Thanks. I’ve added that to your enquiry."
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "How soon would you like us to follow up?"
+        },
+        {
+          "type": "choice",
+          "delay": 300,
+          "selectionDelay": 1500,
+          "afterSelection": 600,
+          "options": [
+            "As soon as possible",
+            "This week",
+            "I’m flexible"
+          ],
+          "selected": "This week"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "What’s the best way for us to contact you?"
+        },
+        {
+          "type": "choice",
+          "delay": 300,
+          "selectionDelay": 1500,
+          "afterSelection": 600,
+          "options": [
+            "Phone",
+            "WhatsApp",
+            "Email"
+          ],
+          "selected": "Phone"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": true,
+          "text": "Please enter your phone number."
+        },
+        {
+          "type": "composer-entry",
+          "delay": 0,
+          "entryMode": "contact",
+          "text": "XXX XXX XXXX"
+        },
+        {
+          "type": "message",
+          "role": "bot",
+          "delay": 0,
+          "typing": 450,
+          "userInput": false,
+          "text": "Thank you. We have received your enquiry. We will contact you using the details you provided."
+        }
+      ],
+      "enquiryResult": {
+        "title": "Ready for your team to follow up",
+        "supportText": "",
+        "fields": [
+          {
+            "label": "Problem / signs:",
+            "value": "Scratching noises at night"
+          },
+          {
+            "label": "Area noticed:",
+            "value": "Inside wall behind bedroom"
+          },
+          {
+            "label": "Additional sign:",
+            "value": "Small droppings near bedroom skirting board"
+          },
+          {
+            "label": "Property:",
+            "value": "House"
+          },
+          {
+            "label": "Duration:",
+            "value": "A few days"
+          },
+          {
+            "label": "Postcode:",
+            "value": "XXXX"
+          },
+          {
+            "label": "Preferred follow-up:",
+            "value": "This week"
+          },
+          {
+            "label": "Contact:",
+            "value": "Phone · XXX XXX XXXX"
+          }
+        ]
+      },
+      "timing": {
+        "launcherDelay": 800,
+        "cursorRevealPause": 120,
+        "cursorTravel": 1080,
+        "cursorHoverPause": 360,
+        "cursorPress": 280,
+        "mobileTapPause": 420,
+        "chatOpenDuration": 650,
+        "conversationStartDelay": 1200,
+        "initialSettle": 200,
+        "selectedHighlight": 650,
+        "choiceCollapse": 300,
+        "finalMessageHold": 4700,
+        "chatCloseSettle": 500,
+        "siteRestoreDuration": 1200,
+        "cleanSiteRevealHold": 800,
+        "skipCleanSiteRevealHold": 500,
+        "resultRevealTime": 600,
+        "visitorMessagePause": 1100,
+        "shortBotReadingPause": 1400,
+        "mediumBotReadingPause": 2150,
+        "longBotReadingPause": 3100,
+        "contactCharacterDelays": [
+          170,
+          180,
+          165,
+          195,
+          260,
+          175,
+          205,
+          250,
+          180,
+          165,
+          190,
+          280,
+          200,
+          175,
+          185,
+          170,
+          190,
+          180,
+          205
+        ],
+        "contactGroupPause": 300,
+        "contactTypedPause": 800,
+        "contactSendPress": 325,
+        "openingCharacterDelays": [
+          42,
+          55,
+          47,
+          61,
+          45,
+          52,
+          40,
+          58,
+          49,
+          44,
+          63,
+          46
+        ],
+        "openingSentencePause": 360,
+        "openingClausePause": 300,
+        "openingTypedPause": 650,
+        "openingSendPress": 275
+      }
+    };
+
+    const messagesElement = document.getElementById('messages');
+    const replayButton = document.getElementById('replay');
+    const pauseResumeButton = document.getElementById('pause-resume');
+    const speedButton = document.getElementById('playback-speed');
+    const playbackSpeeds = Object.freeze([1, 1.25, 1.5, 2]);
+    // Calibrated reading/decision pacing; visitor typing and UI choreography stay natural.
+    const playbackPacingFactors = Object.freeze({ 1: 1, 1.25: 1.35, 1.5: 1.9, 2: 3.4 });
+    let playbackSpeed = 1;
+    const skipResultButton = document.getElementById('skip-result');
+    const progressFill = document.getElementById('playback-timer-fill');
+    const businessResult = document.getElementById('business-result');
+    const resultMinimizeButton = document.getElementById('result-minimize');
+    const resultDemoControls = document.getElementById('result-demo-controls');
+    const resultDiscussMinimizedButton = document.getElementById('result-discuss-minimized');
+    const resultRestoreButton = document.getElementById('result-restore');
+    const replayDemoButton = document.getElementById('replay-demo');
+    const composerInput = document.getElementById('composer-input');
+    const sendButton = document.getElementById('send-button');
+    const siteMockup = document.getElementById('site-mockup');
+    const chatShell = document.getElementById('chat-shell');
+    const launcherWrap = document.getElementById('launcher-wrap');
+    const chatLauncher = document.getElementById('chat-launcher');
+    const launcherTooltip = document.getElementById('launcher-tooltip');
+    const demoCursor = document.getElementById('demo-cursor');
+    const contactModal = document.getElementById('contact-modal');
+    const contactTrigger = document.getElementById('contact-trigger');
+    const contactClose = document.getElementById('contact-close');
+    const copyEmailButton = document.getElementById('copy-email');
+    let runId = 0;
+    let lastMessageRole = null;
+    let chatOpened = false;
+    let launcherRunId = 0;
+    let contactReturnFocus = null;
+    let copyResetTimer = 0;
+    let initialSequenceScheduled = false;
+    let cameraFocusStarted = false;
+    let cameraNoticeStarted = false;
+    let cameraNoticeElapsed = 0;
+    let manualPause = false;
+    let visibilityPause = false;
+    let playbackPaused = false;
+    let activeDelay = null;
+    let delayGeneration = 0;
+    let resumeWaiters = [];
+    let playbackActive = false;
+    let playbackSkipped = false;
+    let isReplayPlayback = false;
+    let displayedProgress = 0;
+    let progressStartValue = 0;
+    let progressDuration = 0;
+    let progressElapsed = 0;
+    let progressLastTimestamp = 0;
+    let progressAnimationFrame = 0;
+    let progressTimerRunning = false;
+    const demoEvents = [];
+    const TRACKING_ENDPOINT = 'https://zero-tools-demo-tracker.zerotools.workers.dev/collect';
+    const trackingSessionId = crypto.randomUUID();
+    const trackingSuppressed = new URLSearchParams(window.location.search).get('test') === '1';
+    const trackingProspectIsValid = /^[a-z0-9-]{1,80}$/.test(DEMO_CONFIG.trackingProspect);
+    const QA_CALIBRATION_SITE_IMAGE = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="970" viewBox="0 0 1920 970">
+        <defs>
+          <pattern id="grid" width="120" height="97" patternUnits="userSpaceOnUse">
+            <path d="M120 0H0V97" fill="none" stroke="#8794a8" stroke-width="2" opacity=".3"/>
+          </pattern>
+        </defs>
+        <rect width="1920" height="970" fill="#e9edf3"/>
+        <rect width="1920" height="970" fill="url(#grid)"/>
+        <rect x="0" y="0" width="190" height="970" fill="#cfdef6"/>
+        <rect x="1730" y="0" width="190" height="970" fill="#f3d4d4"/>
+        <rect x="0" y="0" width="1920" height="100" fill="#d8eadb" opacity=".92"/>
+        <rect x="0" y="870" width="1920" height="100" fill="#f5e5bb" opacity=".94"/>
+        <rect x="8" y="8" width="1904" height="954" fill="none" stroke="#172b4d" stroke-width="16"/>
+        <path d="M960 0V970M0 485H1920" stroke="#7048c6" stroke-width="6" stroke-dasharray="22 14"/>
+        <g fill="none" stroke="#172b4d" stroke-width="12">
+          <path d="M28 150V28H150M1770 28h122v122M28 820v122h122M1770 942h122V820"/>
+        </g>
+        <g font-family="Arial,Helvetica,sans-serif" font-weight="700" text-anchor="middle" fill="#172b4d">
+          <text x="960" y="65" font-size="42">TOP · 1920 × 970 QA CALIBRATION</text>
+          <text x="960" y="935" font-size="42">BOTTOM</text>
+          <text x="95" y="485" font-size="34" transform="rotate(-90 95 485)">LEFT EDGE</text>
+          <text x="1825" y="485" font-size="34" transform="rotate(90 1825 485)">RIGHT EDGE</text>
+          <text x="960" y="465" font-size="38">CENTER</text>
+          <text x="960" y="520" font-size="25">960, 485</text>
+          <text x="100" y="155" font-size="24">TOP LEFT</text>
+          <text x="1820" y="155" font-size="24">TOP RIGHT</text>
+          <text x="100" y="835" font-size="24">BOTTOM LEFT</text>
+          <text x="1820" y="835" font-size="24">BOTTOM RIGHT</text>
+        </g>
+        <g fill="#172b4d">
+          <circle cx="960" cy="485" r="14"/>
+          <circle cx="480" cy="242.5" r="9"/><circle cx="1440" cy="242.5" r="9"/>
+          <circle cx="480" cy="727.5" r="9"/><circle cx="1440" cy="727.5" r="9"/>
+        </g>
+      </svg>
+    `)}`;
+    const persistentDemoEvents = new Set([
+      'page_view',
+      'chatbot_opened',
+      'demo_started',
+      'result_shown',
+      'demo_completed',
+      'replay_clicked',
+      'skip_to_result',
+      'cta_clicked'
+    ]);
+
+    function trackDemoEvent(name, detail = {}) {
+      demoEvents.push({ name, detail, timestamp: new Date().toISOString() });
+      if (trackingSuppressed || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
+      fetch(TRACKING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prospect: DEMO_CONFIG.trackingProspect,
+          session_id: trackingSessionId,
+          event_name: name
+        }),
+        keepalive: true
+      }).catch(() => {});
+    }
+
+    function applyConfig() {
+      document.documentElement.style.setProperty('--brand', DEMO_CONFIG.primaryBrandColour);
+      document.documentElement.style.setProperty('--brand-dark', DEMO_CONFIG.secondaryBrandColour);
+      document.documentElement.style.setProperty('--zero-tools-blue', DEMO_CONFIG.primaryBrandColour);
+      document.documentElement.style.setProperty('--launcher-bottom-offset', DEMO_CONFIG.launcherBottomOffset);
+      document.documentElement.style.setProperty('--chat-window-bottom-offset', DEMO_CONFIG.chatWindowBottomOffset);
+      document.documentElement.style.setProperty('--mobile-launcher-bottom-offset', DEMO_CONFIG.mobileLauncherBottomOffset);
+      document.documentElement.style.setProperty('--mobile-chat-window-bottom-offset', DEMO_CONFIG.mobileChatWindowBottomOffset);
+      const conceptLabel = document.getElementById('concept-label');
+      conceptLabel.replaceChildren(document.createTextNode(`${DEMO_CONFIG.attributionProspectName || DEMO_CONFIG.prospectName} · Prepared by `));
+      const zeroToolsLink = document.createElement('a');
+      zeroToolsLink.href = 'https://zerotools.tech/';
+      zeroToolsLink.target = '_blank';
+      zeroToolsLink.rel = 'noopener noreferrer';
+      zeroToolsLink.textContent = 'zerotools.tech';
+      conceptLabel.appendChild(zeroToolsLink);
+      document.getElementById('result-cta-copy').textContent = 'Explore this for your business.';
+      document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
+      document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
+      launcherTooltip.textContent = DEMO_CONFIG.launcherLabel || `Chat with ${DEMO_CONFIG.chatbotName}`;
+      chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
+      siteMockup.alt = DEMO_CONFIG.siteImage ? DEMO_CONFIG.backgroundImageAltText : 'Built-in 1920 by 970 website geometry calibration background';
+      siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
+      siteMockup.src = DEMO_CONFIG.siteImage || QA_CALIBRATION_SITE_IMAGE;
+      document.getElementById('summary-title').textContent = DEMO_CONFIG.enquiryResult.title;
+      document.getElementById('summary-support').textContent = DEMO_CONFIG.enquiryResult.supportText;
+      document.getElementById('summary-list').replaceChildren(...DEMO_CONFIG.enquiryResult.fields.map(field => {
+        const row = document.createElement('div');
+        row.className = 'summary-item';
+        const term = document.createElement('dt');
+        const detail = document.createElement('dd');
+        term.textContent = field.label;
+        detail.textContent = field.value;
+        row.append(term, detail);
+        return row;
+      }));
+      const contactSubject = DEMO_CONFIG.contactSubject || `${DEMO_CONFIG.prospectName} chatbot concept`;
+      const contactBody = DEMO_CONFIG.contactBody || `Hi, I reviewed the ${DEMO_CONFIG.prospectName} chatbot concept and would like to discuss it.`;
+      const encodedContactSubject = encodeURIComponent(contactSubject);
+      const encodedContactBody = encodeURIComponent(contactBody);
+      document.getElementById('contact-email-address').textContent = DEMO_CONFIG.contactEmail;
+      document.getElementById('gmail-link').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEMO_CONFIG.contactEmail)}&su=${encodedContactSubject}&body=${encodedContactBody}`;
+      document.getElementById('email-app-link').href = `mailto:${DEMO_CONFIG.contactEmail}?subject=${encodedContactSubject}&body=${encodedContactBody}`;
+    }
+
+    function updatePauseControl() {
+      const paused = manualPause || visibilityPause;
+      if (paused !== playbackPaused) {
+        playbackPaused = paused;
+        progressLastTimestamp = 0;
+        document.body.classList.toggle('demo-paused', paused);
+        if (paused && activeDelay) {
+          window.clearTimeout(activeDelay.timer);
+          const elapsed = Math.min(activeDelay.remaining, performance.now() - activeDelay.started);
+          const resolve = activeDelay.resolve;
+          activeDelay = null;
+          resolve(elapsed);
+        }
+        if (!paused) {
+          const waiters = resumeWaiters;
+          resumeWaiters = [];
+          waiters.forEach(resolve => resolve());
+        }
+      }
+      pauseResumeButton.textContent = manualPause ? 'Resume' : 'Pause';
+      pauseResumeButton.setAttribute('aria-label', manualPause ? 'Resume demo' : 'Pause demo');
+    }
+
+    function waitUntilResumed() {
+      return playbackPaused ? new Promise(resolve => resumeWaiters.push(resolve)) : Promise.resolve();
+    }
+
+    function cyclePlaybackSpeed() {
+      playbackSpeed = playbackSpeeds[(playbackSpeeds.indexOf(playbackSpeed) + 1) % playbackSpeeds.length];
+      speedButton.querySelector('.playback-speed-value').textContent = playbackSpeed + '×';
+      speedButton.setAttribute('aria-label', 'Playback speed: ' + playbackSpeed + ' times');
+    }
+
+    function waitScaled(baseMilliseconds, useCalibratedPacing = true) {
+      const capturedFactor = useCalibratedPacing ? playbackPacingFactors[playbackSpeed] : playbackSpeed;
+      return wait(baseMilliseconds / capturedFactor, baseMilliseconds);
+    }
+
+    // Nominal conversation work, ending at insertion of the final bot message.
+    // The scheduler accounts for fixed and scaled segments in these same base units.
+    function getConversationBaseDuration() {
+      const t = DEMO_CONFIG.timing;
+      let total = t.initialSettle;
+      DEMO_CONFIG.conversationSequence.forEach((item, itemIndex) => {
+        total += item.delay || 0;
+        if (item.type === 'choice') {
+          total += item.selectionDelay + t.selectedHighlight + t.choiceCollapse + item.afterSelection;
+        } else if (item.type === 'composer-entry') {
+          if (item.options) total += t.choiceCollapse;
+          const opening = item.entryMode === 'opening';
+          const delays = opening ? t.openingCharacterDelays : t.contactCharacterDelays;
+          Array.from(item.text).forEach((character, index) => {
+            total += delays[index % delays.length];
+            if (opening && character === '.') total += t.openingSentencePause;
+            if (opening && character === ',') total += t.openingClausePause;
+            if (!opening && (index === 3 || index === 11)) total += t.contactGroupPause;
+          });
+          total += (opening ? t.openingTypedPause + t.openingSendPress : t.contactTypedPause + t.contactSendPress) + t.visitorMessagePause;
+        } else if (item.role === 'bot') {
+          total += item.typing;
+          if (itemIndex !== DEMO_CONFIG.conversationSequence.length - 1) total += getBotReadingDelay(item);
+        }
+      });
+      return total;
+    }
+
+    async function wait(milliseconds, baseMilliseconds = milliseconds) {
+      const progressRate = milliseconds > 0 ? baseMilliseconds / milliseconds : 1;
+      const countsForProgress = progressTimerRunning;
+      let remaining = milliseconds;
+      const generation = delayGeneration;
+      while (remaining > 0) {
+        if (generation !== delayGeneration) return;
+        await waitUntilResumed();
+        if (generation !== delayGeneration) return;
+        const elapsed = await new Promise(resolve => {
+          const started = performance.now();
+          const timer = window.setTimeout(() => {
+            activeDelay = null;
+            resolve(remaining);
+          }, remaining);
+          activeDelay = { timer, started, remaining, resolve, progressRate: countsForProgress ? progressRate : 0 };
+        });
+        if (generation !== delayGeneration) return;
+        if (countsForProgress && progressTimerRunning) progressElapsed = Math.min(progressDuration, progressElapsed + elapsed * progressRate);
+        remaining = Math.max(0, remaining - elapsed);
+      }
+    }
+
+    function renderProgress(value) {
+      const clampedProgress = Math.max(0, Math.min(1, value));
+      displayedProgress = clampedProgress;
+      progressFill.style.transform = `scaleX(${clampedProgress})`;
+    }
+
+    function animateProgress() {
+      if (!progressTimerRunning) return;
+      if (playbackPaused) {
+        progressAnimationFrame = window.requestAnimationFrame(animateProgress);
+        return;
+      }
+      const activeWork = !playbackPaused && activeDelay
+        ? Math.min(activeDelay.remaining, Math.max(0, performance.now() - activeDelay.started)) * activeDelay.progressRate
+        : 0;
+      const ratio = progressDuration > 0 ? Math.min(.999999, (progressElapsed + activeWork) / progressDuration) : 0;
+      // Only completeProgressTimer marks 100%, immediately after the final bot insertion.
+      renderProgress(Math.max(displayedProgress, progressStartValue + (1 - progressStartValue) * ratio));
+      progressAnimationFrame = window.requestAnimationFrame(animateProgress);
+    }
+
+    function startProgressTimer(duration, startValue = 0) {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressStartValue = Math.max(0, Math.min(1, startValue));
+      progressDuration = Math.max(0, duration);
+      progressLastTimestamp = 0;
+      progressElapsed = 0;
+      progressTimerRunning = progressDuration > 0 && progressStartValue < 1;
+      renderProgress(progressStartValue);
+      if (!progressTimerRunning) return;
+      progressAnimationFrame = window.requestAnimationFrame(animateProgress);
+    }
+
+    function resetProgressTimer() {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressTimerRunning = false;
+      progressStartValue = 0;
+      progressDuration = 0;
+      progressElapsed = 0;
+      progressLastTimestamp = 0;
+      renderProgress(0);
+    }
+
+    function completeProgressTimer() {
+      if (progressAnimationFrame) window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      progressTimerRunning = false;
+      renderProgress(1);
+    }
+
+    function cancelPendingDelay() {
+      ++delayGeneration;
+      if (!activeDelay) return;
+      window.clearTimeout(activeDelay.timer);
+      const resolve = activeDelay.resolve;
+      const remaining = activeDelay.remaining;
+      activeDelay = null;
+      resolve(remaining);
+    }
+
+    function openContactPanel() {
+      contactReturnFocus = document.activeElement;
+      contactModal.classList.add('is-open');
+      contactModal.setAttribute('aria-hidden','false');
+      contactClose.focus();
+    }
+
+    function closeContactPanel() {
+      if (!contactModal.classList.contains('is-open')) return;
+      contactModal.classList.remove('is-open');
+      contactModal.setAttribute('aria-hidden','true');
+      if (contactReturnFocus && typeof contactReturnFocus.focus === 'function') contactReturnFocus.focus();
+    }
+
+    async function copyContactEmail() {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(DEMO_CONFIG.contactEmail);
+        } else {
+          const copyField = document.createElement('textarea');
+          copyField.value = DEMO_CONFIG.contactEmail;
+          copyField.setAttribute('readonly','');
+          copyField.style.position = 'fixed';
+          copyField.style.opacity = '0';
+          document.body.appendChild(copyField);
+          copyField.select();
+          document.execCommand('copy');
+          copyField.remove();
+        }
+        window.clearTimeout(copyResetTimer);
+        copyEmailButton.textContent = 'Copied';
+        copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+      } catch (error) {
+        copyEmailButton.textContent = 'Copy failed';
+        window.clearTimeout(copyResetTimer);
+        copyResetTimer = window.setTimeout(() => { copyEmailButton.textContent = 'Copy'; },1800);
+      }
+    }
+
+    function getBotReadingDelay(item) {
+      const text = item.textFrom ? DEMO_CONFIG[item.textFrom] : item.text;
+      if (text.length <= 60) return DEMO_CONFIG.timing.shortBotReadingPause;
+      if (text.length <= 120) return DEMO_CONFIG.timing.mediumBotReadingPause;
+      return DEMO_CONFIG.timing.longBotReadingPause;
+    }
+
+    function showLauncherRipple() {
+      chatLauncher.classList.remove('show-ripple');
+      void chatLauncher.offsetWidth;
+      chatLauncher.classList.add('show-ripple');
+      window.setTimeout(() => chatLauncher.classList.remove('show-ripple'), 600);
+    }
+
+    async function openChatWindow() {
+      if (chatOpened) return;
+      chatOpened = true;
+      ++launcherRunId;
+      chatLauncher.classList.add('is-pressed');
+      showLauncherRipple();
+      await wait(140);
+      launcherWrap.classList.add('is-hidden');
+      chatShell.setAttribute('aria-hidden', 'false');
+      chatShell.classList.remove('is-closed');
+      resetProgressTimer();
+      trackDemoEvent('chatbot_opened');
+      await wait(DEMO_CONFIG.timing.chatOpenDuration);
+      chatLauncher.classList.remove('is-pressed');
+      demoCursor.classList.remove('is-visible', 'is-pressing');
+      await wait(DEMO_CONFIG.timing.conversationStartDelay);
+      playConversation();
+    }
+
+    async function playInitialLauncherSequence() {
+      const sequenceId = ++launcherRunId;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const touchSized = window.matchMedia('(max-width: 999px), (pointer: coarse)').matches;
+      await wait(DEMO_CONFIG.timing.launcherDelay);
+      if (sequenceId !== launcherRunId || chatOpened) return;
+
+      if (!reducedMotion) {
+        launcherWrap.classList.add('show-attention');
+        trackDemoEvent('launcher_attention_shown');
+        await wait(850);
+        launcherWrap.classList.remove('show-attention');
+        if (sequenceId !== launcherRunId || chatOpened) return;
+      }
+
+      if (reducedMotion || touchSized) {
+        showLauncherRipple();
+        chatLauncher.classList.add('is-pressed');
+        await wait(reducedMotion ? 220 : DEMO_CONFIG.timing.mobileTapPause);
+        if (sequenceId !== launcherRunId || chatOpened) return;
+        await openChatWindow();
+        return;
+      }
+
+      demoCursor.classList.add('is-visible');
+      await wait(DEMO_CONFIG.timing.cursorRevealPause);
+      if (sequenceId !== launcherRunId || chatOpened) return;
+      const launcherRect = chatLauncher.getBoundingClientRect();
+      const cursorRect = demoCursor.getBoundingClientRect();
+      const cursorX = launcherRect.left + launcherRect.width * .58 - cursorRect.left;
+      const cursorY = launcherRect.top + launcherRect.height * .58 - cursorRect.top;
+      demoCursor.style.setProperty('--cursor-x', `${cursorX}px`);
+      demoCursor.style.setProperty('--cursor-y', `${cursorY}px`);
+      await wait(DEMO_CONFIG.timing.cursorTravel);
+      if (sequenceId !== launcherRunId || chatOpened) return;
+      chatLauncher.classList.add('is-script-hover');
+      await wait(DEMO_CONFIG.timing.cursorHoverPause);
+      demoCursor.classList.add('is-pressing');
+      chatLauncher.classList.add('is-pressed');
+      showLauncherRipple();
+      await wait(DEMO_CONFIG.timing.cursorPress);
+      if (sequenceId !== launcherRunId || chatOpened) return;
+      await openChatWindow();
+    }
+
+    function hideResultPresentation() {
+      businessResult.classList.remove('visible', 'is-minimized');
+      businessResult.setAttribute('aria-hidden', 'true');
+      resultDemoControls.classList.remove('is-minimized');
+      resultDiscussMinimizedButton.hidden = true;
+      resultRestoreButton.hidden = true;
+      resultMinimizeButton.setAttribute('aria-expanded', 'true');
+      resultDemoControls.hidden = true;
+    }
+
+    function showResultPresentation() {
+      businessResult.scrollTop = 0;
+      businessResult.classList.remove('is-minimized');
+      businessResult.classList.add('visible');
+      businessResult.setAttribute('aria-hidden', 'false');
+      resultDemoControls.classList.remove('is-minimized');
+      resultDiscussMinimizedButton.hidden = true;
+      resultRestoreButton.hidden = true;
+      resultMinimizeButton.setAttribute('aria-expanded', 'true');
+      resultDemoControls.hidden = false;
+    }
+
+    function setResultMinimized(minimized) {
+      businessResult.classList.toggle('is-minimized', minimized);
+      businessResult.setAttribute('aria-hidden', String(minimized));
+      resultDemoControls.classList.toggle('is-minimized', minimized);
+      resultDiscussMinimizedButton.hidden = !minimized;
+      resultRestoreButton.hidden = !minimized;
+      resultDemoControls.hidden = false;
+      resultMinimizeButton.setAttribute('aria-expanded', String(!minimized));
+    }
+
+    function toggleResultMinimized() {
+      setResultMinimized(!businessResult.classList.contains('is-minimized'));
+    }
+
+    function restoreNaturalSiteState() {
+      document.body.classList.remove('chat-focus-mode', 'chat-focus-returning', 'chat-replay-refocus');
+      closeChatAndRestoreLauncher();
+    }
+
+    function closeChatAndRestoreLauncher() {
+      chatShell.classList.add('is-closed');
+      chatShell.setAttribute('aria-hidden', 'true');
+      launcherWrap.classList.remove('is-hidden', 'show-attention');
+      chatLauncher.classList.remove('is-script-hover', 'is-pressed', 'show-ripple');
+      demoCursor.classList.remove('is-visible', 'is-pressing');
+      demoCursor.style.setProperty('--cursor-x', '0px');
+      demoCursor.style.setProperty('--cursor-y', '0px');
+      chatOpened = false;
+    }
+
+    function scrollToLatest() {
+      const latestRow = messagesElement.lastElementChild;
+      if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function addBotAvatar(row) {
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = DEMO_CONFIG.botInitials;
+      row.appendChild(avatar);
+    }
+
+    function addTypingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'message-row bot';
+      row.dataset.typing = 'true';
+      if (lastMessageRole === 'bot') row.classList.add('continuation');
+      else addBotAvatar(row);
+      row.insertAdjacentHTML('beforeend', '<div class="bubble typing" aria-label="Chatbot is typing"><i></i><i></i><i></i></div>');
+      messagesElement.appendChild(row);
+      scrollToLatest();
+      return row;
+    }
+
+    function addMessage(item) {
+      const row = document.createElement('div');
+      row.className = `message-row ${item.role}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      const text = document.createElement('span');
+      text.className = 'message-text';
+      text.textContent = item.textFrom ? DEMO_CONFIG[item.textFrom] : item.text;
+      bubble.appendChild(text);
+      if (item.role === 'bot') {
+        if (lastMessageRole === 'bot') row.classList.add('continuation');
+        else addBotAvatar(row);
+      }
+      row.appendChild(bubble);
+      messagesElement.appendChild(row);
+      lastMessageRole = item.role;
+      scrollToLatest();
+    }
+
+    function showChoices(item) {
+      const botRow = messagesElement.lastElementChild;
+      const bubble = botRow.querySelector('.bubble');
+      const choiceRow = document.createElement('div');
+      choiceRow.className = 'choice-row';
+      const panel = document.createElement('div');
+      panel.className = 'choice-panel';
+      panel.setAttribute('aria-label', 'Available choices');
+      item.options.forEach(optionText => {
+        const option = document.createElement('div');
+        option.className = 'choice-option';
+        option.textContent = optionText;
+        option.dataset.value = optionText;
+        panel.appendChild(option);
+      });
+      botRow.classList.add('has-choices');
+      choiceRow.appendChild(panel);
+      bubble.appendChild(choiceRow);
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+      scrollToLatest();
+      return choiceRow;
+    }
+
+    function markSelected(choiceRow, selectedValue) {
+      const selectedOption = Array.from(choiceRow.querySelectorAll('.choice-option')).find(option => option.dataset.value === selectedValue);
+      if (selectedOption) {
+        selectedOption.classList.add('selected');
+        selectedOption.setAttribute('aria-label', `${selectedValue}, selected`);
+      }
+    }
+
+    async function collapseChoices(choiceRow) {
+      choiceRow.querySelector('.choice-panel').classList.add('collapsing');
+      await wait(DEMO_CONFIG.timing.choiceCollapse);
+      choiceRow.remove();
+    }
+
+    // This remains a scripted demo. Availability models the live flow's per-step input setting.
+    function setComposerAvailability(enabled, choiceRequired = false) {
+      composerInput.disabled = !enabled;
+      composerInput.closest('.composer').classList.toggle('is-input-off', !enabled);
+      composerInput.placeholder = enabled ? 'Type a message…' : choiceRequired ? 'Choose an option above' : 'Please wait…';
+    }
+
+    function resetComposer() {
+      setComposerAvailability(false);
+      composerInput.value = '';
+      composerInput.blur();
+      sendButton.classList.remove('active', 'sending');
+    }
+
+    async function simulateComposerEntry(item, currentRun) {
+      const isOpening = item.entryMode === 'opening';
+      const delays = isOpening ? DEMO_CONFIG.timing.openingCharacterDelays : DEMO_CONFIG.timing.contactCharacterDelays;
+      const unusedChoices = item.options ? showChoices(item) : null;
+      setComposerAvailability(true);
+      composerInput.focus({ preventScroll: true });
+      composerInput.setSelectionRange(0,0);
+      for (const [index, character] of Array.from(item.text).entries()) {
+        await wait(delays[index % delays.length]);
+        if (currentRun !== runId) return false;
+        composerInput.value += character;
+        if (!cameraNoticeStarted) {
+          cameraNoticeStarted = true;
+          cameraNoticeElapsed = 0;
+        } else if (!cameraFocusStarted) {
+          cameraNoticeElapsed += delays[index % delays.length];
+        }
+        if (!cameraFocusStarted && cameraNoticeElapsed >= 800) {
+          cameraFocusStarted = true;
+          document.body.classList.remove('chat-focus-returning');
+          document.body.classList.add('chat-focus-mode');
+          trackDemoEvent('camera_focus_started', { noticeDelay: cameraNoticeElapsed });
+        }
+        sendButton.classList.add('active');
+        composerInput.setSelectionRange(composerInput.value.length,composerInput.value.length);
+        if (isOpening && character === '.') await wait(DEMO_CONFIG.timing.openingSentencePause);
+        if (isOpening && character === ',') await wait(DEMO_CONFIG.timing.openingClausePause);
+        if (!isOpening && (index === 3 || index === 11)) await wait(DEMO_CONFIG.timing.contactGroupPause);
+      }
+      await waitScaled(isOpening ? DEMO_CONFIG.timing.openingTypedPause : DEMO_CONFIG.timing.contactTypedPause);
+      if (currentRun !== runId) return false;
+      sendButton.classList.add('sending');
+      await wait(isOpening ? DEMO_CONFIG.timing.openingSendPress : DEMO_CONFIG.timing.contactSendPress);
+      if (currentRun !== runId) return false;
+      resetComposer();
+      if (unusedChoices) {
+        await collapseChoices(unusedChoices);
+        if (currentRun !== runId) return false;
+      }
+      addMessage({ role: 'visitor', text: item.text });
+      return true;
+    }
+
+    async function playConversation({ replayPlayback = false } = {}) {
+      const currentRun = ++runId;
+      isReplayPlayback = replayPlayback;
+      cameraFocusStarted = replayPlayback;
+      cameraNoticeStarted = replayPlayback;
+      cameraNoticeElapsed = replayPlayback ? 800 : 0;
+      manualPause = false;
+      playbackSkipped = false;
+      playbackActive = true;
+      updatePauseControl();
+      if (replayPlayback) {
+        document.body.classList.remove('chat-focus-returning');
+        document.body.classList.add('chat-focus-mode');
+      } else {
+        document.body.classList.remove('chat-focus-mode', 'chat-focus-returning');
+      }
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      hideResultPresentation();
+      replayButton.disabled = false;
+      pauseResumeButton.disabled = false;
+      skipResultButton.disabled = false;
+      startProgressTimer(getConversationBaseDuration());
+      trackDemoEvent('demo_started');
+
+      await wait(DEMO_CONFIG.timing.initialSettle);
+      if (currentRun !== runId) return;
+
+      for (const [itemIndex, item] of DEMO_CONFIG.conversationSequence.entries()) {
+        await waitScaled(item.delay);
+        if (currentRun !== runId) return;
+        if (item.type === 'choice') {
+          setComposerAvailability(false, true);
+          const choiceRow = showChoices(item);
+          await waitScaled(item.selectionDelay);
+          if (currentRun !== runId) return;
+          markSelected(choiceRow,item.selected);
+          await wait(DEMO_CONFIG.timing.selectedHighlight);
+          if (currentRun !== runId) return;
+          await collapseChoices(choiceRow);
+          if (currentRun !== runId) return;
+          setComposerAvailability(false);
+          addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
+          await waitScaled(item.afterSelection);
+          if (currentRun !== runId) return;
+          continue;
+        }
+        if (item.type === 'composer-entry') {
+          if (!await simulateComposerEntry(item,currentRun)) return;
+          await waitScaled(DEMO_CONFIG.timing.visitorMessagePause);
+          if (currentRun !== runId) return;
+          continue;
+        }
+        if (item.role === 'bot') {
+          const typing = addTypingIndicator();
+          await wait(item.typing);
+          if (currentRun !== runId) return;
+          typing.remove();
+        }
+        addMessage(item);
+        if (item.role === 'bot') setComposerAvailability(item.userInput === true, DEMO_CONFIG.conversationSequence[itemIndex + 1]?.type === 'choice');
+        const isFinalBotMessage = itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot';
+        if (isFinalBotMessage) completeProgressTimer();
+        if (item.role === 'bot') {
+          await waitScaled(isFinalBotMessage ? DEMO_CONFIG.timing.finalMessageHold : getBotReadingDelay(item), !isFinalBotMessage);
+          if (currentRun !== runId) return;
+        }
+      }
+
+      closeChatAndRestoreLauncher();
+      await wait(DEMO_CONFIG.timing.chatCloseSettle);
+      if (currentRun !== runId) return;
+      restoreNaturalSiteState();
+      const siteRestoreDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DEMO_CONFIG.timing.siteRestoreDuration;
+      await wait(siteRestoreDuration);
+      if (currentRun !== runId) return;
+      await wait(DEMO_CONFIG.timing.cleanSiteRevealHold);
+      if (currentRun !== runId) return;
+      showResultPresentation();
+      await wait(DEMO_CONFIG.timing.resultRevealTime);
+      if (currentRun === runId) {
+        playbackActive = false;
+        pauseResumeButton.disabled = true;
+        skipResultButton.disabled = true;
+        replayButton.disabled = false;
+        scrollMobileElementIntoView(businessResult);
+        trackDemoEvent('demo_completed');
+        trackDemoEvent('result_shown');
+      }
+    }
+
+    function scrollMobileElementIntoView(element) {
+      if (!window.matchMedia('(max-width: 999px)').matches) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.requestAnimationFrame(() => {
+        element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center', inline: 'nearest' });
+      });
+    }
+
+    function toggleManualPause() {
+      if (!playbackActive) return;
+      if (manualPause) {
+        manualPause = false;
+        updatePauseControl();
+        scrollToLatest();
+        trackDemoEvent('demo_resumed_manual');
+      } else {
+        manualPause = true;
+        updatePauseControl();
+        trackDemoEvent('demo_paused_manual');
+      }
+    }
+
+    async function skipToResult() {
+      if (!playbackActive) return;
+      trackDemoEvent('skip_to_result');
+      playbackSkipped = true;
+      playbackActive = false;
+      const skipRunId = ++runId;
+      ++launcherRunId;
+      manualPause = false;
+      visibilityPause = false;
+      updatePauseControl();
+      cancelPendingDelay();
+      resetComposer();
+      messagesElement.querySelectorAll('[data-typing="true"], .choice-row').forEach(element => element.remove());
+      completeProgressTimer();
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      closeChatAndRestoreLauncher();
+      await wait(DEMO_CONFIG.timing.chatCloseSettle);
+      if (skipRunId !== runId) return;
+      restoreNaturalSiteState();
+      const siteRestoreDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DEMO_CONFIG.timing.siteRestoreDuration;
+      await wait(siteRestoreDuration);
+      if (skipRunId !== runId) return;
+      await wait(DEMO_CONFIG.timing.skipCleanSiteRevealHold);
+      if (skipRunId !== runId) return;
+      showResultPresentation();
+      replayButton.disabled = false;
+      scrollMobileElementIntoView(businessResult);
+      trackDemoEvent('demo_completed', { skipped: true });
+      trackDemoEvent('result_shown', { skipped: true });
+    }
+
+    async function replayConversation() {
+      trackDemoEvent('replay_clicked');
+      const wasFocused = document.body.classList.contains('chat-focus-mode');
+      isReplayPlayback = true;
+      ++runId;
+      cancelPendingDelay();
+      manualPause = false;
+      visibilityPause = false;
+      playbackPaused = false;
+      playbackActive = false;
+      playbackSkipped = false;
+      resumeWaiters.splice(0).forEach(resolve => resolve());
+      document.body.classList.remove('demo-paused');
+      pauseResumeButton.textContent = 'Pause';
+      pauseResumeButton.setAttribute('aria-label','Pause demo');
+      replayButton.disabled = true;
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      resetProgressTimer();
+      businessResult.classList.remove('visible');
+      businessResult.setAttribute('aria-hidden','true');
+      if (!wasFocused) {
+        document.body.classList.remove('chat-focus-returning');
+        document.body.classList.add('chat-replay-refocus');
+        void siteMockup.offsetWidth;
+        document.body.classList.add('chat-focus-mode');
+        const replayRefocusDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 550;
+        if (replayRefocusDelay) await wait(replayRefocusDelay);
+        document.body.classList.remove('chat-replay-refocus');
+      }
+      playConversation({ replayPlayback: true });
+      scrollMobileElementIntoView(chatShell);
+    }
+
+    async function replayFullDemo() {
+      ++runId;
+      ++launcherRunId;
+      cancelPendingDelay();
+      manualPause = false;
+      visibilityPause = false;
+      playbackPaused = false;
+      playbackActive = false;
+      playbackSkipped = false;
+      isReplayPlayback = false;
+      cameraFocusStarted = false;
+      cameraNoticeStarted = false;
+      cameraNoticeElapsed = 0;
+      resumeWaiters.splice(0).forEach(resolve => resolve());
+      document.body.classList.remove('demo-paused');
+      pauseResumeButton.textContent = 'Pause';
+      pauseResumeButton.setAttribute('aria-label', 'Pause demo');
+      replayButton.disabled = false;
+      pauseResumeButton.disabled = true;
+      skipResultButton.disabled = true;
+      hideResultPresentation();
+      contactModal.classList.remove('is-open');
+      contactModal.setAttribute('aria-hidden', 'true');
+      restoreNaturalSiteState();
+      messagesElement.replaceChildren();
+      messagesElement.scrollTop = 0;
+      lastMessageRole = null;
+      resetComposer();
+      resetProgressTimer();
+      await waitForPaintFrames(2);
+      playInitialLauncherSequence();
+    }
+
+    async function waitForPaintFrames(count = 2) {
+      for (let frame = 0; frame < count; frame += 1) {
+        await new Promise(resolve => window.requestAnimationFrame(resolve));
+      }
+    }
+
+    function waitForSiteMockupState() {
+      return new Promise(resolve => {
+        let resolved = false;
+        const finish = loaded => {
+          if (resolved) return;
+          resolved = true;
+          siteMockup.removeEventListener('load', handleLoad);
+          siteMockup.removeEventListener('error', handleError);
+          resolve(loaded);
+        };
+        const handleLoad = () => finish(siteMockup.naturalWidth > 0);
+        const handleError = () => finish(false);
+        siteMockup.addEventListener('load', handleLoad);
+        siteMockup.addEventListener('error', handleError);
+        if (siteMockup.complete) finish(siteMockup.naturalWidth > 0);
+      });
+    }
+
+    async function scheduleInitialLauncherSequence() {
+      if (initialSequenceScheduled) return;
+      initialSequenceScheduled = true;
+      const postImageDelay = 400;
+      let imageLoaded = await waitForSiteMockupState();
+
+      if (imageLoaded && typeof siteMockup.decode === 'function') {
+        try {
+          await siteMockup.decode();
+        } catch {
+          imageLoaded = siteMockup.complete && siteMockup.naturalWidth > 0;
+        }
+      }
+
+      if (!imageLoaded) siteMockup.classList.add('is-missing');
+      await waitForPaintFrames(2);
+      window.setTimeout(playInitialLauncherSequence, postImageDelay);
+    }
+
+    applyConfig();
+    trackDemoEvent('page_view');
+    chatLauncher.addEventListener('click',openChatWindow);
+    replayButton.addEventListener('click',hideResultPresentation);
+    replayButton.addEventListener('click',replayConversation);
+    replayDemoButton.addEventListener('click',() => { trackDemoEvent('replay_clicked'); replayFullDemo(); });
+    resultMinimizeButton.addEventListener('click',toggleResultMinimized);
+    resultRestoreButton.addEventListener('click',() => setResultMinimized(false));
+    speedButton.addEventListener('click',cyclePlaybackSpeed);
+    pauseResumeButton.addEventListener('click',toggleManualPause);
+    skipResultButton.addEventListener('click',skipToResult);
+    contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
+    resultDiscussMinimizedButton.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
+    contactClose.addEventListener('click',closeContactPanel);
+    copyEmailButton.addEventListener('click',copyContactEmail);
+    contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
+    document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
+    document.addEventListener('visibilitychange',() => {
+      if (!playbackActive) return;
+      if (document.hidden && !manualPause) {
+        visibilityPause = true;
+        updatePauseControl();
+        trackDemoEvent('demo_paused_visibility');
+      } else if (!document.hidden && visibilityPause) {
+        visibilityPause = false;
+        updatePauseControl();
+        trackDemoEvent('demo_resumed_visibility');
+      }
+    });
+    scheduleInitialLauncherSequence();
+  </script>
+</body>
+</html>
