@@ -15,8 +15,8 @@
   <meta property="og:url" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/">
   <meta property="og:title" content="Pest Control Website Chatbot Demo | Zero Tools">
   <meta property="og:description" content="An illustrative pest-control website chatbot example that guides a visitor and prepares a useful enquiry for business follow-up.">
-  <meta property="og:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
-  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/og-image.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Pest Control Website Chatbot Demo | Zero Tools">
   <meta name="twitter:description" content="An illustrative pest-control website chatbot example that guides a visitor and prepares a useful enquiry for business follow-up.">
-  <meta name="twitter:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/assets/og-preview.jpg">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/pest-control-chatbot-demo/og-image.jpg">
   <meta name="twitter:image:alt" content="Illustrative pest-control website chatbot demo">
   <link rel="icon" href="/favicon.png?v=1">
 
@@ -318,6 +318,8 @@
 
     @media (min-width:600px) and (max-width:1199px) and (orientation:portrait) {
       .site-mockup { height: 100svh; }
+      .chat-shell:not(.is-closed) { position: absolute; top: var(--stage-clearance); right: var(--stage-gutter); bottom: auto; margin: 0; }
+      .result-demo-controls.is-minimized { left: var(--stage-gutter); bottom: max(calc(env(safe-area-inset-bottom, 0px) + 100px),12svh); transform: none; }
     }
 
     @media (max-width:599px) and (orientation:portrait) {
@@ -442,7 +444,7 @@
       </div>
       <div class="contact-section">
         <p class="contact-divider">OR</p>
-      <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20reviewed%20the%20Pest%20Control%20Website%20Chatbot%20Demo%20concept%20and%20would%20like%20to%20discuss%20it." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+      <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20viewed%20the%20pest%20control%20website%20AI%20chatbot%20demo%20and%20would%20like%20to%20discuss%20how%20something%20similar%20could%20work%20for%20my%20business%2C%20what%20it%20could%20handle%2C%20and%20what%20would%20be%20involved%20in%20setting%20it%20up." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
       </svg><span>Message us on WhatsApp</span></a>
       </div>
@@ -474,8 +476,8 @@
       "mobileLauncherBottomOffset": "18px",
       "mobileChatWindowBottomOffset": "0px",
       "contactEmail": "support@zerotools.tech",
-      "contactSubject": "Pest Control Website Chatbot Demo",
-      "contactBody": "Hi, I reviewed the Pest Control Website Chatbot Demo concept and would like to discuss it.",
+      "contactSubject": "Pest Control AI Chatbot Demo",
+      "contactBody": "Hi, I viewed the pest control website AI chatbot demo and would like to discuss how something similar could work for my business, what it could handle, and what would be involved in setting it up.",
       "welcomeMessage": "Hello, I’m the Pest Control Assistant. Tell me what you’ve noticed and I can collect the details our team needs to follow up.",
       "conversationSequence": [
         {
@@ -1136,20 +1138,32 @@
 
     async function openChatWindow() {
       if (chatOpened) return;
+      // Claim the new session before any wait can resume an outgoing result transition.
+      const currentRun = ++runId;
+      cancelPendingDelay();
+      playbackActive = false;
+      manualPause = false;
+      visibilityPause = false;
+      updatePauseControl();
+      hideResultPresentation();
+      document.body.classList.remove('chat-focus-mode', 'chat-focus-returning', 'chat-replay-refocus');
       chatOpened = true;
       ++launcherRunId;
       chatLauncher.classList.add('is-pressed');
       showLauncherRipple();
       await wait(140);
+      if (currentRun !== runId) return;
       launcherWrap.classList.add('is-hidden');
       chatShell.setAttribute('aria-hidden', 'false');
       chatShell.classList.remove('is-closed');
       resetProgressTimer();
       trackDemoEvent('chatbot_opened');
       await wait(DEMO_CONFIG.timing.chatOpenDuration);
+      if (currentRun !== runId) return;
       chatLauncher.classList.remove('is-pressed');
       demoCursor.classList.remove('is-visible', 'is-pressing');
       await wait(DEMO_CONFIG.timing.conversationStartDelay);
+      if (currentRun !== runId) return;
       playConversation();
     }
 
@@ -1252,7 +1266,8 @@
 
     function scrollToLatest() {
       const latestRow = messagesElement.lastElementChild;
-      if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (latestRow) latestRow.scrollIntoView({ block: 'nearest', behavior: reducedMotion ? 'instant' : 'smooth' });
     }
 
     function addBotAvatar(row) {
@@ -1484,7 +1499,9 @@
     function scrollMobileElementIntoView(element) {
       if (!window.matchMedia('(max-width: 999px)').matches) return;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const currentRun = runId;
       window.requestAnimationFrame(() => {
+        if (currentRun !== runId) return;
         element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center', inline: 'nearest' });
       });
     }
