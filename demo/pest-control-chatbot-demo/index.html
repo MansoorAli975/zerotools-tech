@@ -223,6 +223,7 @@
     .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 22px 11px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
     .business-result.visible .result-cta { opacity: 1; transform: none; }
     .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .result-more-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
     .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
     .contact-trigger:hover { background: #223d68; }
     .result-minimize { position: absolute; top: 13px; right: 13px; padding: 7px 9px; border: 1px solid #d5dce5; border-radius: 8px; color: #40516a; background: #f5f7fa; font-size: 10px; font-weight: 850; cursor: pointer; }
@@ -237,7 +238,7 @@
     .result-demo-controls:not(.is-minimized) .replay-demo svg { display: none; }
     .result-demo-controls.is-minimized .replay-demo { min-height: 34px; padding: 8px 11px; border-color: #cad3df; color: #34445d; background: #fff; box-shadow: none; white-space: nowrap; }
     .business-result.visible.is-minimized { pointer-events: none; visibility: hidden; opacity: 0; }
-    .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+    .result-more-link:focus-visible, .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
 
     .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
     .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
@@ -415,13 +416,13 @@
       </section>
       </div>
       <div class="result-cta">
-        <p id="result-cta-copy"></p>
-        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
+        <p><a class="result-more-link" id="result-cta-copy" href="https://zerotools.tech" target="_blank" rel="noopener noreferrer">Learn more about Zero Tools</a></p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this for your business</button>
       </div>
     </aside>
 
     <div class="result-demo-controls" id="result-demo-controls" hidden>
-      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this concept</button>
+      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this for your business</button>
       <button class="result-action" id="result-restore" type="button" hidden>Restore enquiry</button>
       <button class="replay-demo" id="replay-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6.6M4 11V5m0 6h6"/></svg>Replay demo</button>
     </div>
@@ -447,10 +448,6 @@
       <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20viewed%20the%20pest%20control%20website%20AI%20chatbot%20demo%20and%20would%20like%20to%20discuss%20how%20something%20similar%20could%20work%20for%20my%20business%2C%20what%20it%20could%20handle%2C%20and%20what%20would%20be%20involved%20in%20setting%20it%20up." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
       </svg><span>Message us on WhatsApp</span></a>
-      </div>
-      <div class="contact-website">
-        <p class="contact-website-intro">Visit our website to know more about us</p>
-      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg><span>zerotools.tech</span></a>
       </div>
     </section>
   </div>
@@ -903,7 +900,7 @@
       zeroToolsLink.rel = 'noopener noreferrer';
       zeroToolsLink.textContent = 'zerotools.tech';
       conceptLabel.appendChild(zeroToolsLink);
-      document.getElementById('result-cta-copy').textContent = 'Explore this for your business.';
+      document.getElementById('result-cta-copy').textContent = 'Learn more about Zero Tools';
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
       launcherTooltip.textContent = DEMO_CONFIG.launcherLabel || `Chat with ${DEMO_CONFIG.chatbotName}`;
