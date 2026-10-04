@@ -7,25 +7,25 @@
 
   <!-- MASTER TEMPLATE — REPLACE ALL PROSPECT METADATA BEFORE DEPLOYMENT
        Static values must remain in the HTML head so social crawlers can read them. -->
-  <title>Veterinary Clinic Website Chatbot Demo | Zero Tools</title>
-  <meta name="description" content="An illustrative veterinary-clinic website chatbot example prepared by Zero Tools.">
+  <title>Veterinary Clinic AI Chatbot Demo | Zero Tools</title>
+  <meta name="description" content="See how a website AI chatbot can help a veterinary clinic guide visitors and prepare useful appointment enquiries.">
   <link rel="canonical" href="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/">
-  <meta property="og:title" content="Veterinary Clinic Website Chatbot Demo | Zero Tools">
-  <meta property="og:description" content="An illustrative veterinary-clinic website chatbot example prepared by Zero Tools.">
-  <meta property="og:image" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/assets/og-preview.jpg">
-  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/assets/og-preview.jpg">
+  <meta property="og:title" content="Veterinary Clinic AI Chatbot Demo | Zero Tools">
+  <meta property="og:description" content="See how a website AI chatbot can help a veterinary clinic guide visitors and prepare useful appointment enquiries.">
+  <meta property="og:image" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/og-image.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Illustrative veterinary-clinic website chatbot demo">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Veterinary Clinic Website Chatbot Demo | Zero Tools">
-  <meta name="twitter:description" content="An illustrative veterinary-clinic website chatbot example prepared by Zero Tools.">
-  <meta name="twitter:image" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/assets/og-preview.jpg">
+  <meta name="twitter:title" content="Veterinary Clinic AI Chatbot Demo | Zero Tools">
+  <meta name="twitter:description" content="See how a website AI chatbot can help a veterinary clinic guide visitors and prepare useful appointment enquiries.">
+  <meta name="twitter:image" content="https://www.zerotools.tech/demo/veterinary-clinic-chatbot-demo/og-image.jpg">
   <meta name="twitter:image:alt" content="Illustrative veterinary-clinic website chatbot demo">
   <link rel="icon" href="/favicon.png?v=1">
 
@@ -40,7 +40,6 @@
     8. Update conversation sequence
     9. Update enquiry-summary fields
     10. Review medical or industry safety wording
-    11. Confirm the disclaimer
     12. Test desktop
     13. Test mobile
     14. Test replay
@@ -81,10 +80,8 @@
       --mobile-launcher-right-offset: 24px;
       --launcher-bottom-offset: 116px;
       --chat-window-bottom-offset: 48px;
-      --page-contact-bottom-offset: 36px;
       --mobile-launcher-bottom-offset: 110px;
       --mobile-chat-window-bottom-offset: 0px;
-      --mobile-page-contact-bottom-offset: 30px;
     }
 
     * { box-sizing: border-box; }
@@ -102,7 +99,7 @@
         linear-gradient(135deg,#f7f8fa,#dde2e8);
     }
 
-    .site-mockup { position: absolute; inset: 0; z-index: 0; width: 100%; height: auto; pointer-events: none; user-select: none; transition: filter 1.2s cubic-bezier(.16,1,.3,1); }
+    .site-mockup { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; pointer-events: none; user-select: none; transition: filter 1.2s cubic-bezier(.16,1,.3,1); }
     .site-mockup.is-missing { display: none; }
     .presentation::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,20,28,.04),rgba(13,20,28,.01)); }
     .focus-overlay { position: absolute; inset: 0; z-index: 1; opacity: 0; background: rgba(8,20,27,.07); transition: opacity 1.2s cubic-bezier(.16,1,.3,1); pointer-events: none; }
@@ -129,13 +126,9 @@
     .chat-launcher:hover, .chat-launcher.is-script-hover { transform: translateY(-2px); box-shadow: 0 15px 32px rgba(5,11,25,.4); }
     .chat-launcher:focus-visible { outline: 3px solid color-mix(in srgb,var(--brand) 55%,white); outline-offset: 4px; }
     .chat-launcher.is-pressed { transform: scale(.9); box-shadow: 0 6px 14px rgba(5,11,25,.32); }
-    .launcher-icon { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .launcher-id { position: absolute; right: -4px; bottom: -2px; display: grid; min-width: 27px; height: 20px; padding: 0 5px; place-items: center; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--brand); font-size: 8px; font-weight: 900; letter-spacing: .03em; }
+    .launcher-icon { width: 28px; height: 28px; fill: currentColor; stroke: none; }
     .launcher-ripple { position: absolute; inset: 50%; width: 20px; height: 20px; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; opacity: 0; transform: translate(-50%,-50%) scale(.4); }
     .chat-launcher.show-ripple .launcher-ripple { animation: launcher-ripple .55s ease-out; }
-    .page-contact-widget { position: fixed; right: var(--launcher-right-offset); bottom: var(--page-contact-bottom-offset); z-index: 5; display: grid; width: 64px; height: 64px; place-items: center; pointer-events: none; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; color: #fff; background: #08a640; box-shadow: 0 8px 18px rgba(5,65,30,.24); }
-    .page-contact-widget svg { display: block; width: 34px; height: 34px; fill: #fff; color: #fff; stroke: none; }
-    .presentation:has(.chat-shell:not(.is-closed)) .page-contact-widget { display: none; }
 
     .demo-cursor { --cursor-x: 0px; --cursor-y: 0px; position: fixed; right: 18px; bottom: 30px; z-index: 8; width: 27px; height: 34px; pointer-events: none; visibility: hidden; opacity: 0; transform: translate(var(--cursor-x),var(--cursor-y)); transition: transform 1.08s cubic-bezier(.2,.76,.25,1),opacity .18s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
     .demo-cursor.is-visible { visibility: visible; opacity: 1; }
@@ -172,6 +165,8 @@
     .composer { display: flex; align-items: center; gap: 7px; min-height: 46px; padding: 6px 7px 6px 10px; border: 1px solid #d7dce2; border-radius: 15px; background: #fff; box-shadow: 0 2px 7px rgba(33,43,54,.04); transition: border-color .18s ease,box-shadow .18s ease; }
     .composer-input { min-width: 0; height: 34px; flex: 1; padding: 0 3px; border: 0; outline: 0; color: #3d4754; background: transparent; font-size: 12.5px; caret-color: var(--brand); }
     .composer-input::placeholder { color: #929ba8; }
+    .composer.is-input-off { border-color: #e0e3e7; background: #f2f3f4; box-shadow: none; }
+    .composer-input:disabled { cursor: not-allowed; color: #7b8592; -webkit-text-fill-color: #7b8592; opacity: 1; }
     .composer:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent); }
     .composer-icon { display: grid; width: 20px; height: 20px; flex: 0 0 auto; place-items: center; color: #86919f; }
     .composer-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -197,24 +192,40 @@
     .choice-option { padding: 9px 10px; border: 1px solid color-mix(in srgb,var(--brand) 30%,#d8dee5); border-radius: 10px; color: var(--brand-dark); background: color-mix(in srgb,var(--brand) 5%,white); font-size: 11.5px; font-weight: 750; transition: color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease; }
     .choice-option.selected { border-color: var(--brand); color: #fff; background: var(--brand); transform: translateX(2px); }
 
-    .business-result { position: absolute; top: 50%; left: clamp(22px,calc(42vw - 215px),calc(100vw - clamp(22px,5vw,76px) - min(410px,calc(100vw - 44px)) - clamp(18px,2vw,32px) - min(430px,calc(100vw - 490px)))); z-index: 3; width: min(430px,calc(100vw - 490px)); max-height: calc(100svh - 120px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); anchor-name: --result-card; }
+    .business-result { position: absolute; top: 50%; left: calc((100% - min(430px,calc(100vw - 44px))) / 2); z-index: 3; width: min(430px,calc(100vw - 44px)); max-height: calc(100svh - 112px); overflow: auto; visibility: hidden; border: 1px solid rgba(255,255,255,.74); border-radius: 20px; opacity: 0; background: rgba(255,255,255,.96); box-shadow: 0 14px 38px rgba(22,34,53,.12); transform: translate(min(380px,28vw),calc(-50% + 10px)) scale(.92) rotate(.55deg); transform-origin: right center; transition: opacity .34s ease,transform .6s cubic-bezier(.22,.78,.24,1),box-shadow .6s ease,visibility 0s linear .6s; backdrop-filter: blur(10px); anchor-name: --result-card; }
     .business-result.visible { visibility: visible; opacity: 1; box-shadow: var(--shadow); transform: translate(0,-50%) scale(1) rotate(0); transition-delay: 0s; }
-    .summary-heading { position: relative; padding: 20px 118px 16px 22px; border-bottom: 1px solid #e6e9ed; color: var(--ink); font-size: 18px; font-weight: 900; }
+    .summary-heading { position: sticky; top: 0; z-index: 2; background: #fff; padding: 44px 22px 10px; border-bottom: 0; color: var(--ink); font-size: 21px; line-height: 1.3; font-weight: 850; }
     .result-eyebrow { display: block; margin-bottom: 6px; color: var(--brand); font-size: 9.5px; font-weight: 900; letter-spacing: .14em; }
-    .summary-heading::before { content: "✓"; display: inline-grid; width: 22px; height: 22px; margin-right: 8px; place-items: center; border-radius: 50%; color: #fff; background: var(--brand); font-size: 12px; vertical-align: 2px; }
+    .summary-heading::before { content: none; }
+    .summary-support:empty { display: none; }
+    .result-details { display: contents; }
+    .email-delivery { display: flex; align-items: flex-start; gap: 12px; margin: 0 18px 10px; padding: 10px 15px; border: 1px solid #c2dfdf; border-radius: 12px; color: #173f4a; background: #eaf6f5; }
+    .email-delivery-icon { display: grid; flex: 0 0 auto; width: 38px; height: 38px; place-items: center; border-radius: 10px; color: #fff; background: var(--brand); }
+    .email-delivery svg { width: 24px; height: 24px; }
+    .email-delivery h3 { margin: 0 0 7px; font-size: 11px; font-weight: 850; letter-spacing: .06em; }
+    .email-delivery p { margin: 0; font-size: 13px; line-height: 1.5; font-weight: 650; }
+    .example-email { margin: 0 18px 10px; border: 1px solid #dce3e8; border-radius: 12px; background: #fff; overflow: hidden; }
+    .example-email-heading { padding: 10px 14px; border-bottom: 1px solid #e6e9ed; background: #f6f8fa; }
+    .example-email-heading h3 { margin: 0 0 8px; color: #536478; font-size: 10px; letter-spacing: .1em; }
+    .email-routing { display: grid; gap: 6px; margin: 0; font-size: 12px; line-height: 1.45; }
+    .email-routing div { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 8px; }
+    .email-routing dt { color: var(--muted); }
+    .email-routing dd { margin: 0; font-weight: 650; }
+    .email-follow-up { margin: 0; padding: 8px 14px; border-top: 1px solid #edf0f3; color: #536478; font-size: 12px; line-height: 1.5; }
     .summary-support { display: block; margin: 6px 0 0 31px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
-    .summary-list { margin: 0; padding: 7px 22px 13px; }
-    .summary-item { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
+    .summary-list { margin: 0; padding: 4px 14px 4px; }
+    .summary-item { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.8fr); gap: 12px; padding: 6px 0; border-bottom: 1px solid #edf0f3; font-size: 12.5px; }
     .summary-item:last-child { border-bottom: 0; }
     .summary-item dt { color: var(--muted); }
-    .summary-item dd { margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
-    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 22px 15px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
+    .summary-item dd { overflow-wrap: anywhere; margin: 0; color: var(--ink); font-weight: 700; text-align: left; }
+    .result-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 22px 11px; border-top: 1px solid #e6e9ed; opacity: 0; background: rgba(247,249,252,.9); transform: translateY(5px); transition: opacity .24s ease .52s,transform .24s ease .52s; }
     .business-result.visible .result-cta { opacity: 1; transform: none; }
     .result-cta p { margin: 0; color: #465365; font-size: 11.5px; font-weight: 700; line-height: 1.35; }
+    .result-more-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
     .contact-trigger { flex: 0 0 auto; padding: 8px 11px; border: 0; border-radius: 9px; color: #fff; background: #172b4d; font-size: 11px; font-weight: 800; cursor: pointer; }
     .contact-trigger:hover { background: #223d68; }
     .result-minimize { position: absolute; top: 13px; right: 13px; padding: 7px 9px; border: 1px solid #d5dce5; border-radius: 8px; color: #40516a; background: #f5f7fa; font-size: 10px; font-weight: 850; cursor: pointer; }
-    .result-demo-controls { position: fixed; position-anchor: --result-card; z-index: 9; top: calc(anchor(top) + 14px); left: calc(anchor(right) - 92px); bottom: auto; display: flex; max-width: calc(100vw - 44px); gap: 8px; flex-wrap: wrap; transform: translateX(-100%); }
+    .result-demo-controls { position: fixed; position-anchor: --result-card; z-index: 9; top: calc(anchor(top) + 14px); left: calc(anchor(right) - 104px); bottom: auto; display: flex; max-width: calc(100vw - 44px); gap: 8px; flex-wrap: wrap; transform: translateX(-100%); }
     .result-demo-controls.is-minimized { position-anchor: auto; top: auto; left: clamp(22px,5vw,76px); bottom: 76px; padding: 6px; border: 1px solid rgba(23,43,77,.14); border-radius: 13px; background: rgba(255,255,255,.94); box-shadow: 0 8px 24px rgba(6,18,38,.16); transform: none; backdrop-filter: blur(8px); }
     .result-demo-controls[hidden], .result-action[hidden] { display: none; }
     .result-action { min-height: 34px; padding: 8px 11px; border: 1px solid #cad3df; border-radius: 9px; color: #34445d; background: #fff; font: inherit; font-size: 11px; font-weight: 850; white-space: nowrap; cursor: pointer; }
@@ -225,7 +236,7 @@
     .result-demo-controls:not(.is-minimized) .replay-demo svg { display: none; }
     .result-demo-controls.is-minimized .replay-demo { min-height: 34px; padding: 8px 11px; border-color: #cad3df; color: #34445d; background: #fff; box-shadow: none; white-space: nowrap; }
     .business-result.visible.is-minimized { pointer-events: none; visibility: hidden; opacity: 0; }
-    .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible, .contact-site-link:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
+    .result-more-link:focus-visible, .contact-trigger:focus-visible, .result-minimize:focus-visible, .result-action:focus-visible, .replay-demo:focus-visible, .contact-close:focus-visible, .copy-email:focus-visible, .contact-action:focus-visible { outline: 3px solid rgba(56,132,255,.42); outline-offset: 2px; }
 
     .contact-modal { position: fixed; inset: 0; z-index: 30; display: grid; padding: 20px; place-items: center; overflow-y: auto; visibility: hidden; opacity: 0; background: rgba(9,18,31,.48); transition: opacity .2s ease,visibility 0s linear .2s; }
     .contact-modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
@@ -247,11 +258,6 @@
     .contact-section .contact-divider { margin-bottom: 22px; }
     .contact-action:hover { border-color: #303641; background: #f8f9fb; }
     .contact-whatsapp svg { order: 1; color: #25b85a; fill: currentColor; }
-    .contact-website { margin-top: 30px; }
-    .contact-website-intro { margin: 0 0 8px; color: #525660; font-size: 13px; line-height: 1.5; }
-    .contact-site-link { display: inline-flex; min-height: 28px; align-items: center; gap: 8px; color: #202631; font-size: 14px; font-weight: 700; text-decoration: none; }
-    .contact-site-link svg { flex: 0 0 auto; width: 19px; height: 19px; }
-    .contact-site-link:hover { text-decoration: underline; text-underline-offset: 3px; }
     .copy-email:hover { color: #202631; }
     .contact-panel :is(button, a):focus-visible { outline: 2px solid #008fc8; outline-offset: 3px; }
 
@@ -259,7 +265,6 @@
     .typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa4b1; animation: typing 1s infinite ease-in-out; }
     .typing i:nth-child(2) { animation-delay: .15s; }
     .typing i:nth-child(3) { animation-delay: .3s; }
-    .disclaimer { position: fixed; z-index: 2; left: clamp(22px,5vw,76px); bottom: 10px; width: min(1040px,calc(100vw - 510px)); margin: 0; padding: 7px 12px; border: 1px solid rgba(20,49,74,.13); border-radius: 8px; color: #172536; background: rgba(255,255,255,.9); box-shadow: 0 3px 12px rgba(17,31,48,.08); font-size: 12px; line-height: 1.45; font-weight: 600; text-align: left; backdrop-filter: blur(5px); }
 
     @keyframes message-in { to { opacity: 1; transform: translateY(0); } }
     @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-3px); opacity: 1; } }
@@ -270,7 +275,7 @@
 
     @media (min-width:1000px) and (max-width:1250px) {
       .business-result { top: calc(50% - 22px); max-height: calc(100svh - 150px); }
-      .summary-heading { padding: 15px 118px 12px 20px; }
+      .summary-heading { padding: 44px 20px 10px; }
       .summary-list { padding: 4px 20px 9px; }
       .summary-item { padding: 7px 0; }
       .result-cta { padding: 10px 20px 12px; }
@@ -278,8 +283,8 @@
 
     @media (max-width:720px) {
       .presentation { min-height: 100svh; overflow: visible; padding: 16px; }
-      .site-mockup { position: fixed; inset: 0 -6px 0 0; width: calc(100% + 6px); height: 100svh; object-fit: cover; object-position: center top; opacity: .35; }
-      body.chat-focus-mode .site-mockup { filter: brightness(.9) contrast(.94); }
+      .site-mockup { position: fixed; inset: 0; width: 100%; height: 100svh; }
+      body.chat-focus-mode .site-mockup { opacity: .35; filter: brightness(.9) contrast(.94); }
       body.chat-focus-mode .chat-shell:not(.is-closed) { transform: none; }
       .prospect-widget { display: none; }
       .concept-tools { position: relative; top: auto; left: auto; display: flex; width: fit-content; max-width: 100%; margin: 0 auto; transform: none; }
@@ -289,7 +294,6 @@
       .launcher-wrap { right: var(--mobile-launcher-right-offset); bottom: var(--mobile-launcher-bottom-offset); }
       .launcher-tooltip { font-size: 10.5px; }
       .chat-launcher { width: 60px; height: 60px; }
-      .page-contact-widget { right: var(--mobile-launcher-right-offset); bottom: var(--mobile-page-contact-bottom-offset); width: 60px; height: 60px; }
       .demo-cursor { display: none; }
       .chat-header { min-height: 70px; padding: 13px 10px 13px 14px; }
       .avatar { width: 40px; height: 40px; font-size: 12.5px; }
@@ -302,8 +306,8 @@
       .composer { min-height: 44px; padding: 5px 6px 5px 9px; }
       .composer-input { height: 32px; }
       .business-result { position: relative; top: auto; left: auto; width: min(410px,calc(100vw - 28px)); max-height: 0; margin: 0 auto; border-width: 0; opacity: 0; transform: translateY(14px) scale(.98); }
-      .business-result.visible { max-height: 560px; margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
-      .summary-heading { padding: 17px 112px 14px 18px; font-size: 17px; }
+      .business-result.visible { max-height: min(740px,calc(100svh - 264px)); margin-top: 18px; border-width: 1px; opacity: 1; transform: none; }
+      .summary-heading { padding: 44px 18px 10px; font-size: 19px; }
       .summary-list { padding: 6px 18px 11px; }
       .summary-item { grid-template-columns: 105px 1fr; gap: 12px; }
       .result-cta { padding: 12px 18px 14px; }
@@ -311,12 +315,35 @@
       .result-demo-controls.is-minimized #result-discuss-minimized { grid-column: 1 / -1; }
       .result-demo-controls.is-minimized .result-action, .result-demo-controls.is-minimized .replay-demo { width: 100%; min-width: 0; min-height: 44px; justify-content: center; white-space: nowrap; }
       .contact-panel { padding: 25px 20px 22px; }
-      .disclaimer { position: relative; left: auto; bottom: auto; width: min(900px,calc(100vw - 28px)); margin: 12px auto 0; transform: none; font-size: 12.5px; }
+    }
+
+    @media (min-width:1000px) and (orientation:landscape) and (aspect-ratio > 3/2) {
+      .presentation { background: url('assets/company-homepage-q85.webp?v=approved-wide-1765x891') center bottom / cover no-repeat; }
+      .site-mockup { object-fit: contain; mask-image: linear-gradient(to bottom,#000 calc(100vw * 891 / 1765 - 32px),transparent calc(100vw * 891 / 1765)); }
+    }
+
+    @media (min-width:600px) and (max-width:1199px) and (orientation:portrait) {
+      .concept-tools { position: fixed; top: clamp(76px,8svh,100px); left: 50%; width: max-content; max-width: calc(100vw - 32px); margin: 0; transform: translateX(-50%); }
+      .concept-label { font-size: clamp(9.5px,1.35vw,11px); font-weight: 700; }
+      .site-mockup { height: 100svh; }
+      .business-result { position: absolute; left: 50%; width: min(430px,calc(100vw - 44px)); top: 50%; margin: 0; }
+      .business-result.visible { transform: translate(-50%,-50%); }
+      .result-demo-controls.is-minimized { left: clamp(22px,5vw,76px); bottom: max(calc(env(safe-area-inset-bottom, 0px) + 100px),12svh); transform: none; }
+    }
+
+    @media (max-width:599px) and (orientation:portrait) {
+      .concept-tools { top: calc(max(52px,6.3svh) - 16px); height: 46px; align-items: flex-start; width: max-content; max-width: 100%; }
+      .concept-label { gap: 6px; padding: 4px 10px; font-size: 9.5px; line-height: 1.15; font-weight: 700; }
+      .concept-label::before { flex-shrink: 0; width: 5px; height: 5px; }
+      .site-mockup { height: 100svh; object-position: 20% top; }
+      .result-demo-controls.is-minimized { bottom: 240px; }
+      .business-result { display: grid; grid-template-rows: auto minmax(0,1fr) auto; overflow: hidden; }
+      .result-details { display: block; min-height: 0; overflow-y: auto; padding-bottom: 12px; }
+      .result-cta { position: sticky; bottom: 0; z-index: 2; background: #f7f9fc; }
     }
 
     @media (max-height:620px) and (min-width:721px) {
       .chat-shell { height: calc(100svh - var(--chat-window-bottom-offset) - 24px); min-height: 0; }
-      .disclaimer { bottom: 6px; font-size: 12.5px; }
     }
 
     @media (prefers-reduced-motion:reduce) {
@@ -336,7 +363,12 @@
 </head>
 <body>
   <main class="presentation">
-    <img class="site-mockup" id="site-mockup" alt="" draggable="false">
+    <picture>
+      <source media="(max-width: 599px) and (orientation: portrait)" srcset="assets/company-homepage-mobile-portrait-q85.webp" type="image/webp">
+      <source media="(min-width: 600px) and (max-width: 1199px) and (orientation: portrait)" srcset="assets/company-homepage-tablet-portrait-q85.webp" type="image/webp">
+      <source media="(min-width: 1000px) and (max-width: 1440px) and (orientation: landscape) and (max-aspect-ratio: 3/2)" srcset="assets/company-homepage-compact-landscape-q85.webp" type="image/webp">
+      <img class="site-mockup" id="site-mockup" alt="" draggable="false">
+    </picture>
     <div class="focus-overlay" aria-hidden="true"></div>
 
     <div class="concept-tools">
@@ -346,16 +378,9 @@
     <div class="launcher-wrap" id="launcher-wrap">
       <span class="launcher-tooltip" id="launcher-tooltip">Chat with Veterinary Clinic Assistant</span>
       <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Veterinary Clinic Assistant" aria-describedby="launcher-tooltip">
-        <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
-        <span class="launcher-id" id="launcher-id" aria-hidden="true">VC</span>
+        <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="3.8" cy="8.7" rx="2.3" ry="3.1" transform="rotate(-25 3.8 8.7)"/><ellipse cx="8.4" cy="4.8" rx="2.4" ry="3.2" transform="rotate(-10 8.4 4.8)"/><ellipse cx="15.6" cy="4.8" rx="2.4" ry="3.2" transform="rotate(10 15.6 4.8)"/><ellipse cx="20.2" cy="8.7" rx="2.3" ry="3.1" transform="rotate(25 20.2 8.7)"/><path d="M12 10.7c-2.5 0-3.6 2.4-5.2 4.2-1.2 1.3-2.3 2.4-2.3 4.1 0 1.8 1.4 3 3.2 3 1.5 0 2.8-1 4.3-1s2.8 1 4.3 1c1.8 0 3.2-1.2 3.2-3 0-1.7-1.1-2.8-2.3-4.1-1.6-1.8-2.7-4.2-5.2-4.2Z"/></svg>
         <span class="launcher-ripple" aria-hidden="true"></span>
       </button>
-    </div>
-
-    <div class="page-contact-widget" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
-      </svg>
     </div>
 
     <!-- Future prospect-specific WhatsApp, live-chat, or contact overlays must include class="prospect-widget"; the template intentionally hides that class at its mobile breakpoint. -->
@@ -380,7 +405,7 @@
       <div class="composer-area">
         <div class="composer" aria-label="Scripted message composer">
           <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9.5 12.5 5.8-5.8a3 3 0 0 1 4.2 4.2l-8.3 8.3a5 5 0 0 1-7.1-7.1l8.1-8.1"/></svg></span>
-          <input class="composer-input" id="composer-input" type="text" placeholder="Type a message…" readonly aria-readonly="true" autocomplete="off" spellcheck="false">
+          <input class="composer-input" id="composer-input" type="text" placeholder="Please wait…" disabled readonly aria-readonly="true" autocomplete="off" spellcheck="false">
           <span class="composer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/></svg></span>
           <button class="send-button" id="send-button" type="button" tabindex="-1" aria-disabled="true" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21.8 12 3.4 3.6 3 10.1l12.1 1.9L3 13.9l.4 6.5Z"/></svg></button>
         </div>
@@ -389,21 +414,33 @@
     </section>
 
     <aside class="business-result" id="business-result" aria-hidden="true">
-      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">WHAT YOUR TEAM RECEIVES</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span><button class="result-minimize" id="result-minimize" type="button" aria-expanded="true">Minimize</button></div>
-      <dl class="summary-list" id="summary-list"></dl>
+      <div class="summary-heading" id="summary-heading"><span class="result-eyebrow">QUALIFIED WEBSITE ENQUIRY</span><span id="summary-title"></span><span class="summary-support" id="summary-support"></span><button class="result-minimize" id="result-minimize" type="button" aria-expanded="true">Minimize</button></div>
+      <div class="result-details">
+      <section class="email-delivery" aria-labelledby="email-delivery-label">
+        <span class="email-delivery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <div><h3 id="email-delivery-label">ENQUIRY DELIVERED</h3><p>In a live setup, the completed enquiry can be sent immediately to your chosen business email.</p></div>
+      </section>
+      <section class="example-email" aria-labelledby="example-email-label">
+        <header class="example-email-heading">
+          <h3 id="example-email-label">EXAMPLE ENQUIRY</h3>
+          <dl class="email-routing"><div><dt>To:</dt><dd>Your chosen business email</dd></div><div><dt>Subject:</dt><dd>New website enquiry — Veterinary Clinic</dd></div></dl>
+        </header>
+        <dl class="summary-list" id="summary-list"></dl>
+        <p class="email-follow-up">Your team can follow up when available.</p>
+      </section>
+      </div>
       <div class="result-cta">
-        <p id="result-cta-copy"></p>
-        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this concept</button>
+        <p><a class="result-more-link" id="result-cta-copy" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer">Learn more about Zero Tools</a></p>
+        <button class="contact-trigger" id="contact-trigger" type="button">Discuss this for your business</button>
       </div>
     </aside>
 
     <div class="result-demo-controls" id="result-demo-controls" hidden>
-      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this concept</button>
-      <button class="result-action" id="result-restore" type="button" hidden>Restore report</button>
+      <button class="result-action primary" id="result-discuss-minimized" type="button" hidden>Discuss this for your business</button>
+      <button class="result-action" id="result-restore" type="button" hidden>Restore enquiry</button>
       <button class="replay-demo" id="replay-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6.6M4 11V5m0 6h6"/></svg>Replay demo</button>
     </div>
 
-    <p class="disclaimer" id="disclaimer"></p>
   </main>
 
   <div class="contact-modal" id="contact-modal" aria-hidden="true">
@@ -422,13 +459,9 @@
       </div>
       <div class="contact-section">
         <p class="contact-divider">OR</p>
-      <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20reviewed%20the%20Veterinary%20Clinic%20Website%20Chatbot%20Demo%20concept%20and%20would%20like%20to%20discuss%20it." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+      <a class="contact-action contact-whatsapp" href="https://wa.me/923211997575?text=Hi%2C%20I%20viewed%20the%20veterinary%20clinic%20website%20AI%20chatbot%20demo%20and%20would%20like%20to%20discuss%20how%20something%20similar%20could%20work%20for%20my%20business%2C%20what%20it%20could%20handle%2C%20and%20what%20would%20be%20involved%20in%20setting%20it%20up." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
       </svg><span>Message us on WhatsApp</span></a>
-      </div>
-      <div class="contact-website">
-        <p class="contact-website-intro">Visit our website to know more about us</p>
-      <a class="contact-site-link" href="https://zerotools.tech/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg><span>zerotools.tech</span></a>
       </div>
     </section>
   </div>
@@ -446,7 +479,7 @@
       chatbotName: 'Veterinary Clinic Assistant',
       launcherLabel: '', // Optional override; leave blank to derive from chatbotName.
       botInitials: 'VC',
-      siteImage: 'assets/company-homepage-q85.webp', // Set to a real prospect image path; blank uses the built-in QA calibration image.
+      siteImage: 'assets/company-homepage-q85.webp?v=approved-wide-1765x891', // Approved wide master: Veterinary Clinic Hero with Happy Pets.png.
       backgroundImageAltText: 'Illustrative veterinary-clinic website used as the demo background',
       primaryBrandColour: '#167a8b',
       secondaryBrandColour: '#173f4a',
@@ -455,47 +488,50 @@
       mobileLauncherBottomOffset: '110px',
       mobileChatWindowBottomOffset: '0px',
       contactEmail: 'support@zerotools.tech',
-      contactSubject: '', // Optional override; leave blank to derive from prospectName.
-      contactBody: '', // Optional override; leave blank to derive from prospectName.
-      welcomeMessage: 'Hello, I’m the Veterinary Clinic Assistant. I can help you prepare an appointment request and collect a few details for our team.',
+      contactSubject: 'Veterinary Clinic AI Chatbot Demo',
+      contactBody: 'Hi, I viewed the veterinary clinic website AI chatbot demo and would like to discuss how something similar could work for my business, what it could handle, and what would be involved in setting it up.',
+      welcomeMessage: 'Hello, I’m the Veterinary Clinic Assistant. Tell me what you need help with and I can collect the details our team needs for an appointment request.',
       // Recalculate for each prospect: active conversation start through insertion of the final bot message.
-      conversationTimerDuration: 77388,
+      conversationTimerDuration: 96770,
       conversationSequence: [
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, textFrom: 'welcomeMessage' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, userInput: true, textFrom: 'welcomeMessage' },
         { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'I’d like to request an appointment for my dog.' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Of course. What is the main reason for the visit?' },
         { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['Routine check-up', 'New health concern', 'Follow-up visit'], selected: 'New health concern' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'What have you noticed?' },
-        { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['Skin irritation or itching', 'Eating or stomach problem', 'Other concern'], selected: 'Skin irritation or itching' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How long has this been happening?' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, userInput: true, text: 'What have you noticed? You can describe it in your own words.' },
+        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'My dog has been scratching a lot and the skin around his belly looks red.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thanks. I’ve noted the increased scratching and redness around your dog’s belly. How long has this been happening?' },
         { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['Since today', 'A few days', 'Longer'], selected: 'A few days' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Before we continue, is your pet having any serious warning signs such as difficulty breathing, collapse, severe bleeding, or possible poisoning?' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, userInput: true, text: 'Is there anything else you’ve noticed that may be useful for the clinic team?' },
+        { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'He’s also been licking the area more than usual.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thanks. I’ve added that to the appointment request.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, userInput: true, text: 'Before we continue, is your pet having any serious warning signs such as difficulty breathing, collapse, severe bleeding, or possible poisoning?' },
         { type: 'composer-entry', delay: 0, entryMode: 'opening', text: 'No, none of those signs.' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thanks. If any of those signs appear, please contact us immediately or contact the nearest emergency veterinary service.' },
         { type: 'message', role: 'bot', delay: 300, typing: 1050, text: 'When would you prefer to visit?' },
         { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['This week', 'Next week', 'I’m flexible'], selected: 'This week' },
         { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'How would you prefer us to contact you?' },
-        { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['WhatsApp', 'Phone', 'Email'], selected: 'WhatsApp' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Please enter your WhatsApp number with country code.' },
-        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: '+XXX xxxx xxxx' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. I have your appointment request details. Our team can use these details to contact you on WhatsApp and confirm a suitable date and time.' },
-        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Once your appointment is confirmed, our veterinarian can check your pet’s skin concern and explain the next steps.' }
+        { type: 'choice', delay: 300, selectionDelay: 1800, afterSelection: 1000, options: ['Phone', 'WhatsApp', 'Email'], selected: 'Phone' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, userInput: true, text: 'Please enter your phone number.' },
+        { type: 'composer-entry', delay: 0, entryMode: 'contact', text: 'XXX XXX XXXX' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Thank you. I have your appointment request details. Our team can use these details to contact you by phone and confirm a suitable date and time.' },
+        { type: 'message', role: 'bot', delay: 0, typing: 1050, text: 'Once your appointment is confirmed, our veterinarian can review the concerns you’ve described and explain the next steps.' }
       ],
       enquiryResult: {
-        title: 'Structured veterinary appointment request',
-        supportText: 'Example structured appointment enquiry from this conversation',
+        title: 'Ready for your team to follow up',
+        supportText: '',
         fields: [
           { label: 'Pet type:', value: 'Dog' },
           { label: 'Reason for visit:', value: 'New health concern' },
-          { label: 'General concern:', value: 'Skin irritation or itching' },
+          { label: 'Reported concern:', value: 'Scratching and redness around belly' },
+          { label: 'Additional observation:', value: 'Increased licking around the area' },
           { label: 'Duration:', value: 'A few days' },
           { label: 'Urgency status:', value: 'No severe warning signs reported' },
           { label: 'Preferred visit:', value: 'This week' },
-          { label: 'Preferred contact:', value: 'WhatsApp' },
-          { label: 'Contact number:', value: '+XXX xxxx xxxx' }
+          { label: 'Preferred contact:', value: 'Phone' },
+          { label: 'Contact number:', value: 'XXX XXX XXXX' }
         ]
       },
-      disclaimer: 'Illustrative veterinary-clinic concept prepared by Zero Tools. It is not connected to a real veterinary clinic, and example enquiries are not submitted to any clinic.',
       timing: {
         launcherDelay: 800,
         cursorRevealPause: 120,
@@ -551,7 +587,6 @@
     const launcherWrap = document.getElementById('launcher-wrap');
     const chatLauncher = document.getElementById('chat-launcher');
     const launcherTooltip = document.getElementById('launcher-tooltip');
-    const launcherId = document.getElementById('launcher-id');
     const demoCursor = document.getElementById('demo-cursor');
     const contactModal = document.getElementById('contact-modal');
     const contactTrigger = document.getElementById('contact-trigger');
@@ -667,15 +702,13 @@
       zeroToolsLink.rel = 'noopener noreferrer';
       zeroToolsLink.textContent = 'zerotools.tech';
       conceptLabel.appendChild(zeroToolsLink);
-      document.getElementById('result-cta-copy').textContent = `Like this direction for ${DEMO_CONFIG.prospectName}?`;
+      document.getElementById('result-cta-copy').textContent = 'Learn more about Zero Tools';
       document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
       document.getElementById('chatbot-name').textContent = 'VC Assistant';
       document.getElementById('chatbot-name').setAttribute('aria-label', DEMO_CONFIG.chatbotName);
       document.getElementById('chatbot-name').title = DEMO_CONFIG.chatbotName;
-      launcherId.textContent = DEMO_CONFIG.botInitials;
       launcherTooltip.textContent = DEMO_CONFIG.launcherLabel || `Chat with ${DEMO_CONFIG.chatbotName}`;
       chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
-      document.getElementById('disclaimer').textContent = DEMO_CONFIG.disclaimer;
       siteMockup.alt = DEMO_CONFIG.siteImage ? DEMO_CONFIG.backgroundImageAltText : 'Built-in 1920 by 970 website geometry calibration background';
       siteMockup.addEventListener('error', () => siteMockup.classList.add('is-missing'), { once: true });
       siteMockup.src = DEMO_CONFIG.siteImage || QA_CALIBRATION_SITE_IMAGE;
@@ -1099,7 +1132,15 @@
       choiceRow.remove();
     }
 
+    // This remains a scripted demo. Availability models the live flow's per-step input setting.
+    function setComposerAvailability(enabled, choiceRequired = false) {
+      composerInput.disabled = !enabled;
+      composerInput.closest('.composer').classList.toggle('is-input-off', !enabled);
+      composerInput.placeholder = enabled ? 'Type a message…' : choiceRequired ? 'Choose an option above' : 'Please wait…';
+    }
+
     function resetComposer() {
+      setComposerAvailability(false);
       composerInput.value = '';
       composerInput.blur();
       sendButton.classList.remove('active', 'sending');
@@ -1108,6 +1149,7 @@
     async function simulateComposerEntry(item, currentRun) {
       const isOpening = item.entryMode === 'opening';
       const delays = isOpening ? DEMO_CONFIG.timing.openingCharacterDelays : DEMO_CONFIG.timing.contactCharacterDelays;
+      setComposerAvailability(true);
       composerInput.focus({ preventScroll: true });
       composerInput.setSelectionRange(0,0);
       for (const [index, character] of Array.from(item.text).entries()) {
@@ -1176,6 +1218,7 @@
         await waitScaled(item.delay);
         if (currentRun !== runId) return;
         if (item.type === 'choice') {
+          setComposerAvailability(false, true);
           const choiceRow = showChoices(item);
           await waitScaled(item.selectionDelay);
           if (currentRun !== runId) return;
@@ -1184,6 +1227,7 @@
           if (currentRun !== runId) return;
           await collapseChoices(choiceRow);
           if (currentRun !== runId) return;
+          setComposerAvailability(false);
           addMessage({ role: 'visitor choice', text: item.transcriptText || item.selected });
           await waitScaled(item.afterSelection);
           if (currentRun !== runId) return;
@@ -1202,6 +1246,7 @@
           typing.remove();
         }
         addMessage(item);
+        if (item.role === 'bot') setComposerAvailability(item.userInput === true, DEMO_CONFIG.conversationSequence[itemIndex + 1]?.type === 'choice');
         const isFinalBotMessage = itemIndex === DEMO_CONFIG.conversationSequence.length - 1 && item.role === 'bot';
         if (isFinalBotMessage) completeProgressTimer();
         if (item.role === 'bot') {
