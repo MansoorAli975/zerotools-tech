@@ -346,6 +346,14 @@
       .chat-shell { height: calc(100svh - var(--chat-window-bottom-offset) - 24px); min-height: 0; }
     }
 
+    @media (min-width:1200px) {
+      .chat-shell {
+        bottom: max(var(--chat-window-bottom-offset),88px);
+        height: min(690px,calc(100svh - 176px));
+        min-height: 0;
+      }
+    }
+
     @media (prefers-reduced-motion:reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
       .messages { scroll-behavior: auto; }
