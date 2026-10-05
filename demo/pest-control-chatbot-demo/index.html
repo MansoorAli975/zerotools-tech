@@ -819,7 +819,11 @@
     const demoEvents = [];
     const TRACKING_ENDPOINT = 'https://zero-tools-demo-tracker.zerotools.workers.dev/collect';
     const trackingSessionId = crypto.randomUUID();
-    const trackingSuppressed = new URLSearchParams(window.location.search).get('test') === '1';
+    const isProductionHost =
+      window.location.hostname === 'zerotools.tech' ||
+      window.location.hostname === 'www.zerotools.tech';
+    const isTestMode = new URLSearchParams(window.location.search).get('test') === '1';
+    const remoteTrackingEnabled = isProductionHost && !isTestMode;
     const trackingProspectIsValid = /^[a-z0-9-]{1,80}$/.test(DEMO_CONFIG.trackingProspect);
     const QA_CALIBRATION_SITE_IMAGE = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="970" viewBox="0 0 1920 970">
@@ -871,7 +875,7 @@
 
     function trackDemoEvent(name, detail = {}) {
       demoEvents.push({ name, detail, timestamp: new Date().toISOString() });
-      if (trackingSuppressed || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
+      if (!remoteTrackingEnabled || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
       fetch(TRACKING_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
