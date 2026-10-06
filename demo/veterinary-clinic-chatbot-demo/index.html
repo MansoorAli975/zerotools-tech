@@ -682,8 +682,10 @@
       'replay_clicked',
       'skip_to_result',
       'cta_clicked',
-      'probable_human'
+      'probable_human',
+      'heartbeat'
     ]);
+    const heartbeatIntervalMs = 5000;
 
     function getTrackerElapsedMs() {
       return Math.max(0, Math.round(performance.now() - trackerPageStartedAt));
@@ -694,15 +696,8 @@
       if (Object.keys(metadata).length) localEvent.metadata = metadata;
       demoEvents.push(localEvent);
       if (!remoteTrackingEnabled || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
-      const payload = {
-        prospect: DEMO_CONFIG.trackingProspect,
-        session_id: trackingSessionId,
-        event_name: name,
-        elapsed_ms: Number.isFinite(metadata.elapsed_ms) ? metadata.elapsed_ms : getTrackerElapsedMs()
-      };
-      if (metadata.source) payload.source = metadata.source;
-      if (metadata.interaction_type) payload.interaction_type = metadata.interaction_type;
-      fetch(TRACKING_ENDPOINT, {
+      const payload = getTrackerPayload(name, metadata);
+fetch(TRACKING_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -711,11 +706,75 @@
     }
 
     let probableHumanTracked = false;
+    let heartbeatTimerId = 0;
     const probableHumanListeners = [
       ['pointerdown', 'pointer', { capture: true, passive: true }],
       ['touchstart', 'touch', { capture: true, passive: true }],
       ['keydown', 'keyboard', { capture: true }]
     ];
+
+    function getTrackerPayload(name, metadata = {}) {
+      const payload = {
+        prospect: DEMO_CONFIG.trackingProspect,
+        session_id: trackingSessionId,
+        event_name: name,
+        elapsed_ms: Number.isFinite(metadata.elapsed_ms) ? metadata.elapsed_ms : getTrackerElapsedMs()
+      };
+      if (metadata.source) payload.source = metadata.source;
+      if (metadata.interaction_type) payload.interaction_type = metadata.interaction_type;
+      if (metadata.visibility_state) payload.visibility_state = metadata.visibility_state;
+      return payload;
+    }
+
+    function sendHeartbeat(visibilityState = document.visibilityState === 'hidden' ? 'hidden' : 'visible') {
+      const normalizedVisibility = visibilityState === 'hidden' ? 'hidden' : 'visible';
+      trackDemoEvent('heartbeat', {}, {
+        source: 'user',
+        elapsed_ms: getTrackerElapsedMs(),
+        visibility_state: normalizedVisibility
+      });
+    }
+
+    function startHeartbeatTracking() {
+      if (heartbeatTimerId) return;
+      heartbeatTimerId = window.setInterval(() => {
+        if (document.visibilityState === 'visible') sendHeartbeat('visible');
+      }, heartbeatIntervalMs);
+    }
+
+    function handleHeartbeatVisibilityChange() {
+      if (!probableHumanTracked) return;
+      if (document.visibilityState === 'hidden') sendHeartbeat('hidden');
+      else startHeartbeatTracking();
+    }
+
+    function stopHeartbeatTracking() {
+      if (!heartbeatTimerId) return;
+      window.clearInterval(heartbeatTimerId);
+      heartbeatTimerId = 0;
+    }
+
+    function sendFinalHeartbeat() {
+      if (!probableHumanTracked) return;
+      stopHeartbeatTracking();
+      const payload = getTrackerPayload('heartbeat', {
+        source: 'user',
+        elapsed_ms: getTrackerElapsedMs(),
+        visibility_state: 'hidden'
+      });
+      if (!remoteTrackingEnabled || !trackingProspectIsValid || !persistentDemoEvents.has('heartbeat')) return;
+      const body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        const blob = new Blob([body], { type: 'application/json' });
+        if (navigator.sendBeacon(TRACKING_ENDPOINT, blob)) return;
+      }
+      fetch(TRACKING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true
+      }).catch(() => {});
+    }
 
     function removeProbableHumanListeners() {
       probableHumanListeners.forEach(([type,, options]) => {
@@ -733,6 +792,7 @@
         interaction_type: match ? match[1] : undefined,
         elapsed_ms: getTrackerElapsedMs()
       });
+      startHeartbeatTracking();
     }
 
     probableHumanListeners.forEach(([type,, options]) => {
@@ -1050,7 +1110,7 @@
       showLauncherRipple();
       await wait(DEMO_CONFIG.timing.cursorPress);
       if (sequenceId !== launcherRunId || chatOpened) return;
-      await openChatWindow();
+      await openChatWindow({ source: 'autoplay' });
     }
 
     function hideResultPresentation() {
@@ -1516,6 +1576,7 @@
     contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
     document.addEventListener('keydown',event => { if (event.key === 'Escape') closeContactPanel(); });
     document.addEventListener('visibilitychange',() => {
+      handleHeartbeatVisibilityChange();
       if (!playbackActive) return;
       if (document.hidden && !manualPause) {
         visibilityPause = true;
@@ -1527,6 +1588,7 @@
         trackDemoEvent('demo_resumed_visibility');
       }
     });
+    window.addEventListener('pagehide',sendFinalHeartbeat);
     scheduleInitialLauncherSequence();
   </script>
 </body>
