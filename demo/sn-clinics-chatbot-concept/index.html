@@ -512,6 +512,7 @@
     const demoEvents = [];
     const TRACKING_ENDPOINT = 'https://zero-tools-demo-tracker.zerotools.workers.dev/collect';
     const trackingSessionId = crypto.randomUUID();
+    const trackerPageStartedAt = performance.now();
     const isProductionHost =
       window.location.hostname === 'zerotools.tech' ||
       window.location.hostname === 'www.zerotools.tech';
@@ -526,23 +527,63 @@
       'demo_completed',
       'replay_clicked',
       'skip_to_result',
-      'cta_clicked'
+      'cta_clicked',
+      'probable_human'
     ]);
 
-    function trackDemoEvent(name, detail = {}) {
-      demoEvents.push({ name, detail, timestamp: new Date().toISOString() });
+    function getTrackerElapsedMs() {
+      return Math.max(0, Math.round(performance.now() - trackerPageStartedAt));
+    }
+
+    function trackDemoEvent(name, detail = {}, metadata = {}) {
+      const localEvent = { name, detail, timestamp: new Date().toISOString() };
+      if (Object.keys(metadata).length) localEvent.metadata = metadata;
+      demoEvents.push(localEvent);
       if (!remoteTrackingEnabled || !trackingProspectIsValid || !persistentDemoEvents.has(name)) return;
+      const payload = {
+        prospect: DEMO_CONFIG.trackingProspect,
+        session_id: trackingSessionId,
+        event_name: name,
+        elapsed_ms: Number.isFinite(metadata.elapsed_ms) ? metadata.elapsed_ms : getTrackerElapsedMs()
+      };
+      if (metadata.source) payload.source = metadata.source;
+      if (metadata.interaction_type) payload.interaction_type = metadata.interaction_type;
       fetch(TRACKING_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prospect: DEMO_CONFIG.trackingProspect,
-          session_id: trackingSessionId,
-          event_name: name
-        }),
+        body: JSON.stringify(payload),
         keepalive: true
       }).catch(() => {});
     }
+
+    let probableHumanTracked = false;
+    const probableHumanListeners = [
+      ['pointerdown', 'pointer', { capture: true, passive: true }],
+      ['touchstart', 'touch', { capture: true, passive: true }],
+      ['keydown', 'keyboard', { capture: true }]
+    ];
+
+    function removeProbableHumanListeners() {
+      probableHumanListeners.forEach(([type,, options]) => {
+        document.removeEventListener(type, handleProbableHumanInteraction, options);
+      });
+    }
+
+    function handleProbableHumanInteraction(event) {
+      if (probableHumanTracked || event.isTrusted !== true) return;
+      probableHumanTracked = true;
+      removeProbableHumanListeners();
+      const match = probableHumanListeners.find(([type]) => type === event.type);
+      trackDemoEvent('probable_human', {}, {
+        source: 'user',
+        interaction_type: match ? match[1] : undefined,
+        elapsed_ms: getTrackerElapsedMs()
+      });
+    }
+
+    probableHumanListeners.forEach(([type,, options]) => {
+      document.addEventListener(type, handleProbableHumanInteraction, options);
+    });
 
     function applyConfig() {
       document.documentElement.style.setProperty('--brand', DEMO_CONFIG.primaryBrandColour);
@@ -753,7 +794,7 @@
       window.setTimeout(() => chatLauncher.classList.remove('show-ripple'), 600);
     }
 
-    async function openChatWindow() {
+    async function openChatWindow({ source } = {}) {
       if (chatOpened) return;
       chatOpened = true;
       ++launcherRunId;
@@ -764,12 +805,12 @@
       chatShell.setAttribute('aria-hidden', 'false');
       chatShell.classList.remove('is-closed');
       resetProgressTimer();
-      trackDemoEvent('chatbot_opened');
+      trackDemoEvent('chatbot_opened', {}, { source });
       await wait(DEMO_CONFIG.timing.chatOpenDuration);
       chatLauncher.classList.remove('is-pressed');
       demoCursor.classList.remove('is-visible', 'is-pressing');
       await wait(DEMO_CONFIG.timing.conversationStartDelay);
-      playConversation();
+      playConversation({ source });
     }
 
     async function playInitialLauncherSequence() {
@@ -795,7 +836,7 @@
         chatLauncher.classList.add('is-pressed');
         await wait(reducedMotion ? 220 : DEMO_CONFIG.timing.mobileTapPause);
         if (sequenceId !== launcherRunId || chatOpened) return;
-        await openChatWindow();
+        await openChatWindow({ source: 'autoplay' });
         return;
       }
 
@@ -997,7 +1038,7 @@
       return true;
     }
 
-    async function playConversation({ replayPlayback = false } = {}) {
+    async function playConversation({ replayPlayback = false, source } = {}) {
       const currentRun = ++runId;
       isReplayPlayback = replayPlayback;
       cameraFocusStarted = replayPlayback;
@@ -1022,7 +1063,7 @@
       pauseResumeButton.disabled = false;
       skipResultButton.disabled = false;
       startProgressTimer(DEMO_CONFIG.conversationTimerDuration);
-      trackDemoEvent('demo_started');
+      trackDemoEvent('demo_started', {}, { source });
 
       await wait(DEMO_CONFIG.timing.initialSettle);
       if (currentRun !== runId) return;
@@ -1082,8 +1123,8 @@
         skipResultButton.disabled = true;
         replayButton.disabled = false;
         scrollMobileElementIntoView(businessResult);
-        trackDemoEvent('demo_completed');
-        trackDemoEvent('result_shown');
+        trackDemoEvent('demo_completed', {}, { source: 'autoplay' });
+        trackDemoEvent('result_shown', {}, { source: 'autoplay' });
       }
     }
 
@@ -1111,7 +1152,7 @@
 
     async function skipToResult() {
       if (!playbackActive) return;
-      trackDemoEvent('skip_to_result');
+      trackDemoEvent('skip_to_result', {}, { source: 'user' });
       playbackSkipped = true;
       playbackActive = false;
       const skipRunId = ++runId;
@@ -1137,12 +1178,12 @@
       showResultPresentation();
       replayButton.disabled = false;
       scrollMobileElementIntoView(businessResult);
-      trackDemoEvent('demo_completed', { skipped: true });
-      trackDemoEvent('result_shown', { skipped: true });
+      trackDemoEvent('demo_completed', { skipped: true }, { source: 'autoplay' });
+      trackDemoEvent('result_shown', { skipped: true }, { source: 'autoplay' });
     }
 
     async function replayConversation() {
-      trackDemoEvent('replay_clicked');
+      trackDemoEvent('replay_clicked', {}, { source: 'user' });
       const wasFocused = document.body.classList.contains('chat-focus-mode');
       isReplayPlayback = true;
       ++runId;
@@ -1175,7 +1216,7 @@
         if (replayRefocusDelay) await wait(replayRefocusDelay);
         document.body.classList.remove('chat-replay-refocus');
       }
-      playConversation({ replayPlayback: true });
+      playConversation({ replayPlayback: true, source: 'user' });
       scrollMobileElementIntoView(chatShell);
     }
 
@@ -1256,17 +1297,17 @@
     }
 
     applyConfig();
-    trackDemoEvent('page_view');
-    chatLauncher.addEventListener('click',openChatWindow);
+    trackDemoEvent('page_view', {}, { source: 'system' });
+    chatLauncher.addEventListener('click',() => openChatWindow({ source: 'user' }));
     replayButton.addEventListener('click',hideResultPresentation);
     replayButton.addEventListener('click',replayConversation);
-    replayDemoButton.addEventListener('click',replayFullDemo);
+    replayDemoButton.addEventListener('click',() => { trackDemoEvent('replay_clicked', {}, { source: 'user' }); replayFullDemo(); });
     resultMinimizeButton.addEventListener('click',toggleResultMinimized);
     resultRestoreButton.addEventListener('click',() => setResultMinimized(false));
     pauseResumeButton.addEventListener('click',toggleManualPause);
     skipResultButton.addEventListener('click',skipToResult);
-    contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
-    resultDiscussMinimizedButton.addEventListener('click',() => { trackDemoEvent('cta_clicked'); openContactPanel(); });
+    contactTrigger.addEventListener('click',() => { trackDemoEvent('cta_clicked', {}, { source: 'user' }); openContactPanel(); });
+    resultDiscussMinimizedButton.addEventListener('click',() => { trackDemoEvent('cta_clicked', {}, { source: 'user' }); openContactPanel(); });
     contactClose.addEventListener('click',closeContactPanel);
     copyEmailButton.addEventListener('click',copyContactEmail);
     contactModal.addEventListener('click',event => { if (event.target === contactModal) closeContactPanel(); });
