@@ -362,6 +362,11 @@
       .chat-launcher { animation: none; transition-duration: .01ms; }
       .demo-cursor { display: none; }
     }
+
+    /* Compact brand symbols; launcher and avatar containers stay unchanged. */
+    .launcher-icon.brand-mark { display: block; width: 38px; height: 38px; object-fit: contain; }
+    .avatar .brand-mark { display: block; width: 30px; height: 30px; object-fit: contain; }
+    @media (max-width: 999px) { .avatar .brand-mark { width: 28px; height: 28px; } }
   </style>
 </head>
 <body>
@@ -382,7 +387,7 @@
     <div class="launcher-wrap" id="launcher-wrap">
       <span class="launcher-tooltip" id="launcher-tooltip">Chat with Heating Service Assistant</span>
       <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open Heating Service Assistant" aria-describedby="launcher-tooltip">
-        <svg class="launcher-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v13H9l-6 4V4Zm4 4v2h10V8H7Zm0 4v2h7v-2H7Z"/></svg>
+        <img class="launcher-icon brand-mark" src="assets/homeheat-brand-mark.png" width="256" height="256" alt="" aria-hidden="true">
         <span class="launcher-ripple" aria-hidden="true"></span>
       </button>
     </div>
@@ -392,7 +397,7 @@
 
     <section class="chat-shell is-closed" id="chat-shell" aria-label="Animated chatbot concept" aria-hidden="true">
       <header class="chat-header">
-        <div class="avatar" id="header-avatar" aria-hidden="true"></div>
+        <div class="avatar" id="header-avatar" aria-hidden="true"><img class="brand-mark" src="assets/homeheat-brand-mark.png" width="256" height="256" alt="" aria-hidden="true"></div>
         <div class="chat-title">
           <strong id="chatbot-name"></strong>
           <span><i class="status-dot"></i>Online now</span>
@@ -1010,7 +1015,7 @@
       zeroToolsLink.textContent = 'zerotools.tech';
       conceptLabel.appendChild(zeroToolsLink);
       document.getElementById('result-cta-copy').textContent = 'Learn more about Zero Tools';
-      document.getElementById('header-avatar').textContent = DEMO_CONFIG.botInitials;
+      // The header brand mark is rendered in the markup.
       document.getElementById('chatbot-name').textContent = DEMO_CONFIG.chatbotName;
       launcherTooltip.textContent = DEMO_CONFIG.launcherLabel || `Chat with ${DEMO_CONFIG.chatbotName}`;
       chatLauncher.setAttribute('aria-label', `Open ${DEMO_CONFIG.chatbotName}`);
