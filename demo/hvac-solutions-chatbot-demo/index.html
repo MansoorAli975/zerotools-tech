@@ -365,9 +365,10 @@
     }
 
     /* Compact brand symbols; launcher and avatar containers stay unchanged. */
-    .launcher-icon.brand-mark { display: block; width: 38px; height: 38px; object-fit: contain; }
-    .avatar .brand-mark { display: block; width: 30px; height: 30px; object-fit: contain; }
-    @media (max-width: 999px) { .avatar .brand-mark { width: 28px; height: 28px; } }
+    .chat-launcher { padding: 0; }
+    .launcher-icon.brand-mark { display: block; width: 54px; height: 54px; padding: 3.75px; object-fit: contain; }
+    .avatar .brand-mark { display: block; width: 32px; height: 32px; padding: 5.77px; object-fit: contain; }
+    @media (max-width: 999px) { .launcher-icon.brand-mark { width: 51px; height: 51px; padding: 3.645px; } .avatar .brand-mark { width: 26px; height: 26px; padding: 3.235px; } }
   </style>
 </head>
 <body>
