@@ -3571,6 +3571,30 @@ html[data-theme="dark"] .hero-helper {
         .hidden {
             display: none !important;
         }
+        /* Contact panel follows the scripted demos, with native dialog modality. */
+        .help-nav-button { background: none; border: 0; font-family: inherit; cursor: pointer; }
+        .help-contact-dialog {
+            margin: auto; padding: 0; width: min(440px, calc(100% - 32px));
+            max-height: calc(100dvh - 32px); overflow-y: auto;
+            border: 1px solid var(--border-soft); border-radius: 20px;
+            background: var(--card-bg); color: var(--text-main);
+            box-shadow: 0 18px 56px rgba(6, 18, 38, 0.22);
+        }
+        .help-contact-dialog::backdrop { background: rgba(9, 18, 31, 0.48); }
+        .help-contact-panel { position: relative; padding: 28px 24px 24px; }
+        .help-contact-panel h2 { margin-bottom: 14px; color: var(--heading-text); font-size: 1.5rem; line-height: 1.3; }
+        .help-contact-panel p { margin-bottom: 24px; color: var(--text-muted); line-height: 1.6; }
+        .help-contact-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--border-soft); border-radius: 50%; background: var(--surface-soft); color: var(--heading-text); font: inherit; font-size: 26px; line-height: 1; cursor: pointer; }
+        .help-contact-brand { display: block; width: 148px; max-width: calc(100% - 48px); height: auto; margin-bottom: 24px; }
+        .help-contact-brand-dark { display: none; }
+        html[data-theme="dark"] .help-contact-brand-light { display: none; }
+        html[data-theme="dark"] .help-contact-brand-dark { display: block; }
+        .help-contact-actions { display: grid; gap: 12px; }
+        .help-contact-actions a > i, .help-contact-actions a > svg { flex: 0 0 20px; width: 20px; height: 20px; font-size: 20px; line-height: 20px; text-align: center; }
+        .help-contact-actions a > span { min-width: 0; overflow-wrap: anywhere; }
+        .help-contact-actions a { display: flex; justify-content: center; align-items: center; gap: 10px; min-height: 46px; padding: 10px 14px; border: 1px solid var(--border-soft); border-radius: 8px; color: var(--heading-text); background: var(--section-bg-soft); font-weight: 600; text-decoration: none; }
+        .help-contact-actions a:hover { border-color: var(--accent-blue); background: var(--brand-bg); }
+        .help-contact-dialog :focus-visible, [data-open-contact]:focus-visible { outline: 3px solid var(--accent-blue); outline-offset: 3px; }
     </style>
 
     <!-- Font Awesome for Icons -->
@@ -3583,6 +3607,20 @@ html[data-theme="dark"] .hero-helper {
 </head>
 
 <body>
+    <dialog id="helpContactDialog" class="help-contact-dialog" aria-labelledby="helpContactTitle" aria-describedby="helpContactDescription">
+        <div class="help-contact-panel">
+            <button type="button" id="helpContactClose" class="help-contact-close" aria-label="Close" autofocus><span aria-hidden="true">&times;</span></button>
+            <img class="help-contact-brand help-contact-brand-light" src="logo.png" alt="Zero Tools" width="457" height="71">
+            <img class="help-contact-brand help-contact-brand-dark" src="logo-dark.png" alt="Zero Tools" width="457" height="71">
+            <h2 id="helpContactTitle">We're happy to help.</h2>
+            <p id="helpContactDescription">Have a question or interested in a chatbot? Just let us know. We'll take it from there.</p>
+            <div class="help-contact-actions">
+                <a id="helpGmailLink" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 18" aria-hidden="true"><path fill="#4285f4" d="M0 3v13a2 2 0 0 0 2 2h3V7z"/><path fill="#34a853" d="M19 7v11h3a2 2 0 0 0 2-2V3z"/><path fill="#ea4335" d="M5 2 12 7l7-5v5l-7 5-7-5z"/><path fill="#c5221f" d="M0 3C0 .5 2-1 5 2v5z"/><path fill="#fbbc04" d="M19 2c3-3 5-1.5 5 1l-5 4z"/></svg><span>Email via Gmail</span></a>
+                <a id="helpEmailLink"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email via another app</span></a>
+                <a id="helpWhatsAppLink" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>Message via WhatsApp</span></a>
+            </div>
+        </div>
+    </dialog>
     <!-- Header -->
     <header class="header">
         <div class="header-container">
@@ -3600,11 +3638,11 @@ html[data-theme="dark"] .hero-helper {
 
             <nav class="nav-links" id="navLinks">
     <a href="#home" class="nav-link">Home</a>
+    <button type="button" class="nav-link help-nav-button" data-open-contact aria-haspopup="dialog" aria-controls="helpContactDialog">Need Help?</button>
     <a href="#solutions" class="nav-link">Compare Chatbots</a>
     <a href="#pricing" class="nav-link">Pricing</a>
     <a href="#why" class="nav-link">Why Zero Tools</a>
     <a href="#faq" class="nav-link">FAQs</a>
-    <a href="#contact" class="nav-link">Contact</a>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme">
         <i class="fas fa-moon theme-toggle-icon" aria-hidden="true"></i>
     </button>
@@ -3649,7 +3687,7 @@ html[data-theme="dark"] .hero-helper {
 
             <div class="hero-cta">
                 <button class="btn-primary hero-main-btn" id="ctaButton">Try the Chatbots</button>
-                <button class="btn-secondary hero-secondary-btn" id="learnMoreBtn">Need Help Choosing?</button>
+                <button type="button" class="btn-secondary hero-secondary-btn" id="learnMoreBtn" data-open-contact aria-haspopup="dialog" aria-controls="helpContactDialog">Tell Us What You Need</button>
             </div>
 
             <p class="hero-helper">
@@ -3918,7 +3956,8 @@ html[data-theme="dark"] .hero-helper {
         <h2 class="pricing-title">Pricing</h2>
 
         <p class="pricing-subtitle">
-    Starting prices are shown below. Final pricing is confirmed after a short requirements review.
+    We set up your chatbot for your business. Pay a <strong>one-time setup fee</strong> plus <strong>recurring monthly platform fees</strong>.
+    Starting prices are shown below; final pricing is confirmed after a short requirements review. You can ask us for guidance without selecting a package first.
 </p>
 
         <div class="pricing-card-grid">
@@ -4849,12 +4888,54 @@ if (heroTryButton) {
     });
 }
 
-const heroHelpButton = document.getElementById('learnMoreBtn');
-if (heroHelpButton) {
-    heroHelpButton.addEventListener('click', () => {
-        scrollToTarget('#contact');
+// One shared contact dialog; native modality keeps background controls inert.
+(function () {
+    const dialog = document.getElementById('helpContactDialog');
+    const closeButton = document.getElementById('helpContactClose');
+    const email = 'support@zerotools.tech';
+    const subject = encodeURIComponent('AI Chatbot Enquiry \u2014 Zero Tools');
+    const message = encodeURIComponent('Hi, I visited the Zero Tools website and would like to know more about your AI chatbot services.');
+    document.getElementById('helpGmailLink').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + subject + '&body=' + message;
+    document.getElementById('helpEmailLink').href = 'mailto:' + email + '?subject=' + subject + '&body=' + message;
+    document.getElementById('helpWhatsAppLink').href = 'https://wa.me/923211997575?text=' + message;
+    let returnFocus;
+    let previousOverflow;
+    document.querySelectorAll('[data-open-contact]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (dialog.open) return;
+            // The mobile navigation closes on selection; return to its visible toggle.
+            returnFocus = button.closest('#navLinks') && window.matchMedia('(max-width: 768px)').matches
+                ? document.getElementById('mobileMenuBtn') : button;
+            previousOverflow = document.body.style.overflow;
+            dialog.showModal();
+            document.body.style.overflow = 'hidden';
+            closeButton.focus();
+        });
     });
-}
+    closeButton.addEventListener('click', () => dialog.close());
+    let backdropPress = false;
+    function isBackdropEvent(event) {
+        const bounds = dialog.getBoundingClientRect();
+        return event.target === dialog && (
+            event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom
+        );
+    }
+    dialog.addEventListener('pointerdown', event => {
+        backdropPress = event.button === 0 && isBackdropEvent(event);
+    });
+    dialog.addEventListener('pointercancel', () => {
+        backdropPress = false;
+    });
+    dialog.addEventListener('click', event => {
+        if (backdropPress && isBackdropEvent(event)) dialog.close();
+        backdropPress = false;
+    });
+    dialog.addEventListener('close', () => {
+        document.body.style.overflow = previousOverflow;
+        if (returnFocus && returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
+    });
+})();
 
     
     // ===== Header Scroll Effect =====
