@@ -1317,6 +1317,8 @@
       await wait(DEMO_CONFIG.timing.cleanSiteRevealHold);
       if (currentRun !== runId) return;
       showResultPresentation();
+      trackDemoEvent('demo_completed', {}, { source: 'autoplay' });
+      trackDemoEvent('result_shown', {}, { source: 'autoplay' });
       await wait(DEMO_CONFIG.timing.resultRevealTime);
       if (currentRun === runId) {
         playbackActive = false;
@@ -1324,8 +1326,6 @@
         skipResultButton.disabled = true;
         replayButton.disabled = false;
         scrollMobileElementIntoView(businessResult);
-        trackDemoEvent('demo_completed', {}, { source: 'autoplay' });
-        trackDemoEvent('result_shown', {}, { source: 'autoplay' });
       }
     }
 
@@ -1379,7 +1379,6 @@
       showResultPresentation();
       replayButton.disabled = false;
       scrollMobileElementIntoView(businessResult);
-      trackDemoEvent('demo_completed', { skipped: true }, { source: 'autoplay' });
       trackDemoEvent('result_shown', { skipped: true }, { source: 'autoplay' });
     }
 
